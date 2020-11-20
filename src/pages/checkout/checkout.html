@@ -1,0 +1,76 @@
+<!--
+  Generated template for the CheckoutPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid class=" grid-checkout-prod">
+
+    <h1>Checkout</h1>
+
+    <ion-row class="">
+      <ion-col col-12>
+        <ion-list>
+          <ion-item>
+            <p class="checkout-name" *ngIf="user" >{{ user }}</p>
+              <p class="text-lieu">{{ here }}</p>
+            <ion-icon name="arrow-forward" (click)="goToAlertToHere()" item-end></ion-icon>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class=" grid-checkout-ex-prod">
+      <ion-col col-12 *ngIf="products">
+        <p class="checkout-items">
+          ITEMS
+        </p>
+        <ion-list *ngFor="let product of products" >
+          <ion-item class="grid-cart-0">
+            <ion-thumbnail item-start>
+              <img class="img-cart" [src]=product.article.image_cover>
+            </ion-thumbnail>
+            <h2>{{ product.article.name }}</h2>
+            <p><strong>Quantité : </strong>{{ product.quantity }}</p>
+            <span class="price-cart">{{ product.article.price }} F CFA</span>
+            <br>
+            <!--<span class="i">
+              <ion-icon name="md-remove-circle" (click)="discrease(1)"></ion-icon>
+            </span>
+            <span class="i">
+              {{ quantity }}
+            </span>
+            <span class="i">
+              <ion-icon name="md-add-circle" (click)="inscrease(1)"></ion-icon>
+            </span>-->
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+  <hr>
+
+  <ion-footer >
+
+    <ion-row>
+      <ion-col col-5 *ngIf="products" >
+        <p class="ttc">TOTAL</p>
+        <p class="price-ttc" color="lastagram">{{ Total }} F CFA</p>
+      </ion-col>
+      <ion-col col-7 align="center">
+        <br>
+        <button class="checkout-btn twoo2" ion-button round icon-end color="lastagram" (click)="goToOrdered()">
+          Passez Commande <ion-icon class="ckeckout-icon" name="arrow-dropright-circle"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-footer>
+</ion-content>

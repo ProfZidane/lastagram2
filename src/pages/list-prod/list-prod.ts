@@ -1,0 +1,108 @@
+import { ModifyProdSpecialPage } from './../modify-prod-special/modify-prod-special';
+import { AddProductSpecialPage } from './../add-product-special/add-product-special';
+import { ModifyProdPage } from './../modify-prod/modify-prod';
+import { StoreProvider } from './../../providers/store/store';
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { LoadingController } from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
+
+/**
+ * Generated class for the ListProdPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage()
+@Component({
+  selector: 'page-list-prod',
+  templateUrl: 'list-prod.html',
+})
+export class ListProdPage {
+id;
+id_market;
+slug;
+articles;
+taille;
+state = false;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController) {
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ListProdPage');
+    let loading = this.loadingCtrl.create({
+      content: 'Veuillez Patienter...'
+    });
+    loading.present();
+    console.log(this.navParams.get('id_catg'));
+    this.id = this.navParams.get('id_catg');
+    this.id_market = this.navParams.get('id_boutique');
+    this.slug = this.navParams.get('slug');
+    console.log(this.id_market);
+
+    this.storeService.getProductByCatg(this.id_market,this.id).subscribe(
+      (data) => {
+        console.log(data);
+        this.articles = data;
+        this.taille = data.length;
+        console.log(this.taille);
+
+        if (this.taille == 49) {
+          this.state = true;
+        } else if (this.taille < 49 ) {
+          this.state = false;
+        }
+
+        loading.dismiss();
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
+
+  }
+
+  modify(json) {
+    console.log(json);
+    this.navCtrl.push(ModifyProdPage, { "0" : json, "etat" : "normal", "id" : this.id, "slug": this.slug });
+  }
+
+  delete(id) {
+    let loading = this.loadingCtrl.create({
+      content: 'Veuillez Patienter...'
+    });
+    loading.present();
+    console.log(id);
+    this.storeService.delShopById(id).subscribe(
+      (success) => {
+        console.log(success);
+        loading.dismiss();
+        let alert = this.alertCtrl.create({
+          title: 'SUCCESS',
+          subTitle: 'Supprimer avec succès',
+          buttons: ['OK']
+        });
+        alert.present();
+        this.navCtrl.pop();
+      },
+      (error) => {
+        console.log(error);
+        loading.dismiss();
+
+        let alert = this.alertCtrl.create({
+          title: 'ECHEC',
+          subTitle: 'Echec de la suppression',
+          message: 'Veuillez verifiez réessayer plus part !',
+          buttons: ['OK']
+        });
+        alert.present();
+      }
+    )
+  }
+
+  AddNewProd() {
+    this.navCtrl.push(ModifyProdSpecialPage, { "id_catg": this.id, "id_market": this.id_market });
+  }
+
+}

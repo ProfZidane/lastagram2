@@ -1,0 +1,52 @@
+<!--
+  Generated template for the ListProdPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <button ion-button round color="lastagram" [disabled]=state (click)="AddNewProd()"><ion-icon name="add" style="font-size: 30px;"></ion-icon>&nbsp;&nbsp; Ajouter Articles</button>
+  </ion-grid>
+  <br>
+  <ion-list no-lines>
+    <ion-item *ngFor="let article of articles" >
+        {{ article.name }}
+      <ion-icon class="esp" name="md-create" item-end (click)="modify(article)"></ion-icon>
+      &nbsp;
+      <ion-icon name="close-circle" item-end (click)="delete(article.id)"></ion-icon>
+    </ion-item>
+    <hr>
+
+    <!--<ion-item>
+        Herbology
+      <ion-icon name="md-create" item-end></ion-icon>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <ion-icon name="close-circle" item-end></ion-icon>
+    </ion-item>
+    <ion-item>
+        Herbology
+      <ion-icon name="md-create" item-end></ion-icon>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <ion-icon name="close-circle" item-end></ion-icon>
+    </ion-item>
+    <ion-item>
+        Herbology
+      <ion-icon name="md-create" item-end></ion-icon>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <ion-icon name="close-circle" item-end></ion-icon>
+    </ion-item>-->
+    <ion-row>
+      <ion-col></ion-col>
+      <ion-col col-6 *ngIf="taille" >
+        <strong>Total: </strong><span>{{ taille }} / 50</span>
+      </ion-col>
+    </ion-row>
+  </ion-list>
+</ion-content>

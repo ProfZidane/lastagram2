@@ -1,0 +1,68 @@
+<!--
+  Generated template for the ModifyProfilePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="bg-profile" fullscreen>
+  <ion-grid class=" profile-image" padding>
+    <ion-row class="">
+      <ion-col class="" col-5 align="center">
+        <div class="modify-img-profile" *ngIf="!analayse">
+          <img src="{{ base64Image }}" alt="" (click)="OpenGallery()">
+        </div>
+        <div class="modify2-img-profile" *ngIf="analayse" >
+          <ion-icon class="md-img" name="camera" (click)="OpenGallery()"></ion-icon>
+        </div>
+
+      </ion-col>
+      <ion-col class="modify-profil-name" col-7 align="center">
+        <h1 class="name-profile">{{ infoUser.name2 + ' ' + infoUser.name1 }}</h1>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid class="">
+    <ion-row class="card-boutique-profile">
+      <ion-card>
+        <ion-list no-lines>
+          <ion-item class="encd-mod-profile">
+            <ion-icon class="icon-mod-profile" name="person" item-start></ion-icon>
+              {{ infoUser.name1 }}
+            <ion-icon name="md-create" item-end (click)="goToAlertToUpdateFn()"></ion-icon>
+          </ion-item>
+          <hr>
+          <ion-item class="encd-mod-profile">
+            <ion-icon class="icon-mod-profile" name="person" item-start></ion-icon>
+            {{ infoUser.name2 }}
+            <ion-icon name="md-create" item-end (click)="goToAlertToUpdateLn()"></ion-icon>
+          </ion-item>
+          <hr>
+          <ion-item class="encd-mod-profile">
+            <ion-icon class="icon-mod-profile" name="mail" item-start></ion-icon>
+            {{ infoUser.mail }}
+            <ion-icon name="close-circle" item-end (click)="goToAlertInfo()"></ion-icon>
+          </ion-item>
+          <hr>
+          <ion-item class="encd-mod-profile">
+            <ion-icon class="icon-mod-profile" name="create" item-start></ion-icon>
+            {{ infoUser.phone }}
+            <ion-icon name="md-create" item-end (click)="goAlertToUpdatePh()"></ion-icon>
+          </ion-item>
+          <hr>
+          <ion-item class="encd-mod-profile">
+            <ion-icon class="icon-mod-profile" name="lock" item-start></ion-icon>
+              ********
+            <ion-icon name="md-create" item-end (click)="goToAlertToUpdatePs()"></ion-icon>
+          </ion-item>
+        </ion-list>
+      </ion-card>
+    </ion-row>
+  </ion-grid>
+</ion-content>

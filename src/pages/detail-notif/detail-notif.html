@@ -1,0 +1,97 @@
+<!--
+  Generated template for the DetailNotifPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>detail-notif</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content fullscreen>
+
+  <ion-grid class="content-detail-noyt">
+
+    <ion-grid class=" grid-cart-product">
+
+      <h1>Produits Commandés</h1>
+
+        <ion-list *ngIf="Products" >
+          <ion-item class="grid-cart-0" *ngFor="let product of Products" >
+            <ion-thumbnail item-start>
+              <img class="img-cart" [src]=product.article.image_cover >
+            </ion-thumbnail>
+            <h2>{{ product.article.name}}</h2>
+            <p><strong>Quantité : </strong> {{ product.quantity }}</p>
+            <span class="price-cart">{{ product.article.price | number}} F CFA</span>
+          </ion-item>
+        </ion-list>
+
+    </ion-grid>
+
+    <ion-grid class="grid-cart-product">
+      <h1 class="title">Informations supplémentaires</h1>
+      <ion-list>
+        <ion-item *ngIf="date" >
+            Date de commande :
+          <span item-end>
+            <strong>{{ Notif.ordered_date | date }}</strong>
+          </span>
+        </ion-item>
+
+        <ion-item *ngIf="Total" >
+          Prix de commande :
+        <span item-end>
+          <strong>{{ Total }} F CFA</strong>
+        </span>
+      </ion-item>
+
+      <ion-item>
+        Lieu de livraison :
+      <span item-end *ngIf="adresse" >
+        <strong>{{ adresse.location }}</strong>
+      </span>
+    </ion-item>
+      </ion-list>
+    </ion-grid>
+
+    <ion-grid class="grid-cart-product">
+     <h1 class="title">Informations Clientèle</h1>
+     <ion-list>
+       <ion-item *ngIf="commander" >
+           Nom du client :
+         <span item-end>
+           <strong>{{ commander.first_name + ' ' + commander.last_name }}</strong>
+         </span>
+       </ion-item>
+
+       <ion-item *ngIf="commander" >
+         Adresse e-mail :
+       <span item-end>
+         <strong>{{ commander.email }} </strong>
+       </span>
+     </ion-item>
+
+     <ion-item>
+       Numéro de téléphone :
+     <span item-end *ngIf="commander" >
+       <strong>{{ commander.phone }}</strong>
+     </span>
+   </ion-item>
+     </ion-list>
+   </ion-grid>
+
+  </ion-grid>
+  <ion-toolbar color="lastagram" style="width: 100%;">
+    <p style="color: white;">Ecrire au propriétaire ?</p>
+    <ion-buttons end>
+      <button ion-button icon-end color="royal">
+        Message
+        <ion-icon name="mail"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+ </ion-content>
+

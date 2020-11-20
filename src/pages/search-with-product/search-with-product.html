@@ -1,0 +1,52 @@
+<!--
+  Generated template for the SearchWithProductPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <!--<ion-title></ion-title>-->
+    <ion-grid class="header-message-menu">
+      <!--<ion-row class="row-input">
+        <ion-col col-2>
+          <ion-icon name="search"></ion-icon>
+        </ion-col>
+        <ion-col col-10>
+
+
+          <ion-input type="text" value="" placeholder="Recherche Produit"></ion-input>
+        </ion-col>
+      </ion-row>-->
+    </ion-grid>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-searchbar  (ionInput)="getItems($event)" round></ion-searchbar>
+
+  <ion-grid class="product-to-share">
+    <ion-row *ngIf="Products" >
+      <ion-col  col-6 align="center" *ngFor="let product of Products" >
+        <div class="share-product" (click)="goToDetailProduct(product.id, product.store.id, product.store.owner)">
+          <div class="search-img-0">
+            <img [src]=product.image_cover class="d-i" alt="">
+          </div>
+
+          <hr>
+          <p class="desc-product">{{ product.name }}</p>
+          <p class="price-product twoo">{{ product.price }} F CFA</p>
+        </div>
+      </ion-col>
+      <!--<ion-col  col-6 align="center">
+        <div class="share-product">
+          <div class="search-img">
+          </div>
+          <hr>
+          <p class="desc-product">Sac à main</p>
+          <p class="price-product twoo">2300 F CFA</p>
+        </div>
+      </ion-col>-->
+    </ion-row>
+  </ion-grid>
+</ion-content>

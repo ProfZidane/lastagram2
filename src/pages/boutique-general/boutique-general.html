@@ -1,0 +1,162 @@
+<!--
+  Generated template for the BoutiquePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar hideBackButton="true"  color="lastagram">
+    <ion-title >
+      {{ Market.name }}
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="goHome()">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      &nbsp;
+    </ion-buttons>
+
+
+
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="search"></ion-icon>
+      </button>
+      <!-- espace -->
+        &nbsp;&nbsp;
+      <!-- end of espace -->
+      <button ion-button icon-only>
+        <ion-icon name="cart"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <ion-grid class="navbar-abo" fullscreen>
+      <ion-row color="lastagram" *ngIf="Market" >
+        <p>
+          <ion-icon name="thumbs-up" (click)="Abonne(Market.id)" *ngIf="!isSubscribed"></ion-icon>
+            <ion-icon name="close-circle" (click)="DesAbonne(Market.id)" *ngIf="isSubscribed"></ion-icon>
+          &nbsp;&nbsp;
+          {{ Market.subscribers }} Abonnés
+        </p>
+      </ion-row>
+  </ion-grid>
+
+</ion-header>
+
+<ion-content class="bg-boutique" fullscreen>
+  <ion-grid class="image-create-boutique-0" align="center">
+    <!--<h3>PHOTO</h3>
+    <ion-icon name="camera"></ion-icon>-->
+    <img [src]=Market.image_cover class="couverture" alt="">
+  </ion-grid>
+
+  <ion-grid class="category-boutique">
+    <ion-row class="" align="center">
+      <ion-col class="" col-4 *ngFor="let catg of Market.detail_articles" (click)="GetProductByCtg(catg.id,catg.name)">
+        <div class="catg-boutique">
+
+        </div>
+        <span class="name-ctg">{{ catg.name }}</span>
+      </ion-col>
+      <!--<ion-col class="" col-4>
+        <div class="catg-boutique"></div>
+      </ion-col>
+      <ion-col class="" col-4>
+        <div class="catg-boutique"></div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="" align="center">
+      <ion-col class="" col-4>
+        <div class="catg-boutique"></div>
+      </ion-col>
+      <ion-col class="" col-4>
+        <div class="catg-boutique"></div>
+      </ion-col>
+      <ion-col class="" col-4>
+        <div class="catg-boutique"></div>
+      </ion-col>-->
+    </ion-row>
+  </ion-grid>
+
+
+  <ion-grid>
+    <ion-row class="flash-create-boutique">
+      <ion-col class="" col-6>
+        <h4>Vente Flash</h4>
+      </ion-col>
+      <ion-col class="" col-6>
+        <h3>{{ heure }}:{{ minute }}:{{ second }} s</h3>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid class="">
+    <ion-row class="product-flash-create-boutique">
+      <ion-col class="" col-6 *ngFor="let p of Market.flash" (click)="goToDetail(p.id,Market.id, Market.owner)">
+        <div class="photo" align="center">
+          <img src="{{ p.image_cover }}" class="img-product" alt="">
+          <p class="name-product">{{ p.name }}</p>
+          <p class="price-product">{{ p.price }} FCFA</p>
+        </div>
+      </ion-col>
+      <!--<ion-col class="" col-6>
+        <div class="photo" align="center">
+          <img src="https://image.freepik.com/photos-gratuite/belle-elegance-mode-luxe-sac-main-femme-rose_1203-7653.jpg" class="img-product" alt="">
+          <p class="name-product">SAC A MAIN</p>
+          <p class="price-product">2 000 F CFA</p>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="product-flash-create-boutique">
+      <ion-col class="" col-6>
+        <div class="photo" align="center">
+          <img src="https://image.freepik.com/photos-gratuite/belle-elegance-mode-luxe-sac-main-femme-rose_1203-7653.jpg" class="img-product" alt="">
+          <p class="name-product">SAC A MAIN</p>
+          <p class="price-product">2 000 F CFA</p>
+        </div>
+      </ion-col>
+      <ion-col class="" col-6>
+        <div class="photo" align="center">
+          <img src="https://image.freepik.com/photos-gratuite/belle-elegance-mode-luxe-sac-main-femme-rose_1203-7653.jpg" class="img-product" alt="">
+          <p class="name-product">SAC A MAIN</p>
+          <p class="price-product">2 000 F CFA</p>
+        </div>
+      </ion-col>-->
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid class="product-origin-create-boutique">
+    <h3 class="p">Produits Populaires</h3>
+    <ion-row class="product-flash-create-boutique">
+      <ion-col class="" col-6 *ngFor="let p2 of Market.popular" (click)="goToDetail(p2.id,Market.id, Market.owner)">
+        <div class="photo" align="center">
+          <img src="{{ p2.image_cover }}" class="img-product" alt="">
+          <p class="name-product">{{ p2.name }}</p>
+          <p class="price-product">{{ p2.price }}</p>
+        </div>
+      </ion-col>
+      <!--<ion-col class="" col-6>
+        <div class="photo" align="center">
+          <img src="https://image.freepik.com/photos-gratuite/belle-elegance-mode-luxe-sac-main-femme-rose_1203-7653.jpg" class="img-product" alt="">
+          <p class="name-product">SAC A MAIN</p>
+          <p class="price-product">2 000 F CFA</p>
+        </div>
+      </ion-col>-->
+    </ion-row>
+  </ion-grid>
+
+
+  <ion-grid class=" contact-bar">
+    <ion-row class="">
+      <ion-col class="" col-6 (click)="Message(username)">
+        <ion-icon name="mail"></ion-icon>
+        <span>MESSAGE</span>
+      </ion-col>
+      <ion-col class="" col-6 (click)="Call()">
+        <ion-icon name="call"></ion-icon>
+        <span>APPELLE-MOI</span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

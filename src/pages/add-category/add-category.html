@@ -1,0 +1,145 @@
+<!--
+  Generated template for the AddCategoryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Sélectionnez 6 catégories</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="bg-container-ctg">
+  <ion-grid class="">
+
+    <ion-row class="category-add-catg" *ngIf="AllCtg" >
+      <ion-col class="" col-3 align="center" *ngFor="let ctg of AllCtg" >
+        <div class="contain-catg" (click)="ChooseThis(ctg.id,ctg.name)">
+          <ion-icon name="home"></ion-icon>
+          <br>
+          <small>{{ ctg.name }}</small>
+        </div>
+      </ion-col>
+     <!-- <ion-col class="" col-3 align="center">
+        <div class="contain-catg">
+          <ion-icon name="home"></ion-icon>
+          <br>
+          <small>Meubles</small>
+        </div>
+      </ion-col>
+      <ion-col class="" col-3 align="center">
+        <div class="contain-catg">
+          <ion-icon name="home"></ion-icon>
+          <br>
+          <small>Meubles</small>
+        </div>
+      </ion-col>
+      <ion-col class="" col-3 align="center">
+        <div class="contain-catg">
+          <ion-icon name="home"></ion-icon>
+          <br>
+          <small>Meubles</small>
+        </div>
+      </ion-col>-->
+    </ion-row>
+
+   <!-- <ion-row class="category-add-catg">
+      <ion-col class="" col-3 align="center">
+        <div class="contain-catg">
+          <ion-icon name="home"></ion-icon>
+          <br>
+          <small>Meubles</small>
+        </div>
+      </ion-col>
+      <ion-col class="" col-3 align="center">
+        <div class="contain-catg">
+          <ion-icon name="home"></ion-icon>
+          <br>
+          <small>Meubles</small>
+        </div>
+      </ion-col>
+      <ion-col class="" col-3 align="center">
+        <div class="contain-catg">
+          <ion-icon name="home"></ion-icon>
+          <br>
+          <small>Meubles</small>
+        </div>
+      </ion-col>
+      <ion-col class="" col-3 align="center">
+        <div class="contain-catg">
+          <ion-icon name="home"></ion-icon>
+          <br>
+          <small>Meubles</small>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="category-add-catg">
+      <ion-col class="" col-3 align="center">
+        <div class="contain-catg">
+          <ion-icon name="home"></ion-icon>
+          <br>
+          <small>Meubles</small>
+        </div>
+      </ion-col>
+      <ion-col class="" col-3 align="center">
+        <div class="contain-catg">
+          <ion-icon name="home"></ion-icon>
+          <br>
+          <small>Meubles</small>
+        </div>
+      </ion-col>
+      <ion-col class="" col-3 align="center">
+        <div class="contain-catg">
+          <ion-icon name="home"></ion-icon>
+          <br>
+          <small>Meubles</small>
+        </div>
+      </ion-col>
+      <ion-col class="" col-3 align="center">
+        <div class="contain-catg">
+          <ion-icon name="home"></ion-icon>
+          <br>
+          <small>Meubles</small>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class=" category-add-catg">
+      <ion-col class="" col-3 align="center">
+        <div class="contain-catg">
+          <ion-icon name="home"></ion-icon>
+          <br>
+          <small>Meubles</small>
+        </div>
+      </ion-col>
+      <ion-col class="" col-3 align="center">
+        <div class="contain-catg">
+          <ion-icon name="home"></ion-icon>
+          <br>
+          <small>Meubles</small>
+        </div>
+      </ion-col>
+      <ion-col class="" col-3 align="center">
+        <div class="contain-catg">
+          <ion-icon name="home"></ion-icon>
+          <br>
+          <small>Meubles</small>
+        </div>
+      </ion-col>
+      <ion-col class="" col-3 align="center">
+        <div class="contain-catg">
+          <ion-icon name="home"></ion-icon>
+          <br>
+          <small>Meubles</small>
+        </div>
+      </ion-col>
+    </ion-row>-->
+
+  </ion-grid>
+
+  <!--<ion-grid class="btn-grid-add-catg" align="center">
+    <button ion-button round color="lastagram" (click)="goBackToCreate()">VALIDER</button>
+  </ion-grid>-->
+</ion-content>

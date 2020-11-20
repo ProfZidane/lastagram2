@@ -1,0 +1,64 @@
+page-home {
+}
+
+.bord {
+  border: solid;
+}
+
+.text-home {
+  margin-top: 4rem;
+  color: #155C7F;
+}
+
+.bord-grid-logo {
+  /*border: solid;*/
+  padding: 3.5rem;
+}
+
+
+.bord-grid-form ion-row{
+/*   border: solid;*/
+  padding: 0rem;
+   margin-bottom: 2rem;
+   box-shadow: 2px 2px 10px rgba(223, 222, 222, 0.555);
+}
+
+.bord-grid-form ion-row ion-col ion-icon{
+
+  font-size: xx-large;
+}
+
+.bord-grid-form ion-row ion-col ion-input{
+  /*border: solid;*/
+  width: 100%;
+}
+
+
+.bord-grid-btn{
+  /*border: solid;*/
+  margin-bottom: 2rem;
+  font-size: small;
+}
+
+.bord-grid-btn button {
+  background-color: #155C7F;
+}
+
+.bord-grid-btn button:first-child {
+  margin-bottom: 1.5rem;
+}
+
+.input-home {
+  border: solid;
+}
+
+
+.mdp_forget {
+  font-size: small;
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.warning-register {
+  color: rgb(255, 201, 24);
+}

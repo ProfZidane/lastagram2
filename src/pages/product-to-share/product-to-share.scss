@@ -1,0 +1,41 @@
+page-product-to-share {
+
+}
+
+.bg-product-to-share {
+  background-color: rgba(253, 253, 253, 0.973);
+}
+
+.product-to-share {
+
+}
+
+.share-product {
+  /*width: 70%;*/
+  background-color: white;
+  border: solid 1px rgb(192, 191, 191);
+  border-radius: 25px;
+}
+
+.share-product ion-icon {
+  font-size: 45px;
+  padding: 2rem;
+}
+
+.desc-product {
+  color: rgba(165, 161, 161, 0.781);
+}
+
+
+.price-product {
+  color: rgba(165, 161, 161, 0.781);
+}
+
+.btn-grid-share-prod {
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-grid-share-prod button{
+  width: 50%;
+}

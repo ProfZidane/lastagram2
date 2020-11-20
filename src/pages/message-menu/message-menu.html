@@ -1,0 +1,55 @@
+<!--
+  Generated template for the MessageMenuPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content fullscreen class="bg-menu-message">
+  <ion-grid class="header-message-menu">
+    <h1>Messages</h1>
+    <ion-row class="row-input">
+      <ion-col col-2>
+        <ion-icon name="search"></ion-icon>
+      </ion-col>
+      <ion-col col-10>
+        <ion-input type="text" value="" placeholder="Recherche Conversation"></ion-input>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-list no-lines>
+      <ion-item (click)="goToMessageContent()">
+        <ion-avatar item-start>
+          <img src="https://cdn.pixabay.com/photo/2016/03/09/15/10/man-1246508_960_720.jpg">
+        </ion-avatar>
+        <h2>Finn <span class="time two">9:20 AM</span></h2>
+
+        <p>I've had a pretty messed up day. If we just...</p>
+      </ion-item>
+      <hr>
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="https://cdn.pixabay.com/photo/2016/03/09/15/10/man-1246508_960_720.jpg">
+        </ion-avatar>
+        <h2>Finn <span class="time two">9:20 AM</span></h2>
+        <p>I've had a pretty messed up day. If we just...</p>
+      </ion-item>
+      <hr>
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="https://cdn.pixabay.com/photo/2016/03/09/15/10/man-1246508_960_720.jpg">
+        </ion-avatar>
+        <h2>Finn <span class="time two">9:20 AM</span></h2>
+        <p>I've had a pretty messed up day. If we just...</p>
+      </ion-item>
+      <hr>
+    </ion-list>
+  </ion-grid>
+</ion-content>

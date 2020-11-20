@@ -1,0 +1,5 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target" : { "namespace": "android_app", "package_name": "com.lastagramtest.app",
+               "sha256_cert_fingerprints": ["60:3B:FF:7A:40:7E:2B:CB:1E:73:86:18:A4:AF:7A:1B:1C:6A:9A:96:61:E8:13:4F:83:F3:D9:9A:7C:6A:C9:99"] }
+}]

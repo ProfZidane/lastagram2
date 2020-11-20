@@ -1,0 +1,201 @@
+<!--
+  Generated template for the CreateBoutiquePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar  color="lastagram">
+    <ion-title></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="bg-create-boutique">
+  <ion-grid class="header-create-boutique">
+    <ion-row class="">
+      <ion-input type="text" name="nameMarket" [(ngModel)]="nameMarket" value="" placeholder="&nbsp; Nom de la boutique"></ion-input>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid class="image-create-boutique" align="center">
+    <h3 *ngIf="!base64Image" >PHOTO</h3>
+    <h3 *ngIf="base64Image" >
+      Choix fait
+      <ion-icon name="checkmark-circle-outline"></ion-icon>
+    </h3>
+    <ion-icon name="camera" (click)="getImgMarket()"></ion-icon>
+  </ion-grid>
+
+  <ion-grid class=" catg-create-boutique">
+    <ion-row>
+      <ion-col class="add-create-boutique level-up-add" align="center" col-4 *ngIf="in" >
+        <ion-icon name="add" (click)="goToAddCategory('1')"></ion-icon>
+        <br>
+      </ion-col>
+      <ion-col class="add-create-boutique level-up-add" align="center" col-4 *ngIf="done" >
+        <ion-icon name="checkmark-circle-outline" (click)="getProductInCatg(catg1,id1,'1')"></ion-icon>
+        <br>
+        <small>{{ catg1 }}</small>
+      </ion-col>
+      <ion-col class="add-create-boutique level-up-add" align="center" col-4 *ngIf="in1" >
+        <ion-icon name="add" (click)="goToAddCategory('2')"></ion-icon>
+        <br>
+      </ion-col>
+      <ion-col class="add-create-boutique level-up-add" align="center" col-4 *ngIf="done1" >
+        <ion-icon name="checkmark-circle-outline" (click)="getProductInCatg(catg2,id2,'2')"></ion-icon>
+        <br>
+        <small>{{ catg2 }}</small>
+      </ion-col>
+      <ion-col class="add-create-boutique2 level-up-add ext" align="center" col-4 *ngIf="in2" >
+        <ion-icon name="add" (click)="goToAddCategory('3')"></ion-icon>
+        <br>
+      </ion-col>
+      <ion-col class="add-create-boutique2 level-up-add ext" align="center" col-4 *ngIf="done2" >
+        <ion-icon name="checkmark-circle-outline" (click)="getProductInCatg(catg3,id3,'3')"></ion-icon>
+        <br>
+        <small>{{ catg3 }}</small>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="add-create-boutique " align="center" col-4 *ngIf="in3" >
+        <ion-icon name="add" (click)="goToAddCategory('4')"></ion-icon>
+        <br>
+      </ion-col>
+      <ion-col class="add-create-boutique " align="center" col-4 *ngIf="done3" >
+        <ion-icon name="checkmark-circle-outline" (click)="getProductInCatg(catg4,id4,'4')"></ion-icon>
+        <br>
+        <small>{{ catg4 }}</small>
+      </ion-col>
+      <ion-col class="add-create-boutique " align="center" col-4 *ngIf="in4" >
+        <ion-icon name="add" (click)="goToAddCategory('5')"></ion-icon>
+        <br>
+      </ion-col>
+      <ion-col class="add-create-boutique " align="center" col-4 *ngIf="done4" >
+        <ion-icon name="checkmark-circle-outline" (click)="getProductInCatg(catg5,id5,'5')"></ion-icon>
+        <br>
+        <small>{{ catg5 }}</small>
+      </ion-col>
+      <ion-col class="add-create-boutique2 ext" align="center" col-4 *ngIf="in5" >
+        <ion-icon name="add" (click)="goToAddCategory('6')"></ion-icon>
+        <br>
+      </ion-col>
+      <ion-col class="add-create-boutique2 ext" align="center" col-4 *ngIf="done5" >
+        <ion-icon name="checkmark-circle-outline" (click)="getProductInCatg(catg6,id6,'6')"></ion-icon>
+        <br>
+        <small>{{ catg6 }}</small>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row class="flash-create-boutique">
+      <ion-col class="" col-6>
+        <h4>Vente Flash</h4>
+      </ion-col>
+      <ion-col class="" col-4>
+        <h3>00:30:00</h3>
+      </ion-col>
+      <ion-col class="" col-2>
+        <button ion-button icon-only color="danger" >
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <ion-grid class="">
+    <ion-row class="product-flash-create-boutique">
+      <ion-col class="" col-6 *ngIf="flash01" >
+        <div class="photo" align="center" (click)="addProduct('flash','1')">
+          <h3>PHOTO</h3>
+        <ion-icon name="camera"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col class="" col-6 *ngIf="flash1" >
+        <div class="photo" align="center" (click)="addProduct('flash','1')">
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+        <span>Ajouté !</span>
+        </div>
+      </ion-col>
+      <ion-col class="" col-6 *ngIf="flash02">
+        <div class="photo" align="center" (click)="addProduct('flash','2')">
+          <h3>PHOTO</h3>
+        <ion-icon name="camera"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col class="" col-6 *ngIf="flash2">
+        <div class="photo" align="center" (click)="addProduct('flash','2')">
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+          <span>Ajouté !</span>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="product-flash-create-boutique">
+      <ion-col class="" col-6 *ngIf="flash03">
+        <div class="photo" align="center" (click)="addProduct('flash','3')">
+          <h3>PHOTO</h3>
+        <ion-icon name="camera"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col class="" col-6 *ngIf="flash3">
+        <div class="photo" align="center" (click)="addProduct('flash','3')">
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+          <span>Ajouté !</span>
+        </div>
+      </ion-col>
+      <ion-col class="" col-6 *ngIf="flash04">
+        <div class="photo" align="center" (click)="addProduct('flash','4')">
+          <h3>PHOTO</h3>
+        <ion-icon name="camera"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col class="" col-6 *ngIf="flash4">
+        <div class="photo" align="center" (click)="addProduct('flash','4')">
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+          <span>Ajouté !</span>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid class="product-origin-create-boutique">
+    <h3 class="p">Produits Populaires</h3>
+    <ion-row class="product-flash-create-boutique">
+      <ion-col class="" col-6 *ngIf="popular01" >
+        <div class="photo" align="center" (click)="addProduct('populaire','1')">
+          <h3>PHOTO</h3>
+        <ion-icon name="camera"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col class="" col-6 *ngIf="popular1" >
+        <div class="photo" align="center" (click)="addProduct('populaire','1')">
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+          <span>Ajouté !</span>
+        </div>
+      </ion-col>
+      <ion-col class="" col-6 *ngIf="popular02">
+        <div class="photo" align="center" (click)="addProduct('populaire','2')">
+          <h3>PHOTO</h3>
+        <ion-icon name="camera"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col class="" col-6 *ngIf="popular2">
+        <div class="photo" align="center" (click)="addProduct('populaire','2')">
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+          <span>Ajouté !</span>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <p class="err_validation" *ngIf="error_validation" >{{ error_validation }}</p>
+  <ion-grid class="">
+    <ion-row class="">
+      <ion-col class="">
+      </ion-col>
+      <ion-col class=" btn-validation">
+        <button ion-button round color="lastagram" (click)="ValidationCreateBoutique()">VALIDER</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,121 @@
+<!--
+  Generated template for the MessageContentPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <!--
+    <ion-title></ion-title>
+  </ion-navbar>-->
+
+  <ion-grid>
+    <ion-list no-lines style="background-color: transparent;">
+      <ion-item>
+        <ion-icon name="arrow-back" (click)="goBack()" item-start></ion-icon>
+        <span class="name-user-talked">
+          {{ externalUser.first_name + ' ' + externalUser.last_name }}
+        </span>
+        <ion-avatar item-end>
+          <img src="https://cdn.pixabay.com/photo/2016/03/09/15/10/man-1246508_960_720.jpg">
+        </ion-avatar>
+      </ion-item>
+    </ion-list>
+  </ion-grid>
+</ion-header>
+
+<ion-content fullscreen class="bg-content-message">
+  <ion-grid #MessagesGrid id="MessagesGrid" class="MessagesGrid">
+
+    <ion-row *ngFor="let message of message" >
+      <ion-col  col-9 *ngIf="currentUser !== message.id && proprio.id === message.idr" class="message other-message">
+        <b>{{ message.user }}</b><br>
+        <span text-wrap>{{ message.mgs }}</span>
+        <div class="time" text-right>
+          <br> {{ message.createdAt | date }}
+        </div>
+      </ion-col>
+
+
+      <ion-col offset-3 col-9  *ngIf="currentUser === message.id" class="message my-message">
+        <b>{{ message.user }}</b><br>
+        <span text-wrap>{{ message.mgs }}</span>
+        <div class="time" text-right >
+          <br> {{ message.createdAt | date }}
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <!--<ion-grid class=" grid-send-mgs">
+    <ion-grid class=" grid-send-mgs-0">
+      <ion-row>
+        <ion-col col-2 align="center">
+          <ion-icon class="add-media" name="ios-add-circle"></ion-icon>
+        </ion-col>
+        <ion-col col-8>
+          <ion-row class="input-grid-mgs">
+            <ion-input type="text" value="" placeholder="Ecrire votre message ... "></ion-input>
+          </ion-row>
+        </ion-col>
+        <ion-col  col-2 align="center">
+         <div class="round">
+          <ion-icon class="send-mgs" name="md-arrow-round-up"></ion-icon>
+         </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-grid>-->
+
+
+
+  <!--<ion-grid class="grid-send-mgs">
+    <ion-toolbar>
+
+      <ion-buttons start>
+        <button ion-button icon-only icon-end color="royal" (click)="presentActionSheet()">
+          <ion-icon class="add-media" name="ios-add-circle"></ion-icon>
+        </button>
+      </ion-buttons>
+
+
+      <ion-row class="input-grid-mgs writing">
+
+        <textarea autosize maxRows='3' [(ngModel)]="newMsg" class="message-input"></textarea>
+      </ion-row>
+
+      <ion-buttons end>
+        <button ion-button icon-only icon-end color="royal" [disabled]="newMsg === ''" (click)="sendMessage()">
+          <ion-icon class="send-mgs" name="md-arrow-round-up"></ion-icon>
+        </button>
+      </ion-buttons>
+
+    </ion-toolbar>
+  </ion-grid>-->
+
+ <ion-footer>
+  <ion-toolbar>
+
+    <ion-buttons start>
+      <button ion-button icon-only icon-end color="royal" (click)="presentActionSheet()">
+        <ion-icon class="add-media" name="ios-add-circle"></ion-icon>
+      </button>
+    </ion-buttons>
+
+
+    <ion-row class="input-grid-mgs writing">
+      <!--ion-input type="text" value="" placeholder="Ecrire votre message ... "></ion-input>-->
+      <textarea autosize maxRows='3' [(ngModel)]="newMsg" class="message-input"></textarea>
+    </ion-row>
+
+    <ion-buttons end>
+      <button ion-button icon-only icon-end color="royal" [disabled]="newMsg === ''" (click)="sendMessage()">
+        <ion-icon class="send-mgs" name="md-arrow-round-up"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-toolbar>
+ </ion-footer>
+
+</ion-content>

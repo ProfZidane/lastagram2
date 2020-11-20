@@ -1,0 +1,79 @@
+<ion-header>
+ <!-- <ion-navbar>
+    <ion-title>Home</ion-title>
+  </ion-navbar>-->
+</ion-header>
+
+<ion-content padding align="center">
+
+  <ion-grid class="bord-grid-logo" >
+    <img src="../../assets/imgs/WhatsApp Image 2020-10-24 at 00.23.04 (2).jpeg" alt="">
+  </ion-grid>
+  <h2 class="text-home">Se connecter</h2>
+  <ion-grid class="bord-grid-form" fullscreen>
+    <!--<ion-list>
+      <ion-item >
+        <ion-label fixed>
+          <ion-icon name="ios-create-outline"></ion-icon>
+        </ion-label>
+        <ion-input type="text" value=""></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label fixed>
+          <ion-icon name="ios-lock-outline"></ion-icon>
+        </ion-label>
+        <ion-input type="password"></ion-input>
+      </ion-item>
+
+    </ion-list>
+    <ion-row>
+      <ion-col col-4 class="bord">
+        <ion-icon name="ios-create-outline"></ion-icon>
+      </ion-col>
+      <ion-col col-8 class="bord">
+        <ion-input type="text" value=""></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-4 class="bord">
+        <ion-icon name="ios-lock-outline"></ion-icon>
+      </ion-col>
+      <ion-col col-8 class="bord">
+        <ion-input type="text" value=""></ion-input>
+      </ion-col>
+    </ion-row>-->
+    <ion-grid *ngIf="text" >
+      <p class="warning-register">{{ text }}</p>
+    </ion-grid>
+    <ion-grid *ngIf="err" >
+      <p class="err-text">{{ err }}</p>
+    </ion-grid>
+    <ion-row>
+      <ion-col col-4 class="">
+        <ion-icon name="ios-create-outline"></ion-icon>
+      </ion-col>
+      <ion-col col-8 class="">
+        <ion-input type="email" value="" placeholder="ADRESSE MAIL" [(ngModel)]="LoginUser.email"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-4 class="">
+        <ion-icon name="ios-lock-outline"></ion-icon>
+      </ion-col>
+      <ion-col col-8 class="">
+        <ion-input type="password" value="" placeholder="MOT DE PASSE" [(ngModel)]="LoginUser.password"></ion-input>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid class="bord-grid-btn">
+    <button  ion-button round (click)="LoginUsers()">SE CONNECTER</button>
+    <button  ion-button round (click)="WithinAuth()">ALLER SUR L'APPLICATION</button>
+    <button  ion-button round (click)="goToRegister()">NOUVEAU COMPTE</button>
+    <span class="mdp_forget" (click)="goToPasswordForget()">Mot de passe oublié ?</span>
+
+  </ion-grid>
+
+
+</ion-content>

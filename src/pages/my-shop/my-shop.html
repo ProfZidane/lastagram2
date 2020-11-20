@@ -1,0 +1,112 @@
+<!--
+  Generated template for the MyShopPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Mes boutiques</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-grid class="market-card-grid">
+    <ion-row class="card-market add-rounded" *ngFor="let market of Markets" >
+      <ion-card>
+        <ion-card-header>
+          <span class="text-header-card">{{ market.name | uppercase }}</span>
+          <span class="text-header-card abo">{{ market.subscribers_count }} Abonnés &nbsp;  <ion-icon name="thumbs-up-outline" class="i-ab" (click)="Abonne(market.id)"></ion-icon> </span>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-row >
+            <ion-icon  col-2>
+
+            </ion-icon>
+            <ion-icon  col-2>
+
+            </ion-icon>
+            <ion-icon  col-2>
+
+            </ion-icon>
+            <ion-icon  col-2>
+              <button ion-button round slot="icon-only" small color="light" class="del-i" (click)="DeleteMarket(market.id)">
+                <ion-icon name="trash"></ion-icon>
+              </button>
+            </ion-icon>
+            <ion-icon  col-2>
+              <button ion-button round slot="icon-only" small color="light" class="view-i" (click)="goToMarket(market.id)">
+                <ion-icon name="eye" ></ion-icon>
+              </button>
+            </ion-icon>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-row>
+
+    <!--<ion-row class="card-market add-rounded">
+      <ion-card>
+        <ion-card-header>
+          <span class="text-header-card">ROSAMI COTE DIVOIRE</span>
+          <span class="text-header-card abo">10 Abonnés &nbsp;  <ion-icon name="thumbs-up"></ion-icon> </span>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-row >
+            <ion-icon  col-2 align="center">
+
+            </ion-icon>
+            <ion-icon  col-2>
+
+            </ion-icon>
+            <ion-icon  col-2>
+
+            </ion-icon>
+            <ion-icon  col-2>
+              <button ion-button round slot="icon-only" color="light" class="del-i">
+                <ion-icon name="trash"></ion-icon>
+              </button>
+            </ion-icon>
+            <ion-icon  col-2>
+              <button ion-button round slot="icon-only" color="light" class="view-i">
+                <ion-icon name="eye" ></ion-icon>
+              </button>
+            </ion-icon>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-row>
+
+    <ion-row class="card-market add-rounded">
+      <ion-card>
+        <ion-card-header>
+          <span class="text-header-card">ROSAMI COTE DIVOIRE</span>
+          <span class="text-header-card abo">10 Abonnés &nbsp;  <ion-icon name="thumbs-up"></ion-icon> </span>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-row >
+            <ion-icon  col-2>
+
+            </ion-icon>
+            <ion-icon  col-2>
+
+            </ion-icon>
+            <ion-icon  col-2>
+
+            </ion-icon>
+            <ion-icon  col-2>
+              <button ion-button round slot="icon-only" color="light" class="del-i">
+                <ion-icon name="trash"></ion-icon>
+              </button>
+            </ion-icon>
+            <ion-icon  col-2>
+              <button ion-button round slot="icon-only" color="light" class="view-i">
+                <ion-icon name="eye" ></ion-icon>
+              </button>
+            </ion-icon>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-row>-->
+  </ion-grid>
+
+</ion-content>

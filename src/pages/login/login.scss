@@ -1,0 +1,127 @@
+page-accueil {
+
+}
+
+ion-header ion-navbar{
+  /*background-color: #155C7F;*/
+}
+
+.nav {
+  background-color: #155C7F;
+}
+
+.category-grid ion-row ion-col img {
+  width: 50%;
+  padding-top: 1rem;
+}
+
+.category-grid ion-row ion-col p {
+  font-size: 12px;
+}
+
+.divided {
+  width: 90%;
+  position: relative;
+  bottom:10px
+}
+
+.nav button {
+}
+
+.text-header-card {
+  font-size: 15px;
+}
+
+.abo {
+  float: right;
+  position: relative;
+  top: 5px;
+  font-size: 15px;
+}
+
+ion-card ion-card-content {
+  height: 80px;
+  background-image: url("https://cdn.pixabay.com/photo/2016/11/06/17/17/north-america-1803504_960_720.jpg");
+  background-size: cover;
+}
+
+
+
+ion-card ion-card-content button {
+  width: 25%;
+  //font-weight: 100;
+  position: relative;
+  left:70%;
+  top: 30px;
+  font-size: 10px;
+  /*font-size: 10px;*/
+}
+
+
+.card-market:last-child {
+  margin-bottom: 3rem;
+}
+
+.rd {
+  border-radius: 12px;
+}
+
+.cancel-css {
+  background-color: rebeccapurple;
+}
+
+
+
+.share-part {
+  position: absolute;
+  z-index: 1;
+  background-color: white;
+  box-shadow: 2px 2px 6px #c7c4c4b6;
+  height: 180px;
+  width: 100%;
+  border-bottom-left-radius: 85px;
+  border-bottom-right-radius: 85px;
+}
+
+
+.share-part ion-grid {
+  position: relative;
+  top: 30px;
+}
+
+.share-part ion-grid {
+  align-items: center;
+  justify-content: center;
+}
+
+.share-part ion-grid ion-row {
+  padding: 1rem;
+  margin-left: 1rem;
+}
+
+.share-part ion-grid ion-row ion-col {
+  padding: 0rem;
+}
+
+.share-part ion-grid ion-row ion-col:first-child{
+  margin-left: 0.5rem;
+}
+.share-part ion-grid ion-row ion-col ion-icon{
+    font-size: 40px;
+}
+
+
+.close {
+  font-size: 30px;
+}
+
+
+.network-share {
+  margin-right: 0.5rem;
+}
+
+
+.cancel-btn {
+  color: red;
+  background-color: red;
+}
