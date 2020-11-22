@@ -9,6 +9,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import {NgxImageCompressService} from 'ngx-image-compress';
 
 import * as firebase from 'firebase';
 import { snapshotToArray } from './../../app/environment';
@@ -55,27 +56,55 @@ export class CreateBoutiquePage {
   flash02 = true;
   flash03 = true;
   flash04 = true;
+  flash05 = true;
+  flash06 = true;
   flash1 = false;
   flash2 = false;
   flash3 = false;
   flash4 = false;
+  flash5 = false;
+  flash6 = false;
 
   popular01 = true;
   popular02 = true;
+  popular03 = true;
+  popular04 = true;
+  popular05 = true;
+  popular06 = true;
   popular1 = false;
   popular2 = false;
+  popular3 = false;
+  popular4 = false;
+  popular5 = false;
+  popular6 = false;
   a;
   error_validation:string;
   base64Image;
   ref = firebase.database().ref('Markets/');
   items = [];
+  imgResultAfterCompress: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider, private camera: Camera,public loadingCtrl: LoadingController, private alertCtrl: AlertController) {
+  decorImg1;
+  decorImg2;
+
+  devis;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider, private camera: Camera,public loadingCtrl: LoadingController, private alertCtrl: AlertController,private imageCompress: NgxImageCompressService) {
     console.log(localStorage.getItem('article'));
     this.a = JSON.parse(localStorage.getItem('article'));
     console.log(this.a);
 
+    if (localStorage.getItem('couvertImage') !== null) {
+      this.base64Image = localStorage.getItem('couvertImage');
+    }
 
+    if (localStorage.getItem('image_Decoration1') !== null) {
+      this.decorImg1 = localStorage.getItem('image_Decoration1');
+    }
+
+    if (localStorage.getItem('image_Decoration2') !== null) {
+      this.decorImg2 = localStorage.getItem('image_Decoration2');
+    }
   }
 
   ionViewDidLoad() {
@@ -170,6 +199,18 @@ export class CreateBoutiquePage {
       this.flash4 = true;
     }
 
+    if (localStorage.getItem('flash5') !== null) {
+      this.flash05 = false;
+      this.flash5 = true;
+    }
+
+    if (localStorage.getItem('flash6') !== null) {
+      this.flash06 = false;
+      this.flash6 = true;
+    }
+
+
+
     if (localStorage.getItem('populaire1') !== null) {
       this.popular01 = false;
       this.popular1 = true;
@@ -179,6 +220,27 @@ export class CreateBoutiquePage {
       this.popular02 = false;
       this.popular2 = true;
     }
+
+    if (localStorage.getItem('populaire3') !== null) {
+      this.popular03 = false;
+      this.popular3 = true;
+    }
+
+    if (localStorage.getItem('populaire4') !== null) {
+      this.popular04 = false;
+      this.popular4 = true;
+    }
+
+    if (localStorage.getItem('populaire5') !== null) {
+      this.popular05 = false;
+      this.popular5 = true;
+    }
+
+    if (localStorage.getItem('populaire6') !== null) {
+      this.popular06 = false;
+      this.popular6 = true;
+    }
+
   }
 
 
@@ -187,19 +249,77 @@ export class CreateBoutiquePage {
     this.navCtrl.push(AddProductPage, { "category" : name, "id" : id, "number" : n });
   }
 
+  compressFile() {
+
+    this.imageCompress.uploadFile().then(({image, orientation}) => {
+
+      this.base64Image = image;
+      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
+
+      this.imageCompress.compressFile(image, orientation, 50, 50).then(
+        result => {
+          this.imgResultAfterCompress = result;
+          console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
+          localStorage.setItem('couvertImage', this.imgResultAfterCompress);
+
+        }
+      );
+
+    });
+
+  }
+
+  compressFile2(num) {
+
+    this.imageCompress.uploadFile().then(({image, orientation}) => {
+
+      //this.base64Image = image;
+      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
+
+      this.imageCompress.compressFile(image, orientation, 50, 50).then(
+        result => {
+          this.imgResultAfterCompress = result;
+          console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
+          localStorage.setItem('image_Decoration' + num, this.imgResultAfterCompress);
+          if (num == "1") {
+            this.decorImg1 = localStorage.getItem('image_Decoration' + num);
+          } else if (num == "2") {
+            this.decorImg2 = localStorage.getItem('image_Decoration' + num)
+          }
+        }
+      );
+
+    });
+
+  }
+
+
+
   getImgMarket() {
     const options: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
+      quality: 20,
+        targetWidth: 600,
+        targetHeight: 600,
+      destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG || this.camera.EncodingType.PNG,
       mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      allowEdit: true
     }
 
     this.camera.getPicture(options).then((imageData) => {
-      this.base64Image = 'data:image/jpeg;base64,' + imageData;
+      //this.base64Image = 'data:image/jpeg;base64,' + imageData;
+      //console.log(this.base64Image);
+
+      this.imageCompress.compressFile(imageData,50, 50).then(
+        result => {
+          this.imgResultAfterCompress = result;
+          console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
+          localStorage.setItem('couvertImage', this.imgResultAfterCompress);
+        }
+      );
       //localStorage.setItem('photoUser',this.base64Image);
-      localStorage.setItem('couvertImage', this.base64Image);
+      //
     }, (err) => {
       console.log(err, "vos erreurs");
     })
@@ -220,6 +340,63 @@ export class CreateBoutiquePage {
 
   }
 
+  AddDevis() {
+    const prompt = this.alertCtrl.create({
+      title: 'DEVIS',
+      message: "Entrez le devis de vos produit boutique",
+      inputs: [
+        {
+          name: 'title',
+          type: 'radio',
+          label: 'Franc CFA',
+          value: 'CFA'
+        },
+        {
+          name: 'title',
+          type: 'radio',
+          label: 'Euro',
+          value: 'EUR'
+        },
+        {
+          name: 'title',
+          type: 'radio',
+          label: 'Dollard',
+          value: 'USD'
+        },
+        {
+          name: 'title',
+          type: 'radio',
+          label: 'Dihram',
+          value: 'DM'
+        },
+        {
+          name: 'title',
+          type: 'radio',
+          label: 'Dinar',
+          value: 'DA'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Fermer',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Choisir',
+          handler: data => {
+            console.log('Saved clicked : ' + data);
+            this.devis = data;
+
+            this.ValidationCreateBoutique();
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
 
   ValidationCreateBoutique() {
 
@@ -232,33 +409,19 @@ export class CreateBoutiquePage {
         "name" : this.nameMarket,
         "owner" : Number(localStorage.getItem('idUser')),
         "category" : [
-          {
-            "id" : JSON.parse(localStorage.getItem('id1')),
-            "name" : localStorage.getItem('catg1')
-          },
-          {
-            "id" : JSON.parse(localStorage.getItem('id2')),
-            "name" : localStorage.getItem('catg2')
-          },
-          {
-            "id" : JSON.parse(localStorage.getItem('id3')),
-            "name" : localStorage.getItem('catg3')
-          },
-          {
-            "id" : JSON.parse(localStorage.getItem('id4')),
-            "name" : localStorage.getItem('catg4')
-          },
-          {
-            "id" : JSON.parse(localStorage.getItem('id5')),
-            "name" : localStorage.getItem('catg5')
-          },
-          {
-            "id" : JSON.parse(localStorage.getItem('id6')),
-            "name" : localStorage.getItem('catg6')
-          }
+          JSON.parse(localStorage.getItem('id1')),
+          JSON.parse(localStorage.getItem('id2')),
+          JSON.parse(localStorage.getItem('id3')),
+          JSON.parse(localStorage.getItem('id4')),
+          JSON.parse(localStorage.getItem('id5')),
+          JSON.parse(localStorage.getItem('id6')),
         ],
         "image_cover" : localStorage.getItem('couvertImage'),
         "articles" : [],
+        "timer" : "30:00",
+        "devis" : this.devis,
+        "img_static_1" : localStorage.getItem('image_Decoration1'),
+        "img_static_2" : localStorage.getItem('image_Decoration2'),
       }
       //datas.image_couverture = null;
 
@@ -266,71 +429,96 @@ export class CreateBoutiquePage {
       let tab2 = ['1','2','3','4'];
       let tab3 = ['1','2'];
       tab.forEach(element => {
-        JSON.parse(localStorage.getItem('article'+element)).forEach(element => {
-          element.flash = false;
-          element.popular = false;
-          element.category = Number(element.category);
-          element.price = Number(element.price);
-          element.promo_price = Number(element.promo_price);
-          //element.image = null;
-          datas.articles.push(element);
-        });
+        if (localStorage.getItem('article'+element) !== null) {
+          JSON.parse(localStorage.getItem('article'+element)).forEach(element => {
+            element.flash = false;
+            element.popular = false;
+            element.category = Number(element.category);
+            element.price = Number(element.price);
+            element.promo_price = Number(element.promo_price);
+            //element.image = null;
+            datas.articles.push(element);
+          });
+        }
       });
-      tab2.forEach(element => {
-        JSON.parse(localStorage.getItem('flash'+element)).forEach(element => {
-          element.flash = true;
-          element.popular = false;
-          element.price = Number(element.price);
-          element.promo_price = Number(element.promo_price);
-          element.category = null;
-          //element.image = null;
-          datas.articles.push(element);
-        });
+      tab.forEach(element => {
+        if (localStorage.getItem('flash'+element) !== null) {
+          JSON.parse(localStorage.getItem('flash'+element)).forEach(element => {
+            element.flash = true;
+            element.popular = false;
+            element.price = Number(element.price);
+            element.promo_price = Number(element.promo_price);
+            element.category = null;
+            //element.image = null;
+            datas.articles.push(element);
+          });
+        }
+
       });
-      tab3.forEach(element => {
-        JSON.parse(localStorage.getItem('populaire'+element)).forEach(element => {
-          element.flash = false;
-          element.popular = true;
-          element.price = Number(element.price);
-          element.promo_price = Number(element.promo_price);
-          element.category = null;
-          //element.image = null;
-          datas.articles.push(element);
-        });
+      tab.forEach(element => {
+        if (localStorage.getItem('populaire'+element) !== null) {
+          JSON.parse(localStorage.getItem('populaire'+element)).forEach(element => {
+            element.flash = false;
+            element.popular = true;
+            element.price = Number(element.price);
+            element.promo_price = Number(element.promo_price);
+            element.category = null;
+            //element.image = null;
+            datas.articles.push(element);
+          });
+        }
+
       });
 
       console.log(datas);
 
-      this.addItem(datas);
+     // this.addItem(datas);
 
-      loading.dismiss();
+      //loading.dismiss();
 
-      this.goToBoutique();
+     // this.goToBoutique();
 
-      /*this.storeService.createMarket(datas).subscribe(
+      this.storeService.createMarket(datas).subscribe(
         (success) => {
-          loading.dismiss();
           console.log(success);
-          localStorage.setItem('myshop',JSON.stringify(success));
+          //localStorage.setItem('myshop',JSON.stringify(success));
           tab.forEach(elt => {
-            localStorage.removeItem('id'+elt);
+            if (localStorage.getItem('id'+elt) !== null) {
+              localStorage.removeItem('id'+elt);
+            }
           });
           tab.forEach(elt => {
-            localStorage.removeItem('article'+elt);
+            if (localStorage.getItem('article'+elt) !== null) {
+              localStorage.removeItem('article'+elt);
+            }
           });
-          tab2.forEach(elt => {
-            localStorage.removeItem('flash'+elt);
+          tab.forEach(elt => {
+            if (localStorage.getItem('flash'+elt) !== null) {
+              localStorage.removeItem('flash'+elt);
+            }
           });
-          tab3.forEach(elt => {
-            localStorage.removeItem('populaire'+elt);
+          tab.forEach(elt => {
+            if (localStorage.getItem('populaire'+elt) !== null) {
+              localStorage.removeItem('populaire'+elt);
+            }
           });
+          localStorage.removeItem('couvertImage');
+          if (localStorage.getItem('image_Decoration1') !== null) {
+            localStorage.removeItem('image_Decoration1');
+          }
+          if (localStorage.getItem('image_Decoration2')) {
+            localStorage.removeItem('image_Decoration2');
+          }
+
+
+          loading.dismiss()
           this.goToBoutique();
 
         },
         (error) => {
-          loading.dismiss();
 
           console.log(error);
+          loading.dismiss();
 
           if (error.status == 0 && error.statusText == "Unknown Error") {
             let alert = this.alertCtrl.create({
@@ -343,7 +531,7 @@ export class CreateBoutiquePage {
           }
 
         }
-      )*/
+      )
 
 
 
@@ -365,25 +553,25 @@ export class CreateBoutiquePage {
     let j = 0;
     let k = 0;
     tab.forEach(element => {
-      if (localStorage.getItem('id'+element) !== null && localStorage.getItem('article'+element) !== null) {
+      if (localStorage.getItem('id'+element) !== null /*&& localStorage.getItem('article'+element) !== null*/) {
           //return true;
           i = 1;
       }
     });
 
-    tab2.forEach(element =>  {
+    tab.forEach(element =>  {
       if (localStorage.getItem('flash'+element) !== null ) {
         j = 1;
       }
     });
 
-    tab3.forEach(element =>  {
+    tab.forEach(element =>  {
       if (localStorage.getItem('populaire'+element) !== null ) {
         k = 1;
       }
     });
 
-    if (i == 1 && j==1 && k==1 && this.base64Image !== null && this.nameMarket != "") {
+    if (i == 1 && j == 1 && k == 1 && this.base64Image !== null && this.nameMarket != "") {
       return true;
     } else {
       return false;

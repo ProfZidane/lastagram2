@@ -142,6 +142,7 @@ export class RegisterPage {
             buttons: [{
               text: 'OK',
               handler: () => {
+                localStorage.setItem('new','true');
                 this.navCtrl.push(HomePage, words);
               }
             }]

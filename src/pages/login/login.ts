@@ -173,7 +173,7 @@ export class LoginPage {
               element.isSubscribed = false;
             }
         });
-        console.log(this.markets);
+        //console.log(this.markets);
 
       }, (err) => {
         console.log(err);

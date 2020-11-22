@@ -48,7 +48,7 @@ import { StoreProvider } from './../providers/store/store';
 
 
 
-
+import {NgxImageCompressService} from 'ngx-image-compress';
 
 
 
@@ -173,7 +173,8 @@ const config : SocketIoConfig = { url: "http://192.168.1.103:3000", options : {}
     SearchProvider,
     Deeplinks,
     CallNumber,
-    SocketProvider
+    SocketProvider,
+    NgxImageCompressService
   ]
 })
 export class AppModule {}

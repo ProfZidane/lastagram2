@@ -7,15 +7,18 @@
 <ion-header>
   <ion-navbar hideBackButton="true"  color="lastagram">
     <ion-title>
-      {{ Market.name }}  <span class="" *ngIf="isAdmin"><ion-icon name="md-create" class="edit0" (click)="modifyElt('name',Market.id)"></ion-icon></span>
     </ion-title>
-    <ion-buttons start>
-      <button ion-button icon-only (click)="presentActionSheet()">
-        <ion-icon name="md-more"></ion-icon>
-      </button>
-      &nbsp;
-    </ion-buttons>
 
+
+    <ion-title start>
+      <button color="lastagram" ion-button icon-only (click)="ShowProfile()" style="box-shadow: none;">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <span style="position: relative; top: 6px">
+        {{ Market.name }}  <span class="" *ngIf="isAdmin"><ion-icon name="md-create" class="edit0" (click)="modifyElt('name',Market.id)"></ion-icon></span>
+
+      </span>
+    </ion-title>
 
 
     <ion-buttons end>
@@ -25,9 +28,12 @@
       <!-- espace -->
         &nbsp;&nbsp;
       <!-- end of espace -->
-      <button ion-button icon-only (click)="showCart()">
-        <ion-icon name="cart"></ion-icon>
+      <button ion-button icon-only (click)="presentActionSheet()">
+        <ion-icon name="md-more"></ion-icon>
       </button>
+      <!--<button ion-button icon-only (click)="showCart()">
+        <ion-icon name="cart"></ion-icon>
+      </button>-->
     </ion-buttons>
   </ion-navbar>
   <ion-grid class="navbar-abo" fullscreen>
@@ -86,8 +92,8 @@
       <ion-col class="" col-4>
         <h3>00:30:00</h3>
       </ion-col>
-      <ion-col class="" col-2>
-        <button ion-button icon-only color="danger" small>
+      <ion-col class="set_zero" col-2>
+        <button ion-button icon-only color="danger" (click)="setToZero(Market.id)" small>
           <ion-icon name="close"></ion-icon>
         </button>
       </ion-col>
@@ -95,58 +101,50 @@
   </ion-grid>
 
   <ion-grid class="">
-    <ion-row class="product-flash-create-boutique">
-      <ion-col class="" col-6 *ngFor="let p of Market.flash" >
-        <div class="photo" align="center" (click)="Analyse(p,'flash')">
-          <img src="{{ p.image_cover }}" class="img-product" alt="">
-          <p class="name-product">{{ p.name }}</p>
-          <p class="price-product">{{ p.price }} FCFA</p>
-        </div>
-      </ion-col>
-      <!--<ion-col class="" col-6>
-        <div class="photo" align="center">
-          <img src="https://image.freepik.com/photos-gratuite/belle-elegance-mode-luxe-sac-main-femme-rose_1203-7653.jpg" class="img-product" alt="">
-          <p class="name-product">SAC A MAIN</p>
-          <p class="price-product">2 000 F CFA</p>
-        </div>
-      </ion-col>
-    </ion-row>
-    <ion-row class="product-flash-create-boutique">
+    <ion-scroll scrollX="true" style="width:100vw; height:250px;" >
+      <ion-row class="product-flash-create-boutique" nowrap>
+        <ion-col  col-6 *ngFor="let p of Market.flash" >
+          <div class="photo" align="center" (click)="Analyse(p,'flash')">
+            <img src="{{ p.image_cover }}" class="img-product" alt="">
+            <p class="name-product">{{ p.name }}</p>
+            <p class="price-product">{{ p.price }} {{ Market.devis }}</p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-scroll>
+
+
+  </ion-grid>
+
+  <ion-grid class="">
+    <ion-row class="cadre">
       <ion-col class="" col-6>
-        <div class="photo" align="center">
-          <img src="https://image.freepik.com/photos-gratuite/belle-elegance-mode-luxe-sac-main-femme-rose_1203-7653.jpg" class="img-product" alt="">
-          <p class="name-product">SAC A MAIN</p>
-          <p class="price-product">2 000 F CFA</p>
-        </div>
+        <img class="decoration" src="{{ Market.img_static_1 }}" alt="">
+
+
       </ion-col>
       <ion-col class="" col-6>
-        <div class="photo" align="center">
-          <img src="https://image.freepik.com/photos-gratuite/belle-elegance-mode-luxe-sac-main-femme-rose_1203-7653.jpg" class="img-product" alt="">
-          <p class="name-product">SAC A MAIN</p>
-          <p class="price-product">2 000 F CFA</p>
-        </div>
-      </ion-col>-->
+        <img class="decoration" src="{{ Market.img_static_2 }}" alt="">
+      </ion-col>
     </ion-row>
   </ion-grid>
 
   <ion-grid class="product-origin-create-boutique">
     <h3 class="p">Produits Populaires</h3>
-    <ion-row class="product-flash-create-boutique">
-      <ion-col class="" col-6 *ngFor="let p2 of Market.popular" >
-        <div class="photo" align="center" (click)="Analyse(p2,'popular')">
-          <img src="{{ p2.image_cover }}" class="img-product" alt="">
-          <p class="name-product">{{ p2.name }}</p>
-          <p class="price-product">{{ p2.price }}</p>
-        </div>
-      </ion-col>
-      <!--<ion-col class="" col-6>
-        <div class="photo" align="center">
-          <img src="https://image.freepik.com/photos-gratuite/belle-elegance-mode-luxe-sac-main-femme-rose_1203-7653.jpg" class="img-product" alt="">
-          <p class="name-product">SAC A MAIN</p>
-          <p class="price-product">2 000 F CFA</p>
-        </div>
-      </ion-col>-->
-    </ion-row>
+
+    <ion-scroll scrollX="true" style="width:100vw; height:250px;" >
+      <ion-row class="product-flash-create-boutique" nowrap>
+        <ion-col class="" col-6 *ngFor="let p2 of Market.popular" >
+          <div class="photo" align="center" (click)="Analyse(p2,'popular')">
+            <img src="{{ p2.image_cover }}" class="img-product" alt="">
+            <p class="name-product">{{ p2.name }}</p>
+            <p class="price-product">{{ p2.price }} {{ Market.devis }}</p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-scroll>
+
+
   </ion-grid>
 
 

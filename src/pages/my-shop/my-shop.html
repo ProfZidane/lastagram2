@@ -12,11 +12,35 @@
 
 <ion-content fullscreen>
   <ion-grid class="market-card-grid">
-    <ion-row class="card-market add-rounded" *ngFor="let market of Markets" >
+    <ion-row class="ard-market card-background-page" *ngFor="let market of Markets" >
+
       <ion-card>
+        <img src="{{ market.image_cover }}"/>
+        <div class="card-title">
+          {{ market.name | uppercase }}
+        </div>
+        <div class="card-title2">
+          {{ market.subscribers_count }} Abonné(s) &nbsp;
+
+        </div>
+        <div class="card-subtitle v2">
+          <ion-icon  col-2>
+            <button ion-button round slot="icon-only" small color="light" class="del-i" (click)="DeleteMarket(market.id)">
+              <ion-icon name="trash"></ion-icon>
+            </button>
+          </ion-icon>
+          <ion-icon  col-2>
+            <button ion-button round slot="icon-only" small color="light" class="view-i" (click)="goToMarket(market.id)">
+              <ion-icon name="eye" ></ion-icon>
+            </button>
+          </ion-icon>
+        </div>
+      </ion-card>
+
+      <!--<ion-card>
         <ion-card-header>
           <span class="text-header-card">{{ market.name | uppercase }}</span>
-          <span class="text-header-card abo">{{ market.subscribers_count }} Abonnés &nbsp;  <ion-icon name="thumbs-up-outline" class="i-ab" (click)="Abonne(market.id)"></ion-icon> </span>
+          <span class="text-header-card abo">{{ market.subscribers_count }} Abonnés &nbsp;  </span>
         </ion-card-header>
         <ion-card-content>
           <ion-row >
@@ -41,7 +65,7 @@
             </ion-icon>
           </ion-row>
         </ion-card-content>
-      </ion-card>
+      </ion-card>-->
     </ion-row>
 
     <!--<ion-row class="card-market add-rounded">

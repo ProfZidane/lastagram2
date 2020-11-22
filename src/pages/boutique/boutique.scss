@@ -47,6 +47,7 @@ page-boutique {
   justify-content: center;
   margin-top: 1rem;
   width: 52%;
+  height: 120px;
 }
 
 
@@ -97,4 +98,30 @@ page-boutique {
   color: black;
   position: relative;
   bottom: 120px;
+}
+
+.product-visuel {
+  border: solid;
+}
+
+.set_zero button{
+  margin-top: 1.5rem;
+}
+
+
+.decoration {
+  height: 180px;
+  width: 100%;
+  margin: 0;
+
+}
+
+.cadre {
+  padding: 0;
+  margin: 0;
+}
+
+.cadre ion-col {
+  padding: 0;
+  margin: 0;
 }

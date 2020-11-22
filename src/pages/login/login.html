@@ -31,15 +31,13 @@
     </ion-grid>
   </div>
   <ion-navbar hideBackButton="true"  color="lastagram">
-    <ion-title (click)="goReload()">
-      Lastagram
-    </ion-title>
-    <ion-buttons start>
-      <button ion-button icon-only (click)="ShowProfile()">
+    <ion-title (click)="goReload()" start>
+      <button color="lastagram" ion-button icon-only (click)="ShowProfile()" style="box-shadow: none;">
         <ion-icon name="menu"></ion-icon>
       </button>
-      &nbsp;
-    </ion-buttons>
+      <span style="position: relative; top: 6px">Lastagram</span>
+    </ion-title>
+
 
 
 
@@ -114,8 +112,8 @@
     </ion-row>
   </ion-scroll>-->
   <ion-grid class="market-card-grid">
-    <ion-row class="card-market" *ngFor="let market of markets" >
-      <ion-card class="rd">
+    <ion-row class="card-market card-background-page" *ngFor="let market of markets" >
+      <!--<ion-card class="rd">
         <ion-card-header>
           <span class="text-header-card">{{ market.name | uppercase }}</span>
           <span class="text-header-card abo">{{ market.subscribers_count }} Abonné(s) &nbsp;
@@ -124,9 +122,31 @@
           </span>
         </ion-card-header>
         <ion-card-content>
-          <input type="hidden" name="id" [(ngModel)]='id' value="1">
-          <button ion-button small color="light" round (click)='ViewMarket(market.id,market.isSubscribed)'>VISITER</button>
+          <div class="zi">
+            <button ion-button small color="light" class="vis" round (click)='ViewMarket(market.id,market.isSubscribed)'>VISITER</button>
+          </div>
+
+          <div class="be">
+            <img src="{{ market.image_cover }}" id="ouverture"  alt="">
+          </div>
+
+
         </ion-card-content>
+      </ion-card>-->
+
+      <ion-card>
+        <img src="{{ market.image_cover }}"/>
+        <div class="card-title">
+          {{ market.name | uppercase }}
+        </div>
+        <div class="card-title2">
+          {{ market.subscribers_count }} Abonné(s) &nbsp;
+            <ion-icon name="thumbs-up-outline" (click)="Abonne(market.id)" *ngIf="!market.isSubscribed"></ion-icon>
+            <ion-icon name="close-circle" (click)="DesAbonne(market.id)" *ngIf="market.isSubscribed"></ion-icon>
+        </div>
+        <div class="card-subtitle">
+          <button ion-button medium color="light" class="vis" round (click)='ViewMarket(market.id,market.isSubscribed)'>VISITER</button>
+        </div>
       </ion-card>
     </ion-row>
 

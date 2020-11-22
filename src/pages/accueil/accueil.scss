@@ -2,6 +2,10 @@ page-accueil {
 
 }
 
+span {
+  font-weight: 400;
+}
+
 ion-header ion-navbar{
   /*background-color: #155C7F;*/
 }
@@ -39,10 +43,22 @@ ion-header ion-navbar{
 }
 
 ion-card ion-card-content {
-  background-image: url("https://cdn.pixabay.com/photo/2016/11/06/17/17/north-america-1803504_960_720.jpg");
-  background-size: cover;
+  /*background-image: url("https://cdn.pixabay.com/photo/2016/11/06/17/17/north-america-1803504_960_720.jpg");*/
+
+
+
 }
 
+ion-card ion-card-content img{
+  position: relative;
+  right: 20%;
+width: 100%;
+
+}
+
+.btn-home-page{
+
+}
 
 
 ion-card ion-card-content button {

@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import {NgxImageCompressService} from 'ngx-image-compress';
 
 /**
  * Generated class for the AddProductPage page.
@@ -26,12 +27,14 @@ export class AddProductSpecialPage {
     flash : Boolean,
       popular : Boolean,
     "image_cover" : "",
+    description: ""
   };
   nameCtg:string;
   num;
   indic;
   base64Image: string;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private camera: Camera) {
+  imgResultAfterCompress: string;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private camera: Camera,private imageCompress: NgxImageCompressService) {
   }
 
   ionViewDidLoad() {
@@ -64,6 +67,7 @@ export class AddProductSpecialPage {
       flash : Boolean,
       popular : Boolean,
       image_cover: "",
+      description: ""
     }
   }
 
@@ -87,20 +91,48 @@ export class AddProductSpecialPage {
 
   addImg() {
     const options: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
+      quality: 50,
+      destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG || this.camera.EncodingType.PNG,
       mediaType: this.camera.MediaType.PICTURE,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
     }
 
     this.camera.getPicture(options).then((imageData) => {
-      this.base64Image = 'data:image/jpeg;base64,' + imageData;
-      this.Products.image_cover = this.base64Image;
+      //this.base64Image = 'data:image/jpeg;base64,' + imageData;
+
+      this.imageCompress.compressFile(imageData,50, 50).then(
+        result => {
+          this.imgResultAfterCompress = result;
+          this.Products.image_cover = this.imgResultAfterCompress;
+          console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
+        }
+      );
       //localStorage.setItem('photoUser',this.base64Image);
 
     }, (err) => {
       console.log(err, "vos erreurs");
     })
   }
+
+  compressFile() {
+
+    this.imageCompress.uploadFile().then(({image, orientation}) => {
+
+      this.base64Image = image;
+      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
+
+      this.imageCompress.compressFile(image, orientation, 50, 50).then(
+        result => {
+          this.imgResultAfterCompress = result;
+          console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
+          this.Products.image_cover = this.imgResultAfterCompress;
+
+        }
+      );
+
+    });
+
+  }
+
 }

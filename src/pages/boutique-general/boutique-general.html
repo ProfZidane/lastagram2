@@ -6,16 +6,15 @@
 -->
 <ion-header>
   <ion-navbar hideBackButton="true"  color="lastagram">
-    <ion-title >
-      {{ Market.name }}
-    </ion-title>
-    <ion-buttons start>
-      <button ion-button icon-only (click)="goHome()">
+
+    <ion-title start>
+      <button color="lastagram" ion-button icon-only (click)="ShowProfile()" style="box-shadow: none;">
         <ion-icon name="menu"></ion-icon>
       </button>
-      &nbsp;
-    </ion-buttons>
-
+      <span style="position: relative; top: 6px">
+        {{ Market.name | uppercase }}
+      </span>
+    </ion-title>
 
 
     <ion-buttons end>
@@ -91,58 +90,34 @@
   </ion-grid>
 
   <ion-grid class="">
-    <ion-row class="product-flash-create-boutique">
-      <ion-col class="" col-6 *ngFor="let p of Market.flash" (click)="goToDetail(p.id,Market.id, Market.owner)">
-        <div class="photo" align="center">
-          <img src="{{ p.image_cover }}" class="img-product" alt="">
-          <p class="name-product">{{ p.name }}</p>
-          <p class="price-product">{{ p.price }} FCFA</p>
-        </div>
-      </ion-col>
-      <!--<ion-col class="" col-6>
-        <div class="photo" align="center">
-          <img src="https://image.freepik.com/photos-gratuite/belle-elegance-mode-luxe-sac-main-femme-rose_1203-7653.jpg" class="img-product" alt="">
-          <p class="name-product">SAC A MAIN</p>
-          <p class="price-product">2 000 F CFA</p>
-        </div>
-      </ion-col>
-    </ion-row>
-    <ion-row class="product-flash-create-boutique">
-      <ion-col class="" col-6>
-        <div class="photo" align="center">
-          <img src="https://image.freepik.com/photos-gratuite/belle-elegance-mode-luxe-sac-main-femme-rose_1203-7653.jpg" class="img-product" alt="">
-          <p class="name-product">SAC A MAIN</p>
-          <p class="price-product">2 000 F CFA</p>
-        </div>
-      </ion-col>
-      <ion-col class="" col-6>
-        <div class="photo" align="center">
-          <img src="https://image.freepik.com/photos-gratuite/belle-elegance-mode-luxe-sac-main-femme-rose_1203-7653.jpg" class="img-product" alt="">
-          <p class="name-product">SAC A MAIN</p>
-          <p class="price-product">2 000 F CFA</p>
-        </div>
-      </ion-col>-->
-    </ion-row>
+    <ion-scroll scrollX="true" style="width:100vw; height:250px;" >
+      <ion-row class="product-flash-create-boutique" nowrap>
+        <ion-col class="" col-6 *ngFor="let p of Market.flash" (click)="goToDetail(p.id,Market.id, Market.owner)">
+          <div class="photo" align="center">
+            <img src="{{ p.image_cover }}" class="img-product" alt="">
+            <p class="name-product">{{ p.name }}</p>
+            <p class="price-product">{{ p.price }} FCFA</p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-scroll>
+
+
   </ion-grid>
 
   <ion-grid class="product-origin-create-boutique">
     <h3 class="p">Produits Populaires</h3>
-    <ion-row class="product-flash-create-boutique">
-      <ion-col class="" col-6 *ngFor="let p2 of Market.popular" (click)="goToDetail(p2.id,Market.id, Market.owner)">
-        <div class="photo" align="center">
-          <img src="{{ p2.image_cover }}" class="img-product" alt="">
-          <p class="name-product">{{ p2.name }}</p>
-          <p class="price-product">{{ p2.price }}</p>
-        </div>
-      </ion-col>
-      <!--<ion-col class="" col-6>
-        <div class="photo" align="center">
-          <img src="https://image.freepik.com/photos-gratuite/belle-elegance-mode-luxe-sac-main-femme-rose_1203-7653.jpg" class="img-product" alt="">
-          <p class="name-product">SAC A MAIN</p>
-          <p class="price-product">2 000 F CFA</p>
-        </div>
-      </ion-col>-->
-    </ion-row>
+    <ion-scroll scrollX="true" style="width:100vw; height:250px;" >
+      <ion-row class="product-flash-create-boutique" nowrap>
+        <ion-col class="" col-6 *ngFor="let p2 of Market.popular" (click)="goToDetail(p2.id,Market.id, Market.owner)">
+          <div class="photo" align="center">
+            <img src="{{ p2.image_cover }}" class="img-product" alt="">
+            <p class="name-product">{{ p2.name }}</p>
+            <p class="price-product">{{ p2.price }}</p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-scroll>
   </ion-grid>
 
 

@@ -1,3 +1,4 @@
+import { ProfilePage } from './../profile/profile';
 import { CartPage } from './../cart/cart';
 import { SearchPage } from './../search/search';
 import { ProductToSharePage } from './../product-to-share/product-to-share';
@@ -8,12 +9,13 @@ import { ListProdPage } from './../list-prod/list-prod';
 import { StoreProvider } from './../../providers/store/store';
 import { AddProductPage } from './../add-product/add-product';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController  } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { AlertController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ActionSheetController } from 'ionic-angular';
+import {NgxImageCompressService} from 'ngx-image-compress';
 
 /**
  * Generated class for the BoutiquePage page.
@@ -39,11 +41,16 @@ export class BoutiquePage {
     popular: [],
     articles: [],
     detail_articles: [],
-    subscribers: 0
+    subscribers: 0,
+    devis: "",
+    img_static_1 : "",
+    img_static_2 : ""
   }
   base64Image: string;
   slug;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController,private callNumber: CallNumber, private alertCtrl: AlertController, private camera: Camera,public actionSheetCtrl: ActionSheetController) {
+  imgResultAfterCompress: string;
+  //rootPage = BoutiquePage;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController,private callNumber: CallNumber, private alertCtrl: AlertController, private camera: Camera,public actionSheetCtrl: ActionSheetController,private imageCompress: NgxImageCompressService,public menuCtrl: MenuController) {
   }
 
   ionViewDidLoad() {
@@ -61,12 +68,16 @@ export class BoutiquePage {
 
           this.isAdmin = true;
           console.log(this.isAdmin);
+          console.log(data);
 
           this.Market.id = data.id;
           this.Market.name = data.name;
           this.Market.image_cover = data.image_cover;
           this.Market.category = data.category;
           this.Market.subscribers = data.subscribers.length;
+          this.Market.devis = data.devis;
+          this.Market.img_static_1 = data.img_static_1;
+          this.Market.img_static_2 = data.img_static_2;
           this.slug = data.slug;
           data.articles.forEach(element => {
             if (element.flash == true && element.popular == false) {
@@ -212,6 +223,10 @@ export class BoutiquePage {
     this.navCtrl.push(CartPage);
   }
 
+  openMenu() {
+    this.menuCtrl.open();
+  }
+
   GetProductByCtg(catg) {
     console.log(catg);
     this.navCtrl.push(ListProdPage, { "id_catg" : catg, "id_boutique": this.Market.id, "slug": this.slug } );
@@ -230,6 +245,65 @@ export class BoutiquePage {
       console.log("achat");
 
     }
+  }
+
+  ShowProfile() {
+    this.navCtrl.push(ProfilePage);
+  }
+
+  setToZero(id) {
+    let data = {
+      timer : "30:00"
+    }
+    let loading = this.loadingCtrl.create({
+      content: 'Veuillez Patienter...'
+    });
+    loading.present();
+    this.storeService.updateProduct2(data,Number(id)).subscribe(
+      (success) => {
+        console.log("name updated");
+        console.log(success);
+
+        loading.dismiss();
+
+        let alert2 = this.alertCtrl.create({
+          title: 'SUCCESS',
+          subTitle: 'Timer remis à 0 !',
+          buttons: [
+            {
+              text: 'OK',
+              role: 'cancel',
+              handler: () => {
+                this.navCtrl.push(MyShopPage);
+              }
+            }
+          ]
+        });
+        alert2.present();
+
+      },
+      (error) => {
+        console.log(JSON.stringify(error));
+        loading.dismiss();
+        let alert3 = this.alertCtrl.create({
+          title: 'ECHEC',
+          subTitle: 'Echec de la remis à zéro !',
+          buttons: [
+            {
+              text: 'OK',
+              role: 'cancel',
+              handler: () => {
+                console.log('cancel');
+
+              }
+            }
+          ]
+        });
+        alert3.present();
+
+
+      }
+    )
   }
 
   modifyElt(value,id) {
@@ -261,7 +335,8 @@ export class BoutiquePage {
                         });
                         loading.present();
 
-                          this.storeService.updateProduct2(data,id).subscribe(
+
+                          this.storeService.updateProduct2(data,Number(id)).subscribe(
                             (success) => {
                               console.log("name updated");
                               console.log(success);
@@ -285,7 +360,7 @@ export class BoutiquePage {
 
                             },
                             (error) => {
-                              console.log(error);
+                              console.log(JSON.stringify(error));
                               loading.dismiss();
                               let alert3 = this.alertCtrl.create({
                                 title: 'ECHEC',
@@ -314,75 +389,83 @@ export class BoutiquePage {
 
             } else if (value == "img") {
 
-              const options: CameraOptions = {
-                quality: 100,
-                destinationType: this.camera.DestinationType.DATA_URL,
-                encodingType: this.camera.EncodingType.JPEG || this.camera.EncodingType.PNG,
-                mediaType: this.camera.MediaType.PICTURE,
-                sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
-              }
 
-              this.camera.getPicture(options).then((imageData) => {
-                this.base64Image = 'data:image/jpeg;base64,' + imageData;
-                let data = {
-                  "image_cover" : this.base64Image
-                }
-                let loading = this.loadingCtrl.create({
-                  content: 'Veuillez Patienter...'
-                });
-                loading.present();
-                this.storeService.updateProduct2(data,this.Market.id).subscribe(
-                  (response) => {
-                      console.log(response);
-                      loading.dismiss();
-                      let alert4 = this.alertCtrl.create({
-                        title: 'SUCCESS',
-                        subTitle: 'Photo de couverture modifée !',
-                        buttons: [
-                          {
-                            text: 'OK',
-                            role: 'cancel',
-                            handler: () => {
-                              this.navCtrl.push(MyShopPage);
-                            }
-                          }
-                        ]
-                      });
-                      alert4.present();
-                  },
-                  (error) => {
-                    console.log(id);
+              this.imageCompress.uploadFile().then(({image, orientation}) => {
 
-                    console.log(error);
-                    loading.dismiss();
-                    let alert5 = this.alertCtrl.create({
-                      title: 'ECHEC',
-                      subTitle: 'Echec de la modification !',
-                      buttons: [
-                        {
-                          text: 'OK',
-                          role: 'cancel',
-                          handler: () => {
-                            console.log('cancel');
+                this.base64Image = image;
+                console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
 
-                          }
-                        }
-                      ]
+                this.imageCompress.compressFile(image, orientation, 50, 50).then(
+                  result => {
+                    this.imgResultAfterCompress = result;
+                    console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
+                    let loading = this.loadingCtrl.create({
+                      content: 'Veuillez Patienter...'
                     });
-                    alert5.present();
+                    loading.present();
+                    let data = {
+                      "image_cover" : this.imgResultAfterCompress
+                    }
+
+                    this.storeService.updateProduct2(data,this.Market.id).subscribe(
+                      (response) => {
+                          console.log(response);
+                          loading.dismiss();
+                          let alert4 = this.alertCtrl.create({
+                            title: 'SUCCESS',
+                            subTitle: 'Photo de couverture modifée !',
+                            buttons: [
+                              {
+                                text: 'OK',
+                                role: 'cancel',
+                                handler: () => {
+                                  this.navCtrl.push(MyShopPage);
+                                }
+                              }
+                            ]
+                          });
+                          alert4.present();
+                      },
+                      (error) => {
+                        console.log(id);
+
+                        console.log(error);
+                        loading.dismiss();
+                        let alert5 = this.alertCtrl.create({
+                          title: 'ECHEC',
+                          subTitle: 'Echec de la modification !',
+                          buttons: [
+                            {
+                              text: 'OK',
+                              role: 'cancel',
+                              handler: () => {
+                                console.log('cancel');
+
+                              }
+                            }
+                          ]
+                        });
+                        alert5.present();
+                      }
+
+                    )
+
                   }
+                );
 
-                )
-                //localStorage.setItem('photoUser',this.base64Image);
+              });
 
-              }, (err) => {
-                console.log(err, "vos erreurs");
-              })
             }
     } else {
       console.log("vous netes pas admin !");
 
     }
+  }
+
+  compressFile() {
+
+
+
   }
 
 

@@ -24,7 +24,8 @@ Products = {
   image_cover: "",
   name: "",
   price: "",
-  promo_price: ""
+  promo_price: "",
+  description : ""
 };
 state;
 base64Image;
@@ -78,7 +79,7 @@ slug;
         "slug": this.slug,
         "promo_price": this.Products.promo_price,
         "image_cover": this.Products.image_cover,
-        "description" : "",
+        "description" : this.Products.description,
         "flash": false,
         "popular": false,
         "category": this.id
@@ -92,7 +93,7 @@ slug;
         "slug": this.slug,
         "promo_price": this.Products.promo_price,
         "image_cover": this.Products.image_cover,
-        "description" : "",
+        "description" : this.Products.description,
         "flash": true,
         "popular": false,
         "category": this.id
@@ -106,7 +107,7 @@ slug;
         "slug": this.slug,
         "promo_price": this.Products.promo_price,
         "image_cover": this.Products.image_cover,
-        "description" : "",
+        "description" : this.Products.description,
         "flash": false,
         "popular": true,
         "category": this.id

@@ -17,13 +17,14 @@
     </ion-row>
   </ion-grid>
 
-  <ion-grid class="image-create-boutique" align="center">
+  <ion-grid class="image-create-boutique" align="center" (click)="compressFile()">
     <h3 *ngIf="!base64Image" >PHOTO</h3>
-    <h3 *ngIf="base64Image" >
+    <h1 *ngIf="base64Image" >
       Choix fait
       <ion-icon name="checkmark-circle-outline"></ion-icon>
-    </h3>
-    <ion-icon name="camera" (click)="getImgMarket()"></ion-icon>
+    </h1>
+    <br>
+    <ion-icon *ngIf="!base64Image" name="camera" ></ion-icon>
   </ion-grid>
 
   <ion-grid class=" catg-create-boutique">
@@ -105,7 +106,7 @@
 
 
   <ion-grid class="">
-    <ion-row class="product-flash-create-boutique">
+    <!--<ion-row class="product-flash-create-boutique">
       <ion-col class="" col-6 *ngIf="flash01" >
         <div class="photo" align="center" (click)="addProduct('flash','1')">
           <h3>PHOTO</h3>
@@ -156,45 +157,204 @@
           <span>Ajouté !</span>
         </div>
       </ion-col>
+    </ion-row>-->
+    <ion-scroll scrollX="true" style="width:100vw; height:250px;" >
+      <ion-row class="product-flash-create-boutique" nowrap>
+
+        <ion-col class="" col-6 *ngIf="flash01" >
+          <div class="photo" align="center" (click)="addProduct('flash','1')">
+            <h3>PHOTO</h3>
+          <ion-icon name="camera"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col class="" col-6 *ngIf="flash1" >
+          <div class="photo" align="center" (click)="addProduct('flash','1')">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+          <span>Ajouté !</span>
+          </div>
+        </ion-col>
+        <ion-col class="" col-6 *ngIf="flash02">
+          <div class="photo" align="center" (click)="addProduct('flash','2')">
+            <h3>PHOTO</h3>
+          <ion-icon name="camera"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col class="" col-6 *ngIf="flash2">
+          <div class="photo" align="center" (click)="addProduct('flash','2')">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+            <span>Ajouté !</span>
+          </div>
+        </ion-col>
+        <ion-col class="" col-6 *ngIf="flash03">
+          <div class="photo" align="center" (click)="addProduct('flash','3')">
+            <h3>PHOTO</h3>
+          <ion-icon name="camera"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col class="" col-6 *ngIf="flash3">
+          <div class="photo" align="center" (click)="addProduct('flash','3')">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+            <span>Ajouté !</span>
+          </div>
+        </ion-col>
+        <ion-col class="" col-6 *ngIf="flash04">
+          <div class="photo" align="center" (click)="addProduct('flash','4')">
+            <h3>PHOTO</h3>
+          <ion-icon name="camera"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col class="" col-6 *ngIf="flash4">
+          <div class="photo" align="center" (click)="addProduct('flash','4')">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+            <span>Ajouté !</span>
+          </div>
+        </ion-col>
+        <ion-col class="" col-6 *ngIf="flash05">
+          <div class="photo" align="center" (click)="addProduct('flash','5')">
+            <h3>PHOTO</h3>
+          <ion-icon name="camera"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col class="" col-6 *ngIf="flash5">
+          <div class="photo" align="center" (click)="addProduct('flash','5')">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+            <span>Ajouté !</span>
+          </div>
+        </ion-col>
+        <ion-col class="" col-6 *ngIf="flash06">
+          <div class="photo" align="center" (click)="addProduct('flash','6')">
+            <h3>PHOTO</h3>
+          <ion-icon name="camera"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col class="" col-6 *ngIf="flash6">
+          <div class="photo" align="center" (click)="addProduct('flash','6')">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+            <span>Ajouté !</span>
+          </div>
+        </ion-col>
+
+      </ion-row>
+    </ion-scroll>
+
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col class="affiche-boutique" col-6>
+        <ion-grid class="_1" (click)="compressFile2('1')">
+          <h3 *ngIf="!decorImg1" >PHOTO</h3>
+          <ion-icon name="camera" *ngIf="!decorImg1" ></ion-icon>
+
+          <ion-icon *ngIf="decorImg1" name="checkmark-circle-outline"></ion-icon>
+          <span *ngIf="decorImg1">Ajouté !</span>
+        </ion-grid>
+      </ion-col>
+      <ion-col class="affiche-boutique" col-6>
+        <ion-grid class="_2" (click)="compressFile2('2')">
+          <h3 *ngIf="!decorImg2">PHOTO</h3>
+          <ion-icon *ngIf="!decorImg2" name="camera"></ion-icon>
+
+          <ion-icon *ngIf="decorImg2" name="checkmark-circle-outline"></ion-icon>
+          <span *ngIf="decorImg2">Ajouté !</span>
+        </ion-grid>
+      </ion-col>
     </ion-row>
   </ion-grid>
 
   <ion-grid class="product-origin-create-boutique">
     <h3 class="p">Produits Populaires</h3>
-    <ion-row class="product-flash-create-boutique">
-      <ion-col class="" col-6 *ngIf="popular01" >
-        <div class="photo" align="center" (click)="addProduct('populaire','1')">
-          <h3>PHOTO</h3>
-        <ion-icon name="camera"></ion-icon>
-        </div>
-      </ion-col>
-      <ion-col class="" col-6 *ngIf="popular1" >
-        <div class="photo" align="center" (click)="addProduct('populaire','1')">
-          <ion-icon name="checkmark-circle-outline"></ion-icon>
-          <span>Ajouté !</span>
-        </div>
-      </ion-col>
-      <ion-col class="" col-6 *ngIf="popular02">
-        <div class="photo" align="center" (click)="addProduct('populaire','2')">
-          <h3>PHOTO</h3>
-        <ion-icon name="camera"></ion-icon>
-        </div>
-      </ion-col>
-      <ion-col class="" col-6 *ngIf="popular2">
-        <div class="photo" align="center" (click)="addProduct('populaire','2')">
-          <ion-icon name="checkmark-circle-outline"></ion-icon>
-          <span>Ajouté !</span>
-        </div>
-      </ion-col>
-    </ion-row>
+
+    <ion-scroll scrollX="true" style="width:100vw; height:250px;" >
+
+      <ion-row class="product-flash-create-boutique" nowrap>
+        <ion-col class="" col-6 *ngIf="popular01" >
+          <div class="photo" align="center" (click)="addProduct('populaire','1')">
+            <h3>PHOTO</h3>
+          <ion-icon name="camera"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col class="" col-6 *ngIf="popular1" >
+          <div class="photo" align="center" (click)="addProduct('populaire','1')">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+            <span>Ajouté !</span>
+          </div>
+        </ion-col>
+        <ion-col class="" col-6 *ngIf="popular02">
+          <div class="photo" align="center" (click)="addProduct('populaire','2')">
+            <h3>PHOTO</h3>
+          <ion-icon name="camera"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col class="" col-6 *ngIf="popular2">
+          <div class="photo" align="center" (click)="addProduct('populaire','2')">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+            <span>Ajouté !</span>
+          </div>
+        </ion-col>
+        <ion-col class="" col-6 *ngIf="popular03">
+          <div class="photo" align="center" (click)="addProduct('populaire','3')">
+            <h3>PHOTO</h3>
+          <ion-icon name="camera"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col class="" col-6 *ngIf="popular3">
+          <div class="photo" align="center" (click)="addProduct('populaire','3')">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+            <span>Ajouté !</span>
+          </div>
+        </ion-col>
+        <ion-col class="" col-6 *ngIf="popular04">
+          <div class="photo" align="center" (click)="addProduct('populaire','4')">
+            <h3>PHOTO</h3>
+          <ion-icon name="camera"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col class="" col-6 *ngIf="popular4">
+          <div class="photo" align="center" (click)="addProduct('populaire','4')">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+            <span>Ajouté !</span>
+          </div>
+        </ion-col>
+        <ion-col class="" col-6 *ngIf="popular05">
+          <div class="photo" align="center" (click)="addProduct('populaire','5')">
+            <h3>PHOTO</h3>
+          <ion-icon name="camera"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col class="" col-6 *ngIf="popular5">
+          <div class="photo" align="center" (click)="addProduct('populaire','5')">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+            <span>Ajouté !</span>
+          </div>
+        </ion-col>
+        <ion-col class="" col-6 *ngIf="popular06">
+          <div class="photo" align="center" (click)="addProduct('populaire','6')">
+            <h3>PHOTO</h3>
+          <ion-icon name="camera"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col class="" col-6 *ngIf="popular6">
+          <div class="photo" align="center" (click)="addProduct('populaire','6')">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+            <span>Ajouté !</span>
+          </div>
+        </ion-col>
+      </ion-row>
+
+    </ion-scroll>
+
+
   </ion-grid>
+
   <p class="err_validation" *ngIf="error_validation" >{{ error_validation }}</p>
+
   <ion-grid class="">
     <ion-row class="">
       <ion-col class="">
       </ion-col>
       <ion-col class=" btn-validation">
-        <button ion-button round color="lastagram" (click)="ValidationCreateBoutique()">VALIDER</button>
+        <button ion-button round color="lastagram" (click)="AddDevis()">VALIDER</button>
       </ion-col>
     </ion-row>
   </ion-grid>

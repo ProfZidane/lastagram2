@@ -1,7 +1,9 @@
 import { BoutiquePage } from './../boutique/boutique';
+import { HomePage } from './../home/home';
+
 import { StoreProvider } from './../../providers/store/store';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import * as firebase from 'firebase';
@@ -24,8 +26,9 @@ export class MyShopPage {
     "name" : "",
     "subscribers_count" : Number,
   }
+
   Markets;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider, private alertCtrl: AlertController,public loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider, private alertCtrl: AlertController,public loadingCtrl: LoadingController, private app: App) {
   }
 
   ionViewDidLoad() {
@@ -35,23 +38,34 @@ export class MyShopPage {
     });
     loading.present();
 
-    /*firebase.database().ref("/Markets/").on('value', (snapshot) => {
-      let data = snapshot.exportVal();
-      console.log("data market " + JSON.stringify(data));
+    /*firebase.database().ref("/Markets/").orderByChild('owner').equalTo(2).on('value', (snapshot) => {
+      let data = snapshot.val();
+      console.log(Object.keys(data));
+
+     // console.log("data market " + JSON.stringify(data));
     })*/
     this.storeService.getMyShop().subscribe(
       (data) => {
         console.log(data);
         this.Markets = data
+        loading.dismiss();
+
       },
       (err) => {
         console.log(err);
+        localStorage.clear();
+
+    localStorage.setItem('new', 'false');
+
+    loading.dismiss();
+    /*const modal = this.modalCtrl.create(HomePage);
+    modal.present();*/
+    this.app.getRootNav().setRoot(HomePage);
       }
 
 
      )
 
-     loading.dismiss();
   }
 
 
@@ -60,7 +74,7 @@ export class MyShopPage {
     let data = {
       "id_store" : id
     }
-    this.storeService.delShopById(data).subscribe(
+    this.storeService.delShopById(id).subscribe(
       (success) => {
         console.log(success);
         let alert = this.alertCtrl.create({

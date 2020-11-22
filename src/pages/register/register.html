@@ -20,7 +20,7 @@
           <ion-icon name="ios-person-outline"></ion-icon>
         </ion-col>
         <ion-col col-8 class="">
-          <ion-input type="text" value="" placeholder="NOM" name="name" [(ngModel)]="register.name"></ion-input>
+          <ion-input type="text" value="" placeholder="NOM" name="name" [(ngModel)]="register.name" required></ion-input>
         </ion-col>
       </ion-row>
 
@@ -29,7 +29,7 @@
           <ion-icon name="ios-person-outline"></ion-icon>
         </ion-col>
         <ion-col col-8 class="">
-          <ion-input type="text" value="" placeholder="PRENOMS" name="firstname" [(ngModel)]="register.firstname"></ion-input>
+          <ion-input type="text" value="" placeholder="PRENOMS" name="firstname" [(ngModel)]="register.firstname" required></ion-input>
         </ion-col>
       </ion-row>
 
@@ -38,13 +38,13 @@
           <ion-icon name="ios-mail-outline"></ion-icon>
         </ion-col>
         <ion-col col-8 class="">
-          <ion-input type="email" value="" placeholder="EMAIL" name="email" [(ngModel)]="register.email"></ion-input>
+          <ion-input type="email" value="" placeholder="EMAIL" name="email" [(ngModel)]="register.email" required></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row >
         <ion-col col-4 class="num-country-tel " align="center">
-          <ion-input type="text" value="" placeholder="+225" name="indicator" [(ngModel)]="register.indicator"></ion-input>
+          <ion-input type="text" value="" placeholder="+225" name="indicator" [(ngModel)]="register.indicator" required></ion-input>
         </ion-col>
         <ion-col col-8 class="">
           <ion-row class="register-input-group">
@@ -52,7 +52,7 @@
               <ion-icon name="ios-create-outline"></ion-icon>
             </ion-col>
             <ion-col col-8 class="">
-              <ion-input type="text" value="" placeholder="NUMERO" name="number" [(ngModel)]="register.number"></ion-input>
+              <ion-input type="text" value="" placeholder="NUMERO" name="number" [(ngModel)]="register.number" required></ion-input>
             </ion-col>
           </ion-row>
         </ion-col>

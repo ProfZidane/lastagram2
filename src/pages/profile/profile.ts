@@ -165,9 +165,9 @@ export class ProfilePage {
     loading.present();
     //localStorage.removeItem('userToken');
     localStorage.clear();
-    //this.navCtrl.getAllChildNavs()[0].setRoot(HomePage);
-    /*this.navCtrl.setRoot(HomePage);
-    this.navCtrl.popToRoot();*/
+  
+    localStorage.setItem('new', 'false');
+
     loading.dismiss();
     /*const modal = this.modalCtrl.create(HomePage);
     modal.present();*/

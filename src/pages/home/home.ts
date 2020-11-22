@@ -1,4 +1,5 @@
 import { WelcomePage } from './../welcome/welcome';
+import { TabsPage } from './../tabs/tabs';
 import { UserProvider } from './../../providers/user/user';
 import { PasswordForgetPage } from './../password-forget/password-forget';
 import { Component } from '@angular/core';
@@ -54,7 +55,18 @@ export class HomePage {
          console.log("user loged ! ", success);
          loading.dismiss();
          localStorage.setItem('userToken',success.access);
-         this.navCtrl.push(WelcomePage);
+         if (localStorage.getItem('new') !== null) {
+            if (localStorage.getItem('new') === 'true') {
+                this.navCtrl.push(WelcomePage);
+            } else if (localStorage.getItem('new') === 'false') {
+                this.navCtrl.push(TabsPage);
+            }
+         } else {
+            
+            this.navCtrl.push(TabsPage);
+
+         }
+         
        },
        error => {
         console.log('error : clé : ');
@@ -73,6 +85,6 @@ export class HomePage {
   }
 
   WithinAuth() {
-    this.navCtrl.push(WelcomePage);
+      this.navCtrl.push(TabsPage);
   }
 }

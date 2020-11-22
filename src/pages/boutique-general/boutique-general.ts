@@ -1,3 +1,4 @@
+import { ProfilePage } from './../profile/profile';
 import { LoginPage } from './../login/login';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { MessageContentPage } from './../message-content/message-content';
@@ -143,7 +144,8 @@ export class BoutiqueGeneralPage {
               console.log("recent : " + recent);
               console.log("actual : " + new Date().getTime());
 
-              let diff = new Date().getTime() - recent;
+              if (element.minute > 0) {
+                let diff = new Date().getTime() - recent;
 
 
               if (diff > 60) {
@@ -182,6 +184,7 @@ export class BoutiqueGeneralPage {
               console.log( " div : " + div);
 
               console.log(diff);
+              }
             }
           });
 
@@ -213,7 +216,9 @@ export class BoutiqueGeneralPage {
   }
 
 
-
+  ShowProfile() {
+    this.navCtrl.push(ProfilePage);
+  }
 
 
 
@@ -231,28 +236,32 @@ export class BoutiqueGeneralPage {
       localStorage.setItem('time', JSON.stringify(tab));
     } else {
       let tab = JSON.parse(localStorage.getItem('time'));
-      tab.forEach(element => {
-        console.log(JSON.stringify(element));
-        console.log(this.Market.id);
 
-        if (Number(element.id) === Number(this.Market.id)) {
-          console.log('pareil');
-          element.second = this.second;
-          element.minute = this.minute;
-          element.hour = this.heure;
-          //tab.push(element);
-          //localStorage.setItem('time', JSON.stringify(tab));
-        } else {
-          let time = {
-            id : this.Market.id,
-            second : this.second,
-            minute : this.minute,
-            hour : this.heure,
-            recent : new Date().getTime()
+      tab.forEach(element => {
+        if (element.minute > 0) {
+          console.log(JSON.stringify(element));
+          console.log(this.Market.id);
+
+          if (Number(element.id) === Number(this.Market.id)) {
+            console.log('pareil');
+            element.second = this.second;
+            element.minute = this.minute;
+            element.hour = this.heure;
+            //tab.push(element);
+            //localStorage.setItem('time', JSON.stringify(tab));
+          } else {
+            let time = {
+              id : this.Market.id,
+              second : this.second,
+              minute : this.minute,
+              hour : this.heure,
+              recent : new Date().getTime()
+            }
+            tab.push(time)
+            localStorage.setItem('time', JSON.stringify(tab));
           }
-          tab.push(time)
-          localStorage.setItem('time', JSON.stringify(tab));
         }
+
       });
 
 

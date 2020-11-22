@@ -9,7 +9,7 @@ export const FIREBASE_CONFIG = {
   measurementId: "G-NQV8GVBRBY"
 };
 
-//export const DOMAIN_APP = "http://192.168.1.120:8000/";
+//export const DOMAIN_APP = "http://192.168.1.29:8000/";
 
 export const DOMAIN_APP = "https://lastagram.herokuapp.com/";
 

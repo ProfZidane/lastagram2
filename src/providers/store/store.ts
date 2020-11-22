@@ -14,7 +14,7 @@ export class StoreProvider {
   private storeUrl = DOMAIN_APP + "api/store/stores";
   private catgUrl = DOMAIN_APP + "api/store/categories";
   private createMarketUrl = DOMAIN_APP + "api/store/create_store";
-  private myshopUrl = DOMAIN_APP + "api/store/stores";
+  private myshopUrl = DOMAIN_APP + "api/store/my-stores";
   private deleteShopUrl = DOMAIN_APP + "api/store/my-stores";
   private suscribeUrl = DOMAIN_APP + "api/store/subscribe";
   private highCatgUrl = DOMAIN_APP + "api/store/hight_categories";
@@ -43,6 +43,15 @@ export class StoreProvider {
     });
   }
 
+  // get headers
+  getHeaders2() {
+    return new HttpHeaders({
+      'Content-Type' : 'application/json; charset=utf-8',
+      'Authorization' : 'JWT ' + localStorage.getItem('userToken'),
+      'Allow-Control-Allow-Methods' : "PUT,POST,GET,DELETE,PATCH,OPTIONS"
+    });
+  }
+
   getListStore(): Observable<any> {
     return this.http.get(this.storeUrl);
   }
@@ -61,7 +70,7 @@ export class StoreProvider {
 
 
   delShopById(data): Observable<any> {
-    return this.http.delete(this.deleteShopUrl, data);
+    return this.http.delete(this.deleteShopUrl + "/" + data);
   }
 
   Subscribe(data): Observable<any> {

@@ -5,6 +5,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import {NgxImageCompressService} from 'ngx-image-compress';
+
 /**
  * Generated class for the ModifyProdSpecialPage page.
  *
@@ -27,11 +29,13 @@ export class ModifyProdSpecialPage {
     "flash" : Boolean,
     "popular" : Boolean,
     "category" : "",
-    "image_cover" : ""
+    "image_cover" : "",
+    description : ""
 
   };
   base64Image: string;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, private storeService: StoreProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController) {
+  imgResultAfterCompress: string;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, private storeService: StoreProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController,private imageCompress: NgxImageCompressService) {
   }
 
   ionViewDidLoad() {
@@ -67,6 +71,26 @@ export class ModifyProdSpecialPage {
     })
   }
 
+  compressFile() {
+
+    this.imageCompress.uploadFile().then(({image, orientation}) => {
+
+      this.base64Image = image;
+      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
+
+      this.imageCompress.compressFile(image, orientation, 50, 50).then(
+        result => {
+          this.imgResultAfterCompress = result;
+          console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
+          this.Products.image_cover = result;
+
+        }
+      );
+
+    });
+
+  }
+
 
   AddOneProduct() {
     let loading = this.loadingCtrl.create({
@@ -80,7 +104,8 @@ export class ModifyProdSpecialPage {
       "price": this.Products.price,
       "promo_price": this.Products.promo_price,
       "store": this.id_market,
-      "category": this.id_catg
+      "category": this.id_catg,
+      "description" : this.Products.description
     };
     console.log(data);
 

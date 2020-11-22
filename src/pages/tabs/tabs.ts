@@ -1,3 +1,4 @@
+import { MyNotifPage } from './../my-notif/my-notif';
 import { CartPage } from './../cart/cart';
 import { SearchPage } from './../search/search';
 import { ProfilePage } from './../profile/profile';
@@ -16,8 +17,8 @@ import { ModalController } from 'ionic-angular';
 export class TabsPage {
 
   tab1Root = LoginPage;
-  tab2Root = SearchPage;
-  tab3Root = CartPage;
+  tab2Root = CartPage;
+  tab3Root = MyNotifPage;
   tab4Root = ProfilePage;
 
   visibility = false;

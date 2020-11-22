@@ -38,10 +38,15 @@ page-create-boutique {
   transform: translateY(50px);
 }
 
+.image-create-boutique h1 {
+  color: white;
+  transform: translateY(40px);
+}
+
 .image-create-boutique ion-icon {
   color: white;
   font-size: 45px;
-  transform: translateY(90%);
+  transform: translateY(30%);
 }
 
 .bg-create-boutique {
@@ -80,7 +85,7 @@ page-create-boutique {
 
 .photo {
   border: solid 1px rgb(226, 224, 220);
-  height: 200px;
+  height: 220px;
   width: 100%;
   border-radius: 25px;
   background-color: white;
@@ -116,4 +121,51 @@ page-create-boutique {
 .err_validation {
   text-align: center;
   color: red;
+}
+
+
+
+.affiche-boutique {
+  /*height: 150px;
+  background-color: white;*/
+}
+
+._1 {
+  /*border: solid;*/
+  height: 150px;
+  background-color: white;
+}
+
+._1 h3 {
+  text-align: center;
+  color: grey;
+  transform: translateY(80%);
+}
+
+._1 ion-icon {
+  font-size: 45px;
+  color: rgb(99, 99, 99);
+  transform: translateY(50%);
+  text-align: center;
+}
+
+
+._2 {
+  /*border: solid;*/
+  height: 150px;
+  background-color: white;
+}
+
+
+._2 h3 {
+  text-align: center;
+  color: grey;
+  transform: translateY(80%);
+}
+
+._2 ion-icon {
+  font-size: 45px;
+  color: rgb(99, 99, 99);
+  transform: translateY(50%);
+  text-align: center;
 }

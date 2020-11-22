@@ -14,8 +14,9 @@ page-add-category {
   font-size: 30px;
 }
 
-.contain-catg {
+.contain-catg {  
   border: solid 1px rgb(233, 230, 230);
+  height: 77px;
   padding: 0.5rem;
   background-color: white;
 }
@@ -24,4 +25,11 @@ page-add-category {
 
 .btn-grid-add-catg {
   width: 50%;
+}
+
+
+.container-ctg {
+  /*border: solid 1px;*/
+  padding: 1.5rem;
+
 }
