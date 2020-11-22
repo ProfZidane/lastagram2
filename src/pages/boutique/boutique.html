@@ -119,12 +119,12 @@
   <ion-grid class="">
     <ion-row class="cadre">
       <ion-col class="" col-6>
-        <img class="decoration" src="{{ Market.img_static_1 }}" alt="">
+        <img class="decoration" src="{{ Market.img_static_1 }}" alt="" (click)="setImageDeco1(Market.id)">
 
 
       </ion-col>
       <ion-col class="" col-6>
-        <img class="decoration" src="{{ Market.img_static_2 }}" alt="">
+        <img class="decoration" src="{{ Market.img_static_2 }}" alt="" (click)="setImageDeco2(Market.id)">
       </ion-col>
     </ion-row>
   </ion-grid>

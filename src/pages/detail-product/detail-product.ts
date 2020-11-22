@@ -28,7 +28,10 @@ export class DetailProductPage {
   id_market;
   product;
   id_owner;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,public loadingCtrl: LoadingController, private storeService: StoreProvider, private orderService: OrderProvider, public modalCtrl: ModalController, private socialSharing: SocialSharing) {  }
+  devis;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,public loadingCtrl: LoadingController, private storeService: StoreProvider, private orderService: OrderProvider, public modalCtrl: ModalController, private socialSharing: SocialSharing) {
+    this.devis = this.navParams.get('devis');
+   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DetailProductPage');
@@ -46,7 +49,7 @@ export class DetailProductPage {
     this.storeService.getProductByID(this.id_article).subscribe(
       (data) => {
         this.product = data;
-        console.log(this.product);
+        console.log(JSON.stringify(this.product));
         loading.dismiss();
       },
       (err) => {
@@ -57,12 +60,79 @@ export class DetailProductPage {
 
   }
 
-  inscrease() {
-    this.quantity++;
+  inscrease(id,value) {
+    /*this.quantity++;
+    JSON.parse(localStorage.getItem('panier')).forEach(element => {
+      if (element.idProd === Number(id)) {
+        console.log(element.qte);
+        localStorage.setItem('panier',JSON.stringify(element.))
+      }
+    });
+    let tab = JSON.parse(localStorage.getItem('panier'));
+    tab.forEach(element => {
+      if (element.idProd === Number(id)) {
+        element.qte ++;
+        console.log(element.qte);
+       localStorage.setItem('panier',JSON.stringify(tab))
+      }
+    });
+    console.log(tab);*/
+    let data = {
+      "id" : id,
+      "quantity": 1
+    };
+    console.log(data);
+
+    this.orderService.updateQuantity(data).subscribe(
+      (data) => {
+        console.log(data);
+        this.navCtrl.setRoot(this.navCtrl.getActive().component);
+      }, (err) => {
+        console.log(err);
+        let alert = this.alertCtrl.create({
+          title: 'ECHEC',
+          subTitle: 'Veuillez vérifier votre connexion internet',
+          buttons: ['OK']
+        });
+        alert.present();
+      }
+    )
+
+
   }
 
-  discrease() {
-    this.quantity--;
+  discrease(id,value) {
+
+    if (Number(value) > 1) {
+      let data = {
+        "id" : id,
+        "quantity": -1
+      };
+      console.log(data);
+
+      this.orderService.updateQuantity(data).subscribe(
+        (data) => {
+          console.log(data);
+          this.navCtrl.setRoot(this.navCtrl.getActive().component);
+        }, (err) => {
+          console.log(err);
+          let alert = this.alertCtrl.create({
+            title: 'ECHEC',
+            subTitle: 'Veuillez vérifier votre connexion internet',
+            buttons: ['OK']
+          });
+          alert.present();
+        }
+      )
+    } else {
+      let alert = this.alertCtrl.create({
+        title: 'ATTENTION',
+        subTitle: 'La quantité est à 1. Si vous voulez supprimer le produit, veuillez cliquez directement sur la croix !',
+        buttons: ['OK']
+      });
+      alert.present();
+    }
+
   }
 
   goToShare() {

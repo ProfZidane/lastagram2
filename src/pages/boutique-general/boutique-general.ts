@@ -56,7 +56,8 @@ export class BoutiqueGeneralPage {
     articles: [],
     detail_articles: [],
     subscribers: 0,
-    owner: Number
+    owner: Number,
+    devis: ""
   }
   base64Image: string;
   slug;
@@ -92,7 +93,7 @@ export class BoutiqueGeneralPage {
     console.log(this.id);
     this.storeService.getDetailMarketById(this.id).subscribe(
       (success) => {
-        console.log(success);
+       // console.log(JSON.stringify(success));
         console.log(JSON.stringify(success.owner));
         this.ownerInfo.first_name = success.owner.first_name;
         this.ownerInfo.last_name = success.owner.last_name;
@@ -107,6 +108,7 @@ export class BoutiqueGeneralPage {
         this.Market.subscribers = success.subscribers_count;
         this.Market.detail_articles = success.category;
         this.Market.owner = success.owner.id;
+        this.Market.devis = success.devis;
         this.slug = success.slug;
         success.articles.forEach(element => {
           if (element.flash == true && element.popular == false) {
@@ -376,9 +378,9 @@ export class BoutiqueGeneralPage {
    // this.callNumber.callNumber(localStorage.getItem('phoneUser'), true)
   }
 
-  GetProductByCtg(catg,catg_name) {
+  GetProductByCtg(catg,catg_name, devis) {
     console.log(catg);
-    this.navCtrl.push(ProductOfCategoryPage, { "id_catg" : catg, "id_boutique": this.Market.id, "name" : catg_name } );
+    this.navCtrl.push(ProductOfCategoryPage, { "id_catg" : catg, "id_boutique": this.Market.id, "name" : catg_name, "devis" : devis } );
   }
 
   goToAddProduct() {
@@ -386,8 +388,8 @@ export class BoutiqueGeneralPage {
   }
 
 
-  goToDetail(id,id_market,id_owner) {
-    this.navCtrl.push(DetailProductPage, { "id" : id, "id_market": id_market, "owner": id_owner });
+  goToDetail(id,id_market,id_owner,devis) {
+    this.navCtrl.push(DetailProductPage, { "id" : id, "id_market": id_market, "owner": id_owner, "devis" : devis });
   }
 
   startTimer() {

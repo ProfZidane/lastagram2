@@ -140,7 +140,7 @@
           {{ market.name | uppercase }}
         </div>
         <div class="card-title2">
-          {{ market.subscribers_count }} Abonné(s) &nbsp;
+          {{ market.subscribers_count }} Abonné(s)
             <ion-icon name="thumbs-up-outline" (click)="Abonne(market.id)" *ngIf="!market.isSubscribed"></ion-icon>
             <ion-icon name="close-circle" (click)="DesAbonne(market.id)" *ngIf="market.isSubscribed"></ion-icon>
         </div>

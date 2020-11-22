@@ -51,7 +51,7 @@
 
   <ion-grid class="category-boutique">
     <ion-row class="" align="center">
-      <ion-col class="" col-4 *ngFor="let catg of Market.detail_articles" (click)="GetProductByCtg(catg.id,catg.name)">
+      <ion-col class="" col-4 *ngFor="let catg of Market.detail_articles" (click)="GetProductByCtg(catg.id,catg.name,Market.devis)">
         <div class="catg-boutique">
 
         </div>
@@ -92,11 +92,11 @@
   <ion-grid class="">
     <ion-scroll scrollX="true" style="width:100vw; height:250px;" >
       <ion-row class="product-flash-create-boutique" nowrap>
-        <ion-col class="" col-6 *ngFor="let p of Market.flash" (click)="goToDetail(p.id,Market.id, Market.owner)">
+        <ion-col class="" col-6 *ngFor="let p of Market.flash" (click)="goToDetail(p.id,Market.id, Market.owner, Market.devis)">
           <div class="photo" align="center">
             <img src="{{ p.image_cover }}" class="img-product" alt="">
             <p class="name-product">{{ p.name }}</p>
-            <p class="price-product">{{ p.price }} FCFA</p>
+            <p class="price-product">{{ p.promo_price }} {{ Market.devis }}</p>
           </div>
         </ion-col>
       </ion-row>
@@ -109,11 +109,11 @@
     <h3 class="p">Produits Populaires</h3>
     <ion-scroll scrollX="true" style="width:100vw; height:250px;" >
       <ion-row class="product-flash-create-boutique" nowrap>
-        <ion-col class="" col-6 *ngFor="let p2 of Market.popular" (click)="goToDetail(p2.id,Market.id, Market.owner)">
+        <ion-col class="" col-6 *ngFor="let p2 of Market.popular" (click)="goToDetail(p2.id,Market.id, Market.owner, Market.devis)">
           <div class="photo" align="center">
             <img src="{{ p2.image_cover }}" class="img-product" alt="">
             <p class="name-product">{{ p2.name }}</p>
-            <p class="price-product">{{ p2.price }}</p>
+            <p class="price-product">{{ p2.promo_price }} {{ Market.devis }}</p>
           </div>
         </ion-col>
       </ion-row>

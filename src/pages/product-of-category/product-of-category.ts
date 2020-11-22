@@ -22,7 +22,9 @@ export class ProductOfCategoryPage {
   Products = [];
   id_owner;
   name_catg:string;
+  devis;
   constructor(public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController) {
+    this.devis = this.navParams.get('devis');
   }
 
   ionViewDidLoad() {

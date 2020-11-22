@@ -11,8 +11,12 @@ page-detail-product {
   font-size: 20px;
   position: relative;
   top: 50px;
-  color: #155C7F;
+  color: #000000;
   font-weight: 800;
+}
+
+.grid-price-detail-prod h1 {
+  color: #155C7F;
 }
 
 .counter-quantity ion-row ion-col ion-icon {

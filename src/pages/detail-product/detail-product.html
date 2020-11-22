@@ -24,9 +24,9 @@
   <ion-grid class=" text-detail-product" *ngIf="product">
     <span>Detail Produit</span>
     <h1>{{ product.name }}</h1>
-    <!--<p>
-      Lorem ipsum dolor sit amet
-    </p>-->
+    <p>
+      {{ product.description }}
+    </p>
   </ion-grid>
 
   <ion-grid class="" *ngIf="product">
@@ -45,11 +45,13 @@
               <ion-icon name="md-add-circle" (click)="inscrease()"></ion-icon>
              </ion-col>
            </ion-row>-->
-           <h1>{{ product.price }} FCFA</h1>
+
         </div>
       </ion-col>
       <ion-col class=" grid-price-detail-prod" col-6>
-        <!--<h2>2000 F CFA</h2>-->
+        <h2 style="text-decoration: line-through;">{{ product.price }} {{ devis }}</h2>
+        <br>
+        <h1>{{ product.promo_price }} {{ devis }}</h1>
       </ion-col>
     </ion-row>
   </ion-grid>

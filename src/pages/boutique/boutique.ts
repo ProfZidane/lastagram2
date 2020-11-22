@@ -306,6 +306,140 @@ export class BoutiquePage {
     )
   }
 
+  setImageDeco1(id) {
+    this.imageCompress.uploadFile().then(({image, orientation}) => {
+
+      this.base64Image = image;
+      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
+
+      this.imageCompress.compressFile(image, orientation, 50, 50).then(
+        result => {
+          this.imgResultAfterCompress = result;
+          console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
+          let loading = this.loadingCtrl.create({
+            content: 'Veuillez Patienter...'
+          });
+          loading.present();
+          let data = {
+            "img_static_1" : this.imgResultAfterCompress
+          }
+
+          this.storeService.updateProduct2(data,this.Market.id).subscribe(
+            (response) => {
+                console.log(response);
+                loading.dismiss();
+                let alert4 = this.alertCtrl.create({
+                  title: 'SUCCESS',
+                  subTitle: 'Photo modifée !',
+                  buttons: [
+                    {
+                      text: 'OK',
+                      role: 'cancel',
+                      handler: () => {
+                        this.navCtrl.push(MyShopPage);
+                      }
+                    }
+                  ]
+                });
+                alert4.present();
+            },
+            (error) => {
+              console.log(id);
+
+              console.log(error);
+              loading.dismiss();
+              let alert5 = this.alertCtrl.create({
+                title: 'ECHEC',
+                subTitle: 'Echec de la modification !',
+                buttons: [
+                  {
+                    text: 'OK',
+                    role: 'cancel',
+                    handler: () => {
+                      console.log('cancel');
+
+                    }
+                  }
+                ]
+              });
+              alert5.present();
+            }
+
+          )
+
+        }
+      );
+
+    });
+  }
+
+  setImageDeco2(id) {
+    this.imageCompress.uploadFile().then(({image, orientation}) => {
+
+      this.base64Image = image;
+      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
+
+      this.imageCompress.compressFile(image, orientation, 50, 50).then(
+        result => {
+          this.imgResultAfterCompress = result;
+          console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
+          let loading = this.loadingCtrl.create({
+            content: 'Veuillez Patienter...'
+          });
+          loading.present();
+          let data = {
+            "img_static_2" : this.imgResultAfterCompress
+          }
+
+          this.storeService.updateProduct2(data,this.Market.id).subscribe(
+            (response) => {
+                console.log(response);
+                loading.dismiss();
+                let alert4 = this.alertCtrl.create({
+                  title: 'SUCCESS',
+                  subTitle: 'Photo modifée !',
+                  buttons: [
+                    {
+                      text: 'OK',
+                      role: 'cancel',
+                      handler: () => {
+                        this.navCtrl.push(MyShopPage);
+                      }
+                    }
+                  ]
+                });
+                alert4.present();
+            },
+            (error) => {
+              console.log(id);
+
+              console.log(error);
+              loading.dismiss();
+              let alert5 = this.alertCtrl.create({
+                title: 'ECHEC',
+                subTitle: 'Echec de la modification !',
+                buttons: [
+                  {
+                    text: 'OK',
+                    role: 'cancel',
+                    handler: () => {
+                      console.log('cancel');
+
+                    }
+                  }
+                ]
+              });
+              alert5.present();
+            }
+
+          )
+
+        }
+      );
+
+    });
+  }
+
   modifyElt(value,id) {
     if (this.isAdmin) {
       if(value == "name") {
