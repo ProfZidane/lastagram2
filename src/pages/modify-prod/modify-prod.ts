@@ -5,6 +5,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import {NgxImageCompressService} from 'ngx-image-compress';
 
 /**
  * Generated class for the ModifyProdPage page.
@@ -31,7 +32,8 @@ state;
 base64Image;
 id;
 slug;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, private storeService: StoreProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController) {
+  imgResultAfterCompress: any;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, private storeService: StoreProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController,private imageCompress: NgxImageCompressService) {
   }
 
   ionViewDidLoad() {
@@ -45,22 +47,21 @@ slug;
 
 
   addImg() {
-    const options: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG || this.camera.EncodingType.PNG,
-      mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
-    }
+    this.imageCompress.uploadFile().then(({image, orientation}) => {
 
-    this.camera.getPicture(options).then((imageData) => {
-      this.base64Image = 'data:image/jpeg;base64,' + imageData;
-      this.Products.image_cover = this.base64Image;
-      //localStorage.setItem('photoUser',this.base64Image);
+      this.base64Image = image;
+      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
 
-    }, (err) => {
-      console.log(err, "vos erreurs");
-    })
+      this.imageCompress.compressFile(image,-1, 20, 20).then(
+        result => {
+          this.imgResultAfterCompress = result;
+          console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
+          this.Products.image_cover = result;
+
+        }
+      );
+
+    });
   }
 
 

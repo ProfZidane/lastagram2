@@ -57,7 +57,8 @@ export class BoutiqueGeneralPage {
     detail_articles: [],
     subscribers: 0,
     owner: Number,
-    devis: ""
+    devis: "",
+    timer: ""
   }
   base64Image: string;
   slug;
@@ -109,6 +110,7 @@ export class BoutiqueGeneralPage {
         this.Market.detail_articles = success.category;
         this.Market.owner = success.owner.id;
         this.Market.devis = success.devis;
+        this.Market.timer = success.timer;
         this.slug = success.slug;
         success.articles.forEach(element => {
           if (element.flash == true && element.popular == false) {
@@ -135,63 +137,69 @@ export class BoutiqueGeneralPage {
         });*/
 
         // timer
-        if (localStorage.getItem('time') !== null) {
+        if (this.Market.timer !== "30:00") {
+          if (localStorage.getItem('time') !== null) {
 
-          let Storetime = JSON.parse(localStorage.getItem('time'));
+            let Storetime = JSON.parse(localStorage.getItem('time'));
 
-          Storetime.forEach(element => {
-            if (element.id === this.Market.id) {
-              let time = element;
-              let recent = time.recent;
-              console.log("recent : " + recent);
-              console.log("actual : " + new Date().getTime());
+            Storetime.forEach(element => {
+              if (element.id === this.Market.id) {
+                let time = element;
+                let recent = time.recent;
+                console.log("recent : " + recent);
+                console.log("actual : " + new Date().getTime());
 
-              if (element.minute > 0) {
-                let diff = new Date().getTime() - recent;
-
-
-              if (diff > 60) {
-                let m = diff / 60000;
-                console.log("minute : " + m);
-                m = Math.round(m);
+                if (element.minute > 0) {
+                  let diff = new Date().getTime() - recent;
 
 
+                if (diff > 60) {
+                  let m = diff / 60000;
+                  console.log("minute : " + m);
+                  m = Math.round(m);
 
-                if (m <= 30) {
-                  let d = this.minute - m;
-                  this.minute = d;
+
+
+                  if (m <= 30) {
+                    let d = this.minute - m;
+                    this.minute = d;
+                  } else {
+                    this.minute = 0;
+                  }
+                  //this.minute = this.minute - m;
+
+
+
                 } else {
-                  this.minute = 0;
-                }
-                //this.minute = this.minute - m;
+                  let s = diff / 1000;
+                  console.log("second : " + s);
+                  s = Math.round(s)
 
+                  if (s == 60) {
+                    this.second = s;
+                    this.minute --;
+                  } else {
+                    this.second = this.second - s;
+                  }
 
-
-              } else {
-                let s = diff / 1000;
-                console.log("second : " + s);
-                s = Math.round(s)
-
-                if (s == 60) {
-                  this.second = s;
-                  this.minute --;
-                } else {
-                  this.second = this.second - s;
                 }
 
+                let div = diff / 1000;
+
+                console.log( " div : " + div);
+
+                console.log(diff);
+                }
               }
-
-              let div = diff / 1000;
-
-              console.log( " div : " + div);
-
-              console.log(diff);
-              }
-            }
-          });
+            });
 
 
 
+          }
+        } else {
+          this.heure = 0;
+          this.minute = 30;
+          this.second = 0;
         }
         this.startTimer()
 
@@ -225,6 +233,14 @@ export class BoutiqueGeneralPage {
 
 
   ionViewCanLeave() {
+    let data = {
+      timer : this.minute + ":" + this.second
+    }
+
+    console.log(data);
+
+
+
     if (localStorage.getItem('time') === null) {
       let tab = [];
       let time = {
@@ -409,7 +425,7 @@ export class BoutiqueGeneralPage {
       this.minute --;
     } else {
       this.minute = 0;
-      this.second = 60;
+      this.second = 59;
      // this.setSecond();
     }
   }
@@ -429,7 +445,7 @@ export class BoutiqueGeneralPage {
       this.second --;
     } else {
       if (this.minute !== 0) {
-        this.second = 60;
+        this.second = 59;
       this.minute --;
       } else {
         this.minute = 0;

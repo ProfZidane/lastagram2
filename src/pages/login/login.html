@@ -141,8 +141,8 @@
         </div>
         <div class="card-title2">
           {{ market.subscribers_count }} Abonné(s)
-            <ion-icon name="thumbs-up-outline" (click)="Abonne(market.id)" *ngIf="!market.isSubscribed"></ion-icon>
-            <ion-icon name="close-circle" (click)="DesAbonne(market.id)" *ngIf="market.isSubscribed"></ion-icon>
+            <ion-icon name="thumbs-up-outline" (click)="Abonne(market.id)" *ngIf="market.isSubscribed === false"></ion-icon>
+            <ion-icon name="close-circle" (click)="DesAbonne(market.id)" *ngIf="market.isSubscribed === true"></ion-icon>
         </div>
         <div class="card-subtitle">
           <button ion-button medium color="light" class="vis" round (click)='ViewMarket(market.id,market.isSubscribed)'>VISITER</button>
