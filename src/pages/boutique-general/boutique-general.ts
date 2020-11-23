@@ -137,7 +137,6 @@ export class BoutiqueGeneralPage {
         });*/
 
         // timer
-        if (this.Market.timer !== "30:00") {
           if (localStorage.getItem('time') !== null) {
 
             let Storetime = JSON.parse(localStorage.getItem('time'));
@@ -196,11 +195,7 @@ export class BoutiqueGeneralPage {
 
 
           }
-        } else {
-          this.heure = 0;
-          this.minute = 30;
-          this.second = 0;
-        }
+
         this.startTimer()
 
 
