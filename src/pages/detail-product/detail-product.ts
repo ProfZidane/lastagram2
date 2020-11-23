@@ -8,6 +8,7 @@ import { LoadingController } from 'ionic-angular';
 import { ModalController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { ToastController } from 'ionic-angular';
 
 /**
  * Generated class for the DetailProductPage page.
@@ -22,19 +23,22 @@ import { SocialSharing } from '@ionic-native/social-sharing';
   templateUrl: 'detail-product.html',
 })
 export class DetailProductPage {
-  quantity = 1;
+  quantity = 0;
   visibility = false;
   id_article;
   id_market;
   product;
   id_owner;
   devis;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,public loadingCtrl: LoadingController, private storeService: StoreProvider, private orderService: OrderProvider, public modalCtrl: ModalController, private socialSharing: SocialSharing) {
-    this.devis = this.navParams.get('devis');
+  cart;
+  taille;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,public loadingCtrl: LoadingController, private storeService: StoreProvider, private orderService: OrderProvider, public modalCtrl: ModalController, private socialSharing: SocialSharing,public toastCtrl: ToastController) {
    }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DetailProductPage');
+    this.devis = this.navParams.get('devis');
+
     let loading = this.loadingCtrl.create({
       content: 'Veuillez Patienter...'
     });
@@ -43,6 +47,7 @@ export class DetailProductPage {
     this.id_market = this.navParams.get('id_market');
     this.id_owner = this.navParams.get('owner');
     console.log("le proprio : " + this.id_owner);
+    console.log(this.id_market);
 
     console.log(this.id_article);
 
@@ -58,79 +63,17 @@ export class DetailProductPage {
       }
     )
 
-  }
-
-  inscrease(id,value) {
-    /*this.quantity++;
-    JSON.parse(localStorage.getItem('panier')).forEach(element => {
-      if (element.idProd === Number(id)) {
-        console.log(element.qte);
-        localStorage.setItem('panier',JSON.stringify(element.))
-      }
-    });
-    let tab = JSON.parse(localStorage.getItem('panier'));
-    tab.forEach(element => {
-      if (element.idProd === Number(id)) {
-        element.qte ++;
-        console.log(element.qte);
-       localStorage.setItem('panier',JSON.stringify(tab))
-      }
-    });
-    console.log(tab);*/
-    let data = {
-      "id" : id,
-      "quantity": 1
-    };
-    console.log(data);
-
-    this.orderService.updateQuantity(data).subscribe(
-      (data) => {
-        console.log(data);
-        this.navCtrl.setRoot(this.navCtrl.getActive().component);
-      }, (err) => {
-        console.log(err);
-        let alert = this.alertCtrl.create({
-          title: 'ECHEC',
-          subTitle: 'Veuillez vérifier votre connexion internet',
-          buttons: ['OK']
-        });
-        alert.present();
-      }
-    )
 
 
   }
 
-  discrease(id,value) {
+  inscrease() {
+    this.quantity++;
+  }
 
-    if (Number(value) > 1) {
-      let data = {
-        "id" : id,
-        "quantity": -1
-      };
-      console.log(data);
-
-      this.orderService.updateQuantity(data).subscribe(
-        (data) => {
-          console.log(data);
-          this.navCtrl.setRoot(this.navCtrl.getActive().component);
-        }, (err) => {
-          console.log(err);
-          let alert = this.alertCtrl.create({
-            title: 'ECHEC',
-            subTitle: 'Veuillez vérifier votre connexion internet',
-            buttons: ['OK']
-          });
-          alert.present();
-        }
-      )
-    } else {
-      let alert = this.alertCtrl.create({
-        title: 'ATTENTION',
-        subTitle: 'La quantité est à 1. Si vous voulez supprimer le produit, veuillez cliquez directement sur la croix !',
-        buttons: ['OK']
-      });
-      alert.present();
+  discrease() {
+    if (this.quantity !== 0) {
+      this.quantity--;
     }
 
   }
@@ -152,8 +95,11 @@ export class DetailProductPage {
     if (localStorage.getItem('userToken') !== null) {
       let data  = {
         "id" : id,
-        "quantity": 1
+        "id_store" : Number(this.id_market),
+        "quantity": this.quantity
       };
+      console.log(data);
+
       this.orderService.addToCart(data).subscribe(
         (data) => {
           console.log(data);

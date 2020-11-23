@@ -1,3 +1,5 @@
+import { OrderProvider } from './../../providers/order/order';
+import { BoutiquePage } from './../boutique/boutique';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
@@ -14,12 +16,37 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'menu-market.html',
 })
 export class MenuMarketPage {
+  rootPage = BoutiquePage;
+  id;
+  photo;
+  name;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private orderService: OrderProvider) {
+    this.id = this.navParams.get("id");
+    this.photo = this.navParams.get('photo');
+    this.name = this.navParams.get('name');
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MenuMarketPage');
+
   }
 
+  getOrderByMarket() {
+    this.orderService.getOrderByMarketID(Number(this.id)).subscribe(
+      (data) => {
+        console.log(data);
+
+      }, (err) => {
+
+        console.log(err);
+
+      }
+    )
+  }
+
+  getMessageByMarket() {
+
+  }
 }

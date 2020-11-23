@@ -6,6 +6,7 @@ import { AlertController } from 'ionic-angular';
 import { ModalController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import {NgxImageCompressService} from 'ngx-image-compress';
 
 
 /**
@@ -30,7 +31,8 @@ export class ModifyProfilePage {
   };
   base64Image: string;
   analayse = true;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private userService: UserProvider, public modalCtrl: ModalController,public loadingCtrl: LoadingController, private camera: Camera, private app: App) {
+  imgResultAfterCompress: string;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private userService: UserProvider, public modalCtrl: ModalController,public loadingCtrl: LoadingController, private camera: Camera, private app: App,private imageCompress: NgxImageCompressService) {
   }
 
   ionViewDidLoad() {
@@ -74,38 +76,42 @@ export class ModifyProfilePage {
   }*/
 
   OpenGallery() {
-    const options: CameraOptions = {
-      quality: 50,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG || this.camera.EncodingType.PNG,
-      mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-    }
+    this.imageCompress.uploadFile().then(({image, orientation}) => {
 
-    this.camera.getPicture(options).then((imageData) => {
-      this.base64Image = 'data:image/jpeg;base64,' + imageData;
-      localStorage.setItem('photoUser',this.base64Image);
-      console.log(this.base64Image);
-      let data = {
-        "photo" : this.base64Image
-      }
-      this.userService.setImage(data).subscribe(
-        (response) => {
+      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
 
-          console.log(" success : " + response);
+      this.imageCompress.compressFile(image, -1, 20, 20).then(
+        result => {
+          this.imgResultAfterCompress = result;
+          this.base64Image = result;
 
-          this.logoutAfterUpdate();
-        },
-        (err) => {
-          console.log("erreur : " + JSON.stringify(err));
+          console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
+          localStorage.setItem('photoUser',this.base64Image);
+          console.log(this.base64Image);
+          let data = {
+            "photo" : this.base64Image
+          }
+          this.userService.setImage(data).subscribe(
+            (response) => {
+
+              console.log(" success : " + response);
+
+              this.logoutAfterUpdate();
+            },
+            (err) => {
+              console.log("erreur : " + JSON.stringify(err));
 
 
+
+            }
+          );
 
         }
       );
-    }, (err) => {
-      console.log(err, " : vos erreurs");
-    })
+
+    });
+
+
   }
 
  /* OpenCamera() {

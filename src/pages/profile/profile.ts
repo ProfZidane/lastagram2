@@ -29,7 +29,7 @@ import { AlertController } from 'ionic-angular';
 })
 export class ProfilePage {
   infoUser;
-  photo = localStorage.getItem('photoUser');
+  photo;
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public userService: UserProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController, private app: App) {
 
   }
@@ -50,6 +50,7 @@ export class ProfilePage {
         (info) => {
           console.log(info);
           this.infoUser = info;
+          this.photo = info.photo;
           if (localStorage.getItem('nameUser') == null && localStorage.getItem('name2User') == null
               && localStorage.getItem('phoneUser') == null && localStorage.getItem('mailUser') == null
               && localStorage.getItem('idUser') == null && localStorage.getItem('photoUser') == null) {
@@ -165,7 +166,7 @@ export class ProfilePage {
     loading.present();
     //localStorage.removeItem('userToken');
     localStorage.clear();
-  
+
     localStorage.setItem('new', 'false');
 
     loading.dismiss();

@@ -6,10 +6,40 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>menu-market</ion-title>
+    <ion-title>Mon menu</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
 
+<ion-content class="bg-profile" fullscreen>
+  <ion-grid class="" >
+    <ion-row class="" align="center">
+        <img *ngIf="photo"  src="{{ photo }}" alt="" style="margin: 0">
+    </ion-row>
+    <ion-row  align="center" class="n">
+      <br>
+      <h1 class="name-profile" *ngIf="name" style ="color: #155C7F;"> {{ name | uppercase }}</h1>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid class="" align="center">
+    <ion-row class="card-boutique-profile">
+      <ion-card>
+        <ion-list no-lines>
+          <button ion-item (click)="getOrderByMarket()">
+            <ion-icon name="md-basket" item-start></ion-icon>
+            Les commandes
+          </button>
+          <hr>
+          <button ion-item (click)="getMessageByMarket()">
+            <ion-icon name="mail" item-start></ion-icon>
+            Les messages
+          </button>
+        </ion-list>
+      </ion-card>
+    </ion-row>
+
+
+  </ion-grid>
 </ion-content>
+

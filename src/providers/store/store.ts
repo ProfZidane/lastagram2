@@ -70,7 +70,7 @@ export class StoreProvider {
 
 
   delShopById(data): Observable<any> {
-    return this.http.delete(this.deleteShopUrl + "/" + data);
+    return this.http.delete(this.deleteShopUrl + "/" + data, { headers : this.getHeaders()});
   }
 
   Subscribe(data): Observable<any> {

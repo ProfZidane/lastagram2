@@ -24,11 +24,12 @@ export class ProductOfCategoryPage {
   name_catg:string;
   devis;
   constructor(public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController) {
-    this.devis = this.navParams.get('devis');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductOfCategoryPage');
+    this.devis = this.navParams.get('devis');
+
     let loading = this.loadingCtrl.create({
       content: 'Veuillez Patienter...'
     });
@@ -81,7 +82,7 @@ export class ProductOfCategoryPage {
   goToDetail(id,id_market,id_owner2) {
     console.log(id);
     console.log(id_owner2);
-    this.navCtrl.push(DetailProductPage, { "id" : id, "id_market": id_market, "owner" : id_owner2 });
+    this.navCtrl.push(DetailProductPage, { "id" : id, "id_market": id_market, "owner" : id_owner2 , "devis": this.devis});
 
     /*if (id_owner1 == num) {
       this.navCtrl.push(DetailProductPage, { "id" : id, "id_market": id_market, "owner" : id_owner2 });

@@ -19,8 +19,20 @@ page-detail-product {
   color: #155C7F;
 }
 
+
+.counter-quantity {
+  position: relative;
+  top: 40px;
+}
+
+
+.counter-quantity ion-row ion-col span {
+  font-size: 24px;
+}
+
 .counter-quantity ion-row ion-col ion-icon {
   color: gray;
+  font-size: 30px;
 }
 
 

@@ -20,6 +20,8 @@ export class OrderProvider {
   private validationUrl = DOMAIN_APP + "payment/checkout";
   private listOrdersUrl = DOMAIN_APP + "payment/my-orders";
 
+  private orderByShopURL = DOMAIN_APP + "payment/my-order-store/";
+
   constructor(public http: HttpClient) {
     console.log('Hello OrderProvider Provider');
   }
@@ -67,6 +69,10 @@ export class OrderProvider {
 
   getDetailOrders(id): Observable<any> {
     return this.http.get(this.getProdUrl + id,{ headers: this.getHeaders() });
+  }
+
+  getOrderByMarketID(id): Observable<any> {
+    return this.http.get(this.orderByShopURL + id, { headers : this.getHeaders() });
   }
 }
 

@@ -1,3 +1,4 @@
+import { MenuMarketPageModule } from './../pages/menu-market/menu-market.module';
 import { SearchWithShopPageModule } from './../pages/search-with-shop/search-with-shop.module';
 import { SharePageModule } from './../pages/share/share.module';
 import { MyShopPageModule } from './../pages/my-shop/my-shop.module';
@@ -148,6 +149,7 @@ const config : SocketIoConfig = { url: "http://192.168.1.103:3000", options : {}
     MyShopPageModule,
     SharePageModule,
     SearchWithShopPageModule,
+    MenuMarketPageModule,
     SocketIoModule.forRoot(config),
     IonicModule.forRoot(MyApp)
   ],

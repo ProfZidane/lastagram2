@@ -34,21 +34,22 @@
       <ion-col class="" col-6>
         <!--<p class="qt">Quantité : </p>-->
         <div class="counter-quantity">
-        <!--   <ion-row>
+          <b>Quantité</b>
+           <ion-row>
              <ion-col class="" col-4>
               <ion-icon name="md-remove-circle" (click)="discrease()"></ion-icon>
              </ion-col>
              <ion-col class="" col-4>
-              {{ quantity }}
+              <span>{{ quantity }}</span>
              </ion-col>
              <ion-col class="" col-4>
               <ion-icon name="md-add-circle" (click)="inscrease()"></ion-icon>
              </ion-col>
-           </ion-row>-->
+           </ion-row>
 
         </div>
       </ion-col>
-      <ion-col class=" grid-price-detail-prod" col-6>
+      <ion-col class="grid-price-detail-prod price-content" col-6>
         <h2 style="text-decoration: line-through;">{{ product.price }} {{ devis }}</h2>
         <br>
         <h1>{{ product.promo_price }} {{ devis }}</h1>

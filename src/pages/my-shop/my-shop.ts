@@ -1,3 +1,4 @@
+import { MenuMarketPage } from './../menu-market/menu-market';
 import { BoutiquePage } from './../boutique/boutique';
 import { HomePage } from './../home/home';
 
@@ -71,9 +72,7 @@ export class MyShopPage {
 
   DeleteMarket(id) {
     console.log(id);
-    let data = {
-      "id_store" : id
-    }
+
     this.storeService.delShopById(id).subscribe(
       (success) => {
         console.log(success);
@@ -83,6 +82,7 @@ export class MyShopPage {
           buttons: ['OK']
         });
         alert.present();
+        this.navCtrl.setRoot(this.navCtrl.getActive().component);
       },
       (error) => {
         console.log(error);

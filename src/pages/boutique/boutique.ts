@@ -1,3 +1,4 @@
+import { MenuMarketPage } from './../menu-market/menu-market';
 import { ProfilePage } from './../profile/profile';
 import { CartPage } from './../cart/cart';
 import { SearchPage } from './../search/search';
@@ -165,6 +166,7 @@ export class BoutiquePage {
       },
       (err) => {
         console.log(err);
+        loading.dismiss()
       }
     )
   }
@@ -248,7 +250,7 @@ export class BoutiquePage {
   }
 
   ShowProfile() {
-    this.navCtrl.push(ProfilePage);
+    this.navCtrl.push(MenuMarketPage, { id : this.Market.id, photo : this.Market.image_cover, name : this.Market.name });
   }
 
   setToZero(id) {

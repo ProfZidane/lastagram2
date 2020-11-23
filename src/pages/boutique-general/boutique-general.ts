@@ -1,3 +1,5 @@
+import { CartPage } from './../cart/cart';
+import { SearchPage } from './../search/search';
 import { ProfilePage } from './../profile/profile';
 import { LoginPage } from './../login/login';
 import { CallNumber } from '@ionic-native/call-number/ngx';
@@ -396,6 +398,14 @@ export class BoutiqueGeneralPage {
 
   goToAddProduct() {
     this.navCtrl.push(AddProductPage);
+  }
+
+  goToSearch() {
+    this.navCtrl.push(SearchPage);
+  }
+
+  goToCart() {
+    this.navCtrl.push(CartPage);
   }
 
 
