@@ -1,3 +1,4 @@
+import { ListOrderMePage } from './../list-order-me/list-order-me';
 import { OrderProvider } from './../../providers/order/order';
 import { BoutiquePage } from './../boutique/boutique';
 import { Component } from '@angular/core';
@@ -33,18 +34,15 @@ export class MenuMarketPage {
 
   }
 
-  getOrderByMarket() {
-    this.orderService.getOrderByMarketID(Number(this.id)).subscribe(
-      (data) => {
-        console.log(data);
-
-      }, (err) => {
-
-        console.log(err);
-
-      }
-    )
+  goToMyOrder() {
+    this.navCtrl.push(ListOrderMePage, { id : this.id });
   }
+
+  /*goToMyMessages() {
+    this.navCtrl.push()
+  }*/
+
+
 
   getMessageByMarket() {
 

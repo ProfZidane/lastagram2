@@ -60,7 +60,9 @@ export class BoutiqueGeneralPage {
     subscribers: 0,
     owner: Number,
     devis: "",
-    timer: ""
+    timer: "",
+    img_static_1 : "",
+    img_static_2 : ""
   }
   base64Image: string;
   slug;
@@ -97,11 +99,11 @@ export class BoutiqueGeneralPage {
     this.storeService.getDetailMarketById(this.id).subscribe(
       (success) => {
        // console.log(JSON.stringify(success));
-        console.log(JSON.stringify(success.owner));
+        console.log(success);
         this.ownerInfo.first_name = success.owner.first_name;
         this.ownerInfo.last_name = success.owner.last_name;
         this.prop = success.owner;
-        console.log("information proprietaire : " + JSON.stringify(this.prop));
+        //console.log("information proprietaire : " + JSON.stringify(this.prop));
 
         this.username = success.owner.username;
         this.Market.id = success.id;
@@ -113,6 +115,8 @@ export class BoutiqueGeneralPage {
         this.Market.owner = success.owner.id;
         this.Market.devis = success.devis;
         this.Market.timer = success.timer;
+        this.Market.img_static_1 = success.img_static_1;
+        this.Market.img_static_2 = success.img_static_2;
         this.slug = success.slug;
         success.articles.forEach(element => {
           if (element.flash == true && element.popular == false) {

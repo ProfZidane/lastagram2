@@ -26,7 +26,7 @@
     <h1 style="color:#155C7F" *ngIf="name_catg" >{{ name_catg }}</h1>
 
     <ion-row *ngIf="Products" >
-      <ion-col  col-6 align="center" *ngFor="let product of Products" (click)="goToDetail(product.id,id_market,product.store.owner)">
+      <ion-col  col-6 align="center" *ngFor="let product of Products" (click)="goToDetail(product.id,product.store.id,product.store.owner, product.store.devis)">
         <div class="share-product">
           <div class="search-img-0">
             <img [src]=product.image_cover class="d-i" alt="">
@@ -34,7 +34,7 @@
 
           <hr>
           <p class="desc-product">{{ product.name }}</p>
-          <p class="price-product twoo">{{ product.promo_price }} {{ devis }}</p>
+          <p class="price-product twoo">{{ product.promo_price }}  <span *ngIf="product.store.devis" >{{ product.store.devis }}</span></p>
         </div>
       </ion-col>
       <!--<ion-col  col-6 align="center">

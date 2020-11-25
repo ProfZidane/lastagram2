@@ -28,7 +28,6 @@ export class ProductOfCategoryPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductOfCategoryPage');
-    this.devis = this.navParams.get('devis');
 
     let loading = this.loadingCtrl.create({
       content: 'Veuillez Patienter...'
@@ -43,7 +42,7 @@ export class ProductOfCategoryPage {
         this.storeService.getProductHigh(this.navParams.get('id')).subscribe(
           (data) => {
             this.Products = data;
-
+            //this.devis = data.store.devis;
 
             console.log(this.Products);
             loading.dismiss();
@@ -59,6 +58,8 @@ export class ProductOfCategoryPage {
     } else {
       this.id_market = this.navParams.get("id_boutique");
     this.id_category = this.navParams.get("id_catg");
+    this.devis = this.navParams.get('devis');
+
     /*this.id_owner = this.navParams.get('owner');
     console.log("propio : " + this.id_owner);*/
     this.storeService.getProductByCatg(this.id_market,this.id_category).subscribe(
@@ -79,10 +80,12 @@ export class ProductOfCategoryPage {
 
   }
 
-  goToDetail(id,id_market,id_owner2) {
+  goToDetail(id,id_market,id_owner2, devis2) {
     console.log(id);
     console.log(id_owner2);
-    this.navCtrl.push(DetailProductPage, { "id" : id, "id_market": id_market, "owner" : id_owner2 , "devis": this.devis});
+    console.log(devis2);
+
+    this.navCtrl.push(DetailProductPage, { "id" : id, "id_market": id_market, "owner" : id_owner2 , "devis": this.devis, "devis2" : devis2});
 
     /*if (id_owner1 == num) {
       this.navCtrl.push(DetailProductPage, { "id" : id, "id_market": id_market, "owner" : id_owner2 });

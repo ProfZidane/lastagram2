@@ -31,11 +31,11 @@
     </ion-grid>
   </div>
   <ion-navbar hideBackButton="true"  color="lastagram">
-    <ion-title (click)="goReload()" start>
+    <ion-title start>
       <button color="lastagram" ion-button icon-only (click)="ShowProfile()" style="box-shadow: none;">
         <ion-icon name="menu"></ion-icon>
       </button>
-      <span style="position: relative; top: 6px">Lastagram</span>
+      <span style="position: relative; top: 6px" (click)="goReload()">Lastagram</span>
     </ion-title>
 
 

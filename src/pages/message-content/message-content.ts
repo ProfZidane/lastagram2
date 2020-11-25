@@ -1,7 +1,7 @@
 import { Socket } from 'ng-socket-io';
 import * as firebase from 'firebase';
 import { snapshotToArray } from './../../app/environment';
-
+import { AlertController } from 'ionic-angular';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ActionSheetController } from 'ionic-angular';
@@ -49,7 +49,7 @@ export class MessageContentPage  {
   items = [];
   proprio;
   @ViewChild('MessagesGrid') content:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public actionSheetCtrl: ActionSheetController, private socket: Socket) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public actionSheetCtrl: ActionSheetController, private socket: Socket, private alertCtrl: AlertController) {
     this.username = this.navParams.get('username');
     //console.log(JSON.stringify(this.navParams.get('info')));
     //console.log(JSON.stringify(this.navParams.get('proprietaire')));
@@ -68,13 +68,27 @@ export class MessageContentPage  {
     /*this.socket.connect();
     this.socket.emit('hello', 'zidane')*/
 
-    let socket = new WebSocket("ws://192.168.1.32:8000/ws/chat/admin1278/?JWT=" + localStorage.getItem('userToken'));
+    let socket = new WebSocket("ws://192.168.1.46:8000/ws/chat/" + this.username +"/?JWT=" + localStorage.getItem('userToken'));
+    let alert = this.alertCtrl.create({
+      title: 'SUCCESS',
+      subTitle: 'Socket connected !',
+      buttons: ['OK']
+    });
+    alert.present();
+    let alert2 = this.alertCtrl.create({
+      title: 'ERROR',
+      subTitle: 'Socket not connect !',
+      buttons: ['OK']
+    });
     socket.onopen = function(){
-      console.log("socket is connected !");
+      alert.present();
     }
     socket.onerror = function(e) {
       console.log("error in socket : " + e);
+      alert2.present();
     }
+
+
 
    /* console.log("chat : " + this.username);
 

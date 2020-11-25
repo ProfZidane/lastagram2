@@ -37,7 +37,14 @@ export class DetailProductPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DetailProductPage');
-    this.devis = this.navParams.get('devis');
+    if (this.navParams.get('devis')) {
+      this.devis = this.navParams.get('devis');
+    } else {
+      this.devis = this.navParams.get('devis2');
+    }
+
+    console.log("le devis : " + this.devis);
+
 
     let loading = this.loadingCtrl.create({
       content: 'Veuillez Patienter...'
@@ -54,7 +61,7 @@ export class DetailProductPage {
     this.storeService.getProductByID(this.id_article).subscribe(
       (data) => {
         this.product = data;
-        console.log(JSON.stringify(this.product));
+        //console.log(JSON.stringify(this.product));
         loading.dismiss();
       },
       (err) => {

@@ -62,11 +62,11 @@ export class HomePage {
                 this.navCtrl.push(TabsPage);
             }
          } else {
-            
+
             this.navCtrl.push(TabsPage);
 
          }
-         
+
        },
        error => {
         console.log('error : clé : ');
@@ -76,7 +76,7 @@ export class HomePage {
         //let t = Object.keys(error);
 
         loading.dismiss();
-        this.err = "Nous n'avons pas d'utilisateurs avec ces accès !";
+        this.err = "Nom d'utilisateur ou mot de passe incorrecte !";
         //this.LoginUser.email = "";
         //this.LoginUser.password = "";
        }

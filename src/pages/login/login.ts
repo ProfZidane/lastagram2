@@ -58,12 +58,7 @@ export class LoginPage {
         }, (err) => {
           console.log(err);
 
-          let alert = this.alertCtrl.create({
-              title: 'ECHEC',
-              subTitle: 'Echec de chargement. Veuillez réessayer plus tard!',
-              buttons: ['OK']
-            });
-            alert.present();
+
         }
       )
     }
