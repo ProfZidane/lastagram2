@@ -7,22 +7,28 @@ page-detail-product {
   font-size: 10px;
 }
 
-.grid-price-detail-prod h2 {
-  font-size: 20px;
+.grid-price-detail-prod {
+  width: 100%;
+  padding: 0;
+}
+
+.grid-price-detail-prod span {
+  font-size: 18px;
   position: relative;
-  top: 50px;
+  top: 15px;
   color: #000000;
   font-weight: 800;
 }
 
-.grid-price-detail-prod h1 {
+
+.grid-price-detail-prod .second_span {
   color: #155C7F;
 }
 
 
 .counter-quantity {
   position: relative;
-  top: 40px;
+  top: 10px;
 }
 
 

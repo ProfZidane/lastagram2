@@ -38,6 +38,7 @@ export class LoginPage {
   id;
   high;
   seen = [];
+  previous;
   constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams, public storeService: StoreProvider, private alertCtrl: AlertController,public toastCtrl: ToastController, public modalCtrl: ModalController, private localNotifications: LocalNotifications, private notificationService: NotificationProvider, private userService: UserProvider, private socialSharing: SocialSharing,public actionSheetCtrl: ActionSheetController) {
     if (localStorage.getItem('userToken') !== null) {
       this.userService.findData().subscribe(
@@ -159,8 +160,9 @@ export class LoginPage {
 
     this.storeService.getListStore().subscribe(
       (store) => {
-        console.log(store);
-        this.markets = store;
+        console.log(store.results);
+        this.markets = store.results;
+        this.previous = store.previous;
         this.markets.forEach(element => {
             if (element.subscribers.includes(Number(localStorage.getItem('idUser')))) {
               element.isSubscribed = true;
@@ -206,7 +208,9 @@ export class LoginPage {
 
     this.storeService.getHighCatg().subscribe(
       (data) => {
-        this.high = data;
+        this.high = data.results;
+        console.log(data.results);
+
       },
       (error) => {
         console.log(error);

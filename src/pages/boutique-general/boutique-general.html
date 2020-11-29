@@ -8,10 +8,10 @@
   <ion-navbar hideBackButton="true"  color="lastagram">
 
     <ion-title start>
-      <button color="lastagram" ion-button icon-only (click)="ShowProfile()" style="box-shadow: none;">
+      <button color="lastagram" ion-button icon-only (click)="ShowProfile()" style="box-shadow: none;position:relative;right:3%">
         <ion-icon name="menu"></ion-icon>
       </button>
-      <span style="position: relative; top: 6px">
+      <span style="position: relative; top: 6px;font-size: large; width: 300px;">
         {{ Market.name | uppercase }}
       </span>
     </ion-title>
@@ -31,9 +31,9 @@
   </ion-navbar>
   <ion-grid class="navbar-abo" fullscreen>
       <ion-row color="lastagram" *ngIf="Market" >
-        <p>
-          <ion-icon name="thumbs-up" (click)="Abonne(Market.id)" *ngIf="!isSubscribed"></ion-icon>
-            <ion-icon name="close-circle" (click)="DesAbonne(Market.id)" *ngIf="isSubscribed"></ion-icon>
+        <p class="like-pos">
+          <ion-icon name="thumbs-up" (click)="Abonne(Market.id)" *ngIf="!isSubscribed" ></ion-icon>
+          <ion-icon name="close-circle" (click)="DesAbonne(Market.id)" *ngIf="isSubscribed" ></ion-icon>
           &nbsp;&nbsp;
           {{ Market.subscribers }} Abonnés
         </p>
@@ -45,8 +45,19 @@
 <ion-content class="bg-boutique" fullscreen>
   <ion-grid class="image-create-boutique-0" align="center">
     <!--<h3>PHOTO</h3>
-    <ion-icon name="camera"></ion-icon>-->
-    <img [src]=Market.image_cover class="couverture" alt="">
+    <ion-icon name="camera"></ion-icon>
+    <img [src]=Market.image_cover class="couverture" alt="">-->
+    <ion-slides autoplay="1000" loop="true">
+      <ion-slide>
+        <h1>Slide 1</h1>
+      </ion-slide>
+      <ion-slide>
+        <h1>Slide 2</h1>
+      </ion-slide>
+      <ion-slide>
+        <h1>Slide 3</h1>
+      </ion-slide>
+    </ion-slides>
   </ion-grid>
 
   <ion-grid class="category-boutique">
@@ -133,6 +144,13 @@
     </ion-scroll>
   </ion-grid>
 
+  <ion-grid class="">
+    <ion-row class="cadre">
+      <ion-col class="" col-12>
+        <img class="decoration" src="{{ Market.img_static_2 }}" alt="">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   <ion-grid class=" contact-bar">
     <ion-row class="">

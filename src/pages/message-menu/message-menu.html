@@ -24,12 +24,12 @@
   </ion-grid>
 
   <ion-grid>
-    <ion-list no-lines>
+    <ion-list no-lines *ngFor="let messages of complet" >
       <ion-item (click)="goToMessageContent()">
         <ion-avatar item-start>
           <img src="https://cdn.pixabay.com/photo/2016/03/09/15/10/man-1246508_960_720.jpg">
         </ion-avatar>
-        <h2>Finn <span class="time two">9:20 AM</span></h2>
+        <h2>{{ messages.name }} <span class="time two">9:20 AM</span></h2>
 
         <p>I've had a pretty messed up day. If we just...</p>
       </ion-item>
@@ -52,4 +52,6 @@
       <hr>
     </ion-list>
   </ion-grid>
+
+
 </ion-content>

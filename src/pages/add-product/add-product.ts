@@ -62,7 +62,7 @@ export class AddProductPage {
 
   AddOneProduct() {
     this.Products.category = this.idCtg;
-    this.count += this.data.length;
+    //this.count += this.data.length;
 
     if (this.data.length <= 49) {
 
@@ -82,6 +82,7 @@ export class AddProductPage {
       description: ""
 
     }
+    this.base64Image = "";
 
     } else {
       console.log('stock atteint');
@@ -149,10 +150,10 @@ export class AddProductPage {
       this.base64Image = image;
       console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
 
-      if (this.imageCompress.byteCount(image) >= 10000000) {
 
-      this.imageCompress.compressFile(image, -1, 15, 30).then(
-        result => {
+
+        this.imageCompress.compressFile(image, -1, 30, 40).then(
+          result => {
           this.imgResultAfterCompress = result;
           console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
           this.Products.image_cover = this.imgResultAfterCompress;
@@ -160,18 +161,6 @@ export class AddProductPage {
         }
       );
 
-    } else {
-
-      this.imageCompress.compressFile(image, -1, 20, 20).then(
-        result => {
-          this.imgResultAfterCompress = result;
-          console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
-          this.Products.image_cover = this.imgResultAfterCompress;
-
-        }
-      );
-
-    }
 
 
     });

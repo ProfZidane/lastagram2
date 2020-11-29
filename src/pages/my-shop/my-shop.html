@@ -14,7 +14,27 @@
   <ion-grid class="market-card-grid">
     <ion-row class="ard-market card-background-page" *ngFor="let market of Markets" >
 
-      <ion-card>
+      <ion-card >
+        <img src="{{ market.image_cover }}" class="img-couverture"/>
+        <button ion-button small color="light" class="vis"  (click)="goToMarket(market.id)">VISITER</button>
+        <ion-card-content class="btq-content">
+          <ion-card-title>
+            <ion-row>
+              <ion-col class="az" col-6>
+                <span >
+                  {{ market.name | uppercase }}
+                </span>
+              </ion-col>
+              <ion-col col-6 class="btn-like az">
+            &nbsp;
+            {{ market.subscribers_count }} Abonné(s)
+              </ion-col>
+            </ion-row>
+          </ion-card-title>
+        </ion-card-content>
+      </ion-card>
+
+      <!--<ion-card>
         <img src="{{ market.image_cover }}"/>
         <div class="card-title">
           {{ market.name | uppercase }}
@@ -35,7 +55,8 @@
             </button>
           </ion-icon>
         </div>
-      </ion-card>
+      </ion-card>-->
+
 
       <!--<ion-card>
         <ion-card-header>

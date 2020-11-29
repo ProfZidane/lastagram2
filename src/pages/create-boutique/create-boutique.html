@@ -17,14 +17,50 @@
     </ion-row>
   </ion-grid>
 
-  <ion-grid class="image-create-boutique" align="center" (click)="compressFile()">
-    <h3 *ngIf="!base64Image" >PHOTO</h3>
+  <ion-grid class="image-create-boutique" align="center" >
+    <!--<h3 *ngIf="!base64Image" >PHOTO</h3>
     <h1 *ngIf="base64Image" >
       Choix fait
       <ion-icon name="checkmark-circle-outline"></ion-icon>
     </h1>
     <br>
-    <ion-icon *ngIf="!base64Image" name="camera" ></ion-icon>
+    <ion-icon *ngIf="!base64Image" name="camera" ></ion-icon>-->
+
+    <ion-slides >
+      <ion-slide (click)="compressFile()">
+
+        <h3 *ngIf="!base64Image" >PHOTO 1</h3>
+        <h1 *ngIf="base64Image" >
+          Choix fait
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+        </h1>
+        <br>
+        <ion-icon *ngIf="!base64Image" name="camera" ></ion-icon>
+
+      </ion-slide>
+      <ion-slide (click)="compressFile_2()">
+
+        <h3 *ngIf="!base64Image2" >PHOTO 2</h3>
+        <h1 *ngIf="base64Image2" >
+          Choix fait
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+        </h1>
+        <br>
+        <ion-icon *ngIf="!base64Image2" name="camera" ></ion-icon>
+
+      </ion-slide>
+      <ion-slide (click)="compressFile_3()">
+
+        <h3 *ngIf="!base64Image3" >PHOTO 3</h3>
+        <h1 *ngIf="base64Image3" >
+          Choix fait
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+        </h1>
+        <br>
+        <ion-icon *ngIf="!base64Image3" name="camera" ></ion-icon>
+
+      </ion-slide>
+    </ion-slides>
   </ion-grid>
 
   <ion-grid class=" catg-create-boutique">
@@ -97,8 +133,8 @@
         <h3>00:30:00</h3>
       </ion-col>
       <ion-col class="" col-2>
-        <button ion-button icon-only color="danger" >
-          <ion-icon name="close"></ion-icon>
+        <button ion-button icon-only medium color="danger" (click)="presentPrompt()">
+          <ion-icon name="md-clock"></ion-icon>
         </button>
       </ion-col>
     </ion-row>
@@ -345,6 +381,19 @@
     </ion-scroll>
 
 
+  </ion-grid>
+
+
+  <ion-grid>
+    <ion-col class="affiche-boutique" col-12>
+      <ion-grid class="_2" (click)="compressFile2('3')">
+        <h3 *ngIf="!decorImg3">PHOTO</h3>
+        <ion-icon *ngIf="!decorImg3" name="camera"></ion-icon>
+
+        <ion-icon *ngIf="decorImg3" name="checkmark-circle-outline"></ion-icon>
+        <span *ngIf="decorImg3" offset-3>Ajouté !</span>
+      </ion-grid>
+    </ion-col>
   </ion-grid>
 
   <p class="err_validation" *ngIf="error_validation" >{{ error_validation }}</p>

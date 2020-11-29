@@ -1,6 +1,6 @@
 import { Socket } from 'ng-socket-io';
 import * as firebase from 'firebase';
-import { snapshotToArray } from './../../app/environment';
+import { snapshotToArray, SERVER_SOCKET_APP } from './../../app/environment';
 import { AlertController } from 'ionic-angular';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -48,6 +48,7 @@ export class MessageContentPage  {
   message = [];
   items = [];
   proprio;
+  Socket;
   @ViewChild('MessagesGrid') content:any;
   constructor(public navCtrl: NavController, public navParams: NavParams,public actionSheetCtrl: ActionSheetController, private socket: Socket, private alertCtrl: AlertController) {
     this.username = this.navParams.get('username');
@@ -67,89 +68,65 @@ export class MessageContentPage  {
     console.log('ionViewDidLoad MessageContentPage');
     /*this.socket.connect();
     this.socket.emit('hello', 'zidane')*/
-
-    let socket = new WebSocket("ws://192.168.1.46:8000/ws/chat/" + this.username +"/?JWT=" + localStorage.getItem('userToken'));
     let alert = this.alertCtrl.create({
-      title: 'SUCCESS',
-      subTitle: 'Socket connected !',
+      title: 'Success',
+      subTitle: 'Loperation a reussi !',
       buttons: ['OK']
     });
-    alert.present();
+
     let alert2 = this.alertCtrl.create({
-      title: 'ERROR',
-      subTitle: 'Socket not connect !',
+      title: 'ECHEC',
+      subTitle: 'L\'opération n\'a pas abouti !',
       buttons: ['OK']
     });
-    socket.onopen = function(){
+
+    this.Socket = new WebSocket(SERVER_SOCKET_APP + "ws/chat/admin5522/zidane2332155/");
+
+    this.Socket.onopen = function() {
+      console.log('socket connected ');
+      /*socket.send('message');*/
       alert.present();
+
     }
-    socket.onerror = function(e) {
-      console.log("error in socket : " + e);
+
+
+    this.Socket.onerror = (e) => {
+      console.log(e);
       alert2.present();
     }
 
 
 
-   /* console.log("chat : " + this.username);
+
+   /* console.log("chat : " + JSON.stringify(this.externalUser));
 
 
-    firebase.database().ref('/Messages/').on('child_added', (snapshot) => {
-      let data = snapshot.val();
-      console.log(JSON.stringify(data));
-      this.items = data;
+      firebase.database().ref('/Messages/').on('child_added', (snapshot) => {
+        let data = snapshot.val();
+        console.log(JSON.stringify(data));
+        this.items = data;
 
-      console.log(typeof(data['idSender']));
-      console.log(typeof(localStorage.getItem('idUser')));
+        console.log(typeof(data['idSender']));
+        console.log(typeof(localStorage.getItem('idUser')));
 
-      if (data["idSender"] == localStorage.getItem('idUser') && data['idReceiver'] == this.proprio.id) {
-        this.message.push({
-          "unique" : data['id'],
-          "id" : data['idSender'],
-          "idr": data['idReceiver'],
-          "user" : localStorage.getItem('name2User'),
-          "createdAt" : data["createdAt"],
-          "mgs" : data["mgs"],
-          "seen" : data['seen']
-        });
-
-      }
-*/
-
-
-
-     /* for (let k in data) {
-        //console.log(k);
-        console.log(k["idSender"]);
-
-        if (k["idSender"] == localStorage.getItem('idUser')) {
+        if (Number(data["idSender"]) === Number(localStorage.getItem('idUser'))) {
           this.message.push({
-            "id" : localStorage.getItem('idUser'),
+            "unique" : data['id'],
+            "id" : data['idSender'],
+            "idr": data['idReceiver'],
             "user" : localStorage.getItem('name2User'),
-            "createdAt" : k["createdAt"],
-            "mgs" : k["mgs"]
+            "createdAt" : data["createdAt"],
+            "mgs" : data["mgs"],
           });
-        } else {
-          this.message.push({
-            "id" : this.proprio.id,
-            "user" : this.proprio.first_name,
-            "createdAt" : k["createdAt"],
-            "mgs" : k["mgs"]
-          });
+
         }
 
 
-      }*/
 
-    //});
 
-    //console.log(" msg " + JSON.stringify(this.items));
-    //setTimeout( () => {
-      //      this.content.scrollToBottom(200);
-    //        let itemList = document.getElementById('MessagesGrid');
-  //          itemList.scrollTop = itemList.scrollHeight;
-      //      console.log(itemList);
+      });
+*/
 
-//          }, 10);
 
   }
 
@@ -215,30 +192,25 @@ export class MessageContentPage  {
 
 
   sendMessage() {
-    /*this.messages.push({
-      user: localStorage.getItem('nameUser'),
-      createdAt: new Date().getTime().toString(),
-      mgs: this.newMsg
-    });*/
+
 
     let mgs = {
       id : "-T-" + new Date().getTime() + "@" + "lastagram" ,
       idSender : localStorage.getItem('idUser'),
       idReceiver : this.proprio.id,
+      nameSender : localStorage.getItem('name2User') + ' ' + localStorage.getItem('nameUser'),
+      nameReceiver : this.externalUser.last_name + ' ' + this.externalUser.first_name,
       mgs : this.newMsg,
       createdAt : new Date().toLocaleDateString(),
-      seen: false
     }
 
-    this.addItem(mgs);
+    //this.addItem(mgs);
+
+    this.Socket.send(JSON.stringify({ message : this.newMsg }));
 
     console.log("message to : " + mgs);
 
 
-
-    //this.Socket.send(JSON.stringify({
-      //'message' : mgs
-    //}));
 
     this.newMsg = '';
     setTimeout( () => {

@@ -15,7 +15,9 @@
         <ion-icon name="menu"></ion-icon>
       </button>
       <span style="position: relative; top: 6px">
-        {{ Market.name }}  <span class="" *ngIf="isAdmin"><ion-icon name="md-create" class="edit0" (click)="modifyElt('name',Market.id)"></ion-icon></span>
+
+        <span class="" *ngIf="isAdmin"><ion-icon name="md-create" class="edit0" (click)="modifyElt('name',Market.id)"></ion-icon></span>
+        {{ Market.name }}
 
       </span>
     </ion-title>
@@ -52,16 +54,29 @@
   <ion-grid class="image-create-boutique-0" align="center">
     <!--<h3>PHOTO</h3>
     <ion-icon name="camera"></ion-icon>-->
-    <img [src]=Market.image_cover class="couverture" alt="" (click)="modifyElt('img')">
+    <ion-slides *ngIf="Market.image_cover" autoplay="1000" loop="true" pager='true'>
+      <ion-slide>
+        <img [src]=Market.image_cover alt="" (click)="addCouvertImg(1)">
+      </ion-slide>
+      <ion-slide>
+        <img [src]=Market.image_cover2 alt="" (click)="addCouvertImg(2)">
+      </ion-slide>
+      <ion-slide>
+        <img [src]=Market.image_cover3 alt="" (click)="addCouvertImg(3)">
+      </ion-slide>
+    </ion-slides>
   </ion-grid>
 
   <ion-grid class="category-boutique">
     <ion-row class="" align="center">
       <ion-col class="" col-4 *ngFor="let catg of Market.detail_articles" >
-        <div class="catg-boutique" (click)="GetProductByCtg(catg.id)">
+        <div class="catg-boutique" (click)="GetProductByCtg(catg.id)" *ngIf="catg" >
 
         </div>
-        <span class="name-ctg">{{ catg.name }}</span>
+        <span class="name-ctg" *ngIf="catg !== null" >{{ catg.name }}</span>
+
+        <ion-icon name="add" *ngIf="catg === null" ></ion-icon>
+
       </ion-col>
       <!--<ion-col class="" col-4>
         <div class="catg-boutique"></div>
@@ -94,7 +109,7 @@
       </ion-col>
       <ion-col class="set_zero" col-2>
         <button ion-button icon-only color="danger" (click)="setToZero(Market.id)" small>
-          <ion-icon name="close"></ion-icon>
+          <ion-icon name="clock"></ion-icon>
         </button>
       </ion-col>
     </ion-row>
@@ -102,12 +117,17 @@
 
   <ion-grid class="">
     <ion-scroll scrollX="true" style="width:100vw; height:250px;" >
-      <ion-row class="product-flash-create-boutique" nowrap>
+      <ion-row class="product-flash-create-boutique" nowrap  >
         <ion-col  col-6 *ngFor="let p of Market.flash" >
-          <div class="photo" align="center" (click)="Analyse(p,'flash')">
+          <div class="photo" align="center" *ngIf="p !== null"  (click)="Analyse(p,'flash')">
             <img src="{{ p.image_cover }}" class="img-product" alt="">
             <p class="name-product">{{ p.name }}</p>
-            <p class="price-product">{{ p.price }} {{ Market.devis }}</p>
+            <p class="price-product">{{ p.price | number}} {{ Market.devis }}</p>
+          </div>
+
+          <div class="photo" align="center" *ngIf="p === null" (click)="AddNewProd('flash')">
+            <h3>PHOTO</h3>
+          <ion-icon name="camera"></ion-icon>
           </div>
         </ion-col>
       </ion-row>
@@ -119,12 +139,17 @@
   <ion-grid class="">
     <ion-row class="cadre">
       <ion-col class="" col-6>
-        <img class="decoration" src="{{ Market.img_static_1 }}" alt="" (click)="setImageDeco1(Market.id)">
+        <img class="decoration" *ngIf="Market.img_static_1"  src="{{ Market.img_static_1 }}" alt="" (click)="setImageDeco1(Market.id)">
 
+        <h3 *ngIf="!Market.img_static_1" style="position: relative; left: 30%" >PHOTO</h3>
+          <ion-icon name="camera" style="font-size:40px;position:relative;left:40%" *ngIf="!Market.img_static_1" (click)="setImageDeco1(Market.id)"></ion-icon>
 
       </ion-col>
       <ion-col class="" col-6>
-        <img class="decoration" src="{{ Market.img_static_2 }}" alt="" (click)="setImageDeco2(Market.id)">
+        <img class="decoration" *ngIf="Market.img_static_2"  src="{{ Market.img_static_2 }}" alt="" (click)="setImageDeco2(Market.id)">
+
+        <h3 *ngIf="!Market.img_static_2" style="position: relative; left: 30%" >PHOTO</h3>
+          <ion-icon name="camera" style="font-size:40px;position:relative;left:40%" *ngIf="!Market.img_static_2" (click)="setImageDeco2(Market.id)"></ion-icon>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -135,10 +160,15 @@
     <ion-scroll scrollX="true" style="width:100vw; height:250px;" >
       <ion-row class="product-flash-create-boutique" nowrap>
         <ion-col class="" col-6 *ngFor="let p2 of Market.popular" >
-          <div class="photo" align="center" (click)="Analyse(p2,'popular')">
+          <div class="photo" align="center" *ngIf="p2 !== null"  (click)="Analyse(p2,'popular')">
             <img src="{{ p2.image_cover }}" class="img-product" alt="">
             <p class="name-product">{{ p2.name }}</p>
-            <p class="price-product">{{ p2.price }} {{ Market.devis }}</p>
+            <p class="price-product">{{ p2.price  | number }} {{ Market.devis }}</p>
+          </div>
+
+          <div class="photo" align="center" *ngIf="p2 === null" (click)="AddNewProd('popular')">
+            <h3 >PHOTO</h3>
+          <ion-icon name="camera" ></ion-icon>
           </div>
         </ion-col>
       </ion-row>
@@ -147,6 +177,20 @@
 
   </ion-grid>
 
+  <ion-grid class="">
+    <ion-row class="cadre">
+      <ion-col class="" col-12 *ngIf="Market.img_decore" (click)="setImageDeco3(Market.id)">
+        <img class="decoration" src="{{ Market.img_decore }}" alt="">
+      </ion-col>
+      <ion-col class="zz" col-12 *ngIf="!Market.img_decore" (click)="setImageDeco3(Market.id)">
+          <h3 style="position: relative; left: 42%">PHOTO</h3>
+          <ion-icon name="camera" style="font-size:40px;position: relative; left: 47%"></ion-icon>
+          <br><br>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <br><br>
 
   <ion-grid class=" contact-bar">
     <ion-row class="">

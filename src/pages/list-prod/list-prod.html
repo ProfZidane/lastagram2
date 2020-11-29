@@ -11,7 +11,37 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-grid>
+
+  <ion-grid class="product-to-share">
+    <ion-row  >
+      <ion-col  col-6 align="center">
+        <div class="share-product">
+          <div class="search-img-0 t-add" (click)="AddNewProd()">
+            <button  ion-button  [disabled]=state  icon-only>
+              <ion-icon name="add"></ion-icon>
+            </button>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col  col-6 align="center" *ngFor="let article of articles" >
+        <div class="share-product" (click)="modify(article)">
+          <div class="search-img-0">
+            <img [src]=article.image_cover class="d-i" alt="">
+          </div>
+
+          <hr>
+          <p class="desc-product">{{ article.name }}</p>
+          <p class="price-product twoo">{{ article.price | number }} F CFA</p>
+        </div>
+      </ion-col>
+      <!--<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>-->
+
+    </ion-row>
+  </ion-grid>
+
+  <!--<ion-grid>
     <button ion-button round color="lastagram" [disabled]=state (click)="AddNewProd()"><ion-icon name="add" style="font-size: 30px;"></ion-icon>&nbsp;&nbsp; Ajouter Articles</button>
   </ion-grid>
   <br>
@@ -22,7 +52,7 @@
       &nbsp;
       <ion-icon name="close-circle" item-end (click)="delete(article.id)"></ion-icon>
     </ion-item>
-    <hr>
+    <hr>-->
 
     <!--<ion-item>
         Herbology
@@ -42,11 +72,11 @@
       &nbsp;&nbsp;&nbsp;&nbsp;
       <ion-icon name="close-circle" item-end></ion-icon>
     </ion-item>-->
-    <ion-row>
+    <!--<ion-row>
       <ion-col></ion-col>
       <ion-col col-6 *ngIf="taille" >
         <strong>Total: </strong><span>{{ taille }} / 50</span>
       </ion-col>
     </ion-row>
-  </ion-list>
+  </ion-list>-->
 </ion-content>

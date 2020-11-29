@@ -3,6 +3,9 @@ import { OrderProvider } from './../../providers/order/order';
 import { BoutiquePage } from './../boutique/boutique';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { StoreProvider } from './../../providers/store/store';
+import { AlertController } from 'ionic-angular';
+
 
 /**
  * Generated class for the MenuMarketPage page.
@@ -21,7 +24,7 @@ export class MenuMarketPage {
   id;
   photo;
   name;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private orderService: OrderProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl: AlertController, private orderService: OrderProvider, private storeService: StoreProvider) {
     this.id = this.navParams.get("id");
     this.photo = this.navParams.get('photo');
     this.name = this.navParams.get('name');
@@ -42,6 +45,31 @@ export class MenuMarketPage {
     this.navCtrl.push()
   }*/
 
+  DeleteMarket(id) {
+    console.log(id);
+
+    this.storeService.delShopById(id).subscribe(
+      (success) => {
+        console.log(success);
+        let alert = this.alertCtrl.create({
+          title: 'SUCCESS',
+          subTitle: 'Votre boutique a été supprimée!',
+          buttons: ['OK']
+        });
+        alert.present();
+        this.navCtrl.setRoot(this.navCtrl.getActive().component);
+      },
+      (error) => {
+        console.log(error);
+        let alert = this.alertCtrl.create({
+          title: 'ECHEC',
+          subTitle: 'L\'opération n\'a pas abouti !',
+          buttons: ['OK']
+        });
+        alert.present();
+      }
+    )
+  }
 
 
   getMessageByMarket() {

@@ -13,6 +13,7 @@ import { DOMAIN_APP } from './../../app/environment';
 export class SearchProvider {
   private searchURl = DOMAIN_APP +  "api/store/articles";
   private searchURl2 = DOMAIN_APP +  "api/store/stores";
+
   private indicate_search = "?search=";
   constructor(public http: HttpClient) {
     console.log('Hello SearchProvider Provider');
@@ -36,5 +37,15 @@ export class SearchProvider {
     return this.http.get(this.searchURl2);
   }
 
+  searchByStore_product(data): Observable<any> {
+    return this.http.get(this.searchURl, data);
+  }
 
+  searchProductByStore(data): Observable<any> {
+    return this.http.get(this.searchURl, data);
+  }
+
+  searchInfinite(url): Observable<any> {
+    return this.http.get(url);
+  }
 }

@@ -121,15 +121,24 @@ export class AddProductSpecialPage {
 
       this.base64Image = image;
       console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
+      this.imageCompress.compressFile(image, -1, 30, 40).then(
+        result => {
+          this.imgResultAfterCompress = result;
+          console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
+          console.log(this.imgResultAfterCompress);
 
-      if (this.imageCompress.byteCount(image) >= 10000000) {
+          this.Products.image_cover = this.imgResultAfterCompress;
+
+        }
+      );
+      /*if (this.imageCompress.byteCount(image) >= 10000000) {
         this.imageCompress.compressFile(image, -1, 15, 30).then(
           result => {
             this.imgResultAfterCompress = result;
             console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
             console.log(this.imgResultAfterCompress);
 
-            //this.Products.image_cover = this.imgResultAfterCompress;
+            this.Products.image_cover = this.imgResultAfterCompress;
 
           }
         );
@@ -140,11 +149,11 @@ export class AddProductSpecialPage {
             console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
             console.log(this.imgResultAfterCompress);
 
-            //this.Products.image_cover = this.imgResultAfterCompress;
+            this.Products.image_cover = this.imgResultAfterCompress;
 
           }
         );
-      }
+      }*/
 
 
     });

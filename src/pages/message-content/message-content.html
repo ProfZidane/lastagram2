@@ -28,20 +28,20 @@
   <ion-grid #MessagesGrid id="MessagesGrid" class="MessagesGrid">
 
     <ion-row *ngFor="let message of message" >
-      <ion-col  col-9 *ngIf="currentUser !== message.id && proprio.id === message.idr" class="message other-message">
+      <ion-col  col-9 *ngIf="currentUser !== message.id && proprio == message.idr" class="message other-message">
         <b>{{ message.user }}</b><br>
         <span text-wrap>{{ message.mgs }}</span>
         <div class="time" text-right>
-          <br> {{ message.createdAt | date }}
+          <br> {{ message.createdAt }}
         </div>
       </ion-col>
 
 
-      <ion-col offset-3 col-9  *ngIf="currentUser === message.id" class="message my-message">
+      <ion-col offset-3 col-9  *ngIf="currentUser === message.id && proprio != message.idr" class="message my-message">
         <b>{{ message.user }}</b><br>
         <span text-wrap>{{ message.mgs }}</span>
         <div class="time" text-right >
-          <br> {{ message.createdAt | date }}
+          <br> {{ message.createdAt }}
         </div>
       </ion-col>
     </ion-row>

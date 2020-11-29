@@ -43,9 +43,9 @@ state = false;
 
     this.storeService.getProductByCatg(this.id_market,this.id).subscribe(
       (data) => {
-        console.log(data);
-        this.articles = data;
-        this.taille = data.length;
+        console.log(JSON.stringify(data));
+        this.articles = data.results;
+        this.taille = data.results.length;
         console.log(this.taille);
 
         if (this.taille == 49) {

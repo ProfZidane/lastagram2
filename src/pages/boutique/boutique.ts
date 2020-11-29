@@ -1,3 +1,5 @@
+import { AddProductAfterPage } from './../add-product-after/add-product-after';
+import { ModifyProdSpecialPage } from './../modify-prod-special/modify-prod-special';
 import { MenuMarketPage } from './../menu-market/menu-market';
 import { ProfilePage } from './../profile/profile';
 import { CartPage } from './../cart/cart';
@@ -37,6 +39,8 @@ export class BoutiquePage {
     id: Number,
     name: "",
     image_cover: "",
+    image_cover2: "",
+    image_cover3: "",
     category: [],
     flash: [],
     popular: [],
@@ -45,11 +49,14 @@ export class BoutiquePage {
     subscribers: 0,
     devis: "",
     img_static_1 : "",
-    img_static_2 : ""
+    img_static_2 : "",
+    img_decore: ""
   }
   base64Image: string;
   slug;
   imgResultAfterCompress: string;
+  flash_length;
+  popular_length;
   //rootPage = BoutiquePage;
   constructor(public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController,private callNumber: CallNumber, private alertCtrl: AlertController, private camera: Camera,public actionSheetCtrl: ActionSheetController,private imageCompress: NgxImageCompressService,public menuCtrl: MenuController) {
   }
@@ -74,36 +81,63 @@ export class BoutiquePage {
           this.Market.id = data.id;
           this.Market.name = data.name;
           this.Market.image_cover = data.image_cover;
+          this.Market.image_cover2 = data.image_cover2;
+          this.Market.image_cover3 = data.image_cover3;
+          this.Market.img_decore = data.img_decore;
           this.Market.category = data.category;
           this.Market.subscribers = data.subscribers.length;
           this.Market.devis = data.devis;
           this.Market.img_static_1 = data.img_static_1;
           this.Market.img_static_2 = data.img_static_2;
           this.slug = data.slug;
-          data.articles.forEach(element => {
-            if (element.flash == true && element.popular == false) {
-              this.Market.flash.push(element);
+
+          if (data.articles.length !== 0) {
+            data.articles.forEach(element => {
+              if (element !== null) {
+                if (element.flash == true && element.popular == false) {
+                  this.Market.flash.push(element);
+                }
+                if (element.flash == false && element.popular == true) {
+                  this.Market.popular.push(element);
+                }
+                if (element.flash == false && element.popular == false) {
+                  this.Market.articles.push(element);
+                }
+              }
+            });
+          }
+
+          this.flash_length = 6 - Number(this.Market.flash.length);
+
+          if (this.flash_length !== 0) {
+            for (let i = 0; i < this.flash_length; i++) {
+              this.Market.flash.push(null);
             }
-            if (element.flash == false && element.popular == true) {
-              this.Market.popular.push(element);
+          }
+
+          this.popular_length = 6 - Number(this.Market.popular.length);
+
+          if (this.popular_length !== 0) {
+            for (let j = 0; j < this.popular_length; j++) {
+              this.Market.popular.push(null);
             }
-            if (element.flash == false && element.popular == false) {
-              this.Market.articles.push(element);
-            }
-          });
+          }
+
 
           this.Market.category.forEach(element => {
-            this.storeService.getDetailCatg(element).subscribe(
-              (response) => {
-                this.Market.detail_articles.push(response);
-              },
-              (error) => {
-                console.log(error);
+            if (element !== null) {
+              this.storeService.getDetailCatg(element).subscribe(
+                (response) => {
+                  this.Market.detail_articles.push(response);
+                },
+                (error) => {
+                  console.log(error);
 
-              }
-            )
+                }
+              )
+            }
           });
-          console.log(this.Market.detail_articles);
+          //console.log(this.Market.detail_articles);
 
           loading.dismiss();
           console.log("Propiétaire : " + data);
@@ -234,6 +268,11 @@ export class BoutiquePage {
     this.navCtrl.push(ListProdPage, { "id_catg" : catg, "id_boutique": this.Market.id, "slug": this.slug } );
   }
 
+  AddNewProd(indic) {
+    this.navCtrl.push(AddProductAfterPage, { "id_catg": null, "id_market": this.Market.id, "indic" : indic });
+  }
+
+
   goToAddProduct() {
     this.navCtrl.push(AddProductPage);
   }
@@ -254,58 +293,95 @@ export class BoutiquePage {
   }
 
   setToZero(id) {
-    let data = {
-      timer : "30:00"
-    }
-    let loading = this.loadingCtrl.create({
-      content: 'Veuillez Patienter...'
+    let alert = this.alertCtrl.create({
+      title: 'Réglage Minuteur',
+      inputs: [
+        {
+          name: 'hour',
+          placeholder: 'Heure'
+        },
+        {
+          name: 'minute',
+          placeholder: 'Minute',
+        },
+        {
+          name: 'second',
+          placeholder: 'Second',
+        }
+      ],
+      buttons: [
+        {
+          text: 'Fermer',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Valider',
+          handler: data => {
+            //data.timeNow = new Date().getTime();
+
+            console.log(data.hour + ":" + data.minute + ":" + data.second);
+
+            let time = {
+              "timer" : data.hour + ":" + data.minute + ":" + data.second
+            }
+            let loading = this.loadingCtrl.create({
+              content: 'Veuillez Patienter...'
+            });
+            loading.present();
+            this.storeService.updateProduct2(time,Number(id)).subscribe(
+              (success) => {
+                console.log("time updated");
+                console.log(success);
+
+                loading.dismiss();
+
+                let alert2 = this.alertCtrl.create({
+                  title: 'SUCCESS',
+                  subTitle: 'Timer a été mis à jour !',
+                  buttons: [
+                    {
+                      text: 'OK',
+                      role: 'cancel',
+                      handler: () => {
+                        this.navCtrl.push(MyShopPage);
+                      }
+                    }
+                  ]
+                });
+                alert2.present();
+
+              },
+              (error) => {
+                console.log(JSON.stringify(error));
+                loading.dismiss();
+                let alert3 = this.alertCtrl.create({
+                  title: 'ECHEC',
+                  subTitle: 'Echec de la mise à jour !',
+                  buttons: [
+                    {
+                      text: 'OK',
+                      role: 'cancel',
+                      handler: () => {
+                        console.log('cancel');
+
+                      }
+                    }
+                  ]
+                });
+                alert3.present();
+
+
+              }
+            )
+
+          }
+        }
+      ]
     });
-    loading.present();
-    this.storeService.updateProduct2(data,Number(id)).subscribe(
-      (success) => {
-        console.log("name updated");
-        console.log(success);
-
-        loading.dismiss();
-
-        let alert2 = this.alertCtrl.create({
-          title: 'SUCCESS',
-          subTitle: 'Timer remis à 0 !',
-          buttons: [
-            {
-              text: 'OK',
-              role: 'cancel',
-              handler: () => {
-                this.navCtrl.push(MyShopPage);
-              }
-            }
-          ]
-        });
-        alert2.present();
-
-      },
-      (error) => {
-        console.log(JSON.stringify(error));
-        loading.dismiss();
-        let alert3 = this.alertCtrl.create({
-          title: 'ECHEC',
-          subTitle: 'Echec de la remis à zéro !',
-          buttons: [
-            {
-              text: 'OK',
-              role: 'cancel',
-              handler: () => {
-                console.log('cancel');
-
-              }
-            }
-          ]
-        });
-        alert3.present();
-
-
-      }
-    )
+    alert.present();
   }
 
   setImageDeco1(id) {
@@ -391,6 +467,72 @@ export class BoutiquePage {
           loading.present();
           let data = {
             "img_static_2" : this.imgResultAfterCompress
+          }
+
+          this.storeService.updateProduct2(data,this.Market.id).subscribe(
+            (response) => {
+                console.log(response);
+                loading.dismiss();
+                let alert4 = this.alertCtrl.create({
+                  title: 'SUCCESS',
+                  subTitle: 'Photo modifée !',
+                  buttons: [
+                    {
+                      text: 'OK',
+                      role: 'cancel',
+                      handler: () => {
+                        this.navCtrl.push(MyShopPage);
+                      }
+                    }
+                  ]
+                });
+                alert4.present();
+            },
+            (error) => {
+              console.log(id);
+
+              console.log(error);
+              loading.dismiss();
+              let alert5 = this.alertCtrl.create({
+                title: 'ECHEC',
+                subTitle: 'Echec de la modification !',
+                buttons: [
+                  {
+                    text: 'OK',
+                    role: 'cancel',
+                    handler: () => {
+                      console.log('cancel');
+
+                    }
+                  }
+                ]
+              });
+              alert5.present();
+            }
+
+          )
+
+        }
+      );
+
+    });
+  }
+
+  setImageDeco3(id) {
+    this.imageCompress.uploadFile().then(({image, orientation}) => {
+
+      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
+
+      this.imageCompress.compressFile(image,-1, 20, 20).then(
+        result => {
+          this.imgResultAfterCompress = result;
+          console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
+          let loading = this.loadingCtrl.create({
+            content: 'Veuillez Patienter...'
+          });
+          loading.present();
+          let data = {
+            "img_decore" : this.imgResultAfterCompress
           }
 
           this.storeService.updateProduct2(data,this.Market.id).subscribe(
@@ -595,6 +737,283 @@ export class BoutiquePage {
     } else {
       console.log("vous netes pas admin !");
 
+    }
+  }
+
+  modifImg2() {
+
+    this.imageCompress.uploadFile().then(({image, orientation}) => {
+
+      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
+
+      this.imageCompress.compressFile(image, -1, 20, 20).then(
+        result => {
+          this.imgResultAfterCompress = result;
+          console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
+          let loading = this.loadingCtrl.create({
+            content: 'Veuillez Patienter...'
+          });
+          loading.present();
+          let data = {
+            "image_cover2" : this.imgResultAfterCompress
+          }
+
+          this.storeService.updateProduct2(data,this.Market.id).subscribe(
+            (response) => {
+                console.log(response);
+                loading.dismiss();
+                let alert4 = this.alertCtrl.create({
+                  title: 'SUCCESS',
+                  subTitle: 'Photo de couverture modifée !',
+                  buttons: [
+                    {
+                      text: 'OK',
+                      role: 'cancel',
+                      handler: () => {
+                        this.navCtrl.push(MyShopPage);
+                      }
+                    }
+                  ]
+                });
+                alert4.present();
+            },
+            (error) => {
+
+              console.log(error);
+              loading.dismiss();
+              let alert5 = this.alertCtrl.create({
+                title: 'ECHEC',
+                subTitle: 'Echec de la modification !',
+                buttons: [
+                  {
+                    text: 'OK',
+                    role: 'cancel',
+                    handler: () => {
+                      console.log('cancel');
+
+                    }
+                  }
+                ]
+              });
+              alert5.present();
+            }
+
+          )
+
+        }
+      );
+
+    });
+  }
+
+  modifImg3() {
+    this.imageCompress.uploadFile().then(({image, orientation}) => {
+
+      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
+
+      this.imageCompress.compressFile(image, -1, 20, 20).then(
+        result => {
+          this.imgResultAfterCompress = result;
+          console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
+          let loading = this.loadingCtrl.create({
+            content: 'Veuillez Patienter...'
+          });
+          loading.present();
+          let data = {
+            "image_cover3" : this.imgResultAfterCompress
+          }
+
+          this.storeService.updateProduct2(data,this.Market.id).subscribe(
+            (response) => {
+                console.log(response);
+                loading.dismiss();
+                let alert4 = this.alertCtrl.create({
+                  title: 'SUCCESS',
+                  subTitle: 'Photo de couverture modifée !',
+                  buttons: [
+                    {
+                      text: 'OK',
+                      role: 'cancel',
+                      handler: () => {
+                        this.navCtrl.push(MyShopPage);
+                      }
+                    }
+                  ]
+                });
+                alert4.present();
+            },
+            (error) => {
+
+              console.log(error);
+              loading.dismiss();
+              let alert5 = this.alertCtrl.create({
+                title: 'ECHEC',
+                subTitle: 'Echec de la modification !',
+                buttons: [
+                  {
+                    text: 'OK',
+                    role: 'cancel',
+                    handler: () => {
+                      console.log('cancel');
+
+                    }
+                  }
+                ]
+              });
+              alert5.present();
+            }
+
+          )
+
+        }
+      );
+
+    });
+  }
+
+
+  addCouvertImg(num) {
+    if (num === 1) {
+      this.imageCompress.uploadFile().then(({image, orientation}) => {
+
+        //this.base64Image = image;
+        console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
+        let loading = this.loadingCtrl.create({
+          content: 'Veuillez Patienter...'
+        });
+        loading.present();
+        this.imageCompress.compressFile(image, -1, 50, 50).then(
+          result => {
+            this.imgResultAfterCompress = result;
+            console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
+            let data = {
+              "image_cover" : this.imgResultAfterCompress
+            }
+            this.storeService.updateProduct2(data,this.Market.id).subscribe(
+              (response) => {
+                  console.log(response);
+                  loading.dismiss();
+              },
+              (error) => {
+
+                console.log(error);
+                loading.dismiss();
+                let alert5 = this.alertCtrl.create({
+                  title: 'ECHEC',
+                  subTitle: 'Echec de la modification !',
+                  buttons: [
+                    {
+                      text: 'OK',
+                      role: 'cancel',
+                      handler: () => {
+                        console.log('cancel');
+
+                      }
+                    }
+                  ]
+                });
+                alert5.present();
+              }
+
+            )
+          }
+        );
+
+      });
+    } else if (num === 2) {
+      this.imageCompress.uploadFile().then(({image, orientation}) => {
+
+        //this.base64Image = image;
+        console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
+        let loading = this.loadingCtrl.create({
+          content: 'Veuillez Patienter...'
+        });
+        loading.present();
+        this.imageCompress.compressFile(image, -1, 50, 50).then(
+          result => {
+            this.imgResultAfterCompress = result;
+            console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
+            let data = {
+              "image_cover2" : this.imgResultAfterCompress
+            }
+            this.storeService.updateProduct2(data,this.Market.id).subscribe(
+              (response) => {
+                  console.log(response);
+                  loading.dismiss();
+              },
+              (error) => {
+
+                console.log(error);
+                loading.dismiss();
+                let alert5 = this.alertCtrl.create({
+                  title: 'ECHEC',
+                  subTitle: 'Echec de la modification !',
+                  buttons: [
+                    {
+                      text: 'OK',
+                      role: 'cancel',
+                      handler: () => {
+                        console.log('cancel');
+
+                      }
+                    }
+                  ]
+                });
+                alert5.present();
+              }
+
+            )
+          }
+        );
+
+      });
+    } else if (num === 3) {
+      this.imageCompress.uploadFile().then(({image, orientation}) => {
+
+        //this.base64Image = image;
+        console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
+        let loading = this.loadingCtrl.create({
+          content: 'Veuillez Patienter...'
+        });
+        loading.present();
+        this.imageCompress.compressFile(image, -1, 50, 50).then(
+          result => {
+            this.imgResultAfterCompress = result;
+            console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
+            let data = {
+              "image_cover3" : this.imgResultAfterCompress
+            }
+            this.storeService.updateProduct2(data,this.Market.id).subscribe(
+              (response) => {
+                  console.log(response);
+                  loading.dismiss();
+              },
+              (error) => {
+
+                console.log(error);
+                loading.dismiss();
+                let alert5 = this.alertCtrl.create({
+                  title: 'ECHEC',
+                  subTitle: 'Echec de la modification !',
+                  buttons: [
+                    {
+                      text: 'OK',
+                      role: 'cancel',
+                      handler: () => {
+                        console.log('cancel');
+
+                      }
+                    }
+                  ]
+                });
+                alert5.present();
+              }
+
+            )
+          }
+        );
+
+      });
     }
   }
 

@@ -1,3 +1,5 @@
+import { AddProductAfterPageModule } from './../pages/add-product-after/add-product-after.module';
+import { SearchByMarketPageModule } from './../pages/search-by-market/search-by-market.module';
 import { DetailOrderMePageModule } from './../pages/detail-order-me/detail-order-me.module';
 import { ListOrderMePageModule } from './../pages/list-order-me/list-order-me.module';
 import { MenuMarketPageModule } from './../pages/menu-market/menu-market.module';
@@ -96,7 +98,7 @@ import { NotificationProvider } from '../providers/notification/notification';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { SearchProvider } from '../providers/search/search';
 
-const config : SocketIoConfig = { url: "http://192.168.1.103:3000", options : {} };
+const config : SocketIoConfig = { url: "https://192.168.1.82:4000", options : {} };
 
 
 @NgModule({
@@ -154,6 +156,8 @@ const config : SocketIoConfig = { url: "http://192.168.1.103:3000", options : {}
     MenuMarketPageModule,
     ListOrderMePageModule,
     DetailOrderMePageModule,
+    SearchByMarketPageModule,
+    AddProductAfterPageModule,
     SocketIoModule.forRoot(config),
     IonicModule.forRoot(MyApp)
   ],

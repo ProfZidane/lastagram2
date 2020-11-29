@@ -7,6 +7,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 //import { timestamp } from 'rxjs/operators';
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import * as firebase from 'firebase';
 
 /**
  * Generated class for the RegisterPage page.
@@ -34,6 +35,8 @@ export class RegisterPage {
   good = '';
   err;
   base64Image:string;
+  ref = firebase.database().ref('User/');
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private userService: UserProvider,private camera: Camera,public loadingCtrl: LoadingController, private alertCtrl: AlertController) {
   }
 
@@ -92,6 +95,16 @@ export class RegisterPage {
     })
   }
 
+  addItem(item) {
+    if (item !== undefined && item !==null){
+      let newItem = this.ref.push();
+      newItem.set(item);
+
+    }
+    console.log('added to database ' + JSON.stringify(item));
+
+  }
+
 
   registerUSer() {
 
@@ -125,6 +138,7 @@ export class RegisterPage {
         "password" : this.register.password,
         "re_password" : this.register.password,
       }
+
       console.log(data);
 
       this.userService.registerUser(data).subscribe(
@@ -132,6 +146,7 @@ export class RegisterPage {
           console.log("user created !", response);
           loading.dismiss();
           localStorage.setItem('UserObject', response);
+          this.addItem(response);
           let words =  {
             "0" : "Veuillez maintenant vous authentifiez !"
           };

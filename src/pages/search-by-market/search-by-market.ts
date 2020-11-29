@@ -1,11 +1,11 @@
-import { SearchProvider } from './../../providers/search/search';
 import { DetailProductPage } from './../detail-product/detail-product';
+import { SearchProvider } from './../../providers/search/search';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 
 /**
- * Generated class for the SearchWithProductPage page.
+ * Generated class for the SearchByMarketPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -13,21 +13,23 @@ import { AlertController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-search-with-product',
-  templateUrl: 'search-with-product.html',
+  selector: 'page-search-by-market',
+  templateUrl: 'search-by-market.html',
 })
-export class SearchWithProductPage {
-Products;
-Total;
-next;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private searchService: SearchProvider, private alertCtrl: AlertController) {
+export class SearchByMarketPage {
+  Products;
+  id;
+  TotalProduct;
+  next;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private searchService: SearchProvider) {
+    this.id = this.navParams.get('id');
+    console.log(this.id);
 
     this.initializeItems();
-
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SearchWithProductPage');
+    console.log('ionViewDidLoad SearchByMarketPage');
   }
 
   goToDetailProduct(id,id2,id3) {
@@ -41,15 +43,17 @@ next;
       content: 'Veuillez Patienter...'
     });
     loading.present();*/
-    this.searchService.searchProduct().subscribe(
+    let data = {
+      "id_store" : Number(this.id)
+    }
+    console.log(data);
+
+    this.searchService.searchProductByStore(data).subscribe(
       (data) => {
         //console.log(JSON.stringify(data));
-        this.Products = data.results;
-        this.Total = data.results;
-        this.next = data.next;
-        console.log(data);
-
-
+        this.Products = data;
+        this.TotalProduct = data;
+        console.log("data : " + data);
 
       //  loading.dismiss();
       },
@@ -84,14 +88,12 @@ next;
     if (val && val.trim() != '') {
       this.Products = this.researchService(val);
     } else {
-      //this.initializeItems();
-      this.Products = this.Total;
+      this.Products = this.TotalProduct;
     }
   }
 
-
   researchService(val) {
-    return this.Total.filter( (item) => {
+    return this.Products.filter( (item) => {
       return item.name.toLowerCase().includes(val.toLowerCase());
     });
   }
@@ -110,7 +112,7 @@ next;
             data_next.forEach(element => {
               if (element !== null) {
                 this.Products.push( element );
-                this.Total.push(element);
+                this.TotalProduct.push(element);
               }
             });
 
@@ -124,6 +126,5 @@ next;
       infiniteScroll.complete();
     }, 500);
   }
-
 
 }

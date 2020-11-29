@@ -71,6 +71,7 @@ export class HomePage {
        error => {
         console.log('error : clé : ');
         console.log(error.status);
+        console.log(error);
 
         //console.log(Object.keys(error));
         //let t = Object.keys(error);

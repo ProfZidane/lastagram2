@@ -1,5 +1,11 @@
 page-create-boutique {
+  ion-slide {
+    margin: 0;
+    padding: 0;
+    background-image: url('https://cdn.pixabay.com/photo/2016/03/02/20/13/shopping-1232944_960_720.jpg');
+    background-size: cover;
 
+  }
 }
 
 .level-up-add {
@@ -29,13 +35,13 @@ page-create-boutique {
 
 .image-create-boutique {
   height: 200px;
-  background-image: url('https://cdn.pixabay.com/photo/2016/03/02/20/13/shopping-1232944_960_720.jpg');
+
   background-size: cover;
 }
 
 .image-create-boutique h3 {
   color: white;
-  transform: translateY(50px);
+  transform: translateY(10px);
 }
 
 .image-create-boutique h1 {
@@ -46,7 +52,7 @@ page-create-boutique {
 .image-create-boutique ion-icon {
   color: white;
   font-size: 45px;
-  transform: translateY(30%);
+  transform: translateY(-30%);
 }
 
 .bg-create-boutique {

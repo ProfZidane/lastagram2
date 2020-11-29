@@ -5,7 +5,7 @@ import { AddCategoryPage } from './../add-category/add-category';
 import { BoutiqueCreatedPage } from './../boutique-created/boutique-created';
 import { BoutiquePage } from './../boutique/boutique';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform , App} from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
@@ -80,16 +80,20 @@ export class CreateBoutiquePage {
   a;
   error_validation:string;
   base64Image;
+  base64Image2;
+  base64Image3;
+
   ref = firebase.database().ref('Markets/');
   items = [];
   imgResultAfterCompress: string;
 
   decorImg1;
   decorImg2;
+  decorImg3;
 
   devis;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider, private camera: Camera,public loadingCtrl: LoadingController, private alertCtrl: AlertController,private imageCompress: NgxImageCompressService) {
+  constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider, private camera: Camera,public loadingCtrl: LoadingController, private alertCtrl: AlertController,private imageCompress: NgxImageCompressService, private app: App) {
     console.log(localStorage.getItem('article'));
     this.a = JSON.parse(localStorage.getItem('article'));
     console.log(this.a);
@@ -105,6 +109,28 @@ export class CreateBoutiquePage {
     if (localStorage.getItem('image_Decoration2') !== null) {
       this.decorImg2 = localStorage.getItem('image_Decoration2');
     }
+
+    if (localStorage.getItem('image_Decoration3') !== null) {
+      this.decorImg3 = localStorage.getItem('image_Decoration3')
+    }
+
+    if (localStorage.getItem('couvertImage2') !== null) {
+      this.base64Image2 = localStorage.getItem('couvertImage2');
+    }
+
+    if (localStorage.getItem('couvertImage3') !== null) {
+      this.base64Image3 = localStorage.getItem('couvertImage3');
+    }
+
+    this.platform.registerBackButtonAction( () => {
+      let nav = this.app.getActiveNav();
+      if (nav.canGoBack()) {
+        nav.popTo(this.navCtrl.getByIndex (this.navCtrl.length () - 3))
+      } else {
+        this.platform.exitApp();
+      }
+    })
+
   }
 
   ionViewDidLoad() {
@@ -256,13 +282,57 @@ export class CreateBoutiquePage {
       this.base64Image = image;
       console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
 
-      this.imageCompress.compressFile(image, -1, 20, 20).then(
+      this.imageCompress.compressFile(image, -1, 50, 50).then(
         result => {
           this.imgResultAfterCompress = result;
           console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
           console.log(this.imgResultAfterCompress);
 
           localStorage.setItem('couvertImage', this.imgResultAfterCompress);
+
+        }
+      );
+
+    });
+
+  }
+
+  compressFile_2() {
+
+    this.imageCompress.uploadFile().then(({image, orientation}) => {
+
+      this.base64Image2 = image;
+      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
+
+      this.imageCompress.compressFile(image, -1, 50, 50).then(
+        result => {
+          this.imgResultAfterCompress = result;
+          console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
+          console.log(this.imgResultAfterCompress);
+
+          localStorage.setItem('couvertImage2', this.imgResultAfterCompress);
+
+        }
+      );
+
+    });
+
+  }
+
+  compressFile_3() {
+
+    this.imageCompress.uploadFile().then(({image, orientation}) => {
+
+      this.base64Image3 = image;
+      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
+
+      this.imageCompress.compressFile(image, -1, 50, 50).then(
+        result => {
+          this.imgResultAfterCompress = result;
+          console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
+          console.log(this.imgResultAfterCompress);
+
+          localStorage.setItem('couvertImage3', this.imgResultAfterCompress);
 
         }
       );
@@ -287,12 +357,53 @@ export class CreateBoutiquePage {
             this.decorImg1 = localStorage.getItem('image_Decoration' + num);
           } else if (num == "2") {
             this.decorImg2 = localStorage.getItem('image_Decoration' + num)
+          } else if (num == "3") {
+            this.decorImg3 = localStorage.getItem('image_Decoration' + num)
           }
         }
       );
 
     });
 
+  }
+
+  presentPrompt() {
+    let alert = this.alertCtrl.create({
+      title: 'Réglage Minuteur',
+      inputs: [
+        {
+          name: 'hour',
+          placeholder: 'Heure'
+        },
+        {
+          name: 'minute',
+          placeholder: 'Minute',
+        },
+        {
+          name: 'second',
+          placeholder: 'Second',
+        }
+      ],
+      buttons: [
+        {
+          text: 'Fermer',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Valider',
+          handler: data => {
+            data.timeNow = new Date().getTime();
+
+            console.log(data);
+
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
 
@@ -402,7 +513,7 @@ export class CreateBoutiquePage {
 
   ValidationCreateBoutique() {
 
-    if (this.ValidationCheck()) {
+    if (this.nameMarket !== "") {
       let loading = this.loadingCtrl.create({
         content: 'Veuillez Patienter...'
       });
@@ -419,11 +530,14 @@ export class CreateBoutiquePage {
           JSON.parse(localStorage.getItem('id6')),
         ],
         "image_cover" : localStorage.getItem('couvertImage'),
+        "image_cover2" : localStorage.getItem('couvertImage2'),
+        "image_cover3" : localStorage.getItem('couvertImage3'),
         "articles" : [],
         "timer" : "30:00",
         "devis" : this.devis,
         "img_static_1" : localStorage.getItem('image_Decoration1'),
         "img_static_2" : localStorage.getItem('image_Decoration2'),
+        "img_decore" : localStorage.getItem('image_Decoration3')
       }
       //datas.image_couverture = null;
 
@@ -474,13 +588,16 @@ export class CreateBoutiquePage {
 
       console.log(datas);
 
+      console.log(JSON.stringify(datas));
+
+
      // this.addItem(datas);
 
       //loading.dismiss();
 
      // this.goToBoutique();
 
-      this.storeService.createMarket(datas).subscribe(
+      /*this.storeService.createMarket(datas).subscribe(
         (success) => {
           console.log(success);
           //localStorage.setItem('myshop',JSON.stringify(success));
@@ -533,7 +650,7 @@ export class CreateBoutiquePage {
           }
 
         }
-      )
+      )*/
 
 
 

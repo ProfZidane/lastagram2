@@ -48,7 +48,7 @@ export class MyShopPage {
     this.storeService.getMyShop().subscribe(
       (data) => {
         console.log(data);
-        this.Markets = data
+        this.Markets = data.results
         loading.dismiss();
 
       },

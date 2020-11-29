@@ -29,7 +29,7 @@ export class AddCategoryPage {
     this.storeService.getCatgStore().subscribe(
       (data) => {
         console.log(data);
-        this.AllCtg = data;
+        this.AllCtg = data.results;
       },
       (err) => {
         console.log(err);

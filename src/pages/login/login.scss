@@ -42,7 +42,6 @@ ion-header ion-navbar{
 ion-card ion-card-content {
   height: 130px;
 
-  /*background-image: url("https://cdn.pixabay.com/photo/2016/11/06/17/17/north-america-1803504_960_720.jpg");*/
 }
 
 #ouverture {
@@ -163,7 +162,7 @@ ion-card ion-card-content button {
   background-color: red;
 }
 
-
+/*
 .card-background-page {
 
   ion-card {
@@ -171,7 +170,6 @@ ion-card ion-card-content button {
     border-radius: 20px;
     height: 150px;
     box-shadow: 1px 2px 4px rgba(218, 214, 214, 0.842);
-    /*text-align: center;*/
   }
 
   ion-card img {
@@ -217,5 +215,49 @@ ion-card ion-card-content button {
     width: 100%;
     color: #fff;
   }
+
+}*/
+
+
+.vis {
+  z-index: 1;
+  position: relative;
+  bottom: 107px;
+  left: 75%;
+}
+
+.img-couverture {
+  z-index: 2;
+  padding: 0.5rem;
+  height: 130px;
+
+/*  position: relative;
+  bottom: 50px;*/
+}
+
+.btq-content {
+  height: 5px;
+}
+
+.btq-content ion-card-title{
+  position: relative;
+  bottom: 40px;
+}
+
+.btq-content ion-card-title ion-icon{
+  font-size: xx-large;
+}
+
+.btn-like {
+  position: relative;
+  bottom: 10px;
+  left: 10%;
+}
+
+
+.az ion-icon {
+  border: solid;
+
+  font-weight: 600;
 
 }

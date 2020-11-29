@@ -24,7 +24,52 @@
   <ion-searchbar  (ionInput)="getItems($event)" round></ion-searchbar>
 
   <ion-grid class="market-card-grid">
-    <ion-row class="card-market add-rounded" *ngFor="let market of Markets" >
+
+    <ion-row class="card-market card-background-page" *ngFor="let market of Markets"  >
+
+      <ion-card >
+        <img src="{{ market.image_cover }}" class="img-couverture"/>
+        <button ion-button small color="light" class="vis" (click)='ViewMarket(market.id,market.isSubscribed,market.owner)'>VISITER</button>
+        <ion-card-content class="btq-content">
+          <ion-card-title>
+            <ion-row>
+              <ion-col class="az" col-6>
+                <span >
+                  {{ market.name | uppercase }}
+                </span>
+              </ion-col>
+              <ion-col col-6 class="btn-like az">
+            <ion-icon name="thumbs-up-outline" (click)="Abonne(market.id)" *ngIf="market.isSubscribed === false"></ion-icon>
+            <ion-icon name="close-circle" (click)="DesAbonne(market.id)" *ngIf="market.isSubscribed === true"></ion-icon>
+            &nbsp;
+            {{ market.subscribers_count }} Abonné(s)
+              </ion-col>
+            </ion-row>
+          </ion-card-title>
+        </ion-card-content>
+      </ion-card>
+
+
+      <!--<ion-card>
+        <img src="{{ market.image_cover }}"/>
+        <div class="card-title">
+          {{ market.name | uppercase }}
+        </div>
+        <div class="card-title2">
+          {{ market.subscribers_count }} Abonné(s)
+            <ion-icon name="thumbs-up-outline" (click)="Abonne(market.id)" *ngIf="market.isSubscribed === false"></ion-icon>
+            <ion-icon name="close-circle" (click)="DesAbonne(market.id)" *ngIf="market.isSubscribed === true"></ion-icon>
+        </div>
+        <div class="card-subtitle">
+          <button ion-button medium color="light" class="vis" round (click)='ViewMarket(market.id,market.isSubscribed)'>VISITER</button>
+        </div>
+      </ion-card>-->
+    </ion-row>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+    <!--<ion-row class="card-market add-rounded" *ngFor="let market of Markets" >
       <ion-card>
         <ion-card-header>
           <span class="text-header-card">{{ market.name }}</span>
@@ -38,7 +83,7 @@
           <button ion-button color="light" (click)="ViewMarket(market.id,market.isSubscribed)" round>VISITER</button>
         </ion-card-content>
       </ion-card>
-    </ion-row>
+    </ion-row>-->
 
 
   </ion-grid>

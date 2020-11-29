@@ -1,3 +1,4 @@
+import { BoutiquePage } from './../boutique/boutique';
 import { BoutiqueGeneralPage } from './../boutique-general/boutique-general';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -20,6 +21,8 @@ import { StoreProvider } from './../../providers/store/store';
 })
 export class SearchWithShopPage {
 Markets;
+total;
+next;
   constructor(public navCtrl: NavController, public navParams: NavParams, private searchService: SearchProvider, public storeService: StoreProvider, private alertCtrl: AlertController,public toastCtrl: ToastController) {
     this.initializeItems();
   }
@@ -35,9 +38,11 @@ Markets;
     loading.present();*/
     this.searchService.searchStore().subscribe(
       (data) => {
-        console.log(JSON.stringify(data));
-        this.Markets = data;
-        data.forEach(element => {
+        console.log(data);
+        this.Markets = data.results;
+        this.total = data.results;
+        this.next = data.next;
+        data.results.forEach(element => {
           if (element.subscribers.includes(Number(localStorage.getItem('idUser')))) {
             element.isSubscribed = true;
           } else {
@@ -78,21 +83,55 @@ Markets;
     if (val && val.trim() != '') {
       this.Markets = this.researchService(val);
     } else {
-      this.initializeItems();
+      this.Markets = this.total;
     }
   }
 
   researchService(val) {
-    return this.Markets.filter( (item) => {
+    return this.total.filter( (item) => {
       return item.name.toLowerCase().includes(val.toLowerCase());
     });
   }
 
+  doInfinite(infiniteScroll) {
+    console.log('Begin async operation');
+
+    setTimeout(() => {
+      if (this.next !== null) {
+        this.searchService.searchInfinite(this.next).subscribe(
+          (data) => {
+            let data_next = data.results;
+            console.log(data);
+            console.log(data);
+
+            data_next.forEach(element => {
+              if (element !== null) {
+                this.Markets.push( element );
+                this.total.push(element);
+              }
+            });
+
+            this.next = data.next;
+
+          }
+        )
+      }
+
+      console.log('Async operation has ended');
+      infiniteScroll.complete();
+    }, 500);
+  }
 
 
-  ViewMarket(value,b) {
+
+  ViewMarket(value,b,owner) {
     console.log(value);
-    this.navCtrl.push(BoutiqueGeneralPage, { "id": value, "isAbonned" :  b});
+    if (Number(owner) === Number(localStorage.getItem('idUser'))) {
+      this.navCtrl.push(BoutiquePage, { "id" : value });
+    } else {
+      this.navCtrl.push(BoutiqueGeneralPage, { "id": value, "isAbonned" :  b});
+    }
+
   }
 
 

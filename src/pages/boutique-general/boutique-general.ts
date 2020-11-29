@@ -1,3 +1,4 @@
+import { SearchByMarketPage } from './../search-by-market/search-by-market';
 import { CartPage } from './../cart/cart';
 import { SearchPage } from './../search/search';
 import { ProfilePage } from './../profile/profile';
@@ -62,7 +63,8 @@ export class BoutiqueGeneralPage {
     devis: "",
     timer: "",
     img_static_1 : "",
-    img_static_2 : ""
+    img_static_2 : "",
+    time_flash: ""
   }
   base64Image: string;
   slug;
@@ -75,7 +77,7 @@ export class BoutiqueGeneralPage {
   second=0;
   minute=30;
   heure=0;
-
+  timer;
   constructor(public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController,
      private camera: Camera, public toastCtrl: ToastController, private callNumber: CallNumber, private app: App
   ) {
@@ -98,7 +100,7 @@ export class BoutiqueGeneralPage {
     console.log(this.id);
     this.storeService.getDetailMarketById(this.id).subscribe(
       (success) => {
-       // console.log(JSON.stringify(success));
+        //console.log(JSON.stringify(success));
         console.log(success);
         this.ownerInfo.first_name = success.owner.first_name;
         this.ownerInfo.last_name = success.owner.last_name;
@@ -114,7 +116,7 @@ export class BoutiqueGeneralPage {
         this.Market.detail_articles = success.category;
         this.Market.owner = success.owner.id;
         this.Market.devis = success.devis;
-        this.Market.timer = success.timer;
+        this.Market.time_flash = success.time_flash;
         this.Market.img_static_1 = success.img_static_1;
         this.Market.img_static_2 = success.img_static_2;
         this.slug = success.slug;
@@ -142,7 +144,7 @@ export class BoutiqueGeneralPage {
           )
         });*/
 
-        // timer
+        /*
           if (localStorage.getItem('time') !== null) {
 
             let Storetime = JSON.parse(localStorage.getItem('time'));
@@ -202,7 +204,23 @@ export class BoutiqueGeneralPage {
 
           }
 
-        this.startTimer()
+        this.startTimer()*/
+
+        this.timer = this.Market.time_flash.split(':');
+        console.log("type : " + Object.keys(this.timer));
+        console.log(Number(this.timer[0]) + ': ' + this.timer[1] + ' :' + this.timer[2]);
+
+        if (this.timer[0][0] === '-' || Number(this.timer[0]) <= 0  || Number(this.timer[1]) <= 0 || Math.round(this.timer[2]) <= 0) {
+          this.heure = 0;
+          this.minute = 0;
+          this.second = 0;
+        } else {
+          this.heure = this.timer[0];
+        this.minute = this.timer[1];
+        this.second = Math.round(this.timer[2]);
+          this.startTimer()
+
+        }
 
 
 
@@ -242,7 +260,7 @@ export class BoutiqueGeneralPage {
 
 
 
-    if (localStorage.getItem('time') === null) {
+    /*if (localStorage.getItem('time') === null) {
       let tab = [];
       let time = {
         id : this.Market.id,
@@ -284,7 +302,7 @@ export class BoutiqueGeneralPage {
       });
 
 
-    }
+    }*/
   }
 
   Abonne(id) {
@@ -405,7 +423,7 @@ export class BoutiqueGeneralPage {
   }
 
   goToSearch() {
-    this.navCtrl.push(SearchPage);
+    this.navCtrl.push(SearchByMarketPage, { id : this.Market.id });
   }
 
   goToCart() {
@@ -457,8 +475,16 @@ export class BoutiqueGeneralPage {
         this.second = 59;
       this.minute --;
       } else {
-        this.minute = 0;
-        this.second = 0;
+        if (this.heure !== 0) {
+          this.heure --;
+          this.minute = 59;
+          this.second = 59;
+        } else {
+          this.heure = 0;
+          this.minute = 0;
+          this.second = 0;
+        }
+
       }
 
     }
