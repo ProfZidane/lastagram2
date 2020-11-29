@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import { SearchProvider } from './../../providers/search/search';
 
 /**
  * Generated class for the ListProdPage page.
@@ -26,7 +27,8 @@ slug;
 articles;
 taille;
 state = false;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController) {
+  next: any;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController, private searchService: SearchProvider) {
   }
 
   ionViewDidLoad() {
@@ -45,6 +47,7 @@ state = false;
       (data) => {
         console.log(JSON.stringify(data));
         this.articles = data.results;
+        this.next = data.next;
         this.taille = data.results.length;
         console.log(this.taille);
 
@@ -103,6 +106,35 @@ state = false;
 
   AddNewProd() {
     this.navCtrl.push(ModifyProdSpecialPage, { "id_catg": this.id, "id_market": this.id_market });
+  }
+
+  doInfinite(infiniteScroll) {
+    console.log('Begin async operation');
+
+    setTimeout(() => {
+      if (this.next !== null) {
+        this.searchService.searchInfinite(this.next).subscribe(
+          (data) => {
+            let data_next = data.results;
+            console.log(data);
+            console.log(data);
+
+            data_next.forEach(element => {
+              if (element !== null) {
+                this.articles.push( element );
+                //this.Total.push(element);
+              }
+            });
+
+            this.next = data.next;
+
+          }
+        )
+      }
+
+      console.log('Async operation has ended');
+      infiniteScroll.complete();
+    }, 500);
   }
 
 }

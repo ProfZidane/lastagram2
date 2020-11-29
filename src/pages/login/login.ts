@@ -19,6 +19,7 @@ import { HomePage } from '../home/home';
 import { ELocalNotificationTriggerUnit, LocalNotifications } from '@ionic-native/local-notifications';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { ActionSheetController } from 'ionic-angular';
+import { SearchProvider } from './../../providers/search/search';
 
 /**
  * Generated class for the LoginPage page.
@@ -39,13 +40,14 @@ export class LoginPage {
   high;
   seen = [];
   previous;
-  constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams, public storeService: StoreProvider, private alertCtrl: AlertController,public toastCtrl: ToastController, public modalCtrl: ModalController, private localNotifications: LocalNotifications, private notificationService: NotificationProvider, private userService: UserProvider, private socialSharing: SocialSharing,public actionSheetCtrl: ActionSheetController) {
+  next;
+  constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams, public storeService: StoreProvider, private alertCtrl: AlertController,public toastCtrl: ToastController, public modalCtrl: ModalController, private localNotifications: LocalNotifications, private notificationService: NotificationProvider, private userService: UserProvider, private socialSharing: SocialSharing,public actionSheetCtrl: ActionSheetController, private searchService: SearchProvider) {
     if (localStorage.getItem('userToken') !== null) {
       this.userService.findData().subscribe(
         (data) => {
           if (localStorage.getItem('nameUser') == null && localStorage.getItem('name2User') == null
               && localStorage.getItem('phoneUser') == null && localStorage.getItem('mailUser') == null
-              && localStorage.getItem('idUser') == null && localStorage.getItem('photoUser') == null) {
+              && localStorage.getItem('idUser') == null && localStorage.getItem('photoUser') == null && localStorage.getItem('usernameChat') == null) {
 
                 localStorage.setItem('nameUser', data.first_name);
                 localStorage.setItem('name2User', data.last_name);
@@ -53,7 +55,7 @@ export class LoginPage {
                 localStorage.setItem('mailUser', data.email);
                 localStorage.setItem('idUser', data.id);
                 localStorage.setItem('photoUser', data.photo);
-
+                localStorage.setItem('usernameChat', data.username);
               }
               console.log(JSON.stringify(localStorage.getItem('idUser')));
         }, (err) => {
@@ -109,6 +111,10 @@ export class LoginPage {
         });*/
      /* });*/
      /*}*/
+
+     this.platform.registerBackButtonAction( () => {
+      this.platform.exitApp();
+    })
   }
 
 
@@ -163,6 +169,7 @@ export class LoginPage {
         console.log(store.results);
         this.markets = store.results;
         this.previous = store.previous;
+        this.next = store.next;
         this.markets.forEach(element => {
             if (element.subscribers.includes(Number(localStorage.getItem('idUser')))) {
               element.isSubscribed = true;
@@ -233,6 +240,34 @@ export class LoginPage {
   }
 
 
+  doInfinite(infiniteScroll) {
+    console.log('Begin async operation');
+
+    setTimeout(() => {
+      if (this.next !== null) {
+        this.searchService.searchInfinite(this.next).subscribe(
+          (data) => {
+            let data_next = data.results;
+            console.log(data);
+            console.log(data);
+
+            data_next.forEach(element => {
+              if (element !== null) {
+                this.markets.push( element );
+                //this.total.push(element);
+              }
+            });
+
+            this.next = data.next;
+
+          }
+        )
+      }
+
+      console.log('Async operation has ended');
+      infiniteScroll.complete();
+    }, 500);
+  }
 
 
   goReload() {

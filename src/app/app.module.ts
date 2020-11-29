@@ -1,3 +1,4 @@
+import { ImageVieweerPageModule } from './../pages/image-vieweer/image-vieweer.module';
 import { AddProductAfterPageModule } from './../pages/add-product-after/add-product-after.module';
 import { SearchByMarketPageModule } from './../pages/search-by-market/search-by-market.module';
 import { DetailOrderMePageModule } from './../pages/detail-order-me/detail-order-me.module';
@@ -57,7 +58,7 @@ import {NgxImageCompressService} from 'ngx-image-compress';
 
 
 
-
+import { IonicImageViewerModule } from 'ionic-img-viewer';
 
 
 
@@ -158,6 +159,7 @@ const config : SocketIoConfig = { url: "https://192.168.1.82:4000", options : {}
     DetailOrderMePageModule,
     SearchByMarketPageModule,
     AddProductAfterPageModule,
+    ImageVieweerPageModule,
     SocketIoModule.forRoot(config),
     IonicModule.forRoot(MyApp)
   ],
@@ -184,7 +186,7 @@ const config : SocketIoConfig = { url: "https://192.168.1.82:4000", options : {}
     Deeplinks,
     CallNumber,
     SocketProvider,
-    NgxImageCompressService
+    NgxImageCompressService,
   ]
 })
 export class AppModule {}

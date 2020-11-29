@@ -1,7 +1,7 @@
 import { CreateBoutiquePage } from './../create-boutique/create-boutique';
 import { ProductAddedPage } from './../product-added/product-added';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { App, IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import {NgxImageCompressService} from 'ngx-image-compress';
@@ -38,7 +38,17 @@ export class AddProductPage {
   base64Image: string;
   imgResultAfterCompress: any;
   count;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private camera: Camera,private imageCompress: NgxImageCompressService) {
+  constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private camera: Camera,private imageCompress: NgxImageCompressService, private app: App) {
+    this.platform.registerBackButtonAction( () => {
+      let nav = this.app.getActiveNav();
+      if (nav.canGoBack()) {
+        console.log("back ");
+        console.log(this.navCtrl.getByIndex(this.navCtrl.length () - 3));
+        nav.popTo(this.navCtrl.getByIndex (this.navCtrl.length () - 3))
+      } else {
+        this.platform.exitApp();
+      }
+    })
   }
 
   ionViewDidLoad() {

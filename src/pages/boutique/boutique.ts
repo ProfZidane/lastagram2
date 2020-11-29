@@ -206,7 +206,7 @@ export class BoutiquePage {
   }
 
   goToProductShare() {
-    this.navCtrl.push(ProductToSharePage);
+    this.navCtrl.push(ProductToSharePage, { id : this.Market.id });
   }
 
   // presente action
@@ -222,13 +222,25 @@ export class BoutiquePage {
             this.navCtrl.push(ShopToSharePage);
           }
         },{
-          text: 'Partagez sur les réseaux',
+          text: 'Partagez sur les réseaux sociaux',
           icon: 'share-alt',
           handler: () => {
             this.goToProductShare();
           }
+        },/*{
+          text: 'Partagez mes produits sur Facebook',
+          icon: 'logo-facebook',
+          handler: () => {
+            this.goToProductShare();
+          }
         },{
-          text: 'Cancel',
+          text: 'Partagez mes produits sur Instagram',
+          icon: 'logo-instagram',
+          handler: () => {
+            this.goToProductShare();
+          }
+        },*/{
+          text: 'Fermer',
           role: 'destructive',
           icon: 'close-circle',
           cssClass: 'cancel-btn',

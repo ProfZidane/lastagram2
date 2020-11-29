@@ -1,3 +1,4 @@
+import { ProfilePage } from './../profile/profile';
 import { AddProductSpecialPage } from './../add-product-special/add-product-special';
 import { AddProductPage } from './../add-product/add-product';
 import { StoreProvider } from './../../providers/store/store';
@@ -93,6 +94,7 @@ export class CreateBoutiquePage {
 
   devis;
 
+  timer;
   constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider, private camera: Camera,public loadingCtrl: LoadingController, private alertCtrl: AlertController,private imageCompress: NgxImageCompressService, private app: App) {
     console.log(localStorage.getItem('article'));
     this.a = JSON.parse(localStorage.getItem('article'));
@@ -125,7 +127,8 @@ export class CreateBoutiquePage {
     this.platform.registerBackButtonAction( () => {
       let nav = this.app.getActiveNav();
       if (nav.canGoBack()) {
-        nav.popTo(this.navCtrl.getByIndex (this.navCtrl.length () - 3))
+        nav.popToRoot()
+        //nav.popTo(ProfilePage)
       } else {
         this.platform.exitApp();
       }
@@ -395,9 +398,10 @@ export class CreateBoutiquePage {
         {
           text: 'Valider',
           handler: data => {
-            data.timeNow = new Date().getTime();
 
             console.log(data);
+
+            this.timer = data.hour + ":" + data.minute + ":" + data.second;
 
           }
         }
@@ -533,7 +537,7 @@ export class CreateBoutiquePage {
         "image_cover2" : localStorage.getItem('couvertImage2'),
         "image_cover3" : localStorage.getItem('couvertImage3'),
         "articles" : [],
-        "timer" : "30:00",
+        "timer" : this.timer,
         "devis" : this.devis,
         "img_static_1" : localStorage.getItem('image_Decoration1'),
         "img_static_2" : localStorage.getItem('image_Decoration2'),

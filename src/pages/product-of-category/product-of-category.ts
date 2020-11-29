@@ -3,6 +3,7 @@ import { StoreProvider } from './../../providers/store/store';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
+import { SearchProvider } from './../../providers/search/search';
 
 /**
  * Generated class for the ProductOfCategoryPage page.
@@ -23,7 +24,8 @@ export class ProductOfCategoryPage {
   id_owner;
   name_catg:string;
   devis;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController) {
+  next;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController, private searchService: SearchProvider) {
   }
 
   ionViewDidLoad() {
@@ -41,7 +43,8 @@ export class ProductOfCategoryPage {
       if(this.navParams.get('status') == 'high') {
         this.storeService.getProductHigh(this.navParams.get('id')).subscribe(
           (data) => {
-            this.Products = data;
+            this.Products = data.results;
+            this.next = data.next;
             //this.devis = data.store.devis;
 
             console.log(this.Products);
@@ -65,7 +68,8 @@ export class ProductOfCategoryPage {
     this.storeService.getProductByCatg(this.id_market,this.id_category).subscribe(
       (data) => {
         console.log(data);
-        this.Products = data;
+        this.Products = data.results;
+        this.next = data.next;
 
 
         console.log(this.Products);
@@ -94,6 +98,36 @@ export class ProductOfCategoryPage {
     }*/
 
 
+  }
+
+  doInfinite(infiniteScroll) {
+    console.log('Begin async operation');
+    console.log(this.next);
+
+    setTimeout(() => {
+      if (this.next !== null) {
+        this.searchService.searchInfinite(this.next).subscribe(
+          (data) => {
+            let data_next = data.results;
+            console.log(data);
+            console.log(data);
+
+            data_next.forEach(element => {
+              if (element !== null) {
+                this.Products.push( element );
+                //this.Total.push(element);
+              }
+            });
+
+            this.next = data.next;
+
+          }
+        )
+      }
+
+      console.log('Async operation has ended');
+      infiniteScroll.complete();
+    }, 500);
   }
 
 }

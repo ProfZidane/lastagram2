@@ -5,11 +5,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { SocialSharing } from '@ionic-native/social-sharing';
-import { SearchProvider } from './../../providers/search/search';
-
 
 /**
- * Generated class for the ProductToSharePage page.
+ * Generated class for the ShareFbInstPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -17,39 +15,28 @@ import { SearchProvider } from './../../providers/search/search';
 
 @IonicPage()
 @Component({
-  selector: 'page-product-to-share',
-  templateUrl: 'product-to-share.html',
+  selector: 'page-share-fb-inst',
+  templateUrl: 'share-fb-inst.html',
 })
-export class ProductToSharePage {
-selected = [];
-visibility = false;
-error;
-products;
-next;
-id_market;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController, private socialSharing: SocialSharing, private searchService: SearchProvider) {
-    this.id_market = this.navParams.get('id');
+export class ShareFbInstPage {
+  selected = [];
+  visibility = false;
+  error;
+  products;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController, private socialSharing: SocialSharing) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ProductToSharePage');
+    console.log('ionViewDidLoad ShareFbInstPage');
     let loading = this.loadingCtrl.create({
       content: 'Veuillez Patienter...'
     });
     loading.present();
-    let data = {
-      "id_store" : Number(this.id_market)
-    }
-    console.log(data);
-
-    this.searchService.searchProductByStore(data).subscribe(
+    this.storeService.getProductOfUser().subscribe(
       (data) => {
         this.products = data.results;
-        this.next = data.next;
         this.products.visibility = false;
-        console.log("obj : " + JSON.stringify(data));
-        console.log(this.next);
-
+        //console.log("obj : " + JSON.stringify(data));
         loading.dismiss();
       }, (err) => {
         console.log('rtt : ' + err);
@@ -67,11 +54,6 @@ id_market;
       }
     )
   }
-
-  goToProductShared() {
-    this.navCtrl.push(ProductSharedPage);
-  }
-
 
   selectedProduct(obj) {
 
@@ -130,50 +112,43 @@ id_market;
 
   }
 
-  doInfinite(infiniteScroll) {
-    console.log('Begin async operation');
-
-    setTimeout(() => {
-      if (this.next !== null) {
-        this.searchService.searchInfinite(this.next).subscribe(
-          (data) => {
-            let data_next = data.results;
-            console.log(data);
-            console.log(data);
-
-            data_next.forEach(element => {
-              if (element !== null) {
-                this.products.push( element );
-                //this.Total.push(element);
-              }
-            });
-
-            this.next = data.next;
-
-          }
-        )
-      }
-
-      console.log('Async operation has ended');
-      infiniteScroll.complete();
-    }, 500);
-  }
-
-
-  shareOptions() {
+  shareFacebook() {
+    let message = "Etes vous intéressez par mes produits ? ";
     let img = [];
     this.selected.forEach( elt => {
       img.push(elt.image_cover);
     });
-    console.log(JSON.stringify(img));
 
-    let option = {
-      message : "Etes vous intéressez par mes produits ?",
-      files: img,
-      url: "lastagram://lastagram.herokuapp.com/",
-      chooserTitle: "Choisissez une application"
-    }
-    this.socialSharing.shareWithOptions(option);
+    this.socialSharing.canShareVia("com.facebook.katana","Test catana",null,null,null).then((res) => {
+        console.log(res);
+        this.socialSharing.shareViaFacebook(message,null).then(() => {
+          console.log("sharing ::::");
+
+        }) .catch(e => {
+          console.log(e);
+
+        })
+
+    }) .catch((e)=> {
+      console.log("erreur " + e);
+      let alert = this.alertCtrl.create({
+        title: 'ATTENTION',
+        subTitle: 'Installer l\'application avant tout !',
+        buttons: ['OK']
+      });
+      alert.present();
+
+    });
+
+    /*this.socialSharing.shareViaFacebook(message,image,null).then(() => {
+      console.log("sharing ::::");
+
+    }) .catch(e => {
+      console.log(e);
+
+    })*/
   }
+
+
 
 }

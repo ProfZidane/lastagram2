@@ -9,6 +9,8 @@ import { AlertController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import * as firebase from 'firebase';
 import { snapshotToArray } from './../../app/environment';
+import { SearchProvider } from './../../providers/search/search';
+
 /**
  * Generated class for the MyShopPage page.
  *
@@ -29,7 +31,8 @@ export class MyShopPage {
   }
 
   Markets;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider, private alertCtrl: AlertController,public loadingCtrl: LoadingController, private app: App) {
+  next;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider, private alertCtrl: AlertController,public loadingCtrl: LoadingController, private app: App, private searchService: SearchProvider) {
   }
 
   ionViewDidLoad() {
@@ -49,6 +52,7 @@ export class MyShopPage {
       (data) => {
         console.log(data);
         this.Markets = data.results
+        this.next = data.next;
         loading.dismiss();
 
       },
@@ -99,6 +103,35 @@ export class MyShopPage {
   goToMarket(id) {
     console.log(id);
     this.navCtrl.push(BoutiquePage, { "id": id });
+  }
+
+  doInfinite(infiniteScroll) {
+    console.log('Begin async operation');
+
+    setTimeout(() => {
+      if (this.next !== null) {
+        this.searchService.searchInfinite(this.next).subscribe(
+          (data) => {
+            let data_next = data.results;
+            console.log(data);
+            console.log(data);
+
+            data_next.forEach(element => {
+              if (element !== null) {
+                this.Markets.push( element );
+                //this.total.push(element);
+              }
+            });
+
+            this.next = data.next;
+
+          }
+        )
+      }
+
+      console.log('Async operation has ended');
+      infiniteScroll.complete();
+    }, 500);
   }
 
   Abonne(id) {

@@ -18,7 +18,7 @@
 
 <ion-content padding>
   <ion-grid class="img-product-detail img-d-0" align="center" *ngIf="product" >
-    <img [src]=product.image_cover alt="" class="img-detail">
+    <img [src]=product.image_cover alt="" class="img-detail" (click)="zoomImg()">
   </ion-grid>
   <br>
   <ion-grid class=" text-detail-product" *ngIf="product">

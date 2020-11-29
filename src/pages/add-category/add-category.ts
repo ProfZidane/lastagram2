@@ -1,8 +1,8 @@
 import { CreateBoutiquePage } from './../create-boutique/create-boutique';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { App, IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { StoreProvider } from './../../providers/store/store';
-
+import { SearchProvider } from './../../providers/search/search';
 /**
  * Generated class for the AddCategoryPage page.
  *
@@ -18,7 +18,17 @@ import { StoreProvider } from './../../providers/store/store';
 export class AddCategoryPage {
   AllCtg;
   indic;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider) {
+  next;
+  constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider, private searchService: SearchProvider, private app: App) {
+    this.platform.registerBackButtonAction( () => {
+      let nav = this.app.getActiveNav();
+      if (nav.canGoBack()) {
+        console.log(this.navCtrl.getActiveChildNav());
+        nav.popTo(CreateBoutiquePage);
+      } else {
+        this.platform.exitApp();
+      }
+    })
   }
 
   ionViewDidLoad() {
@@ -49,6 +59,36 @@ export class AddCategoryPage {
 
   goBackToCreate() {
     this.navCtrl.push(CreateBoutiquePage);
+  }
+
+  doInfinite(infiniteScroll) {
+    console.log('Begin async operation');
+    console.log(this.next);
+
+    setTimeout(() => {
+      if (this.next !== null) {
+        this.searchService.searchInfinite(this.next).subscribe(
+          (data) => {
+            let data_next = data.results;
+            console.log(data);
+            console.log(data);
+
+            data_next.forEach(element => {
+              if (element !== null) {
+                this.AllCtg.push( element );
+                //this.Total.push(element);
+              }
+            });
+
+            this.next = data.next;
+
+          }
+        )
+      }
+
+      console.log('Async operation has ended');
+      infiniteScroll.complete();
+    }, 500);
   }
 
 }

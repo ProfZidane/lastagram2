@@ -53,7 +53,7 @@ export class ProfilePage {
           this.photo = info.photo;
           if (localStorage.getItem('nameUser') == null && localStorage.getItem('name2User') == null
               && localStorage.getItem('phoneUser') == null && localStorage.getItem('mailUser') == null
-              && localStorage.getItem('idUser') == null && localStorage.getItem('photoUser') == null) {
+              && localStorage.getItem('idUser') == null && localStorage.getItem('photoUser') == null && localStorage.getItem('usernameChat') == null) {
 
                 localStorage.setItem('userObject',info);
                 localStorage.setItem('nameUser', info.first_name);
@@ -62,6 +62,7 @@ export class ProfilePage {
                 localStorage.setItem('mailUser', info.email);
                 localStorage.setItem('idUser', info.id);
                 localStorage.setItem('photoUser', info.photo);
+                localStorage.setItem('usernameChat', info.username);
 
               }
 

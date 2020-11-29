@@ -1,3 +1,5 @@
+import { ImageVieweerPage } from './../image-vieweer/image-vieweer';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { CartPage } from './../cart/cart';
 import { OrderProvider } from './../../providers/order/order';
 import { StoreProvider } from './../../providers/store/store';
@@ -95,6 +97,11 @@ export class DetailProductPage {
 
   viewCart() {
     this.navCtrl.push(CartPage);
+  }
+
+  zoomImg() {
+    const modal = this.modalCtrl.create(ImageVieweerPage, { img : this.product.image_cover});
+    modal.present();
   }
 
   addToCart(id) {

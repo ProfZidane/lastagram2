@@ -20,10 +20,13 @@
           <br>
           <small>{{ ctg.name }}</small>
         </div>
-      </ion-col>     
+      </ion-col>
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
     </ion-row>
 
-  
+
 
   </ion-grid>
 
