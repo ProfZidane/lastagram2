@@ -38,8 +38,8 @@ export class ProfilePage {
     //console.log('ionViewDidLoad ProfilePage');
     if (localStorage.getItem('userToken') === null) {
       //this.navCtrl.push(HomePage);
-      const modal = this.modalCtrl.create(HomePage);
-      modal.present();
+      this.app.getRootNav().setRoot(HomePage);
+
     } else {
       let loading = this.loadingCtrl.create({
         content: 'Veuillez Patienter...'
@@ -48,7 +48,7 @@ export class ProfilePage {
 
       this.userService.findData().subscribe(
         (info) => {
-          console.log(JSON.stringify(info));
+          console.log(info);
           this.infoUser = info;
           this.photo = info.photo;
           if (localStorage.getItem('nameUser') == null && localStorage.getItem('name2User') == null
@@ -121,6 +121,8 @@ export class ProfilePage {
     if (localStorage.getItem('userToken') !== null) {
       this.navCtrl.push(MyShopPage);
     } else {
+      this.app.getRootNav().setRoot(HomePage);
+
       //this.navCtrl.push(HomePage);
       /*const modal = this.modalCtrl.create(HomePage);
       modal.present();*/

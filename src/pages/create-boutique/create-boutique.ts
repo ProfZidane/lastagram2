@@ -94,7 +94,7 @@ export class CreateBoutiquePage {
 
   devis;
 
-  timer;
+  timer = "00:00:00";
   constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider, private camera: Camera,public loadingCtrl: LoadingController, private alertCtrl: AlertController,private imageCompress: NgxImageCompressService, private app: App) {
     console.log(localStorage.getItem('article'));
     this.a = JSON.parse(localStorage.getItem('article'));
@@ -517,7 +517,7 @@ export class CreateBoutiquePage {
 
   ValidationCreateBoutique() {
 
-    if (this.nameMarket !== "") {
+    if (this.ValidationCheck()) {
       let loading = this.loadingCtrl.create({
         content: 'Veuillez Patienter...'
       });
@@ -601,7 +601,7 @@ export class CreateBoutiquePage {
 
      // this.goToBoutique();
 
-      /*this.storeService.createMarket(datas).subscribe(
+      this.storeService.createMarket(datas).subscribe(
         (success) => {
           console.log(success);
           //localStorage.setItem('myshop',JSON.stringify(success));
@@ -654,12 +654,12 @@ export class CreateBoutiquePage {
           }
 
         }
-      )*/
+      )
 
 
 
     } else {
-      this.error_validation = "Veuillez remplir toutes les parties !";
+      this.error_validation = "Veuillez choisir le nom de la boutique, vos catégories et une image de couverture avant de créer votre boutique !";
     }
 
 
@@ -678,11 +678,11 @@ export class CreateBoutiquePage {
     tab.forEach(element => {
       if (localStorage.getItem('id'+element) !== null /*&& localStorage.getItem('article'+element) !== null*/) {
           //return true;
-          i = 1;
+          i += 1;
       }
     });
 
-    tab.forEach(element =>  {
+    /*tab.forEach(element =>  {
       if (localStorage.getItem('flash'+element) !== null ) {
         j = 1;
       }
@@ -692,9 +692,9 @@ export class CreateBoutiquePage {
       if (localStorage.getItem('populaire'+element) !== null ) {
         k = 1;
       }
-    });
+    });*/
 
-    if (i == 1 && j == 1 && k == 1 && this.base64Image !== null && this.nameMarket != "") {
+    if (i == 6 && this.base64Image !== ""  && this.nameMarket != "") {
       return true;
     } else {
       return false;

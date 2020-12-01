@@ -27,22 +27,24 @@
 
     <ion-row class="card-market card-background-page" *ngFor="let market of Markets"  >
 
-      <ion-card >
+      <ion-card (click)='ViewMarket(market.id,market.isSubscribed,market.owner)'>
         <img src="{{ market.image_cover }}" class="img-couverture"/>
-        <button ion-button small color="light" class="vis" (click)='ViewMarket(market.id,market.isSubscribed,market.owner)'>VISITER</button>
+        <!--<button ion-button small color="light" class="vis" (click)='ViewMarket(market.id,market.isSubscribed,market.owner)'>VISITER</button>-->
         <ion-card-content class="btq-content">
           <ion-card-title>
             <ion-row>
-              <ion-col class="az" col-6>
-                <span >
+              <ion-col class="az" col-7>
+                <span style="font-weight: 400;">
                   {{ market.name | uppercase }}
                 </span>
               </ion-col>
-              <ion-col col-6 class="btn-like az">
-            <ion-icon name="thumbs-up-outline" (click)="Abonne(market.id)" *ngIf="market.isSubscribed === false"></ion-icon>
-            <ion-icon name="close-circle" (click)="DesAbonne(market.id)" *ngIf="market.isSubscribed === true"></ion-icon>
+              <ion-col col-5 class="btn-like az">
+            <ion-icon name="md-thumbs-up" style="font-size: 25px;" (click)="Abonne(market.id)" *ngIf="market.isSubscribed === false"></ion-icon>
+            <ion-icon name="close-circle" style="font-size: 25px;" (click)="DesAbonne(market.id)" *ngIf="market.isSubscribed === true"></ion-icon>
             &nbsp;
-            {{ market.subscribers_count }} Abonné(s)
+            <span class="b">
+              {{ market.subscribers_count }} Abonné(s)
+            </span>
               </ion-col>
             </ion-row>
           </ion-card-title>

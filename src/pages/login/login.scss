@@ -236,12 +236,12 @@ ion-card ion-card-content button {
 }
 
 .btq-content {
-  height: 5px;
+  height: 45px;
 }
 
 .btq-content ion-card-title{
   position: relative;
-  bottom: 40px;
+  bottom: 5px;
 }
 
 .btq-content ion-card-title ion-icon{
@@ -251,12 +251,26 @@ ion-card ion-card-content button {
 .btn-like {
   position: relative;
   bottom: 10px;
-  left: 10%;
+  left: 0%;
+  width: 100%;
+  font-size: small;
 }
 
 
+
 .az ion-icon {
+  position: relative;
+  bottom: 6px;
+  font-weight: 200;
 
-  font-weight: 600;
+  color: gray;
+}
 
+
+
+.b {
+  font-size: small;
+
+  position: relative;
+  bottom: 10px;
 }

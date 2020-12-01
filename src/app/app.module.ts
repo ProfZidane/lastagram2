@@ -51,7 +51,7 @@ import { StoreProvider } from './../providers/store/store';
 
 
 
-
+import { Clipboard } from '@ionic-native/clipboard';
 
 
 import {NgxImageCompressService} from 'ngx-image-compress';
@@ -160,7 +160,6 @@ const config : SocketIoConfig = { url: "https://192.168.1.82:4000", options : {}
     SearchByMarketPageModule,
     AddProductAfterPageModule,
     ImageVieweerPageModule,
-    SocketIoModule.forRoot(config),
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -187,6 +186,7 @@ const config : SocketIoConfig = { url: "https://192.168.1.82:4000", options : {}
     CallNumber,
     SocketProvider,
     NgxImageCompressService,
+    Clipboard
   ]
 })
 export class AppModule {}

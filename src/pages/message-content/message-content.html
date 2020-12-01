@@ -26,22 +26,21 @@
 
 <ion-content fullscreen class="bg-content-message">
   <ion-grid #MessagesGrid id="MessagesGrid" class="MessagesGrid">
-
-    <ion-row *ngFor="let message of message" >
-      <ion-col  col-9 *ngIf="currentUser !== message.id && proprio == message.idr" class="message other-message">
-        <b>{{ message.user }}</b><br>
-        <span text-wrap>{{ message.mgs }}</span>
+    <ion-row *ngFor="let message of messages" >
+      <ion-col  col-9 *ngIf="username !== message.sender" class="message other-message">
+        <b>{{ message.receiver }}</b><br>
+        <span text-wrap>{{ message.message }}</span>
         <div class="time" text-right>
-          <br> {{ message.createdAt }}
+          <br> {{ message.timestamp | date }}
         </div>
       </ion-col>
 
 
-      <ion-col offset-3 col-9  *ngIf="currentUser === message.id && proprio != message.idr" class="message my-message">
-        <b>{{ message.user }}</b><br>
-        <span text-wrap>{{ message.mgs }}</span>
+      <ion-col offset-3 col-9  *ngIf="username === message.sender" class="message my-message">
+        <b>{{ message.sender }}</b><br>
+        <span text-wrap>{{ message.message }}</span>
         <div class="time" text-right >
-          <br> {{ message.createdAt }}
+          <br> {{ message.timestamp | date }}
         </div>
       </ion-col>
     </ion-row>
@@ -94,7 +93,10 @@
     </ion-toolbar>
   </ion-grid>-->
 
- <ion-footer>
+
+
+</ion-content>
+<ion-footer>
   <ion-toolbar>
 
     <ion-buttons start>
@@ -117,5 +119,3 @@
 
   </ion-toolbar>
  </ion-footer>
-
-</ion-content>

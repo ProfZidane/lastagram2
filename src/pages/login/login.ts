@@ -344,7 +344,7 @@ export class LoginPage {
     this.storeService.Subscribe(data).subscribe(
       (success) => {
         const toast = this.toastCtrl.create({
-          message: 'Vous êtes maintenat désabonné !',
+          message: 'Vous êtes maintenant désabonné !',
           duration: 3000
         });
         toast.present();

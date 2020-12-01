@@ -13,7 +13,9 @@ export const FIREBASE_CONFIG = {
 
 //export const SERVER_SOCKET_APP = "ws://192.168.1.41:9000/";
 
-export const SERVER_SOCKET_APP = "ws://lastagram-chat.herokuapp.com/";
+export const SERVER_SOCKET_APP = "https://lastagram-chat.herokuapp.com/";
+
+export const SOCKET_SERVER = "ws://lastagram-chat.herokuapp.com/";
 export const DOMAIN_APP = "https://lastagram.herokuapp.com/";
 
 export const snapshotToArray = snapshot =>{
@@ -25,3 +27,6 @@ export const snapshotToArray = snapshot =>{
   });
   return returnArray;
 };
+
+
+export let Messages = [];

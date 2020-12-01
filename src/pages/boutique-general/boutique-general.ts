@@ -53,6 +53,9 @@ export class BoutiqueGeneralPage {
     id: Number,
     name: "",
     image_cover: "",
+    image_cover_2: "",
+    image_cover_3: "",
+    img_decore : "",
     category: [],
     flash: [],
     popular: [],
@@ -111,6 +114,9 @@ export class BoutiqueGeneralPage {
         this.Market.id = success.id;
         this.Market.name = success.name;
         this.Market.image_cover = success.image_cover;
+        this.Market.image_cover_2 = success.image_cover_2;
+        this.Market.image_cover_3 = success.image_cover_3;
+        this.Market.img_decore = success.img_decore;
         this.Market.category = success.category;
         this.Market.subscribers = success.subscribers_count;
         this.Market.detail_articles = success.category;

@@ -25,7 +25,7 @@ import { ToastController } from 'ionic-angular';
   templateUrl: 'detail-product.html',
 })
 export class DetailProductPage {
-  quantity = 0;
+  quantity = 1;
   visibility = false;
   id_article;
   id_market;
@@ -244,7 +244,7 @@ export class DetailProductPage {
     let option = {
       message : "Etes vous intéressez par mon produit " +this.product.name+ " ? ",
       files: [this.product.image_cover],
-      url: "lastagram://lastagram.herokuapp.com/product/"+ this.id_article +"/"+ this.id_market +"/"+ this.id_owner,
+      url: "deeplink.digitlab-ci.com/product/"+ this.id_article +"/"+ this.id_market +"/"+ this.id_owner,
       chooserTitle: "Choisissez une application"
     }
     this.socialSharing.shareWithOptions(option);

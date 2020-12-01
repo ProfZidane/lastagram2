@@ -13,13 +13,13 @@ import { StoreProvider } from './../../providers/store/store';
 import { AddProductPage } from './../add-product/add-product';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController  } from 'ionic-angular';
-import { LoadingController } from 'ionic-angular';
+import { LoadingController, ToastController  } from 'ionic-angular';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { AlertController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ActionSheetController } from 'ionic-angular';
 import {NgxImageCompressService} from 'ngx-image-compress';
-
+import { Clipboard } from '@ionic-native/clipboard';
 /**
  * Generated class for the BoutiquePage page.
  *
@@ -58,7 +58,7 @@ export class BoutiquePage {
   flash_length;
   popular_length;
   //rootPage = BoutiquePage;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController,private callNumber: CallNumber, private alertCtrl: AlertController, private camera: Camera,public actionSheetCtrl: ActionSheetController,private imageCompress: NgxImageCompressService,public menuCtrl: MenuController) {
+  constructor(public toastCtrl: ToastController,public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController,private callNumber: CallNumber, private alertCtrl: AlertController, private camera: Camera,public actionSheetCtrl: ActionSheetController,private imageCompress: NgxImageCompressService,public menuCtrl: MenuController, private clipboard: Clipboard) {
   }
 
   ionViewDidLoad() {
@@ -219,7 +219,18 @@ export class BoutiquePage {
           icon: 'link',
           handler: () => {
             console.log('Destructive clicked');
-            this.navCtrl.push(ShopToSharePage);
+            let link = "lastagram://lastagram.herokuapp.com/market/"+this.Market.id+"/"+false;
+            this.clipboard.copy(link).then(
+              () => {
+                  const toast = this.toastCtrl.create({
+                    message: 'Lien copié !',
+                    duration: 3000,
+                    position: 'top'
+                  });
+                  toast.present();
+              }
+            );
+            //this.navCtrl.push(ShopToSharePage);
           }
         },{
           text: 'Partagez sur les réseaux sociaux',

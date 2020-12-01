@@ -47,15 +47,30 @@
     <!--<h3>PHOTO</h3>
     <ion-icon name="camera"></ion-icon>
     <img [src]=Market.image_cover class="couverture" alt="">-->
-    <ion-slides autoplay="1000" loop="true">
+    <ion-slides *ngIf="Market.image_cover && Market.image_cover_2 == null && Market.image_cover_3 == null">
       <ion-slide>
-        <h1>Slide 1</h1>
+        <img [src]=Market.image_cover alt="">
+      </ion-slide>
+    </ion-slides>
+
+    <ion-slides *ngIf="Market.image_cover && Market.image_cover_2  && Market.image_cover_3 == null"  autoplay="2000" loop="true">
+      <ion-slide>
+        <img [src]=Market.image_cover alt="">
       </ion-slide>
       <ion-slide>
-        <h1>Slide 2</h1>
+        <img [src]=Market.image_cover_2 alt="">
+      </ion-slide>
+    </ion-slides>
+
+    <ion-slides *ngIf="Market.image_cover && Market.image_cover_2  && Market.image_cover_3"  autoplay="2000" loop="true">
+      <ion-slide>
+        <img [src]=Market.image_cover alt="">
       </ion-slide>
       <ion-slide>
-        <h1>Slide 3</h1>
+        <img [src]=Market.image_cover_2 alt="">
+      </ion-slide>
+      <ion-slide>
+        <img [src]=Market.image_cover_3 alt="">
       </ion-slide>
     </ion-slides>
   </ion-grid>
@@ -139,6 +154,7 @@
             <img src="{{ p2.image_cover }}" class="img-product" alt="">
             <p class="name-product">{{ p2.name }}</p>
             <p class="price-product">{{ p2.promo_price }} {{ Market.devis }}</p>
+            <small class="price-product2" style="text-decoration: line-through;">{{ p2.price }} {{ Market.devis }}</small>
           </div>
         </ion-col>
       </ion-row>
@@ -148,7 +164,7 @@
   <ion-grid class="">
     <ion-row class="cadre">
       <ion-col class="" col-12>
-        <img class="decoration" src="{{ Market.img_static_2 }}" alt="">
+        <img class="decoration" src="{{ Market.img_decore }}" alt="">
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -59,7 +59,7 @@ export class MyApp {
         '/market/:id/:isAbonned' : BoutiqueGeneralPage ,
         '/new-password' : PasswordModifyPage,
       }).subscribe(match => {
-        console.log(JSON.stringify(match));
+        console.log("deep : " + JSON.stringify(match));
 
       }, (nomatch => { console.log(JSON.stringify(nomatch));
       }))

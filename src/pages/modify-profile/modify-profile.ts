@@ -80,7 +80,7 @@ export class ModifyProfilePage {
 
       console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
 
-      this.imageCompress.compressFile(image, -1, 20, 20).then(
+      this.imageCompress.compressFile(image, -1, 50, 50).then(
         result => {
           this.imgResultAfterCompress = result;
           this.base64Image = result;

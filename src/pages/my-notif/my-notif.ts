@@ -3,6 +3,8 @@ import { NotificationProvider } from './../../providers/notification/notificatio
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
+import { SearchProvider } from './../../providers/search/search';
+
 
 /**
  * Generated class for the MyNotifPage page.
@@ -18,7 +20,9 @@ import { LoadingController } from 'ionic-angular';
 })
 export class MyNotifPage {
 Notification = [];
-  constructor(public navCtrl: NavController, public navParams: NavParams, private notificationService: NotificationProvider,public loadingCtrl: LoadingController) {
+next;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private notificationService: NotificationProvider,public loadingCtrl: LoadingController, private searchService: SearchProvider) {
   }
 
   ionViewDidLoad() {
@@ -32,8 +36,8 @@ Notification = [];
         //console.log(data);
         //console.log(JSON.stringify(data));
         //console.log(localStorage.getItem('idUser'));
-
-        data.forEach(element => {
+        this.next = data.next;
+        data.results.forEach(element => {
           //console.log( JSON.stringify(element.receiver.includes(Number(localStorage.getItem('idUser'))) && element.receiver.includes(Number(localStorage.getItem('idUSer')))) );
 
           if ( element.is_seen.includes(Number(localStorage.getItem('idUser'))) === true ) {
@@ -89,5 +93,53 @@ Notification = [];
     console.log(id_order);
     this.navCtrl.push(DetailNotifPage, { "id_notif" : id_notif, "id_order" : id_order });
 
+  }
+
+  doInfinite(infiniteScroll) {
+    console.log('Begin async operation');
+    console.log(this.next);
+
+    setTimeout(() => {
+      if (this.next !== null) {
+        this.searchService.searchInfinite(this.next).subscribe(
+          (data) => {
+            let data_next = data.results;
+            console.log(data);
+            console.log(data);
+
+            data_next.forEach(element => {
+              if (element !== null) {
+                  if ( element.is_seen.includes(Number(localStorage.getItem('idUser'))) === true ) {
+                    //console.log('dd');
+
+                    if (element.receiver.includes(Number(localStorage.getItem('idUser'))) === true) {
+
+                      let etl = JSON.parse(element.content);
+
+
+                      let obj = {
+                        "id_order" : etl[1],
+                        "id_notif" : element.id,
+                        "type": element.notifications_type,
+                        "mgs" : etl[0],
+                        "date": element.date
+                      }
+                      this.Notification.push(obj);
+
+                    }
+
+                }
+              }
+            });
+
+            this.next = data.next;
+
+          }
+        )
+      }
+
+      console.log('Async operation has ended');
+      infiniteScroll.complete();
+    }, 500);
   }
 }

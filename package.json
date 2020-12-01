@@ -28,8 +28,9 @@
     "@capacitor/ios": "^2.4.2",
     "@ionic-native/call-number": "^5.29.0",
     "@ionic-native/camera": "^4.20.0",
+    "@ionic-native/clipboard": "^4.20.0",
     "@ionic-native/core": "4.20.0",
-    "@ionic-native/deeplinks": "^4.19.0",
+    "@ionic-native/deeplinks": "^4.20.0",
     "@ionic-native/http": "^5.29.0",
     "@ionic-native/local-notifications": "^4.20.0",
     "@ionic-native/photo-viewer": "^4.20.0",
@@ -106,7 +107,7 @@
       "ionic-plugin-deeplinks": {
         "URL_SCHEME": "lastagram",
         "DEEPLINK_SCHEME": "https",
-        "DEEPLINK_HOST": "lastagram.herokuapp.com",
+        "DEEPLINK_HOST": "deeplink.digitlab-ci.com",
         "ANDROID_PATH_PREFIX": "/"
       },
       "mx.ferreyra.callnumber": {},

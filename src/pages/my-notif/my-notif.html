@@ -23,11 +23,13 @@
                 {{ notif.date | date }}
               </span>
             </ion-col>
+
           </ion-row>
           <hr>
-
       </ion-item>
-
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
     </ion-list>
   </ion-grid>
 </ion-content>

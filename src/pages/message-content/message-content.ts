@@ -1,6 +1,6 @@
-import { Socket } from 'ng-socket-io';
+import { SocketProvider } from './../../providers/socket/socket';
 import * as firebase from 'firebase';
-import { snapshotToArray, SERVER_SOCKET_APP } from './../../app/environment';
+import { snapshotToArray, SOCKET_SERVER } from './../../app/environment';
 import { AlertController } from 'ionic-angular';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -22,39 +22,49 @@ import { ActionSheetController } from 'ionic-angular';
 })
 
 export class MessageContentPage  {
-  messages = [
-    {
-      user : 'mohamed',
-      createdAt: '02/12/2000, 15:00',
-      mgs: 'coucou comment tu vas ?'
-    },
-    {
-      user : 'mohamed',
-      createdAt: '02/12/2000, 15:00',
-      mgs: 'coucou comment tu vas ?'
-    },
-    {
-      user : 'zidane',
-      createdAt: '02/12/2000, 15:00',
-      mgs: 'coucou comment tu vas ?'
-    },
-  ];
+  public messages = [];
   currentUser = localStorage.getItem('idUser');
   externalUser = this.navParams.get('info');
   newMsg: string;
   username;
+  other_username;
   ref = firebase.database().ref('User/');
   ref2 = firebase.database().ref('Messages/');
-  message = [];
   items = [];
   proprio;
   Socket;
+
   @ViewChild('MessagesGrid') content:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public actionSheetCtrl: ActionSheetController, private socket: Socket, private alertCtrl: AlertController) {
-    this.username = this.navParams.get('username');
+  constructor(public navCtrl: NavController, public navParams: NavParams,public actionSheetCtrl: ActionSheetController, private alertCtrl: AlertController, private socketService: SocketProvider) {
+    this.username = localStorage.getItem('usernameChat');
+    this.other_username =  this.navParams.get('username');
     //console.log(JSON.stringify(this.navParams.get('info')));
     //console.log(JSON.stringify(this.navParams.get('proprietaire')));
     this.proprio = this.navParams.get('proprietaire');
+
+    this.Socket = new WebSocket(SOCKET_SERVER + "ws/chat/" + this.username +"/"+ this.other_username+ "/");
+
+    this.Socket.onopen = function() {
+      console.log('socket connected ');
+
+    }
+
+    let m2 = this.messages;
+
+    setInterval(() => {
+      this.socketService.setMessages(this.Socket,this.messages);
+    },1000);
+
+    this.Socket.onmessage = function(m) {
+      console.log(m);
+
+    }
+
+
+    this.Socket.onerror = (e) => {
+      console.log(e);
+
+    }
 
 
 
@@ -68,6 +78,23 @@ export class MessageContentPage  {
     console.log('ionViewDidLoad MessageContentPage');
     /*this.socket.connect();
     this.socket.emit('hello', 'zidane')*/
+
+    // get message to API
+    this.socketService.getMessages(this.username,this.other_username).subscribe(
+      (data) => {
+        console.log(data);
+        data.chat_messages.forEach(element => {
+          this.messages.push(element);
+        });
+
+        console.log(this.messages);
+
+
+      }, (err) => {
+        console.log(err);
+      }
+    )
+
     let alert = this.alertCtrl.create({
       title: 'Success',
       subTitle: 'Loperation a reussi !',
@@ -80,20 +107,6 @@ export class MessageContentPage  {
       buttons: ['OK']
     });
 
-    this.Socket = new WebSocket(SERVER_SOCKET_APP + "ws/chat/admin5522/zidane2332155/");
-
-    this.Socket.onopen = function() {
-      console.log('socket connected ');
-      /*socket.send('message');*/
-      alert.present();
-
-    }
-
-
-    this.Socket.onerror = (e) => {
-      console.log(e);
-      alert2.present();
-    }
 
 
 
@@ -129,6 +142,34 @@ export class MessageContentPage  {
 
 
   }
+
+  getMessages() {
+    return this.messages;
+  }
+
+  public setMessages() {
+    this.Socket.onmessage = function(m) {
+      console.log(m);
+
+      return m;
+
+    }
+  }
+
+  socketOn() {
+    let socket = new WebSocket(SOCKET_SERVER + "ws/chat/admin5522/zidane2332155/");
+    let m2 = this.messages;
+    socket.onopen = function() {
+      console.log("socket connected !");
+    }
+    socket.onmessage = function(m) {
+      console.log(m);
+      m2.push(m);
+    }
+  }
+
+
+
 
 
   addItem(item) {
@@ -194,7 +235,7 @@ export class MessageContentPage  {
   sendMessage() {
 
 
-    let mgs = {
+    /*let mgs = {
       id : "-T-" + new Date().getTime() + "@" + "lastagram" ,
       idSender : localStorage.getItem('idUser'),
       idReceiver : this.proprio.id,
@@ -202,7 +243,15 @@ export class MessageContentPage  {
       nameReceiver : this.externalUser.last_name + ' ' + this.externalUser.first_name,
       mgs : this.newMsg,
       createdAt : new Date().toLocaleDateString(),
+    }*/
+
+    let mgs = {
+      "message" : this.newMsg
     }
+
+
+
+    //this.Socket.send(mgs)
 
     //this.addItem(mgs);
 

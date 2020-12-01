@@ -17,9 +17,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ListOrderMePage {
 id;
-
+Orders = [];
+grouped;
+next;
   constructor(public navCtrl: NavController, public navParams: NavParams, private orderService: OrderProvider) {
     this.id = this.navParams.get('id');
+    this.getOrderByMarket();
   }
 
   ionViewDidLoad() {
@@ -29,7 +32,9 @@ id;
   getOrderByMarket() {
     this.orderService.getOrderByMarketID(Number(this.id)).subscribe(
       (data) => {
-        console.log(data);
+         console.log(data);
+         this.next = data.next;
+         this.Orders = data.results;
 
       }, (err) => {
 
