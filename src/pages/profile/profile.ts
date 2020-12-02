@@ -1,3 +1,4 @@
+import { LoginPage } from './../login/login';
 import { MyNotifPage } from './../my-notif/my-notif';
 import { AccueilPage } from './../accueil/accueil';
 import { TabsPage } from './../tabs/tabs';
@@ -8,7 +9,7 @@ import { MyOrdersPage } from './../my-orders/my-orders';
 import { ModifyProfilePage } from './../modify-profile/modify-profile';
 import { CreateBoutiquePage } from './../create-boutique/create-boutique';
 import { Component } from '@angular/core';
-import { App, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { App, IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { MyShopPage } from '../my-shop/my-shop';
 import { ModalController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
@@ -30,7 +31,19 @@ import { AlertController } from 'ionic-angular';
 export class ProfilePage {
   infoUser;
   photo;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public userService: UserProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController, private app: App) {
+  constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public userService: UserProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController, private app: App) {
+
+    this.platform.registerBackButtonAction( () => {
+      let nav = this.app.getActiveNav();
+      if (nav.canGoBack()) {
+        nav.popToRoot()
+        //nav.popTo(ProfilePage)
+      } else {
+        console.log("peut plus reculer");
+        //this.navCtrl.push(LoginPage);
+        this.platform.exitApp();
+      }
+    })
 
   }
 

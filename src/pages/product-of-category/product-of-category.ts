@@ -1,7 +1,7 @@
 import { DetailProductPage } from './../detail-product/detail-product';
 import { StoreProvider } from './../../providers/store/store';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { App,IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { SearchProvider } from './../../providers/search/search';
 
@@ -25,7 +25,20 @@ export class ProductOfCategoryPage {
   name_catg:string;
   devis;
   next;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController, private searchService: SearchProvider) {
+  constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController, private searchService: SearchProvider, private app: App) {
+
+    this.platform.registerBackButtonAction( () => {
+      let nav = this.app.getActiveNav();
+      if (nav.canGoBack()) {
+        nav.pop();
+        //nav.popTo(ProfilePage)
+      } else {
+        console.log("peut plus reculer");
+        //this.navCtrl.push(LoginPage);
+        this.platform.exitApp();
+      }
+    })
+
   }
 
   ionViewDidLoad() {
