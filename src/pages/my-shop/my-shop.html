@@ -10,8 +10,13 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content fullscreen>
-  <ion-grid class="market-card-grid">
+<ion-content fullscreen >
+  <ion-grid class="empty_market" *ngIf="Markets" align="center">
+    <ion-icon name="home" *ngIf="Markets.length === 0"></ion-icon>
+    <h1 *ngIf="Markets.length === 0">Vous n'avez aucune boutique</h1>
+    <button *ngIf="Markets.length === 0" ion-button color="lastagram" (click)="goToCreatedMarket()">Créer une boutique</button>
+  </ion-grid>
+  <ion-grid class="market-card-grid" >
     <ion-row class="ard-market card-background-page" *ngFor="let market of Markets" >
 
       <ion-card (click)="goToMarket(market.id)">

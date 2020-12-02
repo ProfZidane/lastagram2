@@ -32,13 +32,14 @@ next;
   getOrderByMarket() {
     this.orderService.getOrderByMarketID(Number(this.id)).subscribe(
       (data) => {
-         console.log(data);
+         console.log(JSON.stringify(data));
          this.next = data.next;
          this.Orders = data.results;
+          console.log(JSON.stringify(this.Orders));
 
       }, (err) => {
 
-        console.log(err);
+        console.log(JSON.stringify(err));
 
       }
     )

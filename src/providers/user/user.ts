@@ -19,6 +19,7 @@ export class UserProvider {
   private updatePasswordUrl = DOMAIN_APP + "auth/users/set_password/";
   private setImageUrl = DOMAIN_APP + "auth/set_photo/";
   private emailToResetPasswordURL = DOMAIN_APP + "reset-password-email";
+  private checkUser = DOMAIN_APP + "auth/users/";
   headers = new HttpHeaders({
     'Content-Type' : 'application/json; charset=utf-8',
     'Authorization' : 'JWT ' + localStorage.getItem ('userToken')
@@ -75,5 +76,9 @@ export class UserProvider {
 
   sendMailToResetPassword(data): Observable<any> {
     return this.http.post(this.emailToResetPasswordURL, data);
+  }
+
+  getImageUser(username): Observable<any> {
+    return this.http.get(this.checkUser + username , { headers: this.getHeaders() });
   }
 }

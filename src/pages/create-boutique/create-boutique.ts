@@ -376,14 +376,17 @@ export class CreateBoutiquePage {
       inputs: [
         {
           name: 'hour',
+          type: 'number',
           placeholder: 'Heure'
         },
         {
           name: 'minute',
+          type: 'number',
           placeholder: 'Minute',
         },
         {
           name: 'second',
+          type: 'number',
           placeholder: 'Second',
         }
       ],

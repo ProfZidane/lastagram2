@@ -7,7 +7,7 @@
 <ion-header>
   <ion-navbar hideBackButton="true"  color="lastagram">
 
-    <ion-title start>
+    <ion-title class="bord" start>
       <button color="lastagram" ion-button icon-only (click)="ShowProfile()" style="box-shadow: none;position:relative;right:3%">
         <ion-icon name="menu"></ion-icon>
       </button>
@@ -15,32 +15,50 @@
         {{ Market.name | uppercase }}
       </span>
     </ion-title>
+    <ion-row>
+      <span style="position: relative; top: 5px;left:5%;font-size: large; width: 300px;color:white">
+        <ion-icon name="md-thumbs-up" (click)="Abonne(Market.id)" *ngIf="!isSubscribed" ></ion-icon>
+        <ion-icon name="close-circle" (click)="DesAbonne(Market.id)" *ngIf="isSubscribed" ></ion-icon>
+        &nbsp;
+        {{ Market.subscribers }} Abonnés
+      </span>
+      <ion-buttons end>
+        <button ion-button icon-only (click)="goToSearch()">
+          <ion-icon name="search"></ion-icon>
+        </button>
+        <!-- espace -->
+          &nbsp;&nbsp;
+        <!-- end of espace -->
+        <button ion-button icon-only (click)="goToCart()">
+          <ion-icon name="cart"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-row>
 
-
-    <ion-buttons end>
+    <!--<ion-buttons end>
       <button ion-button icon-only (click)="goToSearch()">
         <ion-icon name="search"></ion-icon>
-      </button>
+      </button>-->
       <!-- espace -->
         &nbsp;&nbsp;
       <!-- end of espace -->
-      <button ion-button icon-only (click)="goToCart()">
+      <!--<button ion-button icon-only (click)="goToCart()">
         <ion-icon name="cart"></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons>-->
   </ion-navbar>
-  <ion-grid class="navbar-abo" fullscreen>
-      <ion-row color="lastagram" *ngIf="Market" >
+  <!--<ion-grid class="navbar-abo" fullscreen>
+      <ion-row class="bord" color="lastagram" *ngIf="Market" >
         <p class="like-pos">
-          <ion-icon name="thumbs-up" (click)="Abonne(Market.id)" *ngIf="!isSubscribed" ></ion-icon>
+          <ion-icon name="md-thumbs-up" (click)="Abonne(Market.id)" *ngIf="!isSubscribed" ></ion-icon>
           <ion-icon name="close-circle" (click)="DesAbonne(Market.id)" *ngIf="isSubscribed" ></ion-icon>
           &nbsp;&nbsp;
           {{ Market.subscribers }} Abonnés
         </p>
       </ion-row>
-  </ion-grid>
-
+  </ion-grid>-->
 </ion-header>
+
 
 <ion-content class="bg-boutique" fullscreen>
   <ion-grid class="image-create-boutique-0" align="center">
@@ -123,7 +141,7 @@
             <img src="{{ p.image_cover }}" class="img-product" alt="">
             <p class="name-product">{{ p.name }}</p>
             <p class="price-product">{{ p.promo_price }} {{ Market.devis }}</p>
-            <small class="price-product2" style="text-decoration: line-through;">{{ p.price }} {{ Market.devis }}</small>
+            <small class="price-product2" style="text-decoration: line-through;">{{ p.price | number }} {{ Market.devis }}</small>
           </div>
         </ion-col>
       </ion-row>
@@ -135,12 +153,10 @@
   <ion-grid class="">
     <ion-row class="cadre">
       <ion-col class="" col-6>
-        <img class="decoration" src="{{ Market.img_static_1 }}" alt="">
-
-
+        <img class="decoration g" src="{{ Market.img_static_1 }}" alt="">
       </ion-col>
       <ion-col class="" col-6>
-        <img class="decoration" src="{{ Market.img_static_2 }}" alt="">
+        <img class="decoration g" src="{{ Market.img_static_2 }}" alt="">
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -154,7 +170,7 @@
             <img src="{{ p2.image_cover }}" class="img-product" alt="">
             <p class="name-product">{{ p2.name }}</p>
             <p class="price-product">{{ p2.promo_price }} {{ Market.devis }}</p>
-            <small class="price-product2" style="text-decoration: line-through;">{{ p2.price }} {{ Market.devis }}</small>
+            <small class="price-product2" style="text-decoration: line-through;">{{ p2.price | number }} {{ Market.devis }}</small>
           </div>
         </ion-col>
       </ion-row>

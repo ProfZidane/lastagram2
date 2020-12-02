@@ -61,8 +61,19 @@
 
       </ion-slide>
     </ion-slides>
+    
   </ion-grid>
-
+  <ion-row class="defilement" align="center">
+      <ion-col col-4>
+        <ion-icon name="arrow-round-back"></ion-icon>
+      </ion-col>
+      <ion-col col-4>
+        <b>Défilez</b>
+      </ion-col>
+      <ion-col col-4>
+        <ion-icon name="arrow-round-forward"></ion-icon>
+      </ion-col>
+    </ion-row>
   <ion-grid class=" catg-create-boutique">
     <ion-row>
       <ion-col class="add-create-boutique level-up-add" align="center" col-4 *ngIf="in" >
@@ -130,7 +141,7 @@
         <h4>Vente Flash</h4>
       </ion-col>
       <ion-col class="" col-4>
-        <h3>00:30:00</h3>
+        <h3>{{ timer }}</h3>
       </ion-col>
       <ion-col class="" col-2>
         <button ion-button icon-only medium color="danger" (click)="presentPrompt()">
@@ -272,7 +283,17 @@
 
       </ion-row>
     </ion-scroll>
-
+    <ion-row class="defilement" align="center">
+      <ion-col col-4>
+        <ion-icon name="arrow-round-back"></ion-icon>
+      </ion-col>
+      <ion-col col-4>
+        <b>Défilez</b>
+      </ion-col>
+      <ion-col col-4>
+        <ion-icon name="arrow-round-forward"></ion-icon>
+      </ion-col>
+    </ion-row>
   </ion-grid>
 
   <ion-grid>
@@ -380,6 +401,17 @@
 
     </ion-scroll>
 
+    <ion-row class="defilement" align="center">
+      <ion-col col-4>
+        <ion-icon name="arrow-round-back"></ion-icon>
+      </ion-col>
+      <ion-col col-4>
+        <b>Défilez</b>
+      </ion-col>
+      <ion-col col-4>
+        <ion-icon name="arrow-round-forward"></ion-icon>
+      </ion-col>
+    </ion-row>
 
   </ion-grid>
 

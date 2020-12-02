@@ -10,6 +10,7 @@ import { LoadingController } from 'ionic-angular';
 import * as firebase from 'firebase';
 import { snapshotToArray } from './../../app/environment';
 import { SearchProvider } from './../../providers/search/search';
+import { CreateBoutiquePage } from './../create-boutique/create-boutique';
 
 /**
  * Generated class for the MyShopPage page.
@@ -73,6 +74,9 @@ export class MyShopPage {
 
   }
 
+  goToCreatedMarket() {
+    this.navCtrl.push(CreateBoutiquePage);
+  }
 
   DeleteMarket(id) {
     console.log(id);

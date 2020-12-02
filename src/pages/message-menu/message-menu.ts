@@ -1,8 +1,11 @@
+import { UserProvider } from './../../providers/user/user';
 import { MessageContentPage } from './../message-content/message-content';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import * as firebase from 'firebase';
 import { snapshotToArray } from './../../app/environment';
+import { SocketProvider } from './../../providers/socket/socket';
+
 /**
  * Generated class for the MessageMenuPage page.
  *
@@ -16,14 +19,13 @@ import { snapshotToArray } from './../../app/environment';
   templateUrl: 'message-menu.html',
 })
 export class MessageMenuPage {
-  ref = firebase.database().ref('User/');
-  ref2 = firebase.database().ref('Messages/').orderByChild('idReceiver').equalTo(Number(localStorage.getItem('idUser')));
+  username;
   id;
   items;
   users;
-  complet = [];
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.ref2.on('value', resp => {
+  Messages = [];
+  constructor(public navCtrl: NavController, public navParams: NavParams, private socketService: SocketProvider, private userService: UserProvider) {
+    /*this.ref2.on('value', resp => {
       this.items = snapshotToArray(resp);
       this.items = this.items.reverse();
 
@@ -41,7 +43,33 @@ export class MessageMenuPage {
           this.complet.push(data)
         })
       });
-    })
+    })*/
+  this.username = localStorage.getItem('usernameChat');
+
+  this.socketService.getAllMessages(this.username)
+    .subscribe( (data) => {
+      console.log(data);
+      data.forEach(element => {
+        console.log(element);
+        let username = "";
+        if (element.receiver === localStorage.getItem('usernameChat')) {
+          username = element.sender;
+        } else {
+          username = element.receiver;
+        }
+        this.userService.getImageUser(username).subscribe(
+          (data) => {
+            console.log(data);
+
+          }, (err) => {
+            console.log(err);
+
+          }
+        )
+      });
+    }, (err) => {
+      console.log(err);
+    });
 
 
 

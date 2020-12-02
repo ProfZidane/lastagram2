@@ -18,7 +18,7 @@ import { ModalController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { ELocalNotificationTriggerUnit, LocalNotifications } from '@ionic-native/local-notifications';
 import { SocialSharing } from '@ionic-native/social-sharing';
-import { ActionSheetController } from 'ionic-angular';
+import { ActionSheetController, LoadingController } from 'ionic-angular';
 import { SearchProvider } from './../../providers/search/search';
 
 /**
@@ -41,7 +41,7 @@ export class LoginPage {
   seen = [];
   previous;
   next;
-  constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams, public storeService: StoreProvider, private alertCtrl: AlertController,public toastCtrl: ToastController, public modalCtrl: ModalController, private localNotifications: LocalNotifications, private notificationService: NotificationProvider, private userService: UserProvider, private socialSharing: SocialSharing,public actionSheetCtrl: ActionSheetController, private searchService: SearchProvider) {
+  constructor(public loadingCtrl: LoadingController,private platform: Platform, public navCtrl: NavController, public navParams: NavParams, public storeService: StoreProvider, private alertCtrl: AlertController,public toastCtrl: ToastController, public modalCtrl: ModalController, private localNotifications: LocalNotifications, private notificationService: NotificationProvider, private userService: UserProvider, private socialSharing: SocialSharing,public actionSheetCtrl: ActionSheetController, private searchService: SearchProvider) {
     if (localStorage.getItem('userToken') !== null) {
       this.userService.findData().subscribe(
         (data) => {
@@ -162,10 +162,15 @@ export class LoginPage {
 
     }, 10000);
    }*/
-
+   let loading = this.loadingCtrl.create({
+    content: 'Veuillez Patienter...'
+  });
+  loading.present();
 
     this.storeService.getListStore().subscribe(
+
       (store) => {
+        loading.dismiss();
         console.log(store.results);
         this.markets = store.results;
         this.previous = store.previous;
@@ -180,6 +185,7 @@ export class LoginPage {
         //console.log(this.markets);
 
       }, (err) => {
+        loading.dismiss();
         console.log(err);
         console.log(err.status);
         console.log(err.statusText);
@@ -211,6 +217,8 @@ export class LoginPage {
         }*/
 
       }
+
+
     );
 
     this.storeService.getHighCatg().subscribe(

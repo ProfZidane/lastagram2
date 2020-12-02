@@ -15,7 +15,7 @@ import { DOMAIN_APP, SERVER_SOCKET_APP, SOCKET_SERVER } from './../../app/enviro
 export class SocketProvider {
   private connectUrl = DOMAIN_APP + "/chat/";
   private messageUrl = SERVER_SOCKET_APP + "chat/";
-
+  
   readonly url: string = "ws://192.168.1.103:3000";
   socket:any;
   constructor(public http: HttpClient) {
@@ -52,6 +52,11 @@ export class SocketProvider {
       }
       messages.push(mgs);
     }
+  }
+
+
+  getAllMessages(username) : Observable<any> {
+    return this.http.get(this.messageUrl + username);
   }
 
 

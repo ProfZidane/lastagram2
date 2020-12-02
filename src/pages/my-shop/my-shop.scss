@@ -3,6 +3,29 @@ page-my-shop {
     position: relative;
     top: 0.5px;
   }
+
+  .empty_market {    
+    transform: translateY(70%);
+    width: 80%;
+    
+  }
+
+  .empty_market ion-icon {
+    font-size: 65px;
+    color: #155C7F;
+  }
+
+  .empty_market h1 {
+    font-weight: 400;
+    margin-bottom: 2rem;
+  }
+
+  .empty_market button {
+    
+    
+    border-radius: 25px;
+  }
+  
 }
 
 
@@ -15,7 +38,7 @@ page-my-shop {
 .delete-color {
   color: white;
   font-size: 35px;
-  margin-top: 2rem;
+  margin-top: 2rem;  
 }
 
 .del-i {
