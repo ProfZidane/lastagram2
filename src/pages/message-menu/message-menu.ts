@@ -5,6 +5,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import * as firebase from 'firebase';
 import { snapshotToArray } from './../../app/environment';
 import { SocketProvider } from './../../providers/socket/socket';
+import { LoadingController } from 'ionic-angular';
 
 /**
  * Generated class for the MessageMenuPage page.
@@ -24,45 +25,46 @@ export class MessageMenuPage {
   items;
   users;
   Messages = [];
-  constructor(public navCtrl: NavController, public navParams: NavParams, private socketService: SocketProvider, private userService: UserProvider) {
-    /*this.ref2.on('value', resp => {
-      this.items = snapshotToArray(resp);
-      this.items = this.items.reverse();
+  constructor(public navCtrl: NavController, public navParams: NavParams, private socketService: SocketProvider, private userService: UserProvider,public loadingCtrl: LoadingController) {
+    let loading = this.loadingCtrl.create({
+      content: 'Veuillez Patienter...'
+    });
+    loading.present();
 
-      this.items.forEach(element => {
-
-        firebase.database().ref('User/').orderByChild('idReceiver').equalTo(Number(element.idReceiver)).on('value', (snapshot) => {
-          this.users = snapshot;
-          let data = {
-            mgs : element.mgs,
-            name : this.users.last_name + ' ' + this.users.first_name,
-            createdAt : element.createdAt ,
-            idReceiver : element.idReceiver,
-            photo : this.users.photo
-          }
-          this.complet.push(data)
-        })
-      });
-    })*/
   this.username = localStorage.getItem('usernameChat');
 
   this.socketService.getAllMessages(this.username)
     .subscribe( (data) => {
-      console.log(data);
+      //console.log(data);
       data.forEach(element => {
-        console.log(element);
+        //console.log(element);
         let username = "";
+        let other_username = "";
         if (element.receiver === localStorage.getItem('usernameChat')) {
           username = element.sender;
+          other_username = element.receiver;
         } else {
           username = element.receiver;
+          other_username = element.sender;
         }
         this.userService.getImageUser(username).subscribe(
           (data) => {
-            console.log(data);
-
+            //console.log(data);
+            let elt = {
+              name: data.last_name + " " + data.first_name,
+              username: username,
+              other_username : other_username,
+              photo: data.photo,
+              last_message: element.message,
+              date : data.timestamp
+            }
+            this.Messages.push(elt);
+            console.log(this.Messages);
+            loading.dismiss();
           }, (err) => {
+
             console.log(err);
+            loading.dismiss();
 
           }
         )
@@ -85,7 +87,10 @@ export class MessageMenuPage {
     this.navCtrl.pop();
   }
 
-  goToMessageContent() {
-    this.navCtrl.push(MessageContentPage);
+  goToMessageContent(name,username,other_username,image) {
+    console.log(username +  " + " + other_username);
+    console.log(image);
+
+    this.navCtrl.push(MessageContentPage, { name:  name, username: username, proprietaire: other_username, photo: image });
   }
 }

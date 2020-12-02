@@ -24,7 +24,9 @@ import { ActionSheetController } from 'ionic-angular';
 export class MessageContentPage  {
   public messages = [];
   currentUser = localStorage.getItem('idUser');
-  externalUser = this.navParams.get('info');
+  externalUser;
+  externalUser2;
+
   newMsg: string;
   username;
   other_username;
@@ -33,7 +35,7 @@ export class MessageContentPage  {
   items = [];
   proprio;
   Socket;
-
+  photo;
   @ViewChild('MessagesGrid') content:any;
   constructor(public navCtrl: NavController, public navParams: NavParams,public actionSheetCtrl: ActionSheetController, private alertCtrl: AlertController, private socketService: SocketProvider) {
     this.username = localStorage.getItem('usernameChat');
@@ -42,6 +44,24 @@ export class MessageContentPage  {
     //console.log(JSON.stringify(this.navParams.get('proprietaire')));
     this.proprio = this.navParams.get('proprietaire');
 
+    if (this.navParams.get('photo') !== null) {
+
+      this.photo = this.navParams.get('photo');
+
+    } else {
+      console.log("je n\'es pas de photo ! ");
+
+    }
+
+    if (this.navParams.get('info')) {
+      this.externalUser = this.navParams.get('info');
+      console.log(typeof(this.externalUser));
+
+    } else {
+      this.externalUser2 = this.navParams.get('name');
+      console.log(this.externalUser2);
+
+    }
     this.Socket = new WebSocket(SOCKET_SERVER + "ws/chat/" + this.username +"/"+ this.other_username+ "/");
 
     this.Socket.onopen = function() {
@@ -67,7 +87,13 @@ export class MessageContentPage  {
     }
 
 
+    setTimeout( () => {
+      //      this.content.scrollToBottom(200);
+            let itemList = document.getElementById('MessagesGrid');
+            itemList.scrollTop = itemList.scrollHeight;
+      //      console.log(itemList);
 
+          }, 50);
 
 
     //console.log(localStorage.getItem('nameUser'));
@@ -268,7 +294,7 @@ export class MessageContentPage  {
       itemList.scrollTop = itemList.scrollHeight;
 //      console.log(itemList);
 
-    }, 10);
+    }, 50);
   }
 
 

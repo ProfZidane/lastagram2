@@ -413,7 +413,7 @@ export class BoutiquePage {
       this.base64Image = image;
       console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
 
-      this.imageCompress.compressFile(image, -1, 20, 20).then(
+      this.imageCompress.compressFile(image, -1, 40, 45).then(
         result => {
           this.imgResultAfterCompress = result;
           console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
@@ -480,7 +480,7 @@ export class BoutiquePage {
       this.base64Image = image;
       console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
 
-      this.imageCompress.compressFile(image,-1, 20, 20).then(
+      this.imageCompress.compressFile(image,-1, 40, 45).then(
         result => {
           this.imgResultAfterCompress = result;
           console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
@@ -546,7 +546,7 @@ export class BoutiquePage {
 
       console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
 
-      this.imageCompress.compressFile(image,-1, 20, 20).then(
+      this.imageCompress.compressFile(image,-1, 40, 45).then(
         result => {
           this.imgResultAfterCompress = result;
           console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
@@ -696,7 +696,7 @@ export class BoutiquePage {
                 this.base64Image = image;
                 console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
 
-                this.imageCompress.compressFile(image, -1, 20, 20).then(
+                this.imageCompress.compressFile(image, -1, 40, 45).then(
                   result => {
                     this.imgResultAfterCompress = result;
                     console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
@@ -769,7 +769,7 @@ export class BoutiquePage {
 
       console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
 
-      this.imageCompress.compressFile(image, -1, 20, 20).then(
+      this.imageCompress.compressFile(image, -1, 40, 45).then(
         result => {
           this.imgResultAfterCompress = result;
           console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
@@ -834,7 +834,7 @@ export class BoutiquePage {
 
       console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
 
-      this.imageCompress.compressFile(image, -1, 20, 20).then(
+      this.imageCompress.compressFile(image, -1, 40, 45).then(
         result => {
           this.imgResultAfterCompress = result;
           console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));

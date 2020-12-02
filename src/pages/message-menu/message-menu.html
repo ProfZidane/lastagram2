@@ -24,17 +24,17 @@
   </ion-grid>
 
   <ion-grid>
-    <ion-list no-lines *ngFor="let messages of complet" >
-      <ion-item (click)="goToMessageContent()">
+    <ion-list no-lines *ngFor="let messages of Messages" >
+      <ion-item (click)="goToMessageContent(messages.name,messages.username,messages.other_username,messages.photo)">
         <ion-avatar item-start>
-          <img src="https://cdn.pixabay.com/photo/2016/03/09/15/10/man-1246508_960_720.jpg">
+          <img [src]=messages.photo>
         </ion-avatar>
-        <h2>{{ messages.name }} <span class="time two">9:20 AM</span></h2>
+        <h2>{{ messages.name }} <span class="time two">{{ messages.date | date }}</span></h2>
 
-        <p>I've had a pretty messed up day. If we just...</p>
+        <p>{{ messages.last_message }}</p>
       </ion-item>
       <hr>
-      <ion-item>
+      <!--<ion-item>
         <ion-avatar item-start>
           <img src="https://cdn.pixabay.com/photo/2016/03/09/15/10/man-1246508_960_720.jpg">
         </ion-avatar>
@@ -49,7 +49,7 @@
         <h2>Finn <span class="time two">9:20 AM</span></h2>
         <p>I've had a pretty messed up day. If we just...</p>
       </ion-item>
-      <hr>
+      <hr>-->
     </ion-list>
   </ion-grid>
 
