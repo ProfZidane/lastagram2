@@ -57,7 +57,8 @@ export class MenuMarketPage {
           buttons: ['OK']
         });
         alert.present();
-        this.navCtrl.setRoot(this.navCtrl.getActive().component);
+        this.navCtrl.popToRoot();
+
       },
       (error) => {
         console.log(error);
