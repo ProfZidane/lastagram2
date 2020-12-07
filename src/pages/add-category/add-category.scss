@@ -1,5 +1,9 @@
 page-add-category {
-
+  .div-to-btn {
+    /*border: solid;*/
+    width: 100%;
+    margin-top: 2rem;
+  }
 }
 
 .bg-container-ctg {
@@ -14,11 +18,16 @@ page-add-category {
   font-size: 30px;
 }
 
-.contain-catg {  
+.contain-catg {
   border: solid 1px rgb(233, 230, 230);
-  height: 77px;
+  height: 90px;
   padding: 0.5rem;
   background-color: white;
+}
+
+.contain-catg img {
+  width: 100%;
+  height: 100%;
 }
 
 

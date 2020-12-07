@@ -1,5 +1,17 @@
 page-message-menu {
+  .empty_mmgs {
+    margin-top: 70px;
+  }
 
+  .empty_mmgs ion-icon {
+    font-size: 120px;
+    margin-bottom: 10px;
+    color: #155C7F;
+  }
+
+  .empty_mmgs p {
+    color: gray;
+  }
 }
 
 .bg-menu-message {
@@ -14,8 +26,8 @@ page-message-menu {
 }
 
 .row-input {
-  background-color: rgba(229, 226, 226, 0.973);
-  border-radius: 25px;
+  /*background-color: rgba(229, 226, 226, 0.973);
+  border-radius: 25px;*/
 
 }
 

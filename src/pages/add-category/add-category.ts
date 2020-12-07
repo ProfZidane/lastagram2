@@ -40,6 +40,7 @@ export class AddCategoryPage {
       (data) => {
         console.log(data);
         this.AllCtg = data.results;
+        this.next = data.next;
       },
       (err) => {
         console.log(err);
@@ -59,6 +60,32 @@ export class AddCategoryPage {
 
   goBackToCreate() {
     this.navCtrl.push(CreateBoutiquePage);
+  }
+
+  do() {
+
+    console.log(this.next);
+
+    if (this.next !== null) {
+      this.searchService.searchInfinite(this.next).subscribe(
+        (data) => {
+          let data_next = data.results;
+          console.log(data);
+          console.log(data);
+
+          data_next.forEach(element => {
+            if (element !== null) {
+              this.AllCtg.push( element );
+              //this.Total.push(element);
+            }
+          });
+
+         this.next = data.next;
+
+        }
+      )
+    }
+
   }
 
   doInfinite(infiniteScroll) {

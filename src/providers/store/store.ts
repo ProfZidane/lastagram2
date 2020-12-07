@@ -52,6 +52,14 @@ export class StoreProvider {
     });
   }
 
+  node(data): Observable<any> {
+    return this.http.post('http://192.168.8.100:3000/middl/created_store',
+    {
+      data : data,
+      token : localStorage.getItem('userToken')
+    });
+  }
+
   getListStore(): Observable<any> {
     return this.http.get(this.storeUrl);
   }

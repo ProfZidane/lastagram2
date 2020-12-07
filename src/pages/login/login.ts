@@ -20,6 +20,7 @@ import { ELocalNotificationTriggerUnit, LocalNotifications } from '@ionic-native
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { ActionSheetController, LoadingController } from 'ionic-angular';
 import { SearchProvider } from './../../providers/search/search';
+import { DEEP_LINK_DOMAIN } from '../../app/environment';
 
 /**
  * Generated class for the LoginPage page.
@@ -223,6 +224,7 @@ export class LoginPage {
 
     this.storeService.getHighCatg().subscribe(
       (data) => {
+        
         this.high = data.results;
         console.log(data.results);
 
@@ -411,7 +413,7 @@ export class LoginPage {
     let option = {
       message : "Rejoignez nous sur Lastagram ",
       files: null,
-      url: "lastagram://lastagram.herokuapp.com/",
+      url: DEEP_LINK_DOMAIN,
       chooserTitle: "Choisissez une application"
     }
     this.socialSharing.shareWithOptions(option);
@@ -424,6 +426,7 @@ export class LoginPage {
 
     this.localNotifications.schedule({
       id : id,
+
       title: "Lastagram Notification",
       text: content,
       data: { mydata: data },

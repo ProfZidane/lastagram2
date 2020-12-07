@@ -6,6 +6,7 @@ import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { SearchProvider } from './../../providers/search/search';
+import { DEEP_LINK_DOMAIN } from '../../app/environment';
 
 
 /**
@@ -170,7 +171,7 @@ id_market;
     let option = {
       message : "Etes vous intéressez par mes produits ?",
       files: img,
-      url: "lastagram://lastagram.herokuapp.com/",
+      url: DEEP_LINK_DOMAIN, // after url de la boutique peut être
       chooserTitle: "Choisissez une application"
     }
     this.socialSharing.shareWithOptions(option);

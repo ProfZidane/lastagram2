@@ -42,7 +42,8 @@
 
       <ion-col offset-3 col-9  *ngIf="username === message.sender" class="message my-message">
         <b>{{ message.sender }}</b><br>
-        <span text-wrap>{{ message.message }}</span>
+        <span text-wrap *ngIf="message.message.substr(0,22) !== 'data:image/jpeg;base64,'" >{{ message.message }}</span>
+        <img *ngIf="message.message.substr(0,22) === 'data:image/jpeg;base64,'"  [src]=message.message  alt="">
         <div class="time" text-right >
           <br> {{ message.timestamp | date }}
         </div>
@@ -104,8 +105,8 @@
   <ion-toolbar>
 
     <ion-buttons start>
-      <button ion-button icon-only icon-end color="royal" (click)="presentActionSheet()">
-        <ion-icon class="add-media" name="ios-add-circle"></ion-icon>
+      <button ion-button icon-only icon-end color="royal" (click)="sendImage()">
+        <ion-icon class="add-media" name="image"></ion-icon>
       </button>
     </ion-buttons>
 

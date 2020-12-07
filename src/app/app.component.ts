@@ -10,8 +10,10 @@ import { Component, NgZone, ViewChild } from '@angular/core';
 import { Platform, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { FIREBASE_CONFIG } from './environment';
-import * as firebase from 'firebase';
+//import { FIREBASE_CONFIG } from './environment';
+//import * as firebase from 'firebase';
+
+import { ELocalNotificationTriggerUnit, LocalNotifications } from '@ionic-native/local-notifications';
 
 //import { TabsPage } from '../pages/tabs/tabs';
 
@@ -22,9 +24,10 @@ import * as firebase from 'firebase';
 export class MyApp {
 
   rootPage:any;
+  //ref = firebase.database().ref('Notification/');
 
   @ViewChild(Nav) navChild:Nav;
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private deeplinks: Deeplinks, private zone: NgZone) {
+  constructor(platform: Platform, private localNotifications: LocalNotifications, statusBar: StatusBar, splashScreen: SplashScreen, private deeplinks: Deeplinks, private zone: NgZone) {
     if (localStorage.getItem('userToken') !== null) {
       this.rootPage = TabsPage;
     } else {
@@ -53,6 +56,11 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
 
+
+    //  this.setupDeeplink();
+
+      /*this.firebaseDynamicLinks.onDynamicLink()
+        .subscribe((res: any) => console.log(res), (error:any) => console.log(error))*/
       this.deeplinks.routeWithNavController(this.navChild,{
         '/': LoginPage,
         '/product/:id/:id_market/:owner' : DetailProductPage,
@@ -66,8 +74,32 @@ export class MyApp {
 
     });
 
-    firebase.initializeApp(FIREBASE_CONFIG);
-    //firebase.initializeApp(FIREBASE_CONFIG);
 
+    // firebase.initializeApp(FIREBASE_CONFIG);
+
+  }
+
+  /*setupDeeplink() {
+    this.deeplinks.route({
+      "/": {},
+      "/product" :  HomePage
+    }).subscribe( (match) => {
+      console.log(match);
+
+    }, (err) => {
+      console.log(err);
+
+    })
+  }*/
+
+  setNotification(obj) {
+    this.localNotifications.schedule({
+      id : obj.id,
+      title: obj.title,
+      text: obj.text,
+      data: { id: obj.id,  },
+      trigger: { in: 5, unit: ELocalNotificationTriggerUnit.SECOND },
+      foreground: true
+    });
   }
 }

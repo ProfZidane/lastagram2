@@ -11,7 +11,7 @@ import { ModalController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { ToastController } from 'ionic-angular';
-
+import { DEEP_LINK_DOMAIN } from '../../app/environment';
 /**
  * Generated class for the DetailProductPage page.
  *
@@ -244,7 +244,7 @@ export class DetailProductPage {
     let option = {
       message : "Etes vous intéressez par mon produit " +this.product.name+ " ? ",
       files: [this.product.image_cover],
-      url: "deeplink.digitlab-ci.com/product/"+ this.id_article +"/"+ this.id_market +"/"+ this.id_owner,
+      url: DEEP_LINK_DOMAIN + "product/"+ this.id_article +"/"+ this.id_market +"/"+ this.id_owner,
       chooserTitle: "Choisissez une application"
     }
     this.socialSharing.shareWithOptions(option);

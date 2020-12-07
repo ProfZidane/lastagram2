@@ -25,6 +25,7 @@ export class MessageMenuPage {
   items;
   users;
   Messages = [];
+  ALLMessages;
   constructor(public navCtrl: NavController, public navParams: NavParams, private socketService: SocketProvider, private userService: UserProvider,public loadingCtrl: LoadingController) {
     let loading = this.loadingCtrl.create({
       content: 'Veuillez Patienter...'
@@ -59,6 +60,7 @@ export class MessageMenuPage {
               date : data.timestamp
             }
             this.Messages.push(elt);
+            this.ALLMessages.push(elt);
             console.log(this.Messages);
             loading.dismiss();
           }, (err) => {
@@ -71,9 +73,11 @@ export class MessageMenuPage {
       });
     }, (err) => {
       console.log(err);
+      loading.dismiss();
+
     });
 
-
+    loading.dismiss();
 
   }
 
@@ -92,5 +96,32 @@ export class MessageMenuPage {
     console.log(image);
 
     this.navCtrl.push(MessageContentPage, { name:  name, username: username, proprietaire: other_username, photo: image });
+  }
+
+  getItems(ev: any) {
+    // Reset items back to all of the items
+    //this.initializeItems();
+
+    // set val to the value of the searchbar
+    const val = ev.target.value;
+
+    // if the value is an empty string don't filter the items
+    /*if (val && val.trim() != '') {
+      this.Products = this.Products.filter((item) => {
+        //return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
+        return item.name.toLowerCase().includes(val.toLowerCase());
+      })
+    }*/
+    if (val && val.trim() != '') {
+      this.Messages = this.researchService(val);
+    } else {
+      this.Messages = this.ALLMessages;
+    }
+  }
+
+  researchService(val) {
+    return this.Messages.filter( (item) => {
+      return item.name.toLowerCase().includes(val.toLowerCase());
+    });
   }
 }

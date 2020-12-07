@@ -14,7 +14,8 @@ import { MyShopPage } from '../my-shop/my-shop';
 import { ModalController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
-
+import { AboutPage } from '../about/about';
+import { AssistancePage } from '../assistance/assistance';
 
 /**
  * Generated class for the ProfilePage page.
@@ -173,6 +174,14 @@ export class ProfilePage {
       modal.present();*/
     }
 
+  }
+
+  goToAbout() {
+    this.navCtrl.push(AboutPage)
+  }
+
+  goToAssistance(){
+    this.navCtrl.push(AssistancePage)
   }
 
   Logout() {

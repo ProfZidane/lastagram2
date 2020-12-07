@@ -50,17 +50,21 @@ import { AddProductSpecialPageModule } from './../pages/add-product-special/add-
 import { StoreProvider } from './../providers/store/store';
 
 
+import { AssistancePageModule } from '../pages/assistance/assistance.module';
+
+
 
 import { Clipboard } from '@ionic-native/clipboard';
 
 
 import {NgxImageCompressService} from 'ngx-image-compress';
 
+import { FilePath } from '@ionic-native/file-path';
 
 
 import { IonicImageViewerModule } from 'ionic-img-viewer';
 
-
+import { FileTransfer } from '@ionic-native/file-transfer';
 
 
 import { NgModule, ErrorHandler } from '@angular/core';
@@ -70,10 +74,12 @@ import { MyApp } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 
 
+import { IonicStorageModule } from '@ionic/storage';
 
+import { File } from '@ionic-native/file';
+import { WebView } from '@ionic-native/ionic-webview/ngx';
 
 import { Deeplinks } from '@ionic-native/deeplinks';
-
 
 
 import { AboutPage } from '../pages/about/about';
@@ -86,7 +92,6 @@ import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
 
 
 
@@ -160,6 +165,9 @@ const config : SocketIoConfig = { url: "https://192.168.1.82:4000", options : {}
     SearchByMarketPageModule,
     AddProductAfterPageModule,
     ImageVieweerPageModule,
+    AssistancePageModule,
+
+    IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -186,7 +194,11 @@ const config : SocketIoConfig = { url: "https://192.168.1.82:4000", options : {}
     CallNumber,
     SocketProvider,
     NgxImageCompressService,
-    Clipboard
-  ]
+    Clipboard,
+    File,
+    WebView,
+    FileTransfer,
+    FilePath,
+      ]
 })
 export class AppModule {}

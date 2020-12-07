@@ -27,13 +27,13 @@
 
     <ion-row class="card-market card-background-page" *ngFor="let market of Markets"  >
 
-      <ion-card (click)='ViewMarket(market.id,market.isSubscribed,market.owner)'>
-        <img src="{{ market.image_cover }}" class="img-couverture"/>
+      <ion-card >
+        <img src="{{ market.image_cover }}" class="img-couverture" (click)='ViewMarket(market.id,market.isSubscribed,market.owner)' />
         <!--<button ion-button small color="light" class="vis" (click)='ViewMarket(market.id,market.isSubscribed,market.owner)'>VISITER</button>-->
         <ion-card-content class="btq-content">
           <ion-card-title>
             <ion-row>
-              <ion-col class="az" col-7>
+              <ion-col class="az" (click)='ViewMarket(market.id,market.isSubscribed,market.owner)' col-7>
                 <span style="font-weight: 400;">
                   {{ market.name | uppercase }}
                 </span>

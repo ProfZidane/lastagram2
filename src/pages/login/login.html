@@ -61,10 +61,10 @@
 
   <ion-grid class=" category-grid" align="center">
     <ion-scroll scrollX="true" style="width:100vw; height:110px;" >
-    <ion-row class=""  *ngIf="high" nowrap >
-      <ion-col class="" *ngFor="let ctg of high" col-3 (click)="viewArticles(ctg.id,'high',ctg.name)">
-        <img src="https://img.icons8.com/officel/16/000000/home.png"/>
-        <p style="font-weight: 370;">{{ ctg.name }}</p>
+    <ion-row class="border"  *ngIf="high" nowrap >
+      <ion-col class="icone-high" *ngFor="let ctg of high" col-3 (click)="viewArticles(ctg.id,'high',ctg.name)">
+        <img [src]=ctg.icone  />
+        <p style="font-weight: 370; text-transform: capitalize;">{{ ctg.name }}</p>
       </ion-col>
       <!--<ion-col class="" col-3>
         <img src="https://img.icons8.com/officel/16/000000/tv-on.png"/>
@@ -134,13 +134,13 @@
         </ion-card-content>
       </ion-card>-->
 
-      <ion-card (click)='ViewMarket(market.id,market.isSubscribed)'>
-        <img src="{{ market.image_cover }}" class="img-couverture"/>
+      <ion-card>
+        <img src="{{ market.image_cover }}" class="img-couverture"  (click)='ViewMarket(market.id,market.isSubscribed)' />
         <!--<button ion-button small color="light" class="vis" (click)='ViewMarket(market.id,market.isSubscribed)'>VISITER</button>-->
         <ion-card-content class="btq-content">
           <ion-card-title>
             <ion-row>
-              <ion-col class="az" col-7>
+              <ion-col class="az"  (click)='ViewMarket(market.id,market.isSubscribed)' col-7>
                 <span style="font-weight: 400; text-transform: capitalize;">
                   {{ market.name }}
                 </span>
@@ -149,7 +149,7 @@
             <ion-icon name="md-thumbs-up" style="font-size: 25px;" (click)="Abonne(market.id)" *ngIf="market.isSubscribed === false"></ion-icon>
             <ion-icon name="close-circle" style="font-size: 25px;" (click)="DesAbonne(market.id)" *ngIf="market.isSubscribed === true"></ion-icon>
             &nbsp;
-            <span class="b">
+            <span class="b" >
               {{ market.subscribers_count }} Abonné(s)
             </span>
               </ion-col>

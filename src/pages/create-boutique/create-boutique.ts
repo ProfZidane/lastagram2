@@ -12,8 +12,6 @@ import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import {NgxImageCompressService} from 'ngx-image-compress';
 
-import * as firebase from 'firebase';
-import { snapshotToArray } from './../../app/environment';
 /**
  * Generated class for the CreateBoutiquePage page.
  *
@@ -84,7 +82,7 @@ export class CreateBoutiquePage {
   base64Image2;
   base64Image3;
 
-  ref = firebase.database().ref('Markets/');
+  //ref = firebase.database().ref('Markets/');
   items = [];
   imgResultAfterCompress: string;
 
@@ -285,7 +283,7 @@ export class CreateBoutiquePage {
       this.base64Image = image;
       console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
 
-      this.imageCompress.compressFile(image, -1, 50, 50).then(
+      this.imageCompress.compressFile(image, -1, 50, 60).then(
         result => {
           this.imgResultAfterCompress = result;
           console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
@@ -307,7 +305,7 @@ export class CreateBoutiquePage {
       this.base64Image2 = image;
       console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
 
-      this.imageCompress.compressFile(image, -1, 50, 50).then(
+      this.imageCompress.compressFile(image, -1, 50, 60).then(
         result => {
           this.imgResultAfterCompress = result;
           console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
@@ -329,7 +327,7 @@ export class CreateBoutiquePage {
       this.base64Image3 = image;
       console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
 
-      this.imageCompress.compressFile(image, -1, 50, 50).then(
+      this.imageCompress.compressFile(image, -1, 50, 60).then(
         result => {
           this.imgResultAfterCompress = result;
           console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
@@ -351,7 +349,7 @@ export class CreateBoutiquePage {
       //this.base64Image = image;
       console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
 
-      this.imageCompress.compressFile(image, -1, 50, 50).then(
+      this.imageCompress.compressFile(image, -1, 50, 60).then(
         result => {
           this.imgResultAfterCompress = result;
           console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
@@ -450,7 +448,7 @@ export class CreateBoutiquePage {
   }
 
 
-  addItem(item) {
+  /*addItem(item) {
     if (item !== undefined && item !==null){
       let newItem = this.ref.push();
       newItem.set(item);
@@ -458,7 +456,7 @@ export class CreateBoutiquePage {
     }
     console.log('added to database ' + JSON.stringify(item));
 
-  }
+  }*/
 
   AddDevis() {
     const prompt = this.alertCtrl.create({
@@ -546,6 +544,24 @@ export class CreateBoutiquePage {
         "img_static_2" : localStorage.getItem('image_Decoration2'),
         "img_decore" : localStorage.getItem('image_Decoration3')
       }
+
+      if (localStorage.getItem('image_Decoration1') !== null) {
+        datas.img_static_1 = localStorage.getItem('image_Decoration1');
+      } else {
+        datas.img_static_1 = "";
+      }
+
+      if (localStorage.getItem('image_Decoration2') !== null) {
+        datas.img_static_2 = localStorage.getItem('image_Decoration2');
+      } else {
+        datas.img_static_2 = "";
+      }
+
+      if (localStorage.getItem('image_Decoration3') !== null) {
+        datas.img_decore = localStorage.getItem('image_Decoration3');
+      } else {
+          datas.img_decore = "";
+      }
       //datas.image_couverture = null;
 
       let tab = ['1','2','3','4','5','6'];
@@ -603,6 +619,16 @@ export class CreateBoutiquePage {
       //loading.dismiss();
 
      // this.goToBoutique();
+
+     /*this.storeService.node(datas).subscribe(
+       (success) => {
+         console.log(success);
+
+       }, (err) => {
+         console.log(err);
+
+       }
+     );*/
 
       this.storeService.createMarket(datas).subscribe(
         (success) => {
@@ -690,7 +716,6 @@ export class CreateBoutiquePage {
         j = 1;
       }
     });
-
     tab.forEach(element =>  {
       if (localStorage.getItem('populaire'+element) !== null ) {
         k = 1;

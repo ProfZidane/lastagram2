@@ -14,13 +14,17 @@
   <ion-grid class="container-ctg">
 
     <ion-row class="category-add-catg" *ngIf="AllCtg" >
-      <ion-col class="" col-3 align="center" *ngFor="let ctg of AllCtg" >
+      <ion-col class="" col-4 align="center" *ngFor="let ctg of AllCtg" >
         <div class="contain-catg" (click)="ChooseThis(ctg.id,ctg.name)">
-          <ion-icon name="home"></ion-icon>
+          <!--<ion-icon name="home"></ion-icon>-->
+          <img [src]=ctg.icone alt="">
           <br>
-          <small>{{ ctg.name }}</small>
         </div>
+        <small style="text-transform: capitalize;">{{ ctg.name }}</small>
       </ion-col>
+      <div align="center" class="div-to-btn">
+        <button ion-button round color="lastagram" [disabled]="next === null" (click)="do()">Voir Plus</button>
+      </div>
       <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
         <ion-infinite-scroll-content></ion-infinite-scroll-content>
       </ion-infinite-scroll>

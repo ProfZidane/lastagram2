@@ -541,6 +541,10 @@ export class BoutiquePage {
     });
   }
 
+  f() {
+    console.log('bonjour');
+  }
+
   setImageDeco3(id) {
     this.imageCompress.uploadFile().then(({image, orientation}) => {
 
@@ -896,6 +900,7 @@ export class BoutiquePage {
 
 
   addCouvertImg(num) {
+    console.log('les stats ! ');
     if (num === 1) {
       this.imageCompress.uploadFile().then(({image, orientation}) => {
 
@@ -905,7 +910,7 @@ export class BoutiquePage {
           content: 'Veuillez Patienter...'
         });
         loading.present();
-        this.imageCompress.compressFile(image, -1, 50, 50).then(
+        this.imageCompress.compressFile(image, -1, 50, 60).then(
           result => {
             this.imgResultAfterCompress = result;
             console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
@@ -952,7 +957,7 @@ export class BoutiquePage {
           content: 'Veuillez Patienter...'
         });
         loading.present();
-        this.imageCompress.compressFile(image, -1, 50, 50).then(
+        this.imageCompress.compressFile(image, -1, 50, 60).then(
           result => {
             this.imgResultAfterCompress = result;
             console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
@@ -999,7 +1004,7 @@ export class BoutiquePage {
           content: 'Veuillez Patienter...'
         });
         loading.present();
-        this.imageCompress.compressFile(image, -1, 50, 50).then(
+        this.imageCompress.compressFile(image, -1, 50, 60).then(
           result => {
             this.imgResultAfterCompress = result;
             console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));

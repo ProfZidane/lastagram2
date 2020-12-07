@@ -14,16 +14,18 @@
   <ion-grid class="header-message-menu">
     <h1>Messages</h1>
     <ion-row class="row-input">
-      <ion-col col-2>
+      <ion-searchbar placeholder="Recherche Conversation"  (ionInput)="getItems($event)" round></ion-searchbar>
+
+      <!--<ion-col col-2>
         <ion-icon name="search"></ion-icon>
       </ion-col>
       <ion-col col-10>
         <ion-input type="text" value="" placeholder="Recherche Conversation"></ion-input>
-      </ion-col>
+      </ion-col>-->
     </ion-row>
   </ion-grid>
 
-  <ion-grid>
+  <ion-grid *ngIf="Messages.length !== 0" >
     <ion-list no-lines *ngFor="let messages of Messages" >
       <ion-item (click)="goToMessageContent(messages.name,messages.username,messages.other_username,messages.photo)">
         <ion-avatar item-start>
@@ -52,6 +54,15 @@
       <hr>-->
     </ion-list>
   </ion-grid>
+
+
+  <ion-grid *ngIf="Messages.length === 0">
+    <div class="empty_mmgs" align="center">
+      <ion-icon name="chatbubbles"></ion-icon>
+      <p>Pas de messages ! </p>
+    </div>
+  </ion-grid>
+
 
 
 </ion-content>

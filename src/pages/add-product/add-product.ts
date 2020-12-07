@@ -162,7 +162,7 @@ export class AddProductPage {
 
 
 
-        this.imageCompress.compressFile(image, -1, 40, 45).then(
+        this.imageCompress.compressFile(image, -1, 50, 60).then(
           result => {
           this.imgResultAfterCompress = result;
           console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));

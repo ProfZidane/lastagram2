@@ -1,10 +1,15 @@
 import { SocketProvider } from './../../providers/socket/socket';
-import * as firebase from 'firebase';
-import { snapshotToArray, SOCKET_SERVER } from './../../app/environment';
+import { FIREBASE_CONFIG, snapshotToArray, SOCKET_SERVER } from './../../app/environment';
 import { AlertController } from 'ionic-angular';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+
 import { ActionSheetController } from 'ionic-angular';
+import { ELocalNotificationTriggerUnit, LocalNotifications } from '@ionic-native/local-notifications';
+import {NgxImageCompressService} from 'ngx-image-compress';
+
+import * as firebase from 'firebase';
+
 
 /**
  * Generated class for the  page.
@@ -30,14 +35,16 @@ export class MessageContentPage  {
   newMsg: string;
   username;
   other_username;
-  ref = firebase.database().ref('User/');
-  ref2 = firebase.database().ref('Messages/');
+
   items = [];
   proprio;
   Socket;
   photo;
+
+  ref = firebase.database().ref('Notification/');
+  //@ViewChild('ion-content') content2: any;
   @ViewChild('MessagesGrid') content:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public actionSheetCtrl: ActionSheetController, private alertCtrl: AlertController, private socketService: SocketProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public actionSheetCtrl: ActionSheetController, private alertCtrl: AlertController, private socketService: SocketProvider, private localNotifications: LocalNotifications,private imageCompress: NgxImageCompressService) {
     this.username = localStorage.getItem('usernameChat');
     this.other_username =  this.navParams.get('username');
     //console.log(JSON.stringify(this.navParams.get('info')));
@@ -200,7 +207,7 @@ export class MessageContentPage  {
 
   addItem(item) {
     if (item !== undefined && item !==null){
-      let newItem = this.ref2.push();
+      let newItem = this.ref.push();
       newItem.set(item);
 
     }
@@ -208,7 +215,7 @@ export class MessageContentPage  {
 
   }
 
-  send () {
+  /*send () {
       let data = {
         id : localStorage.getItem('idUser'),
         uId : localStorage.getItem('idUser') + "-T-" + new Date().getTime() + "@" + "lastagram" ,
@@ -229,19 +236,18 @@ export class MessageContentPage  {
     };
     this.addItem(data);
 }
-
+*/
   presentActionSheet() {
     const actionSheet = this.actionSheetCtrl.create({
       title: 'Modify your album',
       buttons: [
         {
-          text: 'Destructive',
-          role: 'destructive',
+          text: 'Bibliothèque Photo',
           handler: () => {
             console.log('Destructive clicked');
           }
         },{
-          text: 'Archive',
+          text: 'Bibliothèque Vidéo',
           handler: () => {
             console.log('Archive clicked');
           }
@@ -257,6 +263,48 @@ export class MessageContentPage  {
     actionSheet.present();
   }
 
+   // notification
+
+   sheduleNotification(id,content,data) {
+
+    this.localNotifications.schedule({
+      id : id,
+      title: "Message",
+      text: content,
+      data: { mydata: data },
+      trigger: { in: 5, unit: ELocalNotificationTriggerUnit.SECOND },
+      foreground: true
+    });
+
+  }
+
+
+  sendImage() {
+    this.imageCompress.uploadFile().then(({image, orientation}) => {
+
+      //this.base64Image3 = image;
+      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
+
+      this.imageCompress.compressFile(image, -1, 50, 100).then(
+        result => {
+        //  this.imgResultAfterCompress = result;
+          console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
+          //console.log(this.imgResultAfterCompress);
+
+          //localStorage.setItem('couvertImage3', this.imgResultAfterCompress);
+
+          let mgs = {
+            "message" : result
+          }
+
+          this.Socket.send(JSON.stringify({ message : result }));
+        }
+      );
+
+    });
+  }
+
+  sendVideo() {}
 
   sendMessage() {
 
@@ -282,6 +330,54 @@ export class MessageContentPage  {
     //this.addItem(mgs);
 
     this.Socket.send(JSON.stringify({ message : this.newMsg }));
+
+
+    if (this.navParams.get('info')) {
+      this.externalUser = this.navParams.get('info');
+
+      let text = this.externalUser.first_name + " " + this.externalUser.last_name + ": " + this.newMsg;
+      let name = this.externalUser.first_name + " " + this.externalUser.last_name;
+      let notif = {
+        "id": Number(localStorage.getItem('idUser')),
+        "text" : text,
+        "title": "Message",
+        "receiver" : this.other_username,
+        "photo" : this.photo,
+        //"sender": localStorage.getItem('usernameChat'),
+        "name" : name
+      }
+      /*this.sheduleNotification(
+        Number(localStorage.getItem('idUSer')),
+        text,
+        this.proprio
+      );*/
+
+      this.addItem(notif);
+
+    } else {
+      this.externalUser2 = this.navParams.get('name');
+      console.log(this.externalUser2);
+      let text = this.externalUser2 + ": " + this.newMsg;
+
+      let notif = {
+        "text" : text,
+        "title": "Message",
+        "receiver" : this.other_username,
+        "photo" : this.photo,
+        //"sender": localStorage.getItem('usernameChat'),
+        "name" : this.externalUser2
+      }
+
+      /*this.sheduleNotification(
+        Number(localStorage.getItem('idUSer')),
+        text,
+        this.proprio
+      );*/
+
+      this.addItem(notif);
+    }
+
+
 
     console.log("message to : " + mgs);
 

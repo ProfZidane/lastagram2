@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "637363311172",
+    "project_id": "lastagram2",
+    "storage_bucket": "lastagram2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:637363311172:android:8260410c82f38395366211",
+        "android_client_info": {
+          "package_name": "com.lastagramtest.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "637363311172-8jd5ff9bms4cocdtktjtc33aqck3mpgj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lastagramtest.app",
+            "certificate_hash": "b8afb75bbefa874759806246b93b01289ba5dfaf"
+          }
+        },
+        {
+          "client_id": "637363311172-qu5c1vsh8c77k3dgm82v8t0r8fnt3tcq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEpILlC-tijKbd52g8DpyVooZ9qHBwXCw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "637363311172-qu5c1vsh8c77k3dgm82v8t0r8fnt3tcq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
