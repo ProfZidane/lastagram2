@@ -14,10 +14,10 @@
   <ion-grid class=" profile-image" padding>
     <ion-row class="">
       <ion-col class="" col-5 align="center">
-        <div class="modify-img-profile" *ngIf="!analayse">
+        <div class="modify-img-profile" *ngIf="analayse === false">
           <img src="{{ base64Image }}" alt="" (click)="OpenGallery()">
         </div>
-        <div class="modify2-img-profile" *ngIf="analayse" >
+        <div class="modify2-img-profile" *ngIf="analayse === true" >
           <ion-icon class="md-img" name="camera" (click)="OpenGallery()"></ion-icon>
         </div>
 

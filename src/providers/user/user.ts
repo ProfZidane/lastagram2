@@ -58,8 +58,8 @@ export class UserProvider {
   }
 
   // set image
-  setImage(data) : Observable<any> {
-    return this.http.post(this.setImageUrl,data, { headers : this.getHeaders() });
+  setImage(data,id) : Observable<any> {
+    return this.http.patch(this.setImageUrl + id,data, { headers : this.getHeaders() });
   }
 
   // find data

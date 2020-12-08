@@ -12,6 +12,15 @@
 
 <ion-content padding>
   <ion-list no-lines>
+
+    <ion-item *ngFor="let order of datas" >
+      <ion-row>
+        <ion-col class="grid-text" (click)="goToDetailOrders(order.id_order)"  col-9>
+          Une nouvelle commande de <b>{{ order.taille }} articles !</b>
+        </ion-col>
+      </ion-row>
+      <hr>
+  </ion-item>
     <!--<ion-item *ngFor="let article of articles" >
         {{ article.name }}
       <ion-icon class="esp" name="md-create" item-end (click)="modify(article)"></ion-icon>

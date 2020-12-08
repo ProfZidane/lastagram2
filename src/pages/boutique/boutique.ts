@@ -1,3 +1,4 @@
+import { DEEP_LINK_DOMAIN } from './../../app/environment';
 import { AddProductAfterPage } from './../add-product-after/add-product-after';
 import { ModifyProdSpecialPage } from './../modify-prod-special/modify-prod-special';
 import { MenuMarketPage } from './../menu-market/menu-market';
@@ -20,6 +21,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ActionSheetController } from 'ionic-angular';
 import {NgxImageCompressService} from 'ngx-image-compress';
 import { Clipboard } from '@ionic-native/clipboard';
+
 /**
  * Generated class for the BoutiquePage page.
  *
@@ -76,13 +78,13 @@ export class BoutiquePage {
 
           this.isAdmin = true;
           console.log(this.isAdmin);
-          console.log(data);
+          console.log(JSON.stringify(data));
 
           this.Market.id = data.id;
           this.Market.name = data.name;
           this.Market.image_cover = data.image_cover;
-          this.Market.image_cover2 = data.image_cover2;
-          this.Market.image_cover3 = data.image_cover3;
+          this.Market.image_cover2 = data.image_cover_2;
+          this.Market.image_cover3 = data.image_cover_3;
           this.Market.img_decore = data.img_decore;
           this.Market.category = data.category;
           this.Market.subscribers = data.subscribers.length;
@@ -137,7 +139,7 @@ export class BoutiquePage {
               )
             }
           });
-          //console.log(this.Market.detail_articles);
+          console.log(JSON.stringify("detail : "  + this.Market.detail_articles));
 
           loading.dismiss();
           console.log("Propiétaire : " + data);
@@ -174,6 +176,8 @@ export class BoutiquePage {
                   (response) => {
                     //loading.dismiss();
                     this.Market.detail_articles.push(response);
+                    //console.log(JSON.stringify(this.Market.detail_articles));
+
                   },
                   (error) => {
                     //loading.dismiss();
@@ -182,7 +186,7 @@ export class BoutiquePage {
                   }
                 )
               });
-              console.log(this.Market.detail_articles);
+              console.log(JSON.stringify(this.Market.detail_articles));
 
               loading.dismiss();
 
@@ -219,7 +223,7 @@ export class BoutiquePage {
           icon: 'link',
           handler: () => {
             console.log('Destructive clicked');
-            let link = "lastagram://lastagram.herokuapp.com/market/"+this.Market.id+"/"+false;
+            let link = DEEP_LINK_DOMAIN + "market/"+this.Market.id+"/"+false;
             this.clipboard.copy(link).then(
               () => {
                   const toast = this.toastCtrl.create({
@@ -292,6 +296,8 @@ export class BoutiquePage {
   }
 
   AddNewProd(indic) {
+    console.log("c sa");
+
     this.navCtrl.push(AddProductAfterPage, { "id_catg": null, "id_market": this.Market.id, "indic" : indic });
   }
 
@@ -413,7 +419,7 @@ export class BoutiquePage {
       this.base64Image = image;
       console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
 
-      this.imageCompress.compressFile(image, -1, 40, 45).then(
+      this.imageCompress.compressFile(image, -1, 50, 60).then(
         result => {
           this.imgResultAfterCompress = result;
           console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
@@ -480,7 +486,7 @@ export class BoutiquePage {
       this.base64Image = image;
       console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
 
-      this.imageCompress.compressFile(image,-1, 40, 45).then(
+      this.imageCompress.compressFile(image,-1, 50, 60).then(
         result => {
           this.imgResultAfterCompress = result;
           console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
@@ -550,7 +556,7 @@ export class BoutiquePage {
 
       console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
 
-      this.imageCompress.compressFile(image,-1, 40, 45).then(
+      this.imageCompress.compressFile(image,-1, 50, 60).then(
         result => {
           this.imgResultAfterCompress = result;
           console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
@@ -921,6 +927,20 @@ export class BoutiquePage {
               (response) => {
                   console.log(response);
                   loading.dismiss();
+                  let alert2 = this.alertCtrl.create({
+                    title: 'SUCCESS',
+                    subTitle: 'Photo de boutique modifée !',
+                    buttons: [
+                      {
+                        text: 'OK',
+                        role: 'cancel',
+                        handler: () => {
+                          this.navCtrl.push(MyShopPage);
+                        }
+                      }
+                    ]
+                  });
+                  alert2.present();
               },
               (error) => {
 
@@ -962,12 +982,26 @@ export class BoutiquePage {
             this.imgResultAfterCompress = result;
             console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
             let data = {
-              "image_cover2" : this.imgResultAfterCompress
+              "image_cover_2" : this.imgResultAfterCompress
             }
             this.storeService.updateProduct2(data,this.Market.id).subscribe(
               (response) => {
                   console.log(response);
                   loading.dismiss();
+                  let alert2 = this.alertCtrl.create({
+                    title: 'SUCCESS',
+                    subTitle: 'Photo de boutique modifée !',
+                    buttons: [
+                      {
+                        text: 'OK',
+                        role: 'cancel',
+                        handler: () => {
+                          this.navCtrl.push(MyShopPage);
+                        }
+                      }
+                    ]
+                  });
+                  alert2.present();
               },
               (error) => {
 
@@ -1009,12 +1043,26 @@ export class BoutiquePage {
             this.imgResultAfterCompress = result;
             console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
             let data = {
-              "image_cover3" : this.imgResultAfterCompress
+              "image_cover_3" : this.imgResultAfterCompress
             }
             this.storeService.updateProduct2(data,this.Market.id).subscribe(
               (response) => {
                   console.log(response);
                   loading.dismiss();
+                  let alert2 = this.alertCtrl.create({
+                    title: 'SUCCESS',
+                    subTitle: 'Photo de boutique modifée !',
+                    buttons: [
+                      {
+                        text: 'OK',
+                        role: 'cancel',
+                        handler: () => {
+                          this.navCtrl.push(MyShopPage);
+                        }
+                      }
+                    ]
+                  });
+                  alert2.present();
               },
               (error) => {
 

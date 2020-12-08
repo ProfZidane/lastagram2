@@ -33,6 +33,7 @@ base64Image;
 id;
 slug;
   imgResultAfterCompress: any;
+  status = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, private storeService: StoreProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController,private imageCompress: NgxImageCompressService) {
   }
 
@@ -52,11 +53,12 @@ slug;
       this.base64Image = image;
       console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
 
-      this.imageCompress.compressFile(image,-1, 20, 20).then(
+      this.imageCompress.compressFile(image,-1, 50, 60).then(
         result => {
           this.imgResultAfterCompress = result;
           console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
           this.Products.image_cover = result;
+          this.status = true;
 
         }
       );
@@ -80,12 +82,12 @@ slug;
         "slug": this.slug,
         "promo_price": this.Products.promo_price,
         "image_cover": this.Products.image_cover,
-        "description" : this.Products.description,
+        "description" : encodeURI(this.Products.description),
         "flash": false,
         "popular": false,
         "category": this.id
       }
-      console.log(data);
+      console.log(JSON.stringify(data));
 
     } else if (this.state === "flash") {
       data = {
@@ -94,12 +96,12 @@ slug;
         "slug": this.slug,
         "promo_price": this.Products.promo_price,
         "image_cover": this.Products.image_cover,
-        "description" : this.Products.description,
+        "description" : encodeURI(this.Products.description),
         "flash": true,
         "popular": false,
         "category": this.id
       }
-      console.log(data);
+      console.log(JSON.stringify(data));
 
     } else if (this.state === "popular") {
       data = {
@@ -108,18 +110,22 @@ slug;
         "slug": this.slug,
         "promo_price": this.Products.promo_price,
         "image_cover": this.Products.image_cover,
-        "description" : this.Products.description,
+        "description" : encodeURI(this.Products.description),
         "flash": false,
         "popular": true,
         "category": this.id
       }
-      console.log(data);
+      console.log(JSON.stringify(data));
 
+    }
+
+    if (this.status !== true) {
+      delete data.image_cover;
     }
 
     this.storeService.updateProduct(data,this.Products.id).subscribe(
       (success) => {
-        console.log(success);
+        console.log(JSON.stringify(success));
         loading.dismiss();
         let alert = this.alertCtrl.create({
           title: 'SUCCESS',
@@ -131,7 +137,7 @@ slug;
 
       },
       (error) => {
-        console.log(error);
+        console.log(JSON.stringify(error));
         loading.dismiss();
         let alert = this.alertCtrl.create({
           title: 'ECHEC',

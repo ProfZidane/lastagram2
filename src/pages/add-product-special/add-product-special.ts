@@ -49,6 +49,7 @@ export class AddProductSpecialPage {
 
   AddOneProduct() {
     //this.Products.idctg = this.idCtg;
+    this.Products.description = encodeURI(this.Products.description);
     this.data.push(this.Products);
     console.log(this.data);
     if (this.indic == "populaire") {

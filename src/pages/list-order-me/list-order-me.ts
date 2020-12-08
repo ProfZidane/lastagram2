@@ -1,5 +1,7 @@
+import { DetailOrdersPage } from './../detail-orders/detail-orders';
 import { Component } from '@angular/core';
 import { OrderProvider } from './../../providers/order/order';
+import { UserProvider } from './../../providers/user/user';
 
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
@@ -20,7 +22,9 @@ id;
 Orders = [];
 grouped;
 next;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private orderService: OrderProvider) {
+keys;
+datas = [];
+  constructor(public navCtrl: NavController, public navParams: NavParams, private orderService: OrderProvider, private userService: UserProvider) {
     this.id = this.navParams.get('id');
     this.getOrderByMarket();
   }
@@ -32,10 +36,23 @@ next;
   getOrderByMarket() {
     this.orderService.getOrderByMarketID(Number(this.id)).subscribe(
       (data) => {
-         //console.log(data);
+         console.log(JSON.stringify(data));
          this.next = data.next;
-         this.Orders = data.results;
-          //console.log(JSON.stringify(this.Orders));
+         this.Orders = data.result;
+
+
+
+        console.log(JSON.stringify(this.Orders));
+
+        this.Orders.forEach(elt => {
+          let len = elt.length;
+          elt.forEach(element => {
+            element.taille = len;
+            this.datas.push(element);
+          });
+        })
+
+        console.log(" datas:  " + JSON.stringify(this.datas));
 
       }, (err) => {
 
@@ -44,5 +61,14 @@ next;
       }
     )
   }
+
+  goToDetailOrders(id) {
+    this.navCtrl.push(DetailOrdersPage, { id: id, date: null, time: null });
+    //console.log(id);
+
+  }
+
+
+
 
 }

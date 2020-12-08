@@ -75,7 +75,7 @@ export class AddProductPage {
     //this.count += this.data.length;
 
     if (this.data.length <= 49) {
-
+      this.Products.description = encodeURI(this.Products.description);
       this.data.push(this.Products);
       console.log(this.data);
       this.presentAlert();

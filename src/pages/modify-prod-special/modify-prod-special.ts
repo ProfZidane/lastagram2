@@ -78,7 +78,7 @@ export class ModifyProdSpecialPage {
       this.base64Image = image;
       console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
 
-      this.imageCompress.compressFile(image, -1, 20, 20).then(
+      this.imageCompress.compressFile(image, -1, 50, 60).then(
         result => {
           this.imgResultAfterCompress = result;
           console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
@@ -105,7 +105,7 @@ export class ModifyProdSpecialPage {
       "promo_price": this.Products.promo_price,
       "store": this.id_market,
       "category": this.id_catg,
-      "description" : this.Products.description
+      "description" : encodeURI(this.Products.description)
     };
     console.log(data);
 
@@ -123,7 +123,7 @@ export class ModifyProdSpecialPage {
 
       },
       (error) => {
-        console.log(error);
+        console.log(JSON.stringify(error));
         let alert = this.alertCtrl.create({
           title: 'ECHEC',
           subTitle: 'L\'opération n\'a pas abouti !',

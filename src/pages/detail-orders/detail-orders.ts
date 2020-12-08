@@ -33,20 +33,20 @@ Total;
     let data = {
       "id": this.navParams.get('id')
     }
-    console.log(data);
+    console.log(JSON.stringify(data));
 
     this.orderService.getDetailOrders(Number(this.navParams.get('id'))).subscribe(
       (data) => {
         //console.log(data);
         this.DetailOrders = data;
-        console.log(this.DetailOrders);
+        console.log(JSON.stringify(this.DetailOrders));
         this.Articles = this.DetailOrders.articles;
-        console.log(this.Articles);
+        console.log(JSON.stringify(this.Articles));
         this.adress = this.DetailOrders.address;
         this.Total = this.DetailOrders.total_price;
 
       }, (err) => {
-        console.log(err);
+        console.log("error : " + JSON.stringify(err));
 
       }
     )

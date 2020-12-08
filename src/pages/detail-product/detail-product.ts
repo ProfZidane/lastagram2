@@ -62,7 +62,9 @@ export class DetailProductPage {
 
     this.storeService.getProductByID(this.id_article).subscribe(
       (data) => {
+        data.description = decodeURI(data.description);
         this.product = data;
+
         //console.log(JSON.stringify(this.product));
         loading.dismiss();
       },

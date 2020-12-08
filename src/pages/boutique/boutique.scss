@@ -3,6 +3,11 @@ page-boutique {
     background-color: #fff;
   }
 
+  .ctg-see {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+  }
 }
 
 .navbar-abo {
@@ -19,10 +24,13 @@ page-boutique {
 }
 
 .catg-boutique {
-  border: solid 1px;
+  border: solid 1px rgba(199, 199, 199, 0.795);
   border-radius: 100%;
   height: 80px;
   width: 90%;
+  position: relative;
+  left: 15%;
+  margin-bottom: 5.5px;
 }
 
 .image-create-boutique-0 {

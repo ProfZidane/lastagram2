@@ -106,7 +106,7 @@ export class StoreProvider {
   }
 
   updateProduct(data,id): Observable<any> {
-    return this.http.put(this.updateUrl + id,data,{ headers: this.getHeaders() });
+    return this.http.patch(this.updateUrl + id,data,{ headers: this.getHeaders() });
   }
 
 

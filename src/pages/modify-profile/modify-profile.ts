@@ -42,9 +42,11 @@ export class ModifyProfilePage {
     this.infoUser.phone = localStorage.getItem('phoneUser');
     this.infoUser.mail = localStorage.getItem('mailUser');
     this.infoUser.id = localStorage.getItem('idUser');
-    if (localStorage.getItem('photoUser') !== null ) {
+    if (localStorage.getItem('photoUser') !== "null" ) {
       this.analayse = false;
       this.base64Image = localStorage.getItem('photoUser');
+      console.log(typeof(this.base64Image));
+
     } else {
       this.analayse = true;
       this.base64Image = "https://cdn.pixabay.com/photo/2017/02/26/00/12/human-2099157_960_720.png";
@@ -80,7 +82,7 @@ export class ModifyProfilePage {
 
       console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
 
-      this.imageCompress.compressFile(image, -1, 50, 50).then(
+      this.imageCompress.compressFile(image, -1, 50, 60).then(
         result => {
           this.imgResultAfterCompress = result;
           this.base64Image = result;
@@ -91,7 +93,7 @@ export class ModifyProfilePage {
           let data = {
             "photo" : this.base64Image
           }
-          this.userService.setImage(data).subscribe(
+          this.userService.setImage(data,Number(localStorage.getItem('idUser'))).subscribe(
             (response) => {
 
               console.log(" success : " + response);

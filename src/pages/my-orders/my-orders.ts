@@ -29,7 +29,7 @@ next;
     console.log('ionViewDidLoad MyOrdersPage');
     this.orderService.getListOrder().subscribe(
       (data) => {
-        console.log(data);
+        console.log(JSON.stringify(data));
         this.Orders = data.results;
         this.next = data.next;
         /*this.date_order = data.ordered_date.substr(0,10);

@@ -41,7 +41,8 @@
 
           <hr>
           <p class="desc-product">{{ article.name }}</p>
-          <p class="price-product twoo">{{ article.price | number }} F CFA</p>
+          <p class="price-product twoo">{{ article.promo_price | number }} {{ article.store.devis }}</p>
+          <small class="price-product2" style="text-decoration: line-through;">{{ article.price | number }} {{ article.store.devis }}</small>
         </div>
       </ion-col>
       <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
