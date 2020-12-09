@@ -22,6 +22,7 @@ Orders;
 date_order;
 time_order;
 next;
+len;
   constructor(public navCtrl: NavController, public navParams: NavParams, private orderService: OrderProvider, private searchService: SearchProvider) {
   }
 
@@ -31,6 +32,7 @@ next;
       (data) => {
         console.log(JSON.stringify(data));
         this.Orders = data.results;
+        this.len = this.Orders.length;
         this.next = data.next;
         /*this.date_order = data.ordered_date.substr(0,10);
         this.time_order = data.ordered_date.substr(11);*/

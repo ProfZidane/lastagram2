@@ -1,3 +1,5 @@
+import { ModifyCategoryPageModule } from './../pages/modify-category/modify-category.module';
+import { ModalPageModule } from './../pages/modal/modal.module';
 import { ImageVieweerPageModule } from './../pages/image-vieweer/image-vieweer.module';
 import { AddProductAfterPageModule } from './../pages/add-product-after/add-product-after.module';
 import { SearchByMarketPageModule } from './../pages/search-by-market/search-by-market.module';
@@ -166,7 +168,8 @@ const config : SocketIoConfig = { url: "https://192.168.1.82:4000", options : {}
     AddProductAfterPageModule,
     ImageVieweerPageModule,
     AssistancePageModule,
-
+    ModalPageModule,
+    ModifyCategoryPageModule,
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp)
   ],

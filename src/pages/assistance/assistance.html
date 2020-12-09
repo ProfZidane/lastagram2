@@ -16,11 +16,11 @@
   <small>Envoyez-nous un message en detaillant votre problème.</small><br><br>
   <ion-item>
     <ion-label class="text" >Objet :</ion-label>
-    <ion-input type="text" value=""></ion-input>
+    <ion-input type="text" [(ngModel)]="Messages.object" value=""></ion-input>
   </ion-item><br>
   <ion-item>
     <ion-label class="text" position="stacked">Message :</ion-label>
-    <ion-textarea value="" placeholder="ecrivez ici ..." rows="10"> </ion-textarea>
+    <ion-textarea value="" [(ngModel)]="Messages.message" placeholder="ecrivez ici ..." rows="10"> </ion-textarea>
   </ion-item><br><br>
   <button ion-button color="lastagram" round (click)="showAlert()">Envoyer</button>
 </ion-content>

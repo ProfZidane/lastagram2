@@ -15,7 +15,7 @@ export const FIREBASE_CONFIG = {
 
 export const SERVER_SOCKET_APP = "https://lastagram-chat.herokuapp.com/";
 
-export const SOCKET_SERVER = "ws://lastagram-chat.herokuapp.com/";
+export const SOCKET_SERVER = "wss://lastagram-chat.herokuapp.com/";
 
 export const DEEP_LINK_DOMAIN = "https://digitlab-ci.com/";
 

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { OrderProvider } from './../../providers/order/order';
 
 /**
  * Generated class for the DetailOrderMePage page.
@@ -15,11 +16,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class DetailOrderMePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private orderService: OrderProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DetailOrderMePage');
   }
+
+
 
 }

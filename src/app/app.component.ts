@@ -10,8 +10,8 @@ import { Component, NgZone, ViewChild } from '@angular/core';
 import { Platform, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-//import { FIREBASE_CONFIG } from './environment';
-//import * as firebase from 'firebase';
+import { FIREBASE_CONFIG } from './environment';
+import * as firebase from 'firebase';
 
 import { ELocalNotificationTriggerUnit, LocalNotifications } from '@ionic-native/local-notifications';
 
@@ -75,7 +75,7 @@ export class MyApp {
     });
 
 
-    // firebase.initializeApp(FIREBASE_CONFIG);
+    firebase.initializeApp(FIREBASE_CONFIG);
 
   }
 

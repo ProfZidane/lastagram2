@@ -32,8 +32,10 @@
   <ion-grid #MessagesGrid id="MessagesGrid" class="MessagesGrid">
     <ion-row *ngFor="let message of messages" >
       <ion-col  col-9 *ngIf="username !== message.sender" class="message other-message">
-        <b>{{ message.receiver }}</b><br>
-        <span text-wrap>{{ message.message }}</span>
+        <b *ngIf="externalUser2">{{ externalUser2 }}</b><br>
+        <b *ngIf="externalUser">{{ externalUser.first_name + ' ' }}</b><br>
+        <span text-wrap *ngIf="message.message.substr(0,4) !== 'data'" >{{ message.message }}</span>
+        <img *ngIf="message.message.substr(0,4) === 'data'" class="img-mgs" [src]=message.message  alt="">
         <div class="time" text-right>
           <br> {{ message.timestamp | date }}
         </div>
@@ -41,9 +43,9 @@
 
 
       <ion-col offset-3 col-9  *ngIf="username === message.sender" class="message my-message">
-        <b>{{ message.sender }}</b><br>
-        <span text-wrap *ngIf="message.message.substr(0,22) !== 'data:image/jpeg;base64,'" >{{ message.message }}</span>
-        <img *ngIf="message.message.substr(0,22) === 'data:image/jpeg;base64,'"  [src]=message.message  alt="">
+        <b>{{ nameSender }}</b><br>
+        <span text-wrap *ngIf="message.message.substr(0,4) !== 'data'" >{{ message.message }}</span>
+        <img *ngIf="message.message.substr(0,4) === 'data'" class="img-mgs"  [src]=message.message  alt="">
         <div class="time" text-right >
           <br> {{ message.timestamp | date }}
         </div>

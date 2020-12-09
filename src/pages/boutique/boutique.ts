@@ -1,3 +1,4 @@
+import { ModalPage } from './../modal/modal';
 import { DEEP_LINK_DOMAIN } from './../../app/environment';
 import { AddProductAfterPage } from './../add-product-after/add-product-after';
 import { ModifyProdSpecialPage } from './../modify-prod-special/modify-prod-special';
@@ -13,12 +14,12 @@ import { ListProdPage } from './../list-prod/list-prod';
 import { StoreProvider } from './../../providers/store/store';
 import { AddProductPage } from './../add-product/add-product';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController  } from 'ionic-angular';
-import { LoadingController, ToastController  } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, App } from 'ionic-angular';
+import { LoadingController, ToastController, Platform  } from 'ionic-angular';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { AlertController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { ActionSheetController } from 'ionic-angular';
+import { ActionSheetController, PopoverController } from 'ionic-angular';
 import {NgxImageCompressService} from 'ngx-image-compress';
 import { Clipboard } from '@ionic-native/clipboard';
 
@@ -60,7 +61,19 @@ export class BoutiquePage {
   flash_length;
   popular_length;
   //rootPage = BoutiquePage;
-  constructor(public toastCtrl: ToastController,public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController,private callNumber: CallNumber, private alertCtrl: AlertController, private camera: Camera,public actionSheetCtrl: ActionSheetController,private imageCompress: NgxImageCompressService,public menuCtrl: MenuController, private clipboard: Clipboard) {
+  constructor(private platform: Platform, public toastCtrl: ToastController,public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController,private callNumber: CallNumber, private alertCtrl: AlertController, private camera: Camera,public actionSheetCtrl: ActionSheetController,private imageCompress: NgxImageCompressService,public menuCtrl: MenuController, private clipboard: Clipboard, public popoverCtrl: PopoverController, private app: App) {
+    this.platform.registerBackButtonAction( () => {
+      let nav = this.app.getActiveNav();
+      if (nav.canGoBack()) {
+        //nav.popToRoot()
+        //nav.popTo(ProfilePage)
+        this.navCtrl.pop();
+      } else {
+        console.log("peut plus reculer");
+        //this.navCtrl.push(LoginPage);
+        this.platform.exitApp();
+      }
+    })
   }
 
   ionViewDidLoad() {
@@ -1097,5 +1110,14 @@ export class BoutiquePage {
   goToSearchMode() {
     this.navCtrl.push(SearchPage);
   }
+
+
+  async openPopover(ev: Event,id) {
+    let popover = this.popoverCtrl.create(ModalPage,{ "id_catg": id, "id_boutique": this.Market.id, "slug": this.slug });
+    popover.present({
+      ev: ev
+    });
+  }
+
 
 }

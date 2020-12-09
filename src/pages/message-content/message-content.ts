@@ -41,6 +41,7 @@ export class MessageContentPage  {
   Socket;
   photo;
 
+  nameSender = localStorage.getItem("name2User") + " " + localStorage.getItem('nameUser');
   ref = firebase.database().ref('Notification/');
   //@ViewChild('ion-content') content2: any;
   @ViewChild('MessagesGrid') content:any;
@@ -72,6 +73,7 @@ export class MessageContentPage  {
     this.Socket = new WebSocket(SOCKET_SERVER + "ws/chat/" + this.username +"/"+ this.other_username+ "/");
 
     this.Socket.onopen = function() {
+
       console.log('socket connected ');
 
     }
@@ -89,7 +91,7 @@ export class MessageContentPage  {
 
 
     this.Socket.onerror = (e) => {
-      console.log(e);
+      console.log(JSON.stringify(e));
 
     }
 
@@ -115,7 +117,7 @@ export class MessageContentPage  {
     // get message to API
     this.socketService.getMessages(this.username,this.other_username).subscribe(
       (data) => {
-        console.log(data);
+        console.log(JSON.stringify(data));
         data.chat_messages.forEach(element => {
           this.messages.push(element);
         });
@@ -124,7 +126,7 @@ export class MessageContentPage  {
 
 
       }, (err) => {
-        console.log(err);
+        console.log(JSON.stringify(err));
       }
     )
 
@@ -285,7 +287,7 @@ export class MessageContentPage  {
       //this.base64Image3 = image;
       console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
 
-      this.imageCompress.compressFile(image, -1, 50, 100).then(
+      this.imageCompress.compressFile(image, -1, 50, 60).then(
         result => {
         //  this.imgResultAfterCompress = result;
           console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
@@ -332,7 +334,7 @@ export class MessageContentPage  {
     this.Socket.send(JSON.stringify({ message : this.newMsg }));
 
 
-    if (this.navParams.get('info')) {
+    /*if (this.navParams.get('info')) {
       this.externalUser = this.navParams.get('info');
 
       let text = this.externalUser.first_name + " " + this.externalUser.last_name + ": " + this.newMsg;
@@ -346,11 +348,7 @@ export class MessageContentPage  {
         //"sender": localStorage.getItem('usernameChat'),
         "name" : name
       }
-      /*this.sheduleNotification(
-        Number(localStorage.getItem('idUSer')),
-        text,
-        this.proprio
-      );*/
+
 
       this.addItem(notif);
 
@@ -368,14 +366,10 @@ export class MessageContentPage  {
         "name" : this.externalUser2
       }
 
-      /*this.sheduleNotification(
-        Number(localStorage.getItem('idUSer')),
-        text,
-        this.proprio
-      );*/
+
 
       this.addItem(notif);
-    }
+    }*/
 
 
 

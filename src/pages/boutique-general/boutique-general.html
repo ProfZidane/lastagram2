@@ -95,8 +95,8 @@
 
   <ion-grid class="category-boutique">
     <ion-row class="" align="center">
-      <ion-col class="" col-4 *ngFor="let catg of Market.detail_articles" (click)="GetProductByCtg(catg.id,catg.name,Market.devis)">
-        <div class="catg-boutique" style="border-color: gray;width:70%;">
+      <ion-col class="pre-catg-boutique" col-4 *ngFor="let catg of Market.detail_articles" (click)="GetProductByCtg(catg.id,catg.name,Market.devis)">
+        <div class="catg-boutique" >
           <img [src]=catg.icone class="ctg-see" alt="">
         </div>
         <span class="name-ctg">{{ catg.name }}</span>

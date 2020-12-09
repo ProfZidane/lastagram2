@@ -36,7 +36,7 @@ export class MessageMenuPage {
 
   this.socketService.getAllMessages(this.username)
     .subscribe( (data) => {
-      //console.log(data);
+      console.log(JSON.stringify(data));
       data.forEach(element => {
         //console.log(element);
         let username = "";
@@ -50,7 +50,7 @@ export class MessageMenuPage {
         }
         this.userService.getImageUser(username).subscribe(
           (data) => {
-            //console.log(data);
+            console.log(JSON.stringify(data));
             let elt = {
               name: data.last_name + " " + data.first_name,
               username: username,
@@ -62,18 +62,18 @@ export class MessageMenuPage {
             this.Messages.push(elt);
             this.ALLMessages.push(elt);
             console.log(this.Messages);
-            loading.dismiss();
+            //loading.dismiss();
           }, (err) => {
 
-            console.log(err);
-            loading.dismiss();
+            console.log(JSON.stringify(err));
+            //loading.dismiss();
 
           }
         )
       });
     }, (err) => {
-      console.log(err);
-      loading.dismiss();
+      console.log(JSON.stringify(err));
+//      loading.dismiss();
 
     });
 

@@ -6,7 +6,48 @@ page-boutique {
   .ctg-see {
     width: 100%;
     height: 100%;
-    border-radius: 100%;
+   /* border-radius: 100%;*/
+  }
+
+  .pre-catg-boutique {
+    border: solid 0.5px gray;
+
+    border-top: none;
+  }
+
+
+
+  .pre-catg-boutique:nth-child(odd){
+    border-left: none;
+  }
+
+  .pre-catg-boutique:nth-child(even){
+    border-left: none;
+
+  }
+
+
+  .pre-catg-boutique:nth-child(3n){
+    border-right: none;
+  }
+
+
+  .pre-catg-boutique:nth-child(2n + 4){
+    border-bottom: none;
+    /*border-right: solid 1px gray;*/
+  }
+
+  .pre-catg-boutique:nth-child(2n+5){
+    border-bottom: none;
+
+  }
+
+  .pre-catg-boutique:last-child {
+    border: solid 0.5px gray;
+    border-left: none;
+    border-bottom: none;
+    border-right: none;
+    border-top: none;
   }
 }
 
@@ -24,13 +65,13 @@ page-boutique {
 }
 
 .catg-boutique {
-  border: solid 1px rgba(199, 199, 199, 0.795);
+  /*border: solid 1px rgba(199, 199, 199, 0.795);
   border-radius: 100%;
   height: 80px;
   width: 90%;
   position: relative;
   left: 15%;
-  margin-bottom: 5.5px;
+  margin-bottom: 5.5px;*/
 }
 
 .image-create-boutique-0 {

@@ -15,7 +15,12 @@ import { AlertController } from 'ionic-angular';
   templateUrl: 'assistance.html',
 })
 export class AssistancePage {
-
+Messages = {
+  author: "",
+  object: "",
+  message: "",
+  date: ""
+}
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
   }
 
@@ -30,6 +35,16 @@ export class AssistancePage {
       buttons: ['OK']
     });
     alert.present();
+  }
+
+
+  send() {
+    this.Messages.author = localStorage.getItem("name2User") + " " + localStorage.getItem('nameUser');
+    this.Messages.date = new Date().toLocaleDateString();
+    console.log(
+      JSON.stringify(this.Messages)
+    );
+
   }
 
 }

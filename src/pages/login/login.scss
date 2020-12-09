@@ -279,13 +279,29 @@ ion-card ion-card-content button {
 
 .icone-high {
   padding: 0;
+  margin: 0;
   /*border: solid;*/
 }
 
 .icone-high img {
+  padding: 0;
   height: 60px;
   width: 100%;
+
   border-radius: 100%;
-  //border: solid 1px #cccc;
+  border: solid 1px rgb(199, 188, 188);
 }
 
+.contain-name {
+
+  width: 70%;
+  position: relative;
+  left: 20%;
+}
+
+
+.ctg-name {
+  text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}

@@ -11,7 +11,7 @@ import { MyShopPage } from './../my-shop/my-shop';
 import { StoreProvider } from './../../providers/store/store';
 import { AddProductPage } from './../add-product/add-product';
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App, Platform } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
@@ -81,9 +81,22 @@ export class BoutiqueGeneralPage {
   minute=30;
   heure=0;
   timer;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController,
+  constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController,
      private camera: Camera, public toastCtrl: ToastController, private callNumber: CallNumber, private app: App
   ) {
+
+    this.platform.registerBackButtonAction( () => {
+      let nav = this.app.getActiveNav();
+      if (nav.canGoBack()) {
+        //nav.popToRoot()
+        //nav.popTo(ProfilePage)
+        this.navCtrl.pop();
+      } else {
+        console.log("peut plus reculer");
+        //this.navCtrl.push(LoginPage);
+        this.platform.exitApp();
+      }
+    })
 
   }
 
@@ -387,6 +400,9 @@ export class BoutiqueGeneralPage {
 
     }*/
     loading.dismiss();
+
+    console.log("propio : " + JSON.stringify(this.ownerInfo));
+
 
     this.app.getRootNav().push(
       MessageContentPage,

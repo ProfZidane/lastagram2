@@ -54,5 +54,11 @@
       <button ion-button round color="lastagram" (click)="update()">VALIDER</button>
     </ion-row>
   </ion-grid>
+
+  <ion-grid class="del-btn-product">
+    <button ion-button block color="danger" (click)="delete(this.Products.id)">
+      SUPPRIMER
+    </button>
+  </ion-grid>
 </ion-content>
 

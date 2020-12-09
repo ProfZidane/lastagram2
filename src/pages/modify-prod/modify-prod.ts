@@ -40,7 +40,8 @@ slug;
   ionViewDidLoad() {
     console.log('ionViewDidLoad ModifyProdPage');
     this.Products = this.navParams.get("0");
-    console.log(this.Products);
+    console.log(JSON.stringify(this.Products));
+    this.Products.description = decodeURI(this.Products.description);
     this.state = this.navParams.get("etat");
     this.id = this.navParams.get('id');
     this.slug = this.navParams.get('slug');
@@ -142,6 +143,39 @@ slug;
         let alert = this.alertCtrl.create({
           title: 'ECHEC',
           subTitle: 'Echec de la modification',
+          message: 'Veuillez verifiez réessayer plus part !',
+          buttons: ['OK']
+        });
+        alert.present();
+      }
+    )
+  }
+
+  delete(id) {
+    let loading = this.loadingCtrl.create({
+      content: 'Veuillez Patienter...'
+    });
+    loading.present();
+    console.log(id);
+    this.storeService.delShopById(id).subscribe(
+      (success) => {
+        console.log(success);
+        loading.dismiss();
+        let alert = this.alertCtrl.create({
+          title: 'SUCCESS',
+          subTitle: 'Supprimer avec succès',
+          buttons: ['OK']
+        });
+        alert.present();
+        this.navCtrl.pop();
+      },
+      (error) => {
+        console.log(error);
+        loading.dismiss();
+
+        let alert = this.alertCtrl.create({
+          title: 'ECHEC',
+          subTitle: 'Echec de la suppression',
           message: 'Veuillez verifiez réessayer plus part !',
           buttons: ['OK']
         });
