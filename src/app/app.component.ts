@@ -10,8 +10,10 @@ import { Component, NgZone, ViewChild } from '@angular/core';
 import { Platform, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { FIREBASE_CONFIG } from './environment';
+import { FIREBASE_CONFIG, snapshotToArray } from './environment';
 import * as firebase from 'firebase';
+
+firebase.initializeApp(FIREBASE_CONFIG);
 
 import { ELocalNotificationTriggerUnit, LocalNotifications } from '@ionic-native/local-notifications';
 
@@ -24,7 +26,8 @@ import { ELocalNotificationTriggerUnit, LocalNotifications } from '@ionic-native
 export class MyApp {
 
   rootPage:any;
-  //ref = firebase.database().ref('Notification/');
+
+
 
   @ViewChild(Nav) navChild:Nav;
   constructor(platform: Platform, private localNotifications: LocalNotifications, statusBar: StatusBar, splashScreen: SplashScreen, private deeplinks: Deeplinks, private zone: NgZone) {
@@ -37,18 +40,6 @@ export class MyApp {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      /*this.deeplinks.route({
-
-        '/home': ProfilePage
-
-      }).subscribe( (match) => {
-        //alert(JSON.stringify(match));
-        console.log(JSON.stringify(match))
-        this.navChild.push(ProfilePage);
-      }, (nomatch) => {
-        //alert(JSON.stringify(err));
-        console.log(JSON.stringify(nomatch));
-      })*/
 
 
 
@@ -56,11 +47,6 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
 
-
-    //  this.setupDeeplink();
-
-      /*this.firebaseDynamicLinks.onDynamicLink()
-        .subscribe((res: any) => console.log(res), (error:any) => console.log(error))*/
       this.deeplinks.routeWithNavController(this.navChild,{
         '/': LoginPage,
         '/product/:id/:id_market/:owner' : DetailProductPage,
@@ -72,10 +58,13 @@ export class MyApp {
       }, (nomatch => { console.log(JSON.stringify(nomatch));
       }))
 
+
+
+
     });
 
 
-    firebase.initializeApp(FIREBASE_CONFIG);
+
 
   }
 
@@ -92,14 +81,37 @@ export class MyApp {
     })
   }*/
 
-  setNotification(obj) {
+  /*setNotification(obj) {
     this.localNotifications.schedule({
       id : obj.id,
       title: obj.title,
       text: obj.text,
-      data: { id: obj.id,  },
-      trigger: { in: 5, unit: ELocalNotificationTriggerUnit.SECOND },
+      data: { id: obj.id, sender: obj.sender },
+      trigger: { in: 2, unit: ELocalNotificationTriggerUnit.SECOND },
       foreground: true
     });
   }
+
+  getDataToFire() {
+    firebase.database().ref('Notification/').on('child_added', resp => {
+      console.log("firebase data : " + JSON.stringify(resp));
+      let data = resp.val()
+      if (data.receiver === localStorage.getItem('usernameChat')) {
+        console.log('c lui !')
+        if (data.is_seen === false) {
+          this.setNotification(data);
+          firebase.database().ref('Notification/' + resp.key).update({
+            id : data.id,
+            is_seen: true,
+            receiver : data.receiver,
+            sender : data.sender,
+            text : data.text,
+            title : data.title
+          });
+        }
+      } else {
+        console.log('c pas  lui !')
+      }
+    })
+  }*/
 }

@@ -1,3 +1,4 @@
+import { UserProvider } from './../../providers/user/user';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
@@ -21,7 +22,8 @@ Messages = {
   message: "",
   date: ""
 }
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private userService: UserProvider) {
   }
 
   ionViewDidLoad() {
@@ -29,12 +31,56 @@ Messages = {
   }
 
   showAlert() {
-    const alert = this.alertCtrl.create({
-      title: 'SUCCES',
-      subTitle: 'Votre message à été envoyé, nous vous contacterons au plus vite !',
-      buttons: ['OK']
-    });
-    alert.present();
+    this.Messages.author = localStorage.getItem('name2User') + ' ' + localStorage.getItem('nameUser');
+    this.Messages.date = new Date().toLocaleString();
+
+
+    let email = {
+      email: localStorage.getItem('mailUser'),
+      objet : this.Messages.object,
+      message : this.Messages.message
+    }
+
+    console.log(
+      JSON.stringify(email)
+    );
+
+    this.userService.sendMail(email).subscribe(
+      (success) => {
+        console.log(success);
+
+      const alert = this.alertCtrl.create({
+        title: 'SUCCES',
+        subTitle: 'Votre message à été envoyé, nous vous contacterons au plus vite !',
+        buttons: ['OK']
+      });
+      alert.present();
+
+      this.Messages = {
+        author: "",
+  object: "",
+  message: "",
+  date: ""
+      }
+
+      }, (error)=> {
+        console.log(JSON.stringify(error));
+        const alert = this.alertCtrl.create({
+          title: 'ECHEC',
+          subTitle: 'Un problème est survenu',
+          buttons: ['OK']
+        });
+        alert.present();
+
+        this.Messages = {
+          author: "",
+    object: "",
+    message: "",
+    date: ""
+        }
+      }
+    )
+
   }
 
 

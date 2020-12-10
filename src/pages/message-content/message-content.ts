@@ -1,12 +1,13 @@
 import { SocketProvider } from './../../providers/socket/socket';
 import { FIREBASE_CONFIG, snapshotToArray, SOCKET_SERVER } from './../../app/environment';
-import { AlertController } from 'ionic-angular';
+import { AlertController, App } from 'ionic-angular';
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 
 import { ActionSheetController } from 'ionic-angular';
 import { ELocalNotificationTriggerUnit, LocalNotifications } from '@ionic-native/local-notifications';
 import {NgxImageCompressService} from 'ngx-image-compress';
+import { UserProvider } from './../../providers/user/user';
 
 import * as firebase from 'firebase';
 
@@ -45,20 +46,33 @@ export class MessageContentPage  {
   ref = firebase.database().ref('Notification/');
   //@ViewChild('ion-content') content2: any;
   @ViewChild('MessagesGrid') content:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public actionSheetCtrl: ActionSheetController, private alertCtrl: AlertController, private socketService: SocketProvider, private localNotifications: LocalNotifications,private imageCompress: NgxImageCompressService) {
+  constructor(public navCtrl: NavController,private platform: Platform, public navParams: NavParams,  private userService: UserProvider,public actionSheetCtrl: ActionSheetController, private alertCtrl: AlertController, private socketService: SocketProvider, private localNotifications: LocalNotifications,private imageCompress: NgxImageCompressService, private app: App) {
     this.username = localStorage.getItem('usernameChat');
     this.other_username =  this.navParams.get('username');
+
     //console.log(JSON.stringify(this.navParams.get('info')));
     //console.log(JSON.stringify(this.navParams.get('proprietaire')));
     this.proprio = this.navParams.get('proprietaire');
 
-    if (this.navParams.get('photo') !== null) {
+    if (this.navParams.get('photo')) {
 
       this.photo = this.navParams.get('photo');
+      console.log(this.photo);
 
     } else {
       console.log("je n\'es pas de photo ! ");
+      /*this.userService.getImageUser(this.other_username).subscribe(
+        (data) => {
+          console.log(JSON.stringify(data));
 
+          //loading.dismiss();
+        }, (err) => {
+
+          console.log("image erreur : " + JSON.stringify(err));
+          //loading.dismiss();
+
+        }
+      )*/
     }
 
     if (this.navParams.get('info')) {
@@ -106,6 +120,19 @@ export class MessageContentPage  {
 
 
     //console.log(localStorage.getItem('nameUser'));
+
+    this.platform.registerBackButtonAction( () => {
+      let nav = this.app.getActiveNav();
+      if (nav.canGoBack()) {
+        //nav.popToRoot()
+        //nav.popTo(ProfilePage)
+        this.navCtrl.pop();
+      } else {
+        console.log("peut plus reculer");
+        //this.navCtrl.push(LoginPage);
+        this.platform.exitApp();
+      }
+    })
 
   }
 
@@ -334,42 +361,74 @@ export class MessageContentPage  {
     this.Socket.send(JSON.stringify({ message : this.newMsg }));
 
 
-    /*if (this.navParams.get('info')) {
+    if (this.navParams.get('info')) {
       this.externalUser = this.navParams.get('info');
 
-      let text = this.externalUser.first_name + " " + this.externalUser.last_name + ": " + this.newMsg;
+      let text = localStorage.getItem('name2User') + ' ' + localStorage.getItem('nameUser') + ": " + this.newMsg;
       let name = this.externalUser.first_name + " " + this.externalUser.last_name;
-      let notif = {
-        "id": Number(localStorage.getItem('idUser')),
-        "text" : text,
-        "title": "Message",
-        "receiver" : this.other_username,
-        "photo" : this.photo,
-        //"sender": localStorage.getItem('usernameChat'),
-        "name" : name
+      if (this.photo) {
+        let notif = {
+          "id": Number(localStorage.getItem('idUser')),
+          "text" : text,
+          "title": "Message",
+          "receiver" : this.other_username,
+          "photo" : this.photo,
+          "sender": localStorage.getItem('name2User') + ' ' + localStorage.getItem('nameUser'),
+          "username_sender" : this.username,
+          "is_seen" : false
+        }
+        this.addItem(notif);
+
+      } else {
+        let notif = {
+          "id": Number(localStorage.getItem('idUser')),
+          "text" : text,
+          "title": "Message",
+          "receiver" : this.other_username,
+          "photo" : "",
+          "sender": localStorage.getItem('name2User') + ' ' + localStorage.getItem('nameUser'),
+          "username_sender" : this.username,
+          "is_seen" : false
+        }
+        this.addItem(notif);
+
       }
 
 
-      this.addItem(notif);
 
     } else {
       this.externalUser2 = this.navParams.get('name');
       console.log(this.externalUser2);
-      let text = this.externalUser2 + ": " + this.newMsg;
+      let text = localStorage.getItem('name2User') + ' ' + localStorage.getItem('nameUser') + ": " + this.newMsg;
 
-      let notif = {
-        "text" : text,
-        "title": "Message",
-        "receiver" : this.other_username,
-        "photo" : this.photo,
-        //"sender": localStorage.getItem('usernameChat'),
-        "name" : this.externalUser2
+      if (this.photo) {
+        let notif = {
+          "text" : text,
+          "title": "Message",
+          "receiver" : this.other_username,
+          "photo" : this.photo,
+          "sender": localStorage.getItem('name2User') + ' ' + localStorage.getItem('nameUser'),
+          "username_sender" : this.username
+          //"name" : this.externalUser2
+        }
+        this.addItem(notif);
+      } else {
+        let notif = {
+          "text" : text,
+          "title": "Message",
+          "receiver" : this.other_username,
+          "photo" : "",
+          "sender": localStorage.getItem('name2User') + ' ' + localStorage.getItem('nameUser'),
+          "username_sender" : this.username
+          //"name" : this.externalUser2
+        }
+        this.addItem(notif);
       }
 
 
 
-      this.addItem(notif);
-    }*/
+
+    }
 
 
 

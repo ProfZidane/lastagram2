@@ -80,6 +80,15 @@
       </ion-slide>
     </ion-slides>
 
+    <ion-slides *ngIf="Market.image_cover && Market.image_cover_3  && Market.image_cover_2 == null"  autoplay="2000" loop="true">
+      <ion-slide>
+        <img [src]=Market.image_cover alt="">
+      </ion-slide>
+      <ion-slide>
+        <img [src]=Market.image_cover_3 alt="">
+      </ion-slide>
+    </ion-slides>
+
     <ion-slides *ngIf="Market.image_cover && Market.image_cover_2  && Market.image_cover_3"  autoplay="2000" loop="true">
       <ion-slide>
         <img [src]=Market.image_cover alt="">

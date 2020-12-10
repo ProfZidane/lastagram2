@@ -56,6 +56,32 @@ next;
 
   }
 
+  do() {
+
+    console.log(this.next);
+
+    if (this.next !== null) {
+      this.searchService.searchInfinite(this.next).subscribe(
+        (data) => {
+          let data_next = data.results;
+          console.log(data);
+          console.log(data);
+
+          data_next.forEach(element => {
+            if (element !== null) {
+              this.AllCtg.push( element );
+              //this.Total.push(element);
+            }
+          });
+
+         this.next = data.next;
+
+        }
+      )
+    }
+
+  }
+
   doInfinite(infiniteScroll) {
     console.log('Begin async operation');
     console.log(this.next);

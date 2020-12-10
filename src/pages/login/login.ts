@@ -1,3 +1,4 @@
+import { MessageContentPage } from './../message-content/message-content';
 import { ProfilePage } from './../profile/profile';
 import { ShopToSharePage } from './../shop-to-share/shop-to-share';
 import { ShareComponent } from './../../components/share/share';
@@ -20,7 +21,8 @@ import { ELocalNotificationTriggerUnit, LocalNotifications } from '@ionic-native
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { ActionSheetController, LoadingController } from 'ionic-angular';
 import { SearchProvider } from './../../providers/search/search';
-import { DEEP_LINK_DOMAIN } from '../../app/environment';
+import { DEEP_LINK_DOMAIN, FIREBASE_CONFIG } from '../../app/environment';
+import * as firebase from 'firebase';
 
 /**
  * Generated class for the LoginPage page.
@@ -43,6 +45,7 @@ export class LoginPage {
   previous;
   next;
   constructor(public loadingCtrl: LoadingController,private platform: Platform, public navCtrl: NavController, public navParams: NavParams, public storeService: StoreProvider, private alertCtrl: AlertController,public toastCtrl: ToastController, public modalCtrl: ModalController, private localNotifications: LocalNotifications, private notificationService: NotificationProvider, private userService: UserProvider, private socialSharing: SocialSharing,public actionSheetCtrl: ActionSheetController, private searchService: SearchProvider) {
+
     if (localStorage.getItem('userToken') !== null) {
       this.userService.findData().subscribe(
         (data) => {
@@ -67,51 +70,23 @@ export class LoginPage {
       )
     }
 
-     /*if (localStorage.getItem('userToken') !== null) {
+    if (localStorage.getItem('userToken') !== null) {
       this.platform.ready().then( () => {
         this.localNotifications.on('click').subscribe( res => {
-          let mgs = res.data ? res.data.mydata : '';
-          console.log("id , " + mgs);
-          let is_seen  = [];
-          console.log(JSON.stringify(this.seen));
+          if (res.title === "Message") {
+            console.log("data : " + JSON.stringify(res));
 
-          this.seen.forEach(elt => {
-            //console.log("elt: " + JSON.stringify(elt.value));
-
-            if (elt.key == res.id) {
-              is_seen = elt.value;
-
-              is_seen.push(Number(localStorage.getItem('idUser')));
-            }
-          });
-          console.log("tab : " + JSON.stringify(is_seen));
-          console.log("id notif : " + res.id);
-          let data = {
-            "is_seen" : is_seen
+            this.navCtrl.push(MessageContentPage, { name : res.data.sender, username: res.data.username, photo : res.data.photo})
           }
-          this.notificationService.confirmationSeenNotif(res.id,data).subscribe(
-            (success) => {
-              console.log("success = " + success.is_seen);
-            }, (err) => {
-              console.log("err = " + err);
-              console.log(Object.keys(err));
-              console.log(err.status);
-              console.log(err.error.non_field_errors);
-              console.log(err.statusText);
-
-            }
-          )
-          this.navCtrl.push(MyNotifPage);
-          //this.navCtrl.push(DetailNotifPage, { "id_order" : res.data });
-        });*/
+        });
 
         /*this.localNotifications.on('trigger').subscribe( res => {
           let mgs = res.data ? res.data.mydata : '';
           console.log(mgs);
           this.navCtrl.push(MyNotifPage);
         });*/
-     /* });*/
-     /*}*/
+      });
+     }
 
      this.platform.registerBackButtonAction( () => {
       this.platform.exitApp();
@@ -123,8 +98,8 @@ export class LoginPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
 
-   /*if (localStorage.getItem('userToken') !== null) {
-    setInterval( () => {
+   if (localStorage.getItem('userToken') !== null) {
+    /*setInterval( () => {
       this.notificationService.getNewNotification().subscribe(
         (data) => {
           console.log("data : " + data);
@@ -161,8 +136,11 @@ export class LoginPage {
         }
       )
 
-    }, 10000);
-   }*/
+    }, 10000);*/
+
+    this.getDataToFire();
+
+   }
    let loading = this.loadingCtrl.create({
     content: 'Veuillez Patienter...'
   });
@@ -224,7 +202,7 @@ export class LoginPage {
 
     this.storeService.getHighCatg().subscribe(
       (data) => {
-        
+
         this.high = data.results;
         console.log(data.results);
 
@@ -247,6 +225,42 @@ export class LoginPage {
       }
     )
 
+  }
+
+  setNotification(obj) {
+    this.localNotifications.schedule({
+      id : obj.id,
+      title: obj.title,
+      text: obj.text,
+      data: { id: obj.id, sender: obj.sender, username: obj.username_sender, photo: obj.photo },
+      trigger: { in: 2, unit: ELocalNotificationTriggerUnit.SECOND },
+      foreground: true
+    });
+  }
+
+  getDataToFire() {
+    firebase.database().ref('Notification/').on('child_added', resp => {
+      console.log("firebase data : " + JSON.stringify(resp));
+      let data = resp.val()
+      if (data.receiver === localStorage.getItem('usernameChat')) {
+        console.log('c lui !')
+        if (data.is_seen === false) {
+          this.setNotification(data);
+          firebase.database().ref('Notification/' + resp.key).update({
+            id : data.id,
+            is_seen: true,
+            receiver : data.receiver,
+            sender : data.sender,
+            username_sender : data.username_sender,
+            photo: data.photo,
+            text : data.text,
+            title : data.title
+          });
+        }
+      } else {
+        console.log('c pas  lui !')
+      }
+    })
   }
 
 

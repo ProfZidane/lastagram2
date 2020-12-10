@@ -6,6 +6,7 @@ import * as firebase from 'firebase';
 import { snapshotToArray } from './../../app/environment';
 import { SocketProvider } from './../../providers/socket/socket';
 import { LoadingController } from 'ionic-angular';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 /**
  * Generated class for the MessageMenuPage page.
@@ -25,16 +26,25 @@ export class MessageMenuPage {
   items;
   users;
   Messages = [];
-  ALLMessages;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private socketService: SocketProvider, private userService: UserProvider,public loadingCtrl: LoadingController) {
+  ALLMessages = [];
+  constructor(public http: HttpClient, public navCtrl: NavController, public navParams: NavParams, private socketService: SocketProvider, private userService: UserProvider,public loadingCtrl: LoadingController) {
+
+
+    this.username = localStorage.getItem('usernameChat');
+    console.log("sss : " + this.username);
+
+
+
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad MessageMenuPage');
     let loading = this.loadingCtrl.create({
       content: 'Veuillez Patienter...'
     });
     loading.present();
 
-  this.username = localStorage.getItem('usernameChat');
-
-  this.socketService.getAllMessages(this.username)
+    this.socketService.getAllOfMessages(this.username)
     .subscribe( (data) => {
       console.log(JSON.stringify(data));
       data.forEach(element => {
@@ -62,27 +72,49 @@ export class MessageMenuPage {
             this.Messages.push(elt);
             this.ALLMessages.push(elt);
             console.log(this.Messages);
-            //loading.dismiss();
+           // loading.dismiss();
           }, (err) => {
 
-            console.log(JSON.stringify(err));
-            //loading.dismiss();
+            //console.log("image : " + JSON.stringify(err));
+            let elt = {
+              name: err.error.last_name + " " + err.error.first_name,
+              username: username,
+              other_username : other_username,
+              photo: "https://cdn.pixabay.com/photo/2017/02/25/22/04/user-icon-2098873_960_720.png",
+              last_message: element.message,
+              date : err.error.timestamp
+            }
+            console.log(typeof(elt));
+
+            console.log(JSON.stringify(elt))
+            this.Messages.push(elt);
+            this.ALLMessages.push(elt);
+            console.log(this.Messages);
+          //  loading.dismiss();
 
           }
         )
       });
     }, (err) => {
-      console.log(JSON.stringify(err));
-//      loading.dismiss();
+      console.log("not found : " + JSON.stringify(err));
+      loading.dismiss();
 
     });
 
+    //console.log(JSON.stringify(this.ALLMessages));
+
     loading.dismiss();
 
-  }
+   /*this.http.get('https://lastagram-chat.herokuapp.com/chat/zidane2261619ajliwjjt/').subscribe(
+      (data) => {
+        console.log("ee : " + JSON.stringify(data));
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MessageMenuPage');
+      }, (err) => {
+        console.log("rrr : " + JSON.stringify(err));
+
+      }
+    )*/
+
 
 
   }

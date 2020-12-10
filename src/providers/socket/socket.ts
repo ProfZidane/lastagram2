@@ -56,6 +56,10 @@ export class SocketProvider {
 
 
   getAllMessages(username) : Observable<any> {
+    return this.http.get(this.messageUrl + username);
+  }
+
+  getAllOfMessages(username): Observable<any> {
     return this.http.get(this.messageUrl + username + "/");
   }
 

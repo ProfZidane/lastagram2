@@ -62,7 +62,7 @@ export class ProfilePage {
 
       this.userService.findData().subscribe(
         (info) => {
-          console.log(info);
+          console.log(JSON.stringify(info));
           this.infoUser = info;
           this.photo = info.photo;
           if (localStorage.getItem('nameUser') == null && localStorage.getItem('name2User') == null
