@@ -4,6 +4,28 @@ page-message-content {
     margin-top: 1rem;
 
   }
+
+  .avatar-mgs {
+    margin-top: 1.3rem;
+  }
+
+  .avatar-mgs ion-item {
+    background-color: transparent;
+    width: 100%;
+  }
+
+  .avatar-mgs ion-item ion-title {
+    text-overflow: ellipsis;
+    width: 90%;
+    position: relative;
+    right: 2%;
+  }
+
+  .avatar-mgs ion-item ion-avatar {
+
+    position: relative;
+    right: 7%;
+  }
 }
 
 .bg-content-message {

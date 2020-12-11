@@ -9,7 +9,25 @@
     <ion-title></ion-title>
   </ion-navbar>-->
 
-  <ion-grid>
+  <ion-navbar>
+    <ion-list class="avatar-mgs">
+      <ion-item>
+        <ion-title *ngIf="externalUser" item-start>
+          {{ externalUser.first_name + ' ' + externalUser.last_name }}
+        </ion-title>
+        <ion-title *ngIf="externalUser2" item-end>
+          {{ externalUser2 }}
+        </ion-title>
+        <ion-avatar item-end>
+          <img *ngIf="!photo"  src="https://cdn.pixabay.com/photo/2017/02/25/22/04/user-icon-2098873_960_720.png">
+          <img *ngIf="photo"  [src]=photo>
+        </ion-avatar>
+      </ion-item>
+    </ion-list>
+  </ion-navbar>
+
+
+ <!-- <ion-grid>
     <ion-list no-lines style="background-color: transparent;">
       <ion-item>
         <ion-icon name="arrow-back" (click)="goBack()" item-start></ion-icon>
@@ -25,7 +43,8 @@
         </ion-avatar>
       </ion-item>
     </ion-list>
-  </ion-grid>
+  </ion-grid>-->
+
 </ion-header>
 
 <ion-content fullscreen class="bg-content-message">

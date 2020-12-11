@@ -33,7 +33,8 @@
         </ion-avatar>
         <h2>{{ messages.name }} <span class="time two">{{ messages.date | date }}</span></h2>
 
-        <p>{{ messages.last_message }}</p>
+        <p class="s_m" *ngIf="messages.last_message.substr(0,4) !== 'data'">{{ messages.last_message }}</p>
+        <p class="s_m" *ngIf="messages.last_message.substr(0,4) === 'data'" >Image <ion-icon name="image"></ion-icon> </p>
       </ion-item>
       <hr>
       <!--<ion-item>

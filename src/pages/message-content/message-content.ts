@@ -1,6 +1,6 @@
 import { SocketProvider } from './../../providers/socket/socket';
 import { FIREBASE_CONFIG, snapshotToArray, SOCKET_SERVER } from './../../app/environment';
-import { AlertController, App } from 'ionic-angular';
+import { AlertController, App, Content } from 'ionic-angular';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 
@@ -44,8 +44,9 @@ export class MessageContentPage  {
 
   nameSender = localStorage.getItem("name2User") + " " + localStorage.getItem('nameUser');
   ref = firebase.database().ref('Notification/');
+  @ViewChild(Content) content: Content;
   //@ViewChild('ion-content') content2: any;
-  @ViewChild('MessagesGrid') content:any;
+  //@ViewChild('MessagesGrid') content:any;
   constructor(public navCtrl: NavController,private platform: Platform, public navParams: NavParams,  private userService: UserProvider,public actionSheetCtrl: ActionSheetController, private alertCtrl: AlertController, private socketService: SocketProvider, private localNotifications: LocalNotifications,private imageCompress: NgxImageCompressService, private app: App) {
     this.username = localStorage.getItem('usernameChat');
     this.other_username =  this.navParams.get('username');
@@ -157,6 +158,8 @@ export class MessageContentPage  {
       }
     )
 
+
+
     let alert = this.alertCtrl.create({
       title: 'Success',
       subTitle: 'Loperation a reussi !',
@@ -202,6 +205,11 @@ export class MessageContentPage  {
       });
 */
 
+
+  }
+
+  ionViewDidLeave() {
+    console.log("go to bottom !");
 
   }
 

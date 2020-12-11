@@ -3,7 +3,7 @@
     <name>Lastagram</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="madazada0@gmail.com" href="http://ionicframework.com/">Digit</author>
-    <content original-src="index.html" src="http://localhost:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />

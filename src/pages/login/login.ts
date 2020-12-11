@@ -77,6 +77,40 @@ export class LoginPage {
             console.log("data : " + JSON.stringify(res));
 
             this.navCtrl.push(MessageContentPage, { name : res.data.sender, username: res.data.username, photo : res.data.photo})
+          } else {
+            let mgs = res.data ? res.data.mydata : '';
+          console.log("id , " + mgs);
+          let is_seen  = [];
+          console.log(JSON.stringify(this.seen));
+
+          this.seen.forEach(elt => {
+            //console.log("elt: " + JSON.stringify(elt.value));
+
+            if (elt.key == res.id) {
+              is_seen = elt.value;
+
+              is_seen.push(Number(localStorage.getItem('idUser')));
+            }
+          });
+          console.log("tab : " + JSON.stringify(is_seen));
+          console.log("id notif : " + res.id);
+          let data = {
+            "is_seen" : is_seen
+          }
+          this.notificationService.confirmationSeenNotif(res.id,data).subscribe(
+            (success) => {
+              console.log("success = " + success.is_seen);
+            }, (err) => {
+              console.log("err = " + err);
+              console.log(Object.keys(err));
+              console.log(err.status);
+              console.log(err.error.non_field_errors);
+              console.log(err.statusText);
+
+            }
+          )
+          this.navCtrl.push(MyNotifPage);
+          //this.navCtrl.push(DetailNotifPage, { "id_order" : res.data });
           }
         });
 
@@ -99,14 +133,14 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
 
    if (localStorage.getItem('userToken') !== null) {
-    /*setInterval( () => {
+    setInterval( () => {
       this.notificationService.getNewNotification().subscribe(
         (data) => {
-          console.log("data : " + data);
+          console.log("data : " + JSON.stringify(data));
 
 
 
-          data.forEach(element => {
+          data.results.forEach(element => {
             //console.log(element);
             //console.log(JSON.stringify(element.id + " " + element.content));
               if (element.receiver.includes(Number(localStorage.getItem('idUser'))) && element.is_seen.includes(Number(localStorage.getItem('idUser'))) == false ) {
@@ -136,7 +170,7 @@ export class LoginPage {
         }
       )
 
-    }, 10000);*/
+    }, 10000);
 
     this.getDataToFire();
 
