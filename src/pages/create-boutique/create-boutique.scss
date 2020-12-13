@@ -1,0 +1,182 @@
+page-create-boutique {
+  ion-slide {
+    margin: 0;
+    padding: 0;
+    background-image: url('https://cdn.pixabay.com/photo/2016/03/02/20/13/shopping-1232944_960_720.jpg');
+    background-size: cover;
+
+  }
+
+  .defilement ion-col ion-icon {
+    font-size: 25px;
+  }
+}
+
+.level-up-add {
+  border-bottom: solid 1px rgba(139, 139, 139, 0.664);
+}
+
+.add-create-boutique  {
+  border-right: solid 1px rgba(139, 139, 139, 0.664);
+
+}
+
+
+.header-create-boutique {
+  background-color: #155C7F;
+}
+
+.header-create-boutique ion-row {
+  border: solid 1px #aaa;
+  border-radius: 20px ;
+}
+
+.header-create-boutique ion-row ion-input {
+  color:gray;
+  background-color: white;
+  border-radius: 201px;
+}
+
+.image-create-boutique {
+  height: 200px;
+
+  background-size: cover;
+}
+
+.image-create-boutique h3 {
+  color: white;
+  transform: translateY(10px);
+}
+
+.image-create-boutique h1 {
+  color: white;
+  transform: translateY(40px);
+}
+
+.image-create-boutique ion-icon {
+  color: white;
+  font-size: 45px;
+  transform: translateY(-30%);
+}
+
+.bg-create-boutique {
+  background-color: rgba(253, 253, 253, 0.973);
+}
+
+.catg-create-boutique {
+  background-color: white;
+  padding-top: 1rem;
+}
+
+.flash-create-boutique {
+  background-color: white;
+}
+
+.product-flash-create-boutique {
+  padding: 1rem;
+
+}
+
+.product-flash-create-boutique ion-col {
+
+}
+
+.product-origin-create-boutique h3 {
+  font-size: 20px;
+}
+
+.p {
+  margin-left: 2rem;
+}
+
+.product-flash-create-boutique ion-col:first-child {
+  padding-right: 1rem;
+}
+
+.photo {
+  border: solid 1px rgb(226, 224, 220);
+  height: 230px;
+  width: 100%;
+  border-radius: 25px;
+  background-color: white;
+
+}
+
+.photo h3 {
+  color: grey;
+  transform: translateY(80%);
+}
+
+.photo ion-icon {
+  font-size: 45px;
+  color: rgb(99, 99, 99);
+  transform: translateY(50%);
+}
+
+
+/*.catg-create-boutique ion-row ion-col {
+  border-right: solid;
+
+}*/
+
+.catg-create-boutique ion-row ion-col ion-icon {
+  font-size: 40px;
+}
+
+.btn-validation button{
+  width: 100%;
+}
+
+
+.err_validation {
+  padding: 1rem;
+  text-align: center;
+  color: red;
+}
+
+
+
+.affiche-boutique {
+  /*height: 150px;
+  background-color: white;*/
+}
+
+._1 {
+  /*border: solid;*/
+  height: 150px;
+  background-color: white;
+}
+
+._1 h3 {
+  text-align: center;
+  color: grey;
+  transform: translateY(80%);
+}
+
+._1 ion-icon {
+  font-size: 45px;
+  color: rgb(99, 99, 99);
+  transform: translateY(50%);
+  text-align: center;
+}
+
+
+._2 {
+  /*border: solid;*/
+  height: 150px;
+  background-color: white;
+}
+
+
+._2 h3 {
+  text-align: center;
+  color: grey;
+  transform: translateY(80%);
+}
+
+._2 ion-icon {
+  font-size: 45px;
+  color: rgb(99, 99, 99);
+  transform: translateY(50%);
+  text-align: center;
+}

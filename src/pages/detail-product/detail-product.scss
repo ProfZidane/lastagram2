@@ -1,0 +1,126 @@
+page-detail-product {
+  .pp {
+    margin-top: 2rem;
+  }
+}
+
+.grid-button-detail ion-col button {
+  width: 100%;
+  font-size: 10px;
+}
+
+.grid-price-detail-prod {
+  width: 100%;
+  padding: 0;
+}
+
+.grid-price-detail-prod span {
+  font-size: 18px;
+  position: relative;
+  top: 15px;
+  color: #000000;
+  font-weight: 800;
+}
+
+
+.grid-price-detail-prod .second_span {
+  color: #155C7F;
+}
+
+
+.counter-quantity {
+  position: relative;
+  top: 10px;
+}
+
+
+.counter-quantity ion-row ion-col span {
+  font-size: 24px;
+}
+
+.counter-quantity ion-row ion-col ion-icon {
+  color: gray;
+  font-size: 30px;
+}
+
+
+.qt {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+
+.text-detail-product span {
+  color: grey;
+}
+
+.text-detail-product h1 {
+  color: #155C7F;
+}
+
+
+.text-detail-product p {
+  color: gray;
+}
+
+
+
+.share-2-grid {
+  z-index: 2;
+  background-color: white;
+  width: 100%;
+  height: 150px;
+  border-top-left-radius: 65px;
+  border-top-right-radius: 65px;
+  box-shadow: 2px 2px 6px #c7c4c4b6;
+
+/*  right: 0%;
+
+  z-index: 2;
+  background-color: white;
+  box-shadow: 2px 2px 6px #c7c4c4b6;
+  height: 100px;
+  width: 100%;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;*/
+}
+
+.share-2-grid p {
+   position: relative;
+   top: 10px;
+   margin-left: 1rem;
+   font-size: larger;
+}
+
+.share-2-grid ion-grid {
+  position: relative;
+  left: 10%;
+
+}
+
+share-2-grid ion-grid ion-row ion-col {
+  padding: 1.5rem;
+}
+
+.share-2-grid ion-grid ion-row ion-col ion-icon{
+  font-size: 35px;
+}
+
+
+
+.close-grid ion-icon {
+  font-size: 25px;
+  position: relative;
+  left: 38%;
+  margin-top: 0rem;
+}
+
+
+.img-detail {
+  width: 70%;
+}
+
+.img-d-0 {
+  align-items: center;
+  justify-content: center;
+}

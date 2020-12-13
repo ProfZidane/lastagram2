@@ -1,0 +1,36 @@
+page-my-orders {
+
+  .empty_cmd  {
+    margin-top: 70px;
+  }
+
+  .empty_cmd  ion-icon {
+    font-size: 120px;
+    margin-bottom: 10px;
+    color: #155C7F;
+  }
+
+  .empty_cmd  p {
+    color: gray;
+    font-size: large;
+  }
+}
+
+.grid-text {
+  overflow-wrap: break-word;
+}
+
+.time {
+  color: grey;
+  font-weight: 200;
+}
+
+.grid-text p  {
+  position: relative;
+  right: 1%;
+  color: black;
+  font-size: medium;
+  white-space: pre-wrap;
+}
+
+.title {color: #155C7F;}

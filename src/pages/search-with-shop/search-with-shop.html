@@ -1,0 +1,92 @@
+<!--
+  Generated template for the SearchWithShopPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <!--<ion-title></ion-title>
+    <ion-grid class="header-message-menu">
+      <ion-row class="row-input">
+        <ion-col col-2>
+          <ion-icon name="search"></ion-icon>
+        </ion-col>
+        <ion-col col-10>
+          <ion-input type="text" value="" placeholder="Recherche Boutique"></ion-input>
+        </ion-col>
+      </ion-row>
+    </ion-grid>-->
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-searchbar  (ionInput)="getItems($event)" round></ion-searchbar>
+
+  <ion-grid class="market-card-grid">
+
+    <ion-row class="card-market card-background-page" *ngFor="let market of Markets"  >
+
+      <ion-card >
+        <img src="{{ market.image_cover }}" class="img-couverture" (click)='ViewMarket(market.id,market.isSubscribed,market.owner)' />
+        <!--<button ion-button small color="light" class="vis" (click)='ViewMarket(market.id,market.isSubscribed,market.owner)'>VISITER</button>-->
+        <ion-card-content class="btq-content">
+          <ion-card-title>
+            <ion-row>
+              <ion-col class="az" (click)='ViewMarket(market.id,market.isSubscribed,market.owner)' col-7>
+                <span style="font-weight: 400; text-transform: capitalize;">
+                  {{ market.name }}
+                </span>
+              </ion-col>
+              <ion-col col-5 class="btn-like az">
+            <ion-icon name="md-thumbs-up" style="font-size: 25px;" (click)="Abonne(market.id)" *ngIf="market.isSubscribed === false"></ion-icon>
+            <ion-icon name="md-thumbs-up" style="font-size: 25px;color:rgb(2, 2, 26);" (click)="DesAbonne(market.id)" *ngIf="market.isSubscribed === true"></ion-icon>
+            &nbsp;
+            <span class="b">
+              {{ market.subscribers_count }} Abonné(s)
+            </span>
+              </ion-col>
+            </ion-row>
+          </ion-card-title>
+        </ion-card-content>
+      </ion-card>
+
+
+      <!--<ion-card>
+        <img src="{{ market.image_cover }}"/>
+        <div class="card-title">
+          {{ market.name | uppercase }}
+        </div>
+        <div class="card-title2">
+          {{ market.subscribers_count }} Abonné(s)
+            <ion-icon name="thumbs-up-outline" (click)="Abonne(market.id)" *ngIf="market.isSubscribed === false"></ion-icon>
+            <ion-icon name="close-circle" (click)="DesAbonne(market.id)" *ngIf="market.isSubscribed === true"></ion-icon>
+        </div>
+        <div class="card-subtitle">
+          <button ion-button medium color="light" class="vis" round (click)='ViewMarket(market.id,market.isSubscribed)'>VISITER</button>
+        </div>
+      </ion-card>-->
+    </ion-row>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+    <!--<ion-row class="card-market add-rounded" *ngFor="let market of Markets" >
+      <ion-card>
+        <ion-card-header>
+          <span class="text-header-card">{{ market.name }}</span>
+          <span class="text-header-card abo">{{ market.subscribers_count }} Abonnés &nbsp;
+
+            <ion-icon name="thumbs-up" (click)="Abonne(market.id)" *ngIf="!market.isSubscribed"></ion-icon>
+            <ion-icon name="close-circle" (click)="DesAbonne(market.id)" *ngIf="market.isSubscribed"></ion-icon>
+          </span>
+        </ion-card-header>
+        <ion-card-content>
+          <button ion-button color="light" (click)="ViewMarket(market.id,market.isSubscribed)" round>VISITER</button>
+        </ion-card-content>
+      </ion-card>
+    </ion-row>-->
+
+
+  </ion-grid>
+</ion-content>

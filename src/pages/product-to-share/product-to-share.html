@@ -1,0 +1,48 @@
+<!--
+  Generated template for the ProductToSharePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Sélectionnez 1 ou 6 produits</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="bg-product-to-share" padding>
+  <ion-searchbar  (ionInput)="getItems($event)" round></ion-searchbar>
+
+
+  <ion-grid class="btn-grid-share-prod" align="center">
+    <button ion-button round color="lastagram" (click)="shareOptions()">VALIDER</button>
+  </ion-grid>
+  <ion-grid>
+    <p>
+      <span style="color: #155C7F;">Vous avez sélectionnez :</span>
+    <span *ngFor="let select of selected">
+     {{ select.name + ", "}}
+    </span>
+    </p>
+  </ion-grid>
+  <ion-grid class="product-to-share">
+    <ion-row  >
+      <ion-col  col-6 align="center" *ngFor="let product of products" (click)="selectedProduct(product)">
+        <div class="share-product">
+          <div class="search-img-0">
+            <img [src]=product.image_cover class="d-i" alt="">
+          </div>
+          <hr>
+          <p class="desc-product">{{ product.name }}</p>
+          <p class="price-product">{{ product.price | number }}</p>
+        </div>
+          <ion-icon name="checkmark" *ngIf="product.visibility" style="color: rgb(75, 245, 75);"></ion-icon>
+      </ion-col>
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </ion-row>
+  </ion-grid>
+
+
+</ion-content>

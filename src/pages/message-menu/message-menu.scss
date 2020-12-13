@@ -1,0 +1,48 @@
+page-message-menu {
+  .empty_mmgs {
+    margin-top: 70px;
+  }
+
+  .empty_mmgs ion-icon {
+    font-size: 120px;
+    margin-bottom: 10px;
+    color: #155C7F;
+  }
+
+  .empty_mmgs p {
+    color: gray;
+  }
+
+  .s_m {
+    color: gray;
+  }
+}
+
+.bg-menu-message {
+  background-color:white;
+}
+
+.header-message-menu h1 {
+  margin-bottom: 2rem;
+  color: #155C7F;
+  font-weight: 800;
+  margin-left: 1rem;
+}
+
+.row-input {
+  /*background-color: rgba(229, 226, 226, 0.973);
+  border-radius: 25px;*/
+
+}
+
+.row-input ion-col ion-icon {
+  font-size: 20px;
+  float: right;
+  position: relative;
+  top: 10px;
+  color: gray;
+}
+
+.two {
+  float: right;
+}

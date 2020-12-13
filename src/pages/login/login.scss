@@ -1,0 +1,314 @@
+page-accueil {
+
+}
+
+ion-header ion-navbar{
+  /*background-color: #155C7F;*/
+}
+
+.nav {
+  background-color: #155C7F;
+}
+
+.category-grid ion-row ion-col img {
+  width: 50%;
+  padding-top: 1rem;
+}
+
+.category-grid ion-row ion-col p {
+  font-size: 12px;
+}
+
+.divided {
+  width: 90%;
+  position: relative;
+  bottom:10px;
+  background-color: black;
+  color: black;
+}
+
+.nav button {
+}
+
+.text-header-card {
+  font-size: 15px;
+}
+
+.abo {
+  float: right;
+  position: relative;
+  top: 5px;
+  font-size: 15px;
+}
+
+ion-card ion-card-content {
+  height: 130px;
+
+}
+
+#ouverture {
+  z-index: 1;
+  height: 125px;
+}
+
+#nameApp {
+  /*position: relative;
+  right: 70%;*/
+}
+
+.vis{
+  /*background-color: rgba(255, 255, 255, 0.829);*/
+}
+
+.be {
+  width: 150%;
+  position: relative;
+  bottom: 45px;
+  z-index: 1;
+}
+
+.zi{
+  z-index: 2;
+  position: relative;
+  top: 35px;
+  right: 4%;
+}
+
+#btn-home-page{
+
+  position: relative;
+  bottom: 20px;
+}
+
+.overlay-btn {
+
+}
+
+ion-card ion-card-content button {
+  width: 25%;
+  //font-weight: 100;
+  position: relative;
+  left:80%;
+  top: 30px;
+  font-size: 10px;
+  z-index: 2;
+  /*font-size: 10px;*/
+}
+
+
+.card-market:last-child {
+  margin-bottom: 3rem;
+}
+
+.rd {
+  border-radius: 12px;
+}
+
+.cancel-css {
+  background-color: rebeccapurple;
+}
+
+
+
+.share-part {
+  position: absolute;
+  z-index: 1;
+  background-color: white;
+  box-shadow: 2px 2px 6px #c7c4c4b6;
+  height: 180px;
+  width: 100%;
+  border-bottom-left-radius: 85px;
+  border-bottom-right-radius: 85px;
+}
+
+
+.share-part ion-grid {
+  position: relative;
+  top: 30px;
+}
+
+.share-part ion-grid {
+  align-items: center;
+  justify-content: center;
+}
+
+.share-part ion-grid ion-row {
+  padding: 1rem;
+  margin-left: 1rem;
+}
+
+.share-part ion-grid ion-row ion-col {
+  padding: 0rem;
+}
+
+.share-part ion-grid ion-row ion-col:first-child{
+  margin-left: 0.5rem;
+}
+.share-part ion-grid ion-row ion-col ion-icon{
+    font-size: 40px;
+}
+
+
+.close {
+  font-size: 30px;
+}
+
+
+.network-share {
+  margin-right: 0.5rem;
+}
+
+
+.cancel-btn {
+  color: red;
+  background-color: red;
+}
+
+/*
+.card-background-page {
+
+  ion-card {
+    position: relative;
+    border-radius: 20px;
+    height: 150px;
+    box-shadow: 1px 2px 4px rgba(218, 214, 214, 0.842);
+  }
+
+  ion-card img {
+    height: 100%;
+  }
+
+  .card-title {
+    position: absolute;
+    top: 6%;
+    font-size: 1.5em;
+    width: 50%;
+    margin-left: 1rem;
+    font-weight: 100;
+    color: #000000;
+    background-color: rgba(230, 225, 225, 0.548);
+    border-radius: 20px;
+    padding: 0.5rem;
+  }
+
+  .card-title2 {
+    position: absolute;
+    top: 6%;
+    left: 60%;
+    font-size: 1.1em;
+    width: 35%;
+    height: 38px;
+    margin-left: 1rem;
+    font-weight: 100;
+    color: #000000;
+    background-color: rgba(230, 225, 225, 0.548);
+    border-radius: 20px;
+
+    padding: 1rem;
+  }
+
+
+
+  .card-subtitle {
+    font-size: 1.0em;
+    position: absolute;
+    top: 62%;
+    left: 65%;
+    width: 100%;
+    color: #fff;
+  }
+
+}*/
+
+
+.vis {
+  z-index: 1;
+  position: relative;
+  bottom: 107px;
+  left: 75%;
+}
+
+.img-couverture {
+  z-index: 2;
+  padding: 0.5rem;
+  height: 130px;
+
+/*  position: relative;
+  bottom: 50px;*/
+}
+
+.btq-content {
+  height: 55px;
+}
+
+.btq-content ion-card-title{
+  position: relative;
+  bottom: 5px;
+}
+
+.btq-content ion-card-title ion-icon{
+  font-size: xx-large;
+}
+
+.btn-like {
+  position: relative;
+  bottom: 10px;
+  left: 0%;
+  width: 100%;
+  font-size: small;
+}
+
+
+
+.az ion-icon {
+  position: relative;
+  bottom: 6px;
+  font-weight: 200;
+  font-size: small;
+  color: gray;
+}
+
+
+
+.b {
+  font-size: small;
+
+  position: relative;
+  bottom: 10px;
+}
+
+
+
+.icone-high {
+  padding: 0;
+  margin: 0;
+  border-right: solid 0.5px #cccccc;
+}
+
+.icone-high img {
+  padding: 0;
+  height: 55px;
+  width: 100%;
+
+  /*border-radius: 100%;
+  border: solid 1px rgb(199, 188, 188);*/
+}
+
+.contain-name {
+
+  width: 70%;
+  position: relative;
+  left: 20%;
+}
+
+
+.ctg-name {
+  text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+
+.isSubscribe {
+  color: rgb(2, 2, 26);
+}

@@ -1,0 +1,218 @@
+<ion-header  color="lastagram">
+
+  <div class="share-part" align="center" *ngIf="visibility" >
+    <ion-grid  align="center" >
+      <!--<ion-row>
+        <ion-col col-2 class="network-share" align="center">
+          <ion-icon name="logo-facebook" color="primary" (click)="goToProductShare()"></ion-icon>
+          <small>Facebook</small>
+        </ion-col>
+        <ion-col col-2 class="network-share" align="center">
+          <ion-icon name="logo-whatsapp" color="secondary"></ion-icon>
+          <small>WhatsApp</small>
+        </ion-col>
+        <ion-col col-2 class="network-share" align="center">
+          <ion-icon name="paper-plane" color="light"></ion-icon>
+          <small>Télégram</small>
+        </ion-col>
+        <ion-col col-2 class="network-share" align="center">
+          <ion-icon name="chatbubbles"color="primary"></ion-icon>
+          <small>Messenger</small>
+        </ion-col>
+        <ion-col col-2 class="network-share" align="center">
+          <ion-icon name="link" color="dark"></ion-icon>
+          <small>Copier lien</small>
+        </ion-col>
+      </ion-row>-->
+
+      <ion-row>
+          <ion-icon class="close" name="close-circle" color="danger" (click)="closeShareComponent()" ></ion-icon>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <ion-navbar hideBackButton="true"  color="lastagram">
+    <ion-title start>
+      <button color="lastagram" ion-button icon-only (click)="ShowProfile()" style="box-shadow: none;">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <span style="position: relative; top: 6px" (click)="goReload()">Lastagram</span>
+    </ion-title>
+
+
+
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="goToSearch()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+      <!-- espace -->
+        &nbsp;&nbsp;
+      <!-- end of espace -->
+      <button ion-button icon-only (click)="shareSocialMedia()">
+        <ion-icon name="md-more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content fullscreen>
+
+
+  <ion-grid class=" category-grid" align="center">
+    <ion-scroll scrollX="true" style="width:100vw; height:110px;" >
+    <ion-row class="border"  *ngIf="high" nowrap >
+      <ion-col class="icone-high" *ngFor="let ctg of high" col-3 (click)="viewArticles(ctg.id,'high',ctg.name)">
+        <img [src]=ctg.icone  />
+        <div class="contain-name">
+          <p class="ctg-name" style="font-weight: 370; text-transform: capitalize; text-overflow: ellipsis;">{{ ctg.name }}</p>
+        </div>
+      </ion-col>
+      <!--<ion-col class="" col-3>
+        <img src="https://img.icons8.com/officel/16/000000/tv-on.png"/>
+        <p>Appareil</p>
+      </ion-col>
+      <ion-col class="" col-3>
+        <img src="https://img.icons8.com/officel/16/000000/lip-gloss.png"/>
+        <p>Beauté</p>
+      </ion-col>
+      <ion-col class="" col-3>
+        <img src="https://img.icons8.com/officel/16/000000/ballet-shoes.png"/>
+        <p>Chaussures</p>
+      </ion-col>
+      <ion-col class="" col-3>
+        <img src="https://img.icons8.com/officel/16/000000/ballet-shoes.png"/>
+        <p>Chaussures</p>
+      </ion-col>-->
+    </ion-row>
+  </ion-scroll>
+  </ion-grid>
+  <hr class="divided" style="background-color:rgb(207, 194, 194)">
+
+  <!--<ion-scroll scrollX="true" style="width:100vw; height:50px">
+    <ion-row nowrap>
+      <ion-col class="" col-3>
+        <img src="https://img.icons8.com/officel/16/000000/home.png"/>
+        <p>Accueil</p>
+      </ion-col>
+      <ion-col class="" col-3>
+        <img src="https://img.icons8.com/officel/16/000000/tv-on.png"/>
+        <p>Appareil</p>
+      </ion-col>
+      <ion-col class="" col-3>
+        <img src="https://img.icons8.com/officel/16/000000/lip-gloss.png"/>
+        <p>Beauté</p>
+      </ion-col>
+      <ion-col class="" col-3>
+        <img src="https://img.icons8.com/officel/16/000000/ballet-shoes.png"/>
+        <p>Chaussures</p>
+      </ion-col>
+      <ion-col class="" col-3>
+        <img src="https://img.icons8.com/officel/16/000000/ballet-shoes.png"/>
+        <p>Chaussures</p>
+      </ion-col>
+    </ion-row>
+  </ion-scroll>-->
+  <ion-grid class="market-card-grid">
+    <ion-row class="card-market card-background-page" *ngFor="let market of markets" >
+      <!--<ion-card class="rd">
+        <ion-card-header>
+          <span class="text-header-card">{{ market.name | uppercase }}</span>
+          <span class="text-header-card abo">{{ market.subscribers_count }} Abonné(s) &nbsp;
+            <ion-icon name="thumbs-up-outline" (click)="Abonne(market.id)" *ngIf="!market.isSubscribed"></ion-icon>
+            <ion-icon name="close-circle" (click)="DesAbonne(market.id)" *ngIf="market.isSubscribed"></ion-icon>
+          </span>
+        </ion-card-header>
+        <ion-card-content>
+          <div class="zi">
+            <button ion-button small color="light" class="vis" round (click)='ViewMarket(market.id,market.isSubscribed)'>VISITER</button>
+          </div>
+
+          <div class="be">
+            <img src="{{ market.image_cover }}" id="ouverture"  alt="">
+          </div>
+
+
+        </ion-card-content>
+      </ion-card>-->
+
+      <ion-card>
+        <img src="{{ market.image_cover }}" class="img-couverture"  (click)='ViewMarket(market.id,market.isSubscribed)' />
+        <!--<button ion-button small color="light" class="vis" (click)='ViewMarket(market.id,market.isSubscribed)'>VISITER</button>-->
+        <ion-card-content class="btq-content">
+          <ion-card-title>
+            <ion-row>
+              <ion-col class="az"  (click)='ViewMarket(market.id,market.isSubscribed)' col-7>
+                <span style="font-weight: 400; text-transform: capitalize;">
+                  {{ market.name }}
+                </span>
+              </ion-col>
+              <ion-col col-5 class="btn-like az">
+            <ion-icon name="md-thumbs-up" style="font-size: 25px;" (click)="Abonne(market.id)" *ngIf="market.isSubscribed === false"></ion-icon>
+            <ion-icon name="md-thumbs-up" style="font-size: 25px;color:rgb(2, 2, 26);" (click)="DesAbonne(market.id)" *ngIf="market.isSubscribed === true"></ion-icon>
+            &nbsp;
+            <span class="b" >
+              {{ market.subscribers_count }} Abonné(s)
+            </span>
+              </ion-col>
+            </ion-row>
+          </ion-card-title>
+        </ion-card-content>
+      </ion-card>
+
+      <!--<ion-card>
+        <img src="{{ market.image_cover }}"/>
+        <div class="card-title">
+          {{ market.name | uppercase }}
+        </div>
+        <div class="card-title2">
+          {{ market.subscribers_count }} Abonné(s)
+            <ion-icon name="thumbs-up-outline" (click)="Abonne(market.id)" *ngIf="market.isSubscribed === false"></ion-icon>
+            <ion-icon name="close-circle" (click)="DesAbonne(market.id)" *ngIf="market.isSubscribed === true"></ion-icon>
+        </div>
+        <div class="card-subtitle">
+          <button ion-button medium color="light" class="vis" round (click)='ViewMarket(market.id,market.isSubscribed)'>VISITER</button>
+        </div>
+      </ion-card>-->
+    </ion-row>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+   <!-- <ion-row class="card-market">
+      <ion-card>
+        <ion-card-header>
+          <span class="text-header-card">ROSAMI COTE DIVOIRE</span>
+          <span class="text-header-card abo">10 Abonnés &nbsp;  <ion-icon name="thumbs-up"></ion-icon> </span>
+        </ion-card-header>
+        <ion-card-content>
+          <button ion-button color="light" round>VISITER</button>
+        </ion-card-content>
+      </ion-card>
+    </ion-row>
+
+    <ion-row class="card-market">
+      <ion-card>
+        <ion-card-header>
+          <span class="text-header-card">ROSAMI COTE DIVOIRE</span>
+          <span class="text-header-card abo">10 Abonnés &nbsp;  <ion-icon name="thumbs-up"></ion-icon> </span>
+        </ion-card-header>
+        <ion-card-content>
+          <button ion-button color="light" round>VISITER</button>
+        </ion-card-content>
+      </ion-card>
+    </ion-row>
+
+    <ion-row class="card-market">
+      <ion-card>
+        <ion-card-header>
+          <span class="text-header-card">ROSAMI COTE DIVOIRE</span>
+          <span class="text-header-card abo">10 Abonnés &nbsp;  <ion-icon name="thumbs-up"></ion-icon> </span>
+        </ion-card-header>
+        <ion-card-content>
+          <button ion-button color="light" round>VISITER</button>
+        </ion-card-content>
+      </ion-card>
+    </ion-row>-->
+  </ion-grid>
+
+</ion-content>

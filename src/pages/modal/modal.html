@@ -1,0 +1,15 @@
+<ion-list *ngIf="id_catg" >
+
+  <ion-item button (click)="modifyCategory(id_catg)">
+    Modifier la catégorie
+  </ion-item>
+
+  <ion-item button (click)="modifyProduct(id_catg)">
+    Modifier vos produits
+  </ion-item>
+
+  <ion-item button color="danger" (click)="closePopover()">
+    <ion-icon name="close" slot="start"></ion-icon>
+    Fermer
+  </ion-item>
+</ion-list>
