@@ -1,7 +1,7 @@
 import { NotificationProvider } from './../../providers/notification/notification';
 import { OrderedPage } from './../ordered/ordered';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { App, IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { OrderProvider } from './../../providers/order/order';
@@ -27,7 +27,20 @@ export class CheckoutPage {
   Total=0;
   id_order;
   attached_articles_to_notification;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, public loadingCtrl: LoadingController, private orderService: OrderProvider, private notificationService: NotificationProvider) {
+  constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, public loadingCtrl: LoadingController, private orderService: OrderProvider, private notificationService: NotificationProvider, private app: App) {
+    this.platform.registerBackButtonAction( () => {
+      let nav = this.app.getActiveNav();
+
+      if (nav.canGoBack()) {
+        //nav.popToRoot()
+        //nav.popTo(ProfilePage)
+        this.navCtrl.pop();
+      } else {
+        console.log("peut plus reculer");
+        //this.navCtrl.push(ProfilePage);
+        //this.platform.exitApp();
+      }
+    })
   }
 
   ionViewDidLoad() {

@@ -1,3 +1,4 @@
+import { ShareDesignHomePage } from './../share-design-home/share-design-home';
 import { MessageContentPage } from './../message-content/message-content';
 import { ProfilePage } from './../profile/profile';
 import { ShopToSharePage } from './../shop-to-share/shop-to-share';
@@ -15,7 +16,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
-import { ModalController } from 'ionic-angular';
+import { ModalController, PopoverController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { ELocalNotificationTriggerUnit, LocalNotifications } from '@ionic-native/local-notifications';
 import { SocialSharing } from '@ionic-native/social-sharing';
@@ -23,6 +24,7 @@ import { ActionSheetController, LoadingController } from 'ionic-angular';
 import { SearchProvider } from './../../providers/search/search';
 import { DEEP_LINK_DOMAIN, FIREBASE_CONFIG } from '../../app/environment';
 import * as firebase from 'firebase';
+import { Clipboard } from '@ionic-native/clipboard';
 
 /**
  * Generated class for the LoginPage page.
@@ -44,7 +46,7 @@ export class LoginPage {
   seen = [];
   previous;
   next;
-  constructor(public loadingCtrl: LoadingController,private platform: Platform, public navCtrl: NavController, public navParams: NavParams, public storeService: StoreProvider, private alertCtrl: AlertController,public toastCtrl: ToastController, public modalCtrl: ModalController, private localNotifications: LocalNotifications, private notificationService: NotificationProvider, private userService: UserProvider, private socialSharing: SocialSharing,public actionSheetCtrl: ActionSheetController, private searchService: SearchProvider) {
+  constructor(private clipboard: Clipboard, public popoverCtrl: PopoverController, public loadingCtrl: LoadingController,private platform: Platform, public navCtrl: NavController, public navParams: NavParams, public storeService: StoreProvider, private alertCtrl: AlertController,public toastCtrl: ToastController, public modalCtrl: ModalController, private localNotifications: LocalNotifications, private notificationService: NotificationProvider, private userService: UserProvider, private socialSharing: SocialSharing,public actionSheetCtrl: ActionSheetController, private searchService: SearchProvider) {
 
     if (localStorage.getItem('userToken') !== null) {
       this.userService.findData().subscribe(
@@ -427,24 +429,49 @@ export class LoginPage {
 
   presentActionSheet() {
     const actionSheet = this.actionSheetCtrl.create({
-      title: 'Partage',
+      title: 'Partagez avec : ',
       buttons: [
         {
-          text: 'Lien de boutique',
-          role: 'destructive',
+          text: 'Facebook',
+          icon: 'logo-facebook',
+          handler: () => {
+            console.log('Destructive clicked');
+            this.shareFacebook();
+            //this.navCtrl.push(ShopToSharePage);
+          }
+        },{
+          text: 'WhatsApp',
+          icon: 'logo-whatsapp',
+          handler: () => {
+            console.log('Destructive clicked');
+            this.shareWhatsapp();
+            //this.navCtrl.push(ShopToSharePage);
+          }
+        },{
+          text: 'Instagram',
+          icon: 'logo-instagram',
+          handler: () => {
+            console.log('Destructive clicked');
+            this.shareInstagram();
+            //this.navCtrl.push(ShopToSharePage);
+          }
+        },{
+          text: 'Copier lien',
           icon: 'link',
           handler: () => {
             console.log('Destructive clicked');
-            this.navCtrl.push(ShopToSharePage);
+            this.CopyLink();
+            //this.navCtrl.push(ShopToSharePage);
           }
         },{
-          text: 'Partagez sur les réseaux',
-          icon: 'share-alt',
+          text: 'Plus d\'options',
+          icon: 'add-circle',
           handler: () => {
-            this.goToProductShare();
+            this.shareSocialMedia();
+            //this.goToProductShare();
           }
         },{
-          text: 'Cancel',
+          text: 'Fermer',
           role: 'cancel',
           icon: 'close-circle',
           cssClass: 'cancel-btn',
@@ -466,6 +493,120 @@ export class LoginPage {
     }
     this.socialSharing.shareWithOptions(option);
   }
+
+  shareWhatsapp() {
+    let message = "Rejoignez nous sur Lastagram ";
+    let image = "" // image de couverture
+
+    this.socialSharing.canShareVia("whatsapp","Test catana",null,null,null).then((res) => {
+        console.log(res);
+        this.socialSharing.shareViaWhatsApp(message,null,DEEP_LINK_DOMAIN).then(() => {
+          console.log("sharing ::::");
+
+
+        }) .catch(e => {
+          console.log(e);
+
+        })
+
+    }) .catch((e)=> {
+      console.log("erreur " + e);
+      let alert = this.alertCtrl.create({
+        title: 'ATTENTION',
+        subTitle: 'Installer l\'application avant tout !',
+        buttons: ['OK']
+      });
+      alert.present();
+
+    });
+
+  }
+
+  shareFacebook() {
+    let message = "Rejoignez nous sur Lastagram  ";
+    let image = "" // image de couverture
+
+    this.socialSharing.canShareVia("com.facebook.katana","Test catana",null,null,null).then((res) => {
+        console.log(res);
+        this.socialSharing.shareViaFacebook(message,null,DEEP_LINK_DOMAIN).then(() => {
+          console.log("sharing ::::");
+
+
+        }) .catch(e => {
+          console.log(e);
+
+        })
+
+    }) .catch((e)=> {
+      console.log("erreur " + e);
+
+
+      let alert = this.alertCtrl.create({
+        title: 'ATTENTION',
+        subTitle: 'Installer l\'application avant tout !',
+        buttons: ['OK']
+      });
+      alert.present();
+
+    });
+
+  }
+
+
+  shareInstagram() {
+    let message = "Rejoignez nous sur Lastagram  " + DEEP_LINK_DOMAIN; // lien directe dans le message
+    let image = "" // image de couverture
+
+    this.socialSharing.canShareVia("instagram","Test catana",null,null,null).then((res) => {
+        console.log(res);
+        this.socialSharing.shareViaInstagram(message,image).then(() => {
+          console.log("sharing ::::");
+
+
+        }) .catch(e => {
+          console.log(e);
+
+        })
+
+    }) .catch((e)=> {
+      console.log("erreur " + e);
+
+
+      let alert = this.alertCtrl.create({
+        title: 'ATTENTION',
+        subTitle: 'Installer l\'application avant tout !',
+        buttons: ['OK']
+      });
+      alert.present();
+
+    });
+  }
+
+  CopyLink() {
+    let message = "Rejoignez nous sur Lastagram " + DEEP_LINK_DOMAIN;
+            this.clipboard.copy(message).then(
+              () => {
+                  const toast = this.toastCtrl.create({
+                    message: 'Lien copié !',
+                    duration: 3000,
+                    position: 'bottom'
+                  });
+                  toast.present();
+
+              }
+            );
+  }
+
+
+
+  async openSharePopover(ev: Event) {
+    let popover = this.popoverCtrl.create(ShareDesignHomePage);
+    popover.present({
+      ev: ev
+    });
+  }
+
+
 
 
   // notification

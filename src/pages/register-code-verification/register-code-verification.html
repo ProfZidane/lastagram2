@@ -6,10 +6,35 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>register-code-verification</ion-title>
+    <ion-title>Vérification de compte</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+  <ion-grid class="">
+    <ion-row class=" text-forget-password" align="center">
+      <h1 style="text-align: center;">Code de vérification</h1>
+      <span>
+        Entrez le code de 6 chiffres
+      </span>
+    </ion-row>
+    <ion-row class="input-forget-password">
+      <ion-col col-4 class="" align="center">
 
+      </ion-col>
+      <ion-col col-4 class="">
+        <ion-input type="number" value="" name="code" [(ngModel)]="code" (ionChange)="verifyCount()" placeholder="Entrez le code"></ion-input>
+      </ion-col>
+      <ion-col col-4 class="">
+
+      </ion-col>
+    </ion-row>
+    <ion-row class=" button-forget-password">
+      <button ion-button round (click)="validation()">Valider</button>
+    </ion-row>
+
+    <ion-row align="center" style="color: green;">
+      {{ warn_text }}
+    </ion-row>
+  </ion-grid>
 </ion-content>

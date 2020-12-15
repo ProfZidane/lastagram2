@@ -25,17 +25,36 @@
             <ion-icon name="menu"></ion-icon>
           </button>
         </ion-col>
-        <ion-col col-1></ion-col>
-        <ion-col class="name_market_css"  col-9>
-          <span style="position: relative; top: 10px;font-size: large; width: 700px;right:0%;">
+        <ion-col class="name_market_css"  col-11>
+          <span style="position: relative; top: 10px;font-size: large;right:0%;">
             <span class="" *ngIf="isAdmin"><ion-icon name="md-create" class="edit0" (click)="modifyElt('name',Market.id)"></ion-icon></span>
-            {{ Market.name | uppercase }}ssssssssssssssssssssssssssss
+            {{ Market.name | uppercase }}
           </span>
         </ion-col>
       </ion-row>
     </ion-title>
 
+    <ion-row >
+      <ion-col col-6 >
+        <span style="position: relative; top: 5px;left:5%;font-size: large; width: 300px;color:white">
+          &nbsp;
+          {{ Market.subscribers }} Abonnés
+        </span>
+      </ion-col>
+      <ion-col col-6 >
+        <ion-buttons class="btn-extr-left" end>
+          <button ion-button icon-only (click)="goToSearchMode()">
+            <ion-icon name="search"></ion-icon>
+          </button>
 
+            &nbsp;&nbsp;
+
+            <button ion-button icon-only (click)="presentActionSheet()">
+              <ion-icon name="md-more"></ion-icon>
+            </button>
+        </ion-buttons>
+      </ion-col>
+    </ion-row>
     <!--<ion-title start>
       <button color="lastagram" ion-button icon-only (click)="ShowProfile()" style="box-shadow: none;">
         <ion-icon name="menu"></ion-icon>
@@ -49,30 +68,30 @@
     </ion-title>-->
 
 
-    <ion-buttons end>
+    <!--<ion-buttons end>
       <button ion-button icon-only (click)="goToSearchMode()">
         <ion-icon name="search"></ion-icon>
-      </button>
+      </button>-->
       <!-- espace -->
         &nbsp;&nbsp;
       <!-- end of espace -->
-      <button ion-button icon-only (click)="openSharePopover()">
+      <!--<button ion-button icon-only (click)="openSharePopover()">
         <ion-icon name="md-more"></ion-icon>
-      </button>
+      </button>-->
       <!--<button ion-button icon-only (click)="showCart()">
         <ion-icon name="cart"></ion-icon>
-      </button>-->
-    </ion-buttons>
+      </button>
+    </ion-buttons>-->
   </ion-navbar>
-  <ion-grid class="navbar-abo" fullscreen>
+  <!--<ion-grid class="navbar-abo" fullscreen>
       <ion-row color="lastagram" *ngIf="Market" >
-        <p style="position: relative;left:5%">
+        <p style="position: relative;left:5%">-->
          <!--<ion-icon name="thumbs-up"></ion-icon> &nbsp; -->
 
-       {{ Market.subscribers }} &nbsp; Abonnés
+     <!--  {{ Market.subscribers }} &nbsp; Abonnés
         </p>
       </ion-row>
-  </ion-grid>
+  </ion-grid>-->
 
 </ion-header>
 <br>
@@ -131,7 +150,7 @@
         <h4>Vente Flash</h4>
       </ion-col>
       <ion-col class="" col-5>
-        <h3>{{ heure }} h: {{ minute }} m: {{ second }}s</h3>
+        <h5>{{ heure }} h: {{ minute }} m: {{ second }}s</h5>
       </ion-col>
       <ion-col class="set_zero" col-2>
         <button ion-button icon-only color="danger" (click)="setToZero(Market.id)" small>
@@ -148,7 +167,7 @@
           <div class="photo" align="center" *ngIf="p !== null"  (click)="Analyse(p,'flash')">
             <img src="{{ p.image_cover }}" class="img-product" alt="">
             <p class="name-product">{{ p.name }}</p>
-            <p class="price-product">{{ p.price | number}} {{ Market.devis }}</p>
+            <p class="price-product">{{ p.promo_price | number}} {{ Market.devis }}</p>
             <small class="price-product2" style="text-decoration: line-through;">{{ p.price | number }} {{ Market.devis }}</small>
           </div>
 
@@ -190,7 +209,8 @@
           <div class="photo" align="center" *ngIf="p2 !== null"  (click)="Analyse(p2,'popular')">
             <img src="{{ p2.image_cover }}" class="img-product" alt="">
             <p class="name-product">{{ p2.name }}</p>
-            <p class="price-product">{{ p2.price  | number }} {{ Market.devis }}</p>
+            <p class="price-product">{{ p2.promo_price | number}} {{ Market.devis }}</p>
+            <small class="price-product2" style="text-decoration: line-through;">{{ p2.price | number }} {{ Market.devis }}</small>
           </div>
 
           <div class="photo" align="center" *ngIf="p2 === null" (click)="AddNewProd('popular')">

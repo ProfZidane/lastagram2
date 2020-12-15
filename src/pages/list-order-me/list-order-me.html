@@ -11,16 +11,32 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-grid>
+    <h2 style="color: #155C7F">Boite de réception</h2>
+  </ion-grid>
   <ion-list no-lines>
 
-    <ion-item *ngFor="let order of datas" >
+    <ion-item *ngFor="let order of datas" (click)="goToDetailOrders(order.id_order)">
+      <ion-avatar item-start>
+        <!--<img src="img/avatar-cher.png">-->
+      </ion-avatar>
+      <h2>
+        {{ order.owner.last_name + ' ' + order.owner.first_name }}
+      </h2>
+      <p>
+        Côte d'ivoire / {{ order.owner.phone }}
+        <small class="d">{{ order.time | date }}</small>
+      </p>
+    </ion-item>
+    <hr>
+    <!--<ion-item *ngFor="let order of datas" >
       <ion-row>
         <ion-col class="grid-text" (click)="goToDetailOrders(order.id_order)"  col-9>
           Une nouvelle commande de <b>{{ order.taille }} articles !</b>
         </ion-col>
       </ion-row>
       <hr>
-  </ion-item>
+  </ion-item>-->
     <!--<ion-item *ngFor="let article of articles" >
         {{ article.name }}
       <ion-icon class="esp" name="md-create" item-end (click)="modify(article)"></ion-icon>

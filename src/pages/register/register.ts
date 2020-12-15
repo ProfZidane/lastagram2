@@ -1,3 +1,4 @@
+import { RegisterCodeVerificationPage } from './../register-code-verification/register-code-verification';
 import { HomePage } from './../home/home';
 import { UserProvider } from './../../providers/user/user';
 //import { WelcomePage } from './../welcome/welcome';
@@ -151,12 +152,13 @@ export class RegisterPage {
           let alert = this.alertCtrl.create({
             title: 'SUCCES',
             subTitle: 'Vous avez réussi votre inscription',
-            message: 'Nous vous avons envoyer un mail de confirmation. Aller cliquer sur le lien pour confirmer, puis vous authentifier sur l\'application !',
+            message: 'Nous vous avons envoyer un mail de confirmation avec un code. Prenez connaissance du code puis entrez-le dans l\'application pour confirmer !',
             buttons: [{
               text: 'OK',
               handler: () => {
-                localStorage.setItem('new','true');
-                this.navCtrl.push(HomePage, words);
+          //      localStorage.setItem('new','true');
+                this.navCtrl.push(RegisterCodeVerificationPage);
+                //this.navCtrl.push(HomePage, words);
               }
             }]
           });

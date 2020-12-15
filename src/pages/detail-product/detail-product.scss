@@ -1,6 +1,12 @@
 page-detail-product {
   .pp {
-    margin-top: 2rem;
+    position: relative;
+    bottom: 15px;
+    left: 20%;
+  }
+
+  .pp ion-col span {
+    font-size: x-large;
   }
 }
 

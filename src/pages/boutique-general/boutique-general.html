@@ -22,9 +22,8 @@
             <ion-icon name="menu"></ion-icon>
           </button>
         </ion-col>
-        <ion-col col-1></ion-col>
-        <ion-col class="name_market_css"  col-9>
-          <span style="position: relative; top: 10px;font-size: large; width: 400px;right:2%;">
+        <ion-col class="name_market_css"  col-11>
+          <span style="position: relative; top: 10px;font-size: large;right:2%;">
             {{ Market.name | uppercase }}
           </span>
         </ion-col>
@@ -172,11 +171,11 @@
 
   <ion-grid>
     <ion-row class="flash-create-boutique">
-      <ion-col class="" col-5>
-        <h4>Vente Flash</h4>
+      <ion-col class=""  col-5>
+        <h5>Vente Flash</h5>
       </ion-col>
       <ion-col class="" col-5>
-        <h3>{{ heure }} h: {{ minute }} m: {{ second }}s</h3>
+        <h5>{{ heure }} h: {{ minute }} m: {{ second }}s</h5>
       </ion-col>
       <ion-col class="set_zero" col-2>
         <button ion-button icon-only color="danger" small>
@@ -193,7 +192,7 @@
           <div class="photo" align="center">
             <img src="{{ p.image_cover }}" class="img-product" alt="">
             <p class="name-product">{{ p.name }}</p>
-            <p class="price-product">{{ p.promo_price }} {{ Market.devis }}</p>
+            <p class="price-product">{{ p.promo_price | number }} {{ Market.devis }}</p>
             <small class="price-product2" style="text-decoration: line-through;">{{ p.price | number }} {{ Market.devis }}</small>
           </div>
         </ion-col>
@@ -222,7 +221,7 @@
           <div class="photo" align="center">
             <img src="{{ p2.image_cover }}" class="img-product" alt="">
             <p class="name-product">{{ p2.name }}</p>
-            <p class="price-product">{{ p2.promo_price }} {{ Market.devis }}</p>
+            <p class="price-product">{{ p2.promo_price | number }} {{ Market.devis }}</p>
             <small class="price-product2" style="text-decoration: line-through;">{{ p2.price | number }} {{ Market.devis }}</small>
           </div>
         </ion-col>

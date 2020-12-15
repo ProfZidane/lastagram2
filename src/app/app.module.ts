@@ -1,3 +1,5 @@
+import { RegisterCodeVerificationPageModule } from './../pages/register-code-verification/register-code-verification.module';
+import { ShareDesignHomePageModule } from './../pages/share-design-home/share-design-home.module';
 import { ShareDesignPageModule } from './../pages/share-design/share-design.module';
 import { ModifyCategoryPageModule } from './../pages/modify-category/modify-category.module';
 import { ModalPageModule } from './../pages/modal/modal.module';
@@ -75,6 +77,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
+
 
 
 import { IonicStorageModule } from '@ionic/storage';
@@ -172,6 +175,8 @@ const config : SocketIoConfig = { url: "https://192.168.1.82:4000", options : {}
     ModalPageModule,
     ModifyCategoryPageModule,
     ShareDesignPageModule,
+    ShareDesignHomePageModule,
+    RegisterCodeVerificationPageModule,
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp)
   ],

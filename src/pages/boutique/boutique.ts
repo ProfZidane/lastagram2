@@ -23,6 +23,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ActionSheetController, PopoverController } from 'ionic-angular';
 import {NgxImageCompressService} from 'ngx-image-compress';
 import { Clipboard } from '@ionic-native/clipboard';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 /**
  * Generated class for the BoutiquePage page.
@@ -67,9 +68,10 @@ export class BoutiquePage {
   minute=30;
   heure=0;
   //rootPage = BoutiquePage;
-  constructor(private platform: Platform, public toastCtrl: ToastController,public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController,private callNumber: CallNumber, private alertCtrl: AlertController, private camera: Camera,public actionSheetCtrl: ActionSheetController,private imageCompress: NgxImageCompressService,public menuCtrl: MenuController, private clipboard: Clipboard, public popoverCtrl: PopoverController, private app: App) {
+  constructor(private socialSharing: SocialSharing, private platform: Platform, public toastCtrl: ToastController,public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController,private callNumber: CallNumber, private alertCtrl: AlertController, private camera: Camera,public actionSheetCtrl: ActionSheetController,private imageCompress: NgxImageCompressService,public menuCtrl: MenuController, private clipboard: Clipboard, public popoverCtrl: PopoverController, private app: App) {
     this.platform.registerBackButtonAction( () => {
       let nav = this.app.getActiveNav();
+
       if (nav.canGoBack()) {
         //nav.popToRoot()
         //nav.popTo(ProfilePage)
@@ -281,47 +283,50 @@ export class BoutiquePage {
   // presente action
   presentActionSheet() {
     const actionSheet = this.actionSheetCtrl.create({
-      title: 'Partage',
+      title: 'Partagez avec : ',
       buttons: [
         {
-          text: 'Lien de boutique',
-          icon: 'link',
+          text: 'Facebook',
+          icon: 'logo-facebook',
           handler: () => {
             console.log('Destructive clicked');
-            let link = DEEP_LINK_DOMAIN + "market/"+this.Market.id+"/"+false;
-            this.clipboard.copy(link).then(
-              () => {
-                  const toast = this.toastCtrl.create({
-                    message: 'Lien copié !',
-                    duration: 3000,
-                    position: 'top'
-                  });
-                  toast.present();
-              }
-            );
+            this.shareFacebook();
             //this.navCtrl.push(ShopToSharePage);
           }
         },{
-          text: 'Partagez sur les réseaux sociaux',
-          icon: 'share-alt',
+          text: 'WhatsApp',
+          icon: 'logo-whatsapp',
           handler: () => {
-            this.goToProductShare();
-          }
-        },/*{
-          text: 'Partagez mes produits sur Facebook',
-          icon: 'logo-facebook',
-          handler: () => {
-            this.goToProductShare();
+            console.log('Destructive clicked');
+            this.shareWhatsapp();
+            //this.navCtrl.push(ShopToSharePage);
           }
         },{
-          text: 'Partagez mes produits sur Instagram',
+          text: 'Instagram',
           icon: 'logo-instagram',
           handler: () => {
-            this.goToProductShare();
+            console.log('Destructive clicked');
+            this.shareInstagram();
+            //this.navCtrl.push(ShopToSharePage);
           }
-        },*/{
+        },{
+          text: 'Copier lien',
+          icon: 'link',
+          handler: () => {
+            console.log('Destructive clicked');
+            this.CopyLink();
+            //this.navCtrl.push(ShopToSharePage);
+          }
+        },{
+          text: ' Partagez mes produits sur les réseaux sociaux',
+          icon: 'add-circle',
+          handler: () => {
+            this.goToProductShare();
+            //this.goToProductShare();
+          }
+        },{
           text: 'Fermer',
-          role: 'destructive',
+          role: 'cancel',
           icon: 'close-circle',
           cssClass: 'cancel-btn',
           handler: () => {
@@ -332,6 +337,127 @@ export class BoutiquePage {
     });
     actionSheet.present();
   }
+
+  shareSocialMedia() {
+    let link = DEEP_LINK_DOMAIN + this.Market.id + "/" + false;
+    let option = {
+      message : "Rejoignez nous sur Lastagram ",
+      files: null,
+      url: link,
+      chooserTitle: "Choisissez une application"
+    }
+    this.socialSharing.shareWithOptions(option);
+  }
+
+  shareWhatsapp() {
+    let message = "Rejoignez nous sur Lastagram ";
+    let image = "" // image de couverture
+    let link = DEEP_LINK_DOMAIN + this.Market.id + "/" + false;
+
+    this.socialSharing.canShareVia("whatsapp","Test catana",null,null,null).then((res) => {
+        console.log(res);
+        this.socialSharing.shareViaWhatsApp(message,null,link).then(() => {
+          console.log("sharing ::::");
+
+
+        }) .catch(e => {
+          console.log(e);
+
+        })
+
+    }) .catch((e)=> {
+      console.log("erreur " + e);
+      let alert = this.alertCtrl.create({
+        title: 'ATTENTION',
+        subTitle: 'Installer l\'application avant tout !',
+        buttons: ['OK']
+      });
+      alert.present();
+
+    });
+
+  }
+
+  shareFacebook() {
+    let message = "Rejoignez nous sur Lastagram  ";
+    let image = "" // image de couverture
+    let link = DEEP_LINK_DOMAIN + this.Market.id + "/" + false;
+
+    this.socialSharing.canShareVia("com.facebook.katana","Test catana",null,null,null).then((res) => {
+        console.log(res);
+        this.socialSharing.shareViaFacebook(message,null,link).then(() => {
+          console.log("sharing ::::");
+
+
+        }) .catch(e => {
+          console.log(e);
+
+        })
+
+    }) .catch((e)=> {
+      console.log("erreur " + e);
+
+
+      let alert = this.alertCtrl.create({
+        title: 'ATTENTION',
+        subTitle: 'Installer l\'application avant tout !',
+        buttons: ['OK']
+      });
+      alert.present();
+
+    });
+
+  }
+
+
+  shareInstagram() {
+    let link = DEEP_LINK_DOMAIN + this.Market.id + "/" + false;
+
+    let message = "Rejoignez nous sur Lastagram  " + link; // lien directe dans le message
+    let image = null // image de couverture
+
+    this.socialSharing.canShareVia("instagram","Test catana",null,null,null).then((res) => {
+        console.log(res);
+        this.socialSharing.shareViaInstagram(message,image).then(() => {
+          console.log("sharing ::::");
+
+
+        }) .catch(e => {
+          console.log(e);
+
+        })
+
+    }) .catch((e)=> {
+      console.log("erreur " + e);
+
+
+      let alert = this.alertCtrl.create({
+        title: 'ATTENTION',
+        subTitle: 'Installer l\'application avant tout !',
+        buttons: ['OK']
+      });
+      alert.present();
+
+    });
+  }
+
+  CopyLink() {
+    let link = DEEP_LINK_DOMAIN + this.Market.id + "/" + false;
+
+    let message = "Rejoignez nous sur Lastagram " + link;
+            this.clipboard.copy(message).then(
+              () => {
+                  const toast = this.toastCtrl.create({
+                    message: 'Lien copié !',
+                    duration: 3000,
+                    position: 'bottom'
+                  });
+                  toast.present();
+
+              }
+            );
+  }
+
 
   Message() {
     console.log(localStorage.getItem('phoneUser'));
@@ -440,7 +566,8 @@ export class BoutiquePage {
                       text: 'OK',
                       role: 'cancel',
                       handler: () => {
-                        this.navCtrl.push(MyShopPage);
+                        //this.navCtrl.push(MyShopPage);
+                        this.navCtrl.push(BoutiquePage, { "id" : this.id });
                       }
                     }
                   ]
@@ -508,7 +635,8 @@ export class BoutiquePage {
                       text: 'OK',
                       role: 'cancel',
                       handler: () => {
-                        this.navCtrl.push(MyShopPage);
+                       // this.navCtrl.push(MyShopPage);
+                       this.navCtrl.push(BoutiquePage, { "id" : this.id });
                       }
                     }
                   ]
@@ -575,7 +703,8 @@ export class BoutiquePage {
                       text: 'OK',
                       role: 'cancel',
                       handler: () => {
-                        this.navCtrl.push(MyShopPage);
+                        //this.navCtrl.push(MyShopPage);
+                        this.navCtrl.push(BoutiquePage, { "id" : this.id });
                       }
                     }
                   ]
@@ -645,7 +774,8 @@ export class BoutiquePage {
                       text: 'OK',
                       role: 'cancel',
                       handler: () => {
-                        this.navCtrl.push(MyShopPage);
+                          //this.navCtrl.push(MyShopPage);
+                          this.navCtrl.push(BoutiquePage, { "id" : this.id });
                       }
                     }
                   ]
@@ -727,7 +857,8 @@ export class BoutiquePage {
                                     text: 'OK',
                                     role: 'cancel',
                                     handler: () => {
-                                      this.navCtrl.push(MyShopPage);
+                                      this.navCtrl.push(BoutiquePage, { "id" : this.id });
+                                      //this.navCtrl.setRoot(this.navCtrl.getActive().component);
                                     }
                                   }
                                 ]
@@ -795,7 +926,8 @@ export class BoutiquePage {
                                 text: 'OK',
                                 role: 'cancel',
                                 handler: () => {
-                                  this.navCtrl.push(MyShopPage);
+                                  //this.navCtrl.push(MyShopPage);
+                                  this.navCtrl.push(BoutiquePage, { "id" : this.id });
                                 }
                               }
                             ]
@@ -868,7 +1000,8 @@ export class BoutiquePage {
                       text: 'OK',
                       role: 'cancel',
                       handler: () => {
-                        this.navCtrl.push(MyShopPage);
+                        //this.navCtrl.push(MyShopPage);
+                        this.navCtrl.push(BoutiquePage, { "id" : this.id });
                       }
                     }
                   ]
@@ -933,7 +1066,8 @@ export class BoutiquePage {
                       text: 'OK',
                       role: 'cancel',
                       handler: () => {
-                        this.navCtrl.push(MyShopPage);
+                        //this.navCtrl.push(MyShopPage);
+                        this.navCtrl.push(BoutiquePage, { "id" : this.id });
                       }
                     }
                   ]
@@ -1000,7 +1134,8 @@ export class BoutiquePage {
                         text: 'OK',
                         role: 'cancel',
                         handler: () => {
-                          this.navCtrl.push(MyShopPage);
+                         // this.navCtrl.push(MyShopPage);
+                         this.navCtrl.push(BoutiquePage, { "id" : this.id });
                         }
                       }
                     ]
@@ -1061,7 +1196,8 @@ export class BoutiquePage {
                         text: 'OK',
                         role: 'cancel',
                         handler: () => {
-                          this.navCtrl.push(MyShopPage);
+                          //this.navCtrl.push(MyShopPage);
+                          this.navCtrl.push(BoutiquePage, { "id" : this.id });
                         }
                       }
                     ]
@@ -1122,7 +1258,8 @@ export class BoutiquePage {
                         text: 'OK',
                         role: 'cancel',
                         handler: () => {
-                          this.navCtrl.push(MyShopPage);
+                          //this.navCtrl.push(MyShopPage);
+                          this.navCtrl.push(BoutiquePage, { "id" : this.id });
                         }
                       }
                     ]

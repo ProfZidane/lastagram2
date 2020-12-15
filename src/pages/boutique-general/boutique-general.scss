@@ -13,9 +13,14 @@ page-boutique-general {
     height: 110px;
   }
 
+  ion-header ion-navbar ion-title ion-row{
+  }
+
+
+
   .g {
     width: 95%;
-    height: 230px;
+    height: 280px;
   }
 
   .ctg-see {
@@ -75,10 +80,11 @@ page-boutique-general {
   }
 
   .name_market_css {
-    overflow-x: scroll;
     width: 100%;
+
+    overflow-x: scroll;
     position: relative;
-    right: 8%;
+    right: 0%;
   }
 
 

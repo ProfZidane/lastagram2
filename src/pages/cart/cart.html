@@ -13,7 +13,7 @@
 <ion-content padding>
   <ion-grid class=" grid-cart-product">
 
-    <h1 *ngIf="!vide" >Panier
+    <h1>Panier
       <ion-icon name="md-refresh" class="refresh" (click)="reload()" item-end></ion-icon>
     </h1>
       <ion-icon class="vide-cart-img" *ngIf="vide" name="cart"></ion-icon>
@@ -64,7 +64,7 @@
       <ion-col  align="center">
         <br>
         <button class="checkout-btn" ion-button round icon-end color="lastagram" (click)="goToValidation()">
-          Checkout <ion-icon class="ckeckout-icon" name="arrow-dropright-circle"></ion-icon>
+          Valider <ion-icon class="ckeckout-icon" name="arrow-dropright-circle"></ion-icon>
         </button>
       </ion-col>
     </ion-row>

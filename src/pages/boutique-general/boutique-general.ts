@@ -458,7 +458,7 @@ export class BoutiqueGeneralPage {
 
 
   goToDetail(id,id_market,id_owner,devis) {
-    this.navCtrl.push(DetailProductPage, { "id" : id, "id_market": id_market, "owner": id_owner, "devis" : devis });
+    this.navCtrl.push(DetailProductPage, { "id" : id, "id_market": id_market, "owner": id_owner, "devis" : devis, "isSubscribed" : this.isSubscribed });
   }
 
   startTimer() {

@@ -1,5 +1,9 @@
 page-cart {
+  .grid-cart-product{
 
+    height: calc(100% - 16%);
+    overflow-y: auto;
+  }
 }
 
 .grid-cart-product h1 {

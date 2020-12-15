@@ -1,0 +1,37 @@
+<ion-list>
+
+  <ion-item>
+    Partagez avec :
+  </ion-item>
+
+  <ion-item button (click)="shareFacebook()">
+    <ion-icon name="logo-facebook" color="primary" item-start></ion-icon>
+    Facebook
+  </ion-item>
+
+  <ion-item button (click)='shareWhatsapp()'>
+    <ion-icon name="logo-whatsapp" color="primary" item-start></ion-icon>
+    WhatsApp
+  </ion-item>
+
+  <ion-item button (click)="shareInstagram()">
+    <ion-icon name="logo-instagram" color="primary" item-start></ion-icon>
+    Instagram
+  </ion-item>
+
+  <ion-item button (click)="CopyLink()">
+    <ion-icon name="link" color="primary" item-start></ion-icon>
+    Copier lien
+  </ion-item>
+
+  <ion-item button (click)="shareSocialMedia()">
+    <ion-icon name="add-circle" color="primary" item-start></ion-icon>
+    Plus d'options
+  </ion-item>
+
+
+  <ion-item button (click)="closePopover()" style="color: red;">
+    <ion-icon name="close-circle" slot="start" color="danger" item-start></ion-icon>
+    Fermer
+  </ion-item>
+</ion-list>

@@ -1,10 +1,11 @@
+import { BoutiqueGeneralPage } from './../boutique-general/boutique-general';
 import { ImageVieweerPage } from './../image-vieweer/image-vieweer';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { CartPage } from './../cart/cart';
 import { OrderProvider } from './../../providers/order/order';
 import { StoreProvider } from './../../providers/store/store';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { ModalController } from 'ionic-angular';
@@ -34,7 +35,16 @@ export class DetailProductPage {
   devis;
   cart;
   taille;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,public loadingCtrl: LoadingController, private storeService: StoreProvider, private orderService: OrderProvider, public modalCtrl: ModalController, private socialSharing: SocialSharing,public toastCtrl: ToastController) {
+  isSubscribed;
+  constructor(private platform: Platform,public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,public loadingCtrl: LoadingController, private storeService: StoreProvider, private orderService: OrderProvider, public modalCtrl: ModalController, private socialSharing: SocialSharing,public toastCtrl: ToastController) {
+
+    if (this.navParams.get('isSubscribed')) {
+        this.isSubscribed = this.navParams.get('isSubscribed');
+    }
+
+    this.platform.registerBackButtonAction( () => {
+      this.platform.exitApp();
+    })
 
    }
 
@@ -119,7 +129,7 @@ export class DetailProductPage {
 
       this.orderService.addToCart(data).subscribe(
         (data) => {
-          console.log(data);
+          console.log(JSON.stringify(data));
           if (localStorage.getItem('id_owners') == null) {
             localStorage.setItem('id_owners',JSON.stringify([ Number(this.id_owner) ]));
           } else {

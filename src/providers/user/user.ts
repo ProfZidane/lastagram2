@@ -23,6 +23,8 @@ export class UserProvider {
 
   private assistanceUrl = DOMAIN_APP + "assistance";
 
+  private confirmCodeUrl = DOMAIN_APP + "activate/";
+
   headers = new HttpHeaders({
     'Content-Type' : 'application/json; charset=utf-8',
     'Authorization' : 'JWT ' + localStorage.getItem ('userToken')
@@ -87,5 +89,13 @@ export class UserProvider {
 
   sendMail(email): Observable<any> {
     return this.http.post(this.assistanceUrl + "/", email, { headers: this.getHeaders() });
+  }
+
+  confirmation(data): Observable<any> {
+    return this.http.post(this.confirmCodeUrl, data);
+  }
+
+  getInfoUser(id): Observable<any> {
+    return this.http.get(this.checkUser + id + "/", { headers: this.getHeaders() });
   }
 }

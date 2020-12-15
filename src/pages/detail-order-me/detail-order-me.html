@@ -6,10 +6,83 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>detail-order-me</ion-title>
+    <ion-title>Détail Commande</ion-title>
   </ion-navbar>
 </ion-header>
+<ion-content fullscreen>
 
-<ion-content padding>
+  <ion-grid class="content-detail-noyt">
 
-</ion-content>
+    <ion-grid class=" grid-cart-product">
+
+      <h1>Produits Commandés</h1>
+
+        <ion-list *ngIf="Products" >
+          <ion-item class="grid-cart-0" *ngFor="let product of Products" >
+            <ion-thumbnail item-start>
+              <img class="img-cart" [src]=product.article.image_cover >
+            </ion-thumbnail>
+            <h2>{{ product.article.name}}</h2>
+            <p><strong>Quantité : </strong> {{ product.quantity }}</p>
+            <span class="price-cart">{{ product.article.price | number}} F CFA</span>
+          </ion-item>
+        </ion-list>
+
+    </ion-grid>
+
+    <ion-grid class="grid-cart-product">
+      <h1 class="title">Informations supplémentaires</h1>
+      <ion-list>
+        <ion-item *ngIf="date" >
+            Date de commande :
+          <span item-end>
+            <strong>{{ date.ordered_date | date }}</strong>
+          </span>
+        </ion-item>
+
+        <ion-item *ngIf="ttc" >
+          Prix de commande :
+        <span item-end>
+          <strong>{{ ttc }} F CFA</strong>
+        </span>
+      </ion-item>
+
+      <ion-item>
+        Lieu de livraison :
+      <span item-end *ngIf="adresse" >
+        <strong>{{ adresse.location }}</strong>
+      </span>
+    </ion-item>
+      </ion-list>
+    </ion-grid>
+
+    <ion-grid class="grid-cart-product">
+     <h1 class="title">Informations Clientèle</h1>
+     <ion-list>
+       <ion-item *ngIf="proprio" >
+           Nom du client :
+         <span item-end>
+           <strong>{{ proprio.first_name + ' ' + proprio.last_name }}</strong>
+         </span>
+       </ion-item>
+
+       <ion-item *ngIf="proprio" >
+         Adresse e-mail :
+       <span item-end>
+         <strong>{{ proprio.email }} </strong>
+       </span>
+     </ion-item>
+
+     <ion-item>
+       Numéro de téléphone :
+     <span item-end *ngIf="proprio" >
+       <strong>{{ proprio.phone }}</strong>
+     </span>
+   </ion-item>
+     </ion-list>
+   </ion-grid>
+
+  </ion-grid>
+
+
+ </ion-content>

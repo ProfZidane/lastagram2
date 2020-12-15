@@ -11,6 +11,9 @@ import { ContactPage } from '../contact/contact';
 import { HomePage } from '../home/home';
 import { ModalController, NavController } from 'ionic-angular';
 
+import { OrderProvider } from './../../providers/order/order';
+
+
 @Component({
   templateUrl: 'tabs.html'
 })
@@ -23,12 +26,33 @@ export class TabsPage {
 
   visibility = false;
   authed;
-  constructor(public modalCtrl: ModalController, public navCtrl: NavController) {
+  count;
+  constructor(public modalCtrl: ModalController, public navCtrl: NavController, private orderService: OrderProvider) {
     /*if (localStorage.getItem('userToken') === null) {
         //this.navCtrl.push(HomePage);
         const modal = this.modalCtrl.create(HomePage);
         modal.present();
     }*/
+
+    /*setInterval( () => {
+      this.countCart();
+    },2000);*/
+
+  }
+
+  countCart() {
+    this.orderService.getProductToCart().subscribe(
+      (data) => {
+        if (data.message) {
+          console.log("dd");
+          this.count = 0;
+        } else {
+          this.count = data.articles.length;
+        }
+        console.log("e : " + this.count);
+
+      }
+    )
   }
 
   /*ionViewCanEnter(): boolean {
