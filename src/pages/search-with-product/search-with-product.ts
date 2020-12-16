@@ -30,10 +30,10 @@ next;
     console.log('ionViewDidLoad SearchWithProductPage');
   }
 
-  goToDetailProduct(id,id2,id3) {
+  goToDetailProduct(id,id2,id3,devis) {
     console.log(id,id2,id3);
 
-    this.navCtrl.push(DetailProductPage, { "id" : id, "id_market": id2, "owner": id3 });
+    this.navCtrl.push(DetailProductPage, { "id" : id, "id_market": id2, "owner": id3, "devis": devis });
   }
 
   initializeItems() {
@@ -43,7 +43,7 @@ next;
     loading.present();*/
     this.searchService.searchProduct().subscribe(
       (data) => {
-        //console.log(JSON.stringify(data));
+        console.log(JSON.stringify(data));
         this.Products = data.results;
         this.Total = data.results;
         this.next = data.next;

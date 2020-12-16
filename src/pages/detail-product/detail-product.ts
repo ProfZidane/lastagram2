@@ -36,15 +36,15 @@ export class DetailProductPage {
   cart;
   taille;
   isSubscribed;
-  constructor(private platform: Platform,public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,public loadingCtrl: LoadingController, private storeService: StoreProvider, private orderService: OrderProvider, public modalCtrl: ModalController, private socialSharing: SocialSharing,public toastCtrl: ToastController) {
+  constructor(private platform: Platform,public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,public loadingCtrl: LoadingController, private storeService: StoreProvider, private orderService: OrderProvider, public modalCtrl: ModalController, private socialSharing: SocialSharing,public toastCtrl: ToastController, private photoViewer: PhotoViewer) {
 
     if (this.navParams.get('isSubscribed')) {
         this.isSubscribed = this.navParams.get('isSubscribed');
     }
 
-    this.platform.registerBackButtonAction( () => {
+    /*this.platform.registerBackButtonAction( () => {
       this.platform.exitApp();
-    })
+    })*/
 
    }
 
@@ -76,7 +76,7 @@ export class DetailProductPage {
         data.description = decodeURI(data.description);
         this.product = data;
 
-        //console.log(JSON.stringify(this.product));
+        console.log("az : "+JSON.stringify(this.product));
         loading.dismiss();
       },
       (err) => {
@@ -87,6 +87,10 @@ export class DetailProductPage {
 
 
 
+  }
+
+  Gotomarket() {
+    this.navCtrl.push(BoutiqueGeneralPage, { "id" : this.id_market })
   }
 
   inscrease() {
@@ -113,8 +117,9 @@ export class DetailProductPage {
   }
 
   zoomImg() {
-    const modal = this.modalCtrl.create(ImageVieweerPage, { img : this.product.image_cover});
-    modal.present();
+    /*const modal = this.modalCtrl.create(ImageVieweerPage, { img : this.product.image_cover});
+    modal.present();*/
+    this.photoViewer.show(this.product.image_cover);
   }
 
   addToCart(id) {

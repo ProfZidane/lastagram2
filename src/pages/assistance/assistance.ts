@@ -31,43 +31,29 @@ Messages = {
   }
 
   showAlert() {
-    this.Messages.author = localStorage.getItem('name2User') + ' ' + localStorage.getItem('nameUser');
-    this.Messages.date = new Date().toLocaleString();
+
+    if (this.Messages.object !== "" && this.Messages.message !== "") {
+        this.Messages.author = localStorage.getItem('name2User') + ' ' + localStorage.getItem('nameUser');
+      this.Messages.date = new Date().toLocaleString();
 
 
-    let email = {
-      email: localStorage.getItem('mailUser'),
-      objet : this.Messages.object,
-      message : this.Messages.message
-    }
-
-    console.log(
-      JSON.stringify(email)
-    );
-
-    this.userService.sendMail(email).subscribe(
-      (success) => {
-        console.log(success);
-
-      const alert = this.alertCtrl.create({
-        title: 'SUCCES',
-        subTitle: 'Votre message à été envoyé, nous vous contacterons au plus vite !',
-        buttons: ['OK']
-      });
-      alert.present();
-
-      this.Messages = {
-        author: "",
-  object: "",
-  message: "",
-  date: ""
+      let email = {
+        email: localStorage.getItem('mailUser'),
+        objet : this.Messages.object,
+        message : this.Messages.message
       }
 
-      }, (error)=> {
-        console.log(JSON.stringify(error));
+      console.log(
+        JSON.stringify(email)
+      );
+
+      this.userService.sendMail(email).subscribe(
+        (success) => {
+          console.log(success);
+
         const alert = this.alertCtrl.create({
-          title: 'ECHEC',
-          subTitle: 'Un problème est survenu',
+          title: 'SUCCES',
+          subTitle: 'Votre message à été envoyé, nous vous contacterons au plus vite !',
           buttons: ['OK']
         });
         alert.present();
@@ -78,8 +64,34 @@ Messages = {
     message: "",
     date: ""
         }
-      }
-    )
+
+        }, (error)=> {
+          console.log(JSON.stringify(error));
+          const alert = this.alertCtrl.create({
+            title: 'ECHEC',
+            subTitle: 'Un problème est survenu',
+            buttons: ['OK']
+          });
+          alert.present();
+
+          this.Messages = {
+            author: "",
+      object: "",
+      message: "",
+      date: ""
+          }
+        }
+      )
+    } else {
+
+      const alert = this.alertCtrl.create({
+        title: 'ATTENTION',
+        subTitle: 'Veuillez remplir les champs s\'il vous plait !',
+        buttons: ['OK']
+      });
+      alert.present();
+
+    }
 
   }
 

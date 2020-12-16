@@ -20,7 +20,7 @@ export class AddCategoryPage {
   indic;
   next;
   constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider, private searchService: SearchProvider, private app: App) {
-    this.platform.registerBackButtonAction( () => {
+    /*this.platform.registerBackButtonAction( () => {
       let nav = this.app.getActiveNav();
       if (nav.canGoBack()) {
         console.log(this.navCtrl.getActiveChildNav());
@@ -28,7 +28,7 @@ export class AddCategoryPage {
       } else {
         this.platform.exitApp();
       }
-    })
+    })*/
   }
 
   ionViewDidLoad() {

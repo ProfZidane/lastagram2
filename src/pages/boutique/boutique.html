@@ -115,7 +115,7 @@
   <ion-grid class="category-boutique">
     <ion-row class="" align="center">
       <ion-col class="pre-catg-boutique" col-4 *ngFor="let catg of Market.detail_articles" ><!--(click)="GetProductByCtg(catg.id)"-->
-        <div class="catg-boutique" style="border-color: gray;width:70%" (click)="openPopover($event,catg.id)" *ngIf="catg" >
+        <div class="catg-boutique" style="border-color: gray;width:70%" (click)="presentActionSheet2(catg.id)" *ngIf="catg" >
           <img [src]=catg.icone class="ctg-see" alt="">
         </div>
         <span class="name-ctg" *ngIf="catg !== null" >{{ catg.name }}</span>

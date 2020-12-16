@@ -28,7 +28,7 @@ id_market;
     this.old_catg = this.navParams.get('id_catg');
     this.id_market = this.navParams.get('id_market');
 
-    this.platform.registerBackButtonAction( () => {
+    /*this.platform.registerBackButtonAction( () => {
       let nav = this.app.getActiveNav();
       if (nav.canGoBack()) {
         console.log("je reviens en arriere !");
@@ -38,7 +38,7 @@ id_market;
       } else {
         this.platform.exitApp();
       }
-    })
+    })*/
 
     this.storeService.getCatgStore().subscribe(
       (data) => {

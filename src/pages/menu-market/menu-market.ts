@@ -24,12 +24,12 @@ export class MenuMarketPage {
   id;
   photo;
   name;
+  devis;
   constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl: AlertController, private orderService: OrderProvider, private storeService: StoreProvider) {
     this.id = this.navParams.get("id");
     this.photo = this.navParams.get('photo');
     this.name = this.navParams.get('name');
-
-
+    this.devis = this.navParams.get('devis');
   }
 
   ionViewDidLoad() {
@@ -38,7 +38,7 @@ export class MenuMarketPage {
   }
 
   goToMyOrder() {
-    this.navCtrl.push(ListOrderMePage, { id : this.id });
+    this.navCtrl.push(ListOrderMePage, { id : this.id, devis: this.devis });
   }
 
   /*goToMyMessages() {

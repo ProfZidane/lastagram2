@@ -39,7 +39,7 @@ export class AddProductPage {
   imgResultAfterCompress: any;
   count;
   constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private camera: Camera,private imageCompress: NgxImageCompressService, private app: App) {
-    this.platform.registerBackButtonAction( () => {
+    /*this.platform.registerBackButtonAction( () => {
       let nav = this.app.getActiveNav();
       if (nav.canGoBack()) {
         console.log("back ");
@@ -48,7 +48,7 @@ export class AddProductPage {
       } else {
         this.platform.exitApp();
       }
-    })
+    })*/
   }
 
   ionViewDidLoad() {

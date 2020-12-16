@@ -20,8 +20,8 @@ export class ImageVieweerPage {
     this.image_cover = this.navParams.get('img');
     console.log(this.image_cover);
 
-    this.platform.registerBackButtonAction( () => {
-      this.viewCtrl.dismiss();
+    /*this.platform.registerBackButtonAction( () => {
+      this.viewCtrl.dismiss();*/
       /*let nav = this.app.getActiveNav();
       if (nav.canGoBack()) {
         //nav.popToRoot()
@@ -34,7 +34,7 @@ export class ImageVieweerPage {
         //this.platform.exitApp();
       }*/
 
-    })
+    /*})*/
   }
 
   ionViewDidLoad() {

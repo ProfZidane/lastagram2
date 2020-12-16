@@ -1,3 +1,4 @@
+import { ModifyCategoryPage } from './../modify-category/modify-category';
 import { ShareDesignPage } from './../share-design/share-design';
 import { ModalPage } from './../modal/modal';
 import { DEEP_LINK_DOMAIN } from './../../app/environment';
@@ -69,7 +70,7 @@ export class BoutiquePage {
   heure=0;
   //rootPage = BoutiquePage;
   constructor(private socialSharing: SocialSharing, private platform: Platform, public toastCtrl: ToastController,public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController,private callNumber: CallNumber, private alertCtrl: AlertController, private camera: Camera,public actionSheetCtrl: ActionSheetController,private imageCompress: NgxImageCompressService,public menuCtrl: MenuController, private clipboard: Clipboard, public popoverCtrl: PopoverController, private app: App) {
-    this.platform.registerBackButtonAction( () => {
+    /*this.platform.registerBackButtonAction( () => {
       let nav = this.app.getActiveNav();
 
       if (nav.canGoBack()) {
@@ -81,7 +82,7 @@ export class BoutiquePage {
         this.navCtrl.push(ProfilePage);
         //this.platform.exitApp();
       }
-    })
+    })*/
   }
 
   ionViewDidLoad() {
@@ -461,6 +462,12 @@ export class BoutiquePage {
 
   Message() {
     console.log(localStorage.getItem('phoneUser'));
+    let alert = this.alertCtrl.create({
+      title: 'INFO',
+      subTitle: 'Vous êtes en mode administration. L\'option message est, ici, désactivé !',
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
   Call() {
@@ -501,7 +508,7 @@ export class BoutiquePage {
   Analyse(json,name) {
     if (this.isAdmin) {
       console.log("modifier profile");
-      this.navCtrl.push(ModifyProdPage, { "0": json, "etat": name, "id": null });
+      this.navCtrl.push(ModifyProdPage, { "0": json, "etat": name, "id": null, "id_market": this.Market.id });
     } else {
       console.log("achat");
 
@@ -509,7 +516,7 @@ export class BoutiquePage {
   }
 
   ShowProfile() {
-    this.navCtrl.push(MenuMarketPage, { id : this.Market.id, photo : this.Market.image_cover, name : this.Market.name });
+    this.navCtrl.push(MenuMarketPage, { id : this.Market.id, photo : this.Market.image_cover, name : this.Market.name, devis: this.Market.devis });
   }
 
   setToZero(id) {
@@ -1316,4 +1323,39 @@ export class BoutiquePage {
     });
   }
 
+  presentActionSheet2(id) {
+    const actionSheet = this.actionSheetCtrl.create({
+      title: 'Produit ',
+      buttons: [
+        {
+          text: 'Modifier la catégorie',
+          icon: 'md-create',
+          handler: () => {
+            console.log('Destructive clicked');
+            this.navCtrl.push(ModifyCategoryPage, { id_catg: id, id_market: this.Market.id });
+
+            //this.navCtrl.push(ShopToSharePage);
+          }
+        },{
+          text: 'Ajouter des produits',
+          icon: 'md-add-circle',
+          handler: () => {
+            console.log('Destructive clicked');
+            this.navCtrl.push(ListProdPage, { "id_catg" : id, "id_boutique": this.Market.id, "slug":  this.slug} );
+
+            //this.navCtrl.push(ShopToSharePage);
+          }
+        },{
+          text: 'Fermer',
+          role: 'cancel',
+          icon: 'close-circle',
+          cssClass: 'cancel-btn',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
 }

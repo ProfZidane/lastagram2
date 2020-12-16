@@ -28,14 +28,14 @@
   <ion-grid class="product-to-share">
     <ion-row *ngIf="Products" >
       <ion-col  col-6 align="center" *ngFor="let product of Products" >
-        <div class="share-product" (click)="goToDetailProduct(product.id, product.store.id, product.store.owner)">
+        <div class="share-product" (click)="goToDetailProduct(product.id, product.store.id, product.store.owner, product.store.devis)">
           <div class="search-img-0">
             <img [src]=product.image_cover class="d-i" alt="">
           </div>
 
           <hr>
           <p class="desc-product">{{ product.name }}</p>
-          <p class="price-product twoo">{{ product.price | number }} F CFA</p>
+          <p class="price-product twoo">{{ product.promo_price | number }} {{ product.store.devis }}</p>
         </div>
       </ion-col>
       <ion-infinite-scroll (ionInfinite)="doInfinite($event)">

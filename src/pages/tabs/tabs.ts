@@ -34,9 +34,9 @@ export class TabsPage {
         modal.present();
     }*/
 
-    /*setInterval( () => {
+    setInterval( () => {
       this.countCart();
-    },2000);*/
+    },2000);
 
   }
 

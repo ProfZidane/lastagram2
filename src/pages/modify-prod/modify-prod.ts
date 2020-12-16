@@ -1,3 +1,4 @@
+import { BoutiquePage } from './../boutique/boutique';
 import { MyShopPage } from './../my-shop/my-shop';
 import { StoreProvider } from './../../providers/store/store';
 import { Component } from '@angular/core';
@@ -34,6 +35,7 @@ id;
 slug;
   imgResultAfterCompress: any;
   status = false;
+  id_market;
   constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, private storeService: StoreProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController,private imageCompress: NgxImageCompressService) {
   }
 
@@ -45,6 +47,7 @@ slug;
     this.state = this.navParams.get("etat");
     this.id = this.navParams.get('id');
     this.slug = this.navParams.get('slug');
+    this.id_market = this.navParams.get('id_market');
   }
 
 
@@ -134,8 +137,8 @@ slug;
           buttons: ['OK']
         });
         alert.present();
-        this.navCtrl.push(MyShopPage);
-
+        //this.navCtrl.push(MyShopPage);
+        this.navCtrl.push(BoutiquePage, { "id": this.id_market });
       },
       (error) => {
         console.log(JSON.stringify(error));

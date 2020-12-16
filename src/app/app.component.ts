@@ -1,3 +1,5 @@
+import { MyShopPage } from './../pages/my-shop/my-shop';
+import { CreateBoutiquePage } from './../pages/create-boutique/create-boutique';
 import { BoutiqueGeneralPage } from './../pages/boutique-general/boutique-general';
 import { PasswordModifyPage } from './../pages/password-modify/password-modify';
 import { DetailProductPage } from './../pages/detail-product/detail-product';
@@ -7,7 +9,7 @@ import { Deeplinks } from '@ionic-native/deeplinks';
 import { TabsPage } from './../pages/tabs/tabs';
 import { HomePage } from './../pages/home/home';
 import { Component, NgZone, ViewChild } from '@angular/core';
-import { Platform, Nav } from 'ionic-angular';
+import { Platform, Nav, App,AlertController  } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { FIREBASE_CONFIG, snapshotToArray } from './environment';
@@ -30,7 +32,7 @@ export class MyApp {
 
 
   @ViewChild(Nav) navChild:Nav;
-  constructor(platform: Platform, private localNotifications: LocalNotifications, statusBar: StatusBar, splashScreen: SplashScreen, private deeplinks: Deeplinks, private zone: NgZone) {
+  constructor(platform: Platform,public alertCtrl: AlertController, private app: App, private localNotifications: LocalNotifications, statusBar: StatusBar, splashScreen: SplashScreen, private deeplinks: Deeplinks, private zone: NgZone) {
     if (localStorage.getItem('userToken') !== null) {
       this.rootPage = TabsPage;
     } else {
@@ -46,6 +48,159 @@ export class MyApp {
 
       statusBar.styleDefault();
       splashScreen.hide();
+
+      platform.registerBackButtonAction( () => {
+        let nav = this.app.getActiveNav();
+
+        console.log(
+          typeof(nav.getActive().component.name)
+        );
+
+
+
+        if (nav.canGoBack()) {
+          if (nav.getActive().component.name === "LoginPage") {
+            const alert = this.alertCtrl.create({
+              title: 'ATTENTION',
+              subTitle: 'Voulez-vous sortir vraiment de Lastagram ?',
+              buttons: [
+                {
+                  text: "Aller à l\'accueil",
+                  role: 'cancel',
+                  handler: () => {
+                      console.log("go to home");
+                    nav.push(LoginPage);
+                  }
+
+                },
+                {
+                  text: "Quitter",
+                  handler: () => {
+                    console.log("exit");
+                    platform.exitApp();
+
+
+                  }
+                }
+              ]
+            });
+            alert.present();
+
+          } else if (nav.getActive().component.name === "CreateBoutiquePage") {
+
+            nav.popToRoot();
+
+          } else if (nav.getActive().component.name === "AddProductPage") {
+
+            nav.push(CreateBoutiquePage);
+
+          } else if (nav.getActive().component.name === "BoutiquePage") {
+
+            nav.push(MyShopPage);
+
+          } else if (nav.getActive().component.name === "ProfilePage") {
+
+            nav.push(LoginPage);
+
+          } else if (nav.getActive().component.name === "MyShopPage") {
+
+            nav.push(ProfilePage);
+
+          } else if (nav.getActive().component.name === "ListProdPage") {
+
+            nav.pop();
+
+          } else if (nav.getActive().component.name === "MessageContentPage") {
+
+            nav.popToRoot();
+
+          } else {
+
+            nav.pop();
+
+          }
+
+
+        } else {
+          console.log(nav);
+
+          if (nav.getActive().component.name === "LoginPage") {
+            const alert = this.alertCtrl.create({
+              title: 'ATTENTION',
+              subTitle: 'Voulez-vous sortir vraiment de Lastagram ?',
+              buttons: [
+                {
+                  text: "Aller à l\'accueil",
+                  role: 'cancel',
+                  handler: () => {
+                      console.log("go to home");
+                    nav.push(LoginPage);
+                  }
+
+                },
+                {
+                  text: "Quitter",
+                  handler: () => {
+                    console.log("exit");
+                    platform.exitApp();
+
+
+                  }
+                }
+              ]
+            });
+            alert.present();
+
+          } else if (nav.getActive().component.name === "CreateBoutiquePage") {
+
+            nav.popToRoot();
+
+          } else if (nav.getActive().component.name === "AddProductPage") {
+
+            nav.push(CreateBoutiquePage);
+
+          } else if (nav.getActive().component.name === "BoutiquePage") {
+
+            nav.push(MyShopPage);
+
+          } else if (nav.getActive().component.name === "ProfilePage") {
+
+            nav.push(LoginPage);
+
+          } else {
+
+            const alert = this.alertCtrl.create({
+              title: 'ATTENTION',
+              subTitle: 'Voulez-vous sortir vraiment de Lastagram ?',
+              buttons: [
+                {
+                  text: "Aller à l\'accueil",
+                  role: 'cancel',
+                  handler: () => {
+                      console.log("go to home");
+                    nav.push(LoginPage);
+                  }
+
+                },
+                {
+                  text: "Quitter",
+                  handler: () => {
+                    console.log("exit");
+                    platform.exitApp();
+
+
+                  }
+                }
+              ]
+            });
+            alert.present();
+
+          }
+
+
+
+        }
+      },1)
 
       this.deeplinks.routeWithNavController(this.navChild,{
         '/': LoginPage,
@@ -67,6 +222,8 @@ export class MyApp {
 
 
   }
+
+
 
   /*setupDeeplink() {
     this.deeplinks.route({

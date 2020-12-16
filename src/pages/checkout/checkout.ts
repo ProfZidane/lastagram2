@@ -28,7 +28,7 @@ export class CheckoutPage {
   id_order;
   attached_articles_to_notification;
   constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, public loadingCtrl: LoadingController, private orderService: OrderProvider, private notificationService: NotificationProvider, private app: App) {
-    this.platform.registerBackButtonAction( () => {
+    /*this.platform.registerBackButtonAction( () => {
       let nav = this.app.getActiveNav();
 
       if (nav.canGoBack()) {
@@ -40,7 +40,7 @@ export class CheckoutPage {
         //this.navCtrl.push(ProfilePage);
         //this.platform.exitApp();
       }
-    })
+    })*/
   }
 
   ionViewDidLoad() {

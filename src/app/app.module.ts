@@ -1,3 +1,4 @@
+import { DetailProductInCartPageModule } from './../pages/detail-product-in-cart/detail-product-in-cart.module';
 import { RegisterCodeVerificationPageModule } from './../pages/register-code-verification/register-code-verification.module';
 import { ShareDesignHomePageModule } from './../pages/share-design-home/share-design-home.module';
 import { ShareDesignPageModule } from './../pages/share-design/share-design.module';
@@ -78,7 +79,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 
-
+import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 import { IonicStorageModule } from '@ionic/storage';
 
@@ -177,6 +178,7 @@ const config : SocketIoConfig = { url: "https://192.168.1.82:4000", options : {}
     ShareDesignPageModule,
     ShareDesignHomePageModule,
     RegisterCodeVerificationPageModule,
+    DetailProductInCartPageModule,
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp)
   ],
@@ -209,6 +211,7 @@ const config : SocketIoConfig = { url: "https://192.168.1.82:4000", options : {}
     WebView,
     FileTransfer,
     FilePath,
+    PhotoViewer
       ]
 })
 export class AppModule {}

@@ -1,3 +1,5 @@
+import { DetailProductInCartPage } from './../detail-product-in-cart/detail-product-in-cart';
+import { DetailProductPage } from './../detail-product/detail-product';
 import { OrderProvider } from './../../providers/order/order';
 import { StoreProvider } from './../../providers/store/store';
 import { CheckoutPage } from './../checkout/checkout';
@@ -39,7 +41,7 @@ inexiste;
 
     this.orderService.getProductToCart().subscribe(
       (data) => {
-        console.log(data);
+        console.log( "jj : " + JSON.stringify(data));
 
         if (data.message) {
           this.vide = "Votre panier est vide !";
@@ -90,6 +92,11 @@ inexiste;
     this.navCtrl.push(CheckoutPage);
   }
 
+  goToDetailProduct(json) {
+
+
+    this.navCtrl.push(DetailProductInCartPage, { "data" : json });
+  }
 
   inscrease(id,value) {
     /*this.quantity++;

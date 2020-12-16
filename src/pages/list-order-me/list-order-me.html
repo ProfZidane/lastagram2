@@ -18,9 +18,9 @@
 
     <ion-item *ngFor="let order of datas" (click)="goToDetailOrders(order.id_order)">
       <ion-avatar item-start>
-        <!--<img src="img/avatar-cher.png">-->
+        <img src="{{ order.owner.photo }}">
       </ion-avatar>
-      <h2>
+      <h2 style="text-transform: capitalize;">
         {{ order.owner.last_name + ' ' + order.owner.first_name }}
       </h2>
       <p>

@@ -19,12 +19,12 @@
 
         <ion-list *ngIf="Products" >
           <ion-item class="grid-cart-0" *ngFor="let product of Products" >
-            <ion-thumbnail item-start>
+            <ion-thumbnail item-start *ngIf="product.store === (id_store)">
               <img class="img-cart" [src]=product.article.image_cover >
             </ion-thumbnail>
-            <h2>{{ product.article.name}}</h2>
-            <p><strong>Quantité : </strong> {{ product.quantity }}</p>
-            <span class="price-cart">{{ product.article.price | number}} F CFA</span>
+            <h2 *ngIf="product.store === (id_store)">{{ product.article.name}}</h2>
+            <p *ngIf="product.store === (id_store)"><strong>Quantité : </strong> {{ product.quantity }}</p>
+            <span *ngIf="product.store === (id_store)" class="price-cart">{{ product.article.promo_price | number}} F CFA</span>
           </ion-item>
         </ion-list>
 
@@ -36,14 +36,14 @@
         <ion-item *ngIf="date" >
             Date de commande :
           <span item-end>
-            <strong>{{ date.ordered_date | date }}</strong>
+            <strong>{{ date | date }}</strong>
           </span>
         </ion-item>
 
-        <ion-item *ngIf="ttc" >
+        <ion-item *ngIf="diff" >
           Prix de commande :
         <span item-end>
-          <strong>{{ ttc }} F CFA</strong>
+          <strong>{{ diff }} {{ devis }}</strong>
         </span>
       </ion-item>
 

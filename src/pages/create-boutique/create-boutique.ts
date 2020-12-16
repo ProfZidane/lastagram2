@@ -139,6 +139,11 @@ export class CreateBoutiquePage {
     this.catgRemote();
   }
 
+  save(){
+    console.log(this.nameMarket);
+
+  }
+
   goToBoutique() {
 
     this.navCtrl.push(BoutiqueCreatedPage);

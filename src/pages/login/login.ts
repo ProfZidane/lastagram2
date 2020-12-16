@@ -124,9 +124,9 @@ export class LoginPage {
       });
      }
 
-     this.platform.registerBackButtonAction( () => {
+     /*this.platform.registerBackButtonAction( () => {
       this.platform.exitApp();
-    })
+    })*/
   }
 
 
@@ -135,7 +135,7 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
 
    if (localStorage.getItem('userToken') !== null) {
-    /*setInterval( () => {
+    setInterval( () => {
       this.notificationService.getNewNotification().subscribe(
         (data) => {
           console.log("data : " + JSON.stringify(data));
@@ -172,7 +172,7 @@ export class LoginPage {
         }
       )
 
-    }, 10000);*/
+    }, 10000);
 
     this.getDataToFire();
 
@@ -429,7 +429,7 @@ export class LoginPage {
 
   presentActionSheet() {
     const actionSheet = this.actionSheetCtrl.create({
-      title: 'Partagez avec : ',
+      title: 'Partagez l\'application avec : ',
       buttons: [
         {
           text: 'Facebook',

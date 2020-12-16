@@ -34,10 +34,10 @@ export class ProfilePage {
   photo;
   constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public userService: UserProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController, private app: App) {
 
-    this.platform.registerBackButtonAction( () => {
+    /*this.platform.registerBackButtonAction( () => {
       let nav = this.app.getActiveNav();
       //this.navCtrl.popToRoot();
-      this.navCtrl.push(LoginPage);
+      this.navCtrl.push(LoginPage);*/
       /*if (nav.canGoBack()) {
 
         //nav.popTo(ProfilePage)
@@ -46,7 +46,7 @@ export class ProfilePage {
         //this.navCtrl.push(LoginPage);
         this.platform.exitApp();
       }*/
-    })
+    /*})*/
 
   }
 

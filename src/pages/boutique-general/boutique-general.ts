@@ -85,7 +85,7 @@ export class BoutiqueGeneralPage {
      private camera: Camera, public toastCtrl: ToastController, private callNumber: CallNumber, private app: App
   ) {
 
-    this.platform.registerBackButtonAction( () => {
+    /*this.platform.registerBackButtonAction( () => {
       let nav = this.app.getActiveNav();
       if (nav.canGoBack()) {
         //nav.popToRoot()
@@ -96,7 +96,7 @@ export class BoutiqueGeneralPage {
         //this.navCtrl.push(LoginPage);
         this.platform.exitApp();
       }
-    })
+    })*/
 
   }
 
@@ -117,7 +117,7 @@ export class BoutiqueGeneralPage {
     this.storeService.getDetailMarketById(this.id).subscribe(
       (success) => {
         //console.log(JSON.stringify(success));
-        console.log(success);
+        console.log("data : " + JSON.stringify(success));
         this.ownerInfo.first_name = success.owner.first_name;
         this.ownerInfo.last_name = success.owner.last_name;
         this.prop = success.owner;
@@ -142,6 +142,7 @@ export class BoutiqueGeneralPage {
         success.articles.forEach(element => {
           if (element.flash == true && element.popular == false) {
             this.Market.flash.push(element);
+
           }
           if (element.flash == false && element.popular == true) {
             this.Market.popular.push(element);
@@ -149,7 +150,27 @@ export class BoutiqueGeneralPage {
           if (element.flash == false && element.popular == false) {
             this.Market.articles.push(element);
           }
+
+
+
+
+
         });
+
+        success.articles.forEach(element => {
+          if (element.store.subscribers.length > 0) {
+            if (element.store.subscribers.indexOf(Number(localStorage.getItem('idUser'))) !== undefined) {
+              this.isSubscribed = true;
+              return false;
+            }
+          }
+
+        });
+        console.log("id : " + localStorage.getItem('idUser'));
+
+        console.log("abonne : "+this.isSubscribed);
+
+
 
         /*this.Market.category.forEach(element => {
           this.storeService.getDetailCatg(element.id).subscribe(
@@ -389,33 +410,45 @@ export class BoutiqueGeneralPage {
   }
 
   Message(value) {
-    let loading = this.loadingCtrl.create({
-      content: 'Veuillez Patienter...'
-    });
-    loading.present();
-    //localStorage.setItem('chatUser', value);
-    /*let endpoint = "ws://192.168.1.27:8000/ws/chat/admin5522/";
-    let socket = new WebSocket(endpoint);
-    socket.onopen = function() {
-      console.log("i am connected ....");
+    if (localStorage.getItem('usernameChat') !== value) {
+      let loading = this.loadingCtrl.create({
+        content: 'Veuillez Patienter...'
+      });
+      loading.present();
+      //localStorage.setItem('chatUser', value);
+      /*let endpoint = "ws://192.168.1.27:8000/ws/chat/admin5522/";
+      let socket = new WebSocket(endpoint);
+      socket.onopen = function() {
+        console.log("i am connected ....");
+      }
+      socket.onerror = function(err) {
+        console.log("error " + err.isTrusted);
+
+      }*/
+      loading.dismiss();
+
+      console.log("propio : " + JSON.stringify(this.ownerInfo));
+
+
+      this.app.getRootNav().push(
+        MessageContentPage,
+        {
+          "username": value,
+        "info" : this.ownerInfo,
+        "proprietaire": this.prop
+      }
+      );
+    } else {
+
+      let alert = this.alertCtrl.create({
+        title: 'ATTENTION',
+        subTitle: 'Vous êtes le propriétaire de cette boutique, impossible d\'ouvrir la convrsation avec vous-même !',
+        buttons: ['OK']
+      });
+      alert.present();
+
     }
-    socket.onerror = function(err) {
-      console.log("error " + err.isTrusted);
 
-    }*/
-    loading.dismiss();
-
-    console.log("propio : " + JSON.stringify(this.ownerInfo));
-
-
-    this.app.getRootNav().push(
-      MessageContentPage,
-      {
-        "username": value,
-      "info" : this.ownerInfo,
-      "proprietaire": this.prop
-    }
-    );
     /*this.navCtrl.push(MessageContentPage, {
       "username": value,
       "info" : this.ownerInfo,

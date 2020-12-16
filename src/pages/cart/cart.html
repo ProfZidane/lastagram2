@@ -20,12 +20,14 @@
       <h1 class="vide-cart" *ngIf="vide" >{{ vide }}</h1>
       <ion-list *ngIf="products" >
         <ion-item class="grid-cart-0" *ngFor="let product of products" >
-          <ion-thumbnail item-start>
+          <ion-thumbnail item-start (click)="goToDetailProduct(product)">
             <img class="img-cart" [src]=product.article.image_cover>
           </ion-thumbnail>
           <h2>{{ product.article.name }}</h2>
           <!--<p>7, Hot Pink</p>-->
-          <span class="price-cart">{{ product.article.price }} F CFA</span>
+          <span class="price-cart">{{ product.article.promo_price }} {{ product.devis }}</span>
+          <br>
+          <span class="price-cart2" style="text-decoration: line-through;">{{ product.article.price }} {{ product.devis }}</span>
           <br>
           <span class="i">
             <ion-icon name="md-remove-circle" (click)="discrease(product.id,product.quantity)" ></ion-icon>
@@ -36,7 +38,7 @@
           <span class="i">
             <ion-icon name="md-add-circle" (click)="inscrease(product.id,product.quantity)"></ion-icon>
           </span>
-          <ion-icon name="close-circle" color="lastagram" (click)="clear(product.id)" item-end></ion-icon>
+          <ion-icon name="close-circle" color="danger" (click)="clear(product.id)" item-end></ion-icon>
 
         </ion-item>
 

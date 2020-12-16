@@ -12,7 +12,7 @@
 <ion-content class="bg-create-boutique">
   <ion-grid class="header-create-boutique">
     <ion-row class="">
-      <ion-input type="text" name="nameMarket" [(ngModel)]="nameMarket" value="" placeholder="&nbsp; Nom de la boutique"></ion-input>
+      <ion-input type="text" name="nameMarket" [(ngModel)]="nameMarket" (ionChange)="save()" value="" placeholder="&nbsp; Nom de la boutique"></ion-input>
     </ion-row>
   </ion-grid>
 

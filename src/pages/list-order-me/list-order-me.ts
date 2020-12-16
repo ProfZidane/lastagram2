@@ -26,10 +26,11 @@ next;
 keys;
 datas = [];
 Datas = [];
+devis;
   constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public navParams: NavParams, private orderService: OrderProvider, private userService: UserProvider) {
     this.id = this.navParams.get('id');
     console.log("id store : " + this.id);
-
+    this.devis = this.navParams.get('devis');
     this.getOrderByMarket();
   }
 
@@ -67,7 +68,7 @@ Datas = [];
                     let owner = data.owner;
                     let time = data.ordered_date
                   //  console.log(owner);
-                   // console.log("donne : " + JSON.stringify(data));
+                    console.log("donne : " + JSON.stringify(data));
 
                     element.owner = owner;
                     element.time = time;
@@ -79,7 +80,7 @@ Datas = [];
                     this.Datas.push(element);
 
                   }, (err) => {
-                    console.log(JSON.stringify(err));
+                    console.log((err));
 
                   }
                 )
@@ -97,14 +98,14 @@ Datas = [];
       }, (err) => {
 
         loading.dismiss();
-        console.log(JSON.stringify(err));
+        console.log((err));
 
       }
     )
   }
 
   goToDetailOrders(id) {
-    this.navCtrl.push(DetailOrderMePage, { id: id, date: null, time: null });
+    this.navCtrl.push(DetailOrderMePage, { id: id, date: null, time: null, id_store: this.id, devis: this.devis });
     //console.log(id);
 
   }
