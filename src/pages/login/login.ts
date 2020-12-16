@@ -46,7 +46,25 @@ export class LoginPage {
   seen = [];
   previous;
   next;
+  actionSheet;
+  v = 0;
   constructor(private clipboard: Clipboard, public popoverCtrl: PopoverController, public loadingCtrl: LoadingController,private platform: Platform, public navCtrl: NavController, public navParams: NavParams, public storeService: StoreProvider, private alertCtrl: AlertController,public toastCtrl: ToastController, public modalCtrl: ModalController, private localNotifications: LocalNotifications, private notificationService: NotificationProvider, private userService: UserProvider, private socialSharing: SocialSharing,public actionSheetCtrl: ActionSheetController, private searchService: SearchProvider) {
+    this.v = 1;
+    document.addEventListener('backbutton', () => {
+      if (this.navCtrl.getActive().component.name === "LoginPage") {
+        console.log("click to back button !");
+        if (this.actionSheet) {
+          this.actionSheet.dismiss();
+        }
+
+      } else {
+        console.log("c pas sa");
+
+      }
+
+    })
+
+
 
     if (localStorage.getItem('userToken') !== null) {
       this.userService.findData().subscribe(
@@ -138,7 +156,7 @@ export class LoginPage {
     setInterval( () => {
       this.notificationService.getNewNotification().subscribe(
         (data) => {
-          console.log("data : " + JSON.stringify(data));
+//          console.log("data : " + JSON.stringify(data));
 
 
 
@@ -262,6 +280,8 @@ export class LoginPage {
     )
 
   }
+
+
 
   setNotification(obj) {
     this.localNotifications.schedule({
@@ -428,7 +448,7 @@ export class LoginPage {
   }*/
 
   presentActionSheet() {
-    const actionSheet = this.actionSheetCtrl.create({
+     this.actionSheet = this.actionSheetCtrl.create({
       title: 'Partagez l\'application avec : ',
       buttons: [
         {
@@ -479,9 +499,10 @@ export class LoginPage {
             console.log('Cancel clicked');
           }
         }
-      ]
+      ],
+
     });
-    actionSheet.present();
+    this.actionSheet.present();
   }
 
   shareSocialMedia() {

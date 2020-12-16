@@ -1,3 +1,4 @@
+import { BoutiqueGeneralPage } from './../boutique-general/boutique-general';
 import { NotificationProvider } from './../../providers/notification/notification';
 import { OrderProvider } from './../../providers/order/order';
 import { Component } from '@angular/core';
@@ -39,14 +40,14 @@ date;
 
     this.notificationService.getInfoNotification(this.id_order).subscribe(
       (data) => {
-        console.log("success : ");
+     //   console.log("success : " + JSON.stringify(data));
         this.Notif = data;
         this.Products = data.articles;
         this.commander = data.owner;
         this.adresse = data.address;
         this.Total = data.total_price;
         this.date = data["ordered_date"];
-        console.log(JSON.stringify(data));
+        console.log("data : " + JSON.stringify(this.Products));
         loading.dismiss();
       }, (error) => {
         console.log("error : ");
@@ -58,6 +59,12 @@ date;
           loading.dismiss();
       }
     )
+  }
+
+  gotomarket(id) {
+    console.log(id);
+    this.navCtrl.push(BoutiqueGeneralPage, { "id" : id })
+
   }
 
 }

@@ -429,15 +429,19 @@ export class BoutiqueGeneralPage {
 
       console.log("propio : " + JSON.stringify(this.ownerInfo));
 
-
-      this.app.getRootNav().push(
+      this.navCtrl.push(MessageContentPage,{
+        "username": value,
+      "info" : this.ownerInfo,
+      "proprietaire": this.prop
+    });
+      /*this.app.getRootNav().push(
         MessageContentPage,
         {
           "username": value,
         "info" : this.ownerInfo,
         "proprietaire": this.prop
       }
-      );
+      );*/
     } else {
 
       let alert = this.alertCtrl.create({

@@ -14,6 +14,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { FIREBASE_CONFIG, snapshotToArray } from './environment';
 import * as firebase from 'firebase';
+import { IonicApp } from 'ionic-angular';
 
 firebase.initializeApp(FIREBASE_CONFIG);
 
@@ -28,11 +29,11 @@ import { ELocalNotificationTriggerUnit, LocalNotifications } from '@ionic-native
 export class MyApp {
 
   rootPage:any;
-
+  backButtontTimer = 0;
 
 
   @ViewChild(Nav) navChild:Nav;
-  constructor(platform: Platform,public alertCtrl: AlertController, private app: App, private localNotifications: LocalNotifications, statusBar: StatusBar, splashScreen: SplashScreen, private deeplinks: Deeplinks, private zone: NgZone) {
+  constructor(platform: Platform,public alertCtrl: AlertController, private app: App, private localNotifications: LocalNotifications, statusBar: StatusBar, splashScreen: SplashScreen, private deeplinks: Deeplinks, private zone: NgZone,public ionApp: IonicApp) {
     if (localStorage.getItem('userToken') !== null) {
       this.rootPage = TabsPage;
     } else {
@@ -60,31 +61,45 @@ export class MyApp {
 
         if (nav.canGoBack()) {
           if (nav.getActive().component.name === "LoginPage") {
-            const alert = this.alertCtrl.create({
-              title: 'ATTENTION',
-              subTitle: 'Voulez-vous sortir vraiment de Lastagram ?',
-              buttons: [
-                {
-                  text: "Aller à l\'accueil",
-                  role: 'cancel',
-                  handler: () => {
-                      console.log("go to home");
-                    nav.push(LoginPage);
+
+            this.backButtontTimer ++;
+
+            if (this.backButtontTimer === 1) {
+
+              const alert = this.alertCtrl.create({
+                title: 'ATTENTION',
+                subTitle: 'Voulez-vous sortir vraiment de Lastagram ?',
+                buttons: [
+                  {
+                    text: "Aller à l\'accueil",
+                    role: 'cancel',
+                    handler: () => {
+                        console.log("go to home");
+                      nav.push(LoginPage);
+                    }
+
+                  },
+                  {
+                    text: "Quitter",
+                    handler: () => {
+                      console.log("exit");
+                      platform.exitApp();
+
+
+                    }
                   }
+                ]
+              });
 
-                },
-                {
-                  text: "Quitter",
-                  handler: () => {
-                    console.log("exit");
-                    platform.exitApp();
+              alert.present();
 
 
-                  }
-                }
-              ]
-            });
-            alert.present();
+
+            } else {
+
+              platform.exitApp();
+
+            }
 
           } else if (nav.getActive().component.name === "CreateBoutiquePage") {
 
@@ -112,10 +127,19 @@ export class MyApp {
 
           } else if (nav.getActive().component.name === "MessageContentPage") {
 
-            nav.popToRoot();
+            //nav.popToRoot();
+            console.log("t : " +this.app.getActiveNav().canGoBack());
+            nav.pop();
 
           } else {
 
+
+
+            /*if (activePortal) {
+                console.log("ddd");
+                activePortal.destroy()
+
+            }*/
             nav.pop();
 
           }
@@ -125,31 +149,48 @@ export class MyApp {
           console.log(nav);
 
           if (nav.getActive().component.name === "LoginPage") {
-            const alert = this.alertCtrl.create({
-              title: 'ATTENTION',
-              subTitle: 'Voulez-vous sortir vraiment de Lastagram ?',
-              buttons: [
-                {
-                  text: "Aller à l\'accueil",
-                  role: 'cancel',
-                  handler: () => {
+
+            this.backButtontTimer ++;
+
+            if (this.backButtontTimer === 1) {
+              const alert = this.alertCtrl.create({
+                title: 'ATTENTION',
+                subTitle: 'Voulez-vous sortir vraiment de Lastagram ?',
+                buttons: [
+                  {
+                    text: "Aller à l\'accueil",
+                    role: 'cancel',
+                    handler: () => {
                       console.log("go to home");
-                    nav.push(LoginPage);
+                      nav.push(LoginPage);
+                    }
+
+                  },
+                  {
+                    text: "Quitter",
+                    handler: () => {
+                      console.log("exit");
+                      platform.exitApp();
+
+
+                    }
                   }
+                ]
+              });
 
-                },
-                {
-                  text: "Quitter",
-                  handler: () => {
-                    console.log("exit");
-                    platform.exitApp();
+              alert.present();
 
+              platform.registerBackButtonAction( () => {
+                console.log("jhai appuyer ");
 
-                  }
-                }
-              ]
-            });
-            alert.present();
+              })
+
+            } else {
+
+              platform.exitApp();
+
+            }
+
 
           } else if (nav.getActive().component.name === "CreateBoutiquePage") {
 
@@ -194,6 +235,8 @@ export class MyApp {
               ]
             });
             alert.present();
+
+
 
           }
 

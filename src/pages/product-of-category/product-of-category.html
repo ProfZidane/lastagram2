@@ -50,5 +50,18 @@
         </div>
       </ion-col>-->
     </ion-row>
+
+
+
   </ion-grid>
+
+  <ion-grid class="empty_p_o_c">
+    <ion-row *ngIf="Products.length === 0" >
+      <div class="empty_cmd" align="center">
+        <ion-icon name="md-basket"></ion-icon>
+        <p>Aucun article ! </p>
+      </div>
+    </ion-row>
+  </ion-grid>
+
 </ion-content>

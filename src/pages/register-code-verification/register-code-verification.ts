@@ -1,3 +1,4 @@
+import { WelcomePage } from './../welcome/welcome';
 import { HomePage } from './../home/home';
 import { UserProvider } from './../../providers/user/user';
 import { Component } from '@angular/core';
@@ -18,7 +19,11 @@ import { IonicPage, NavController, NavParams, AlertController, LoadingController
 export class RegisterCodeVerificationPage {
   code;
   warn_text;
+  password;
+  data;
   constructor(public navCtrl: NavController, public navParams: NavParams,public loadingCtrl: LoadingController, private userService: UserProvider, private alertCtrl: AlertController) {
+    this.data = JSON.parse(this.navParams.get('password'));
+    this.password = this.data["password"];
   }
 
   ionViewDidLoad() {
@@ -36,7 +41,8 @@ export class RegisterCodeVerificationPage {
   validation() {
     if (this.code.length === 6) {
       let data = {
-        "validation_code" : this.code
+        "validation_code" : this.code,
+        "password" : this.password
       };
       let loading = this.loadingCtrl.create({
         content: 'Veuillez Patienter...'
@@ -48,8 +54,12 @@ export class RegisterCodeVerificationPage {
             "0" : "Veuillez maintenant vous authentifiez !"
           };
           localStorage.setItem('new','true');
+          localStorage.setItem('userToken',success.authentification_keys.access);
+
           loading.dismiss();
-          this.navCtrl.push(HomePage, words);
+          //this.navCtrl.push(HomePage, words);
+          this.navCtrl.push(WelcomePage);
+
         }, (err) => {
           loading.dismiss();
           let alert = this.alertCtrl.create({

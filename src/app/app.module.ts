@@ -180,7 +180,7 @@ const config : SocketIoConfig = { url: "https://192.168.1.82:4000", options : {}
     RegisterCodeVerificationPageModule,
     DetailProductInCartPageModule,
     IonicStorageModule.forRoot(),
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp, { tabsPlacement: 'top'})
   ],
   bootstrap: [IonicApp],
   entryComponents: [

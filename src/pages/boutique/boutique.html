@@ -185,14 +185,14 @@
   <ion-grid class="">
     <ion-row class="cadre">
       <ion-col class="" col-6>
-        <img class="decoration" *ngIf="Market.img_static_1"  src="{{ Market.img_static_1 }}" alt="" (click)="setImageDeco1(Market.id)">
+        <img class="decoration g" *ngIf="Market.img_static_1"  src="{{ Market.img_static_1 }}" alt="" (click)="setImageDeco1(Market.id)">
 
         <h3 *ngIf="!Market.img_static_1" style="position: relative; left: 30%" >PHOTO</h3>
           <ion-icon name="camera" style="font-size:40px;position:relative;left:40%" *ngIf="!Market.img_static_1" (click)="setImageDeco1(Market.id)"></ion-icon>
 
       </ion-col>
       <ion-col class="" col-6>
-        <img class="decoration" *ngIf="Market.img_static_2"  src="{{ Market.img_static_2 }}" alt="" (click)="setImageDeco2(Market.id)">
+        <img class="decoration g" *ngIf="Market.img_static_2"  src="{{ Market.img_static_2 }}" alt="" (click)="setImageDeco2(Market.id)">
 
         <h3 *ngIf="!Market.img_static_2" style="position: relative; left: 30%" >PHOTO</h3>
           <ion-icon name="camera" style="font-size:40px;position:relative;left:40%" *ngIf="!Market.img_static_2" (click)="setImageDeco2(Market.id)"></ion-icon>
@@ -227,7 +227,7 @@
   <ion-grid class="">
     <ion-row class="cadre">
       <ion-col class="" col-12 *ngIf="Market.img_decore" (click)="setImageDeco3(Market.id)">
-        <img class="decoration" src="{{ Market.img_decore }}" alt="">
+        <img class="decoration g1" src="{{ Market.img_decore }}" alt="">
       </ion-col>
       <ion-col class="zz" col-12 *ngIf="!Market.img_decore" (click)="setImageDeco3(Market.id)">
           <h3 style="position: relative; left: 42%">PHOTO</h3>

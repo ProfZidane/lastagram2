@@ -122,6 +122,14 @@ export class CreateBoutiquePage {
       this.base64Image3 = localStorage.getItem('couvertImage3');
     }
 
+    if (localStorage.getItem('name_market') !== null) {
+      this.nameMarket = localStorage.getItem('name_market');
+    }
+
+    if (localStorage.getItem('time_flash') !== null) {
+      this.timer = localStorage.getItem('time_flash');
+    }
+
     this.platform.registerBackButtonAction( () => {
       let nav = this.app.getActiveNav();
       if (nav.canGoBack()) {
@@ -141,7 +149,7 @@ export class CreateBoutiquePage {
 
   save(){
     console.log(this.nameMarket);
-
+    localStorage.setItem('name_market', this.nameMarket);
   }
 
   goToBoutique() {
@@ -408,7 +416,7 @@ export class CreateBoutiquePage {
             console.log(data);
 
             this.timer = data.hour + ":" + data.minute + ":" + data.second;
-
+            localStorage.setItem('time_flash', this.timer);
           }
         }
       ]
@@ -529,7 +537,7 @@ export class CreateBoutiquePage {
       });
       loading.present();
       let datas = {
-        "name" : this.nameMarket,
+        "name" : localStorage.getItem('name_market'),
         "owner" : Number(localStorage.getItem('idUser')),
         "category" : [
           JSON.parse(localStorage.getItem('id1')),
@@ -543,7 +551,7 @@ export class CreateBoutiquePage {
         "image_cover2" : localStorage.getItem('couvertImage2'),
         "image_cover3" : localStorage.getItem('couvertImage3'),
         "articles" : [],
-        "timer" : this.timer,
+        "timer" : localStorage.getItem('time_flash'),
         "devis" : this.devis,
         "img_static_1" : localStorage.getItem('image_Decoration1'),
         "img_static_2" : localStorage.getItem('image_Decoration2'),

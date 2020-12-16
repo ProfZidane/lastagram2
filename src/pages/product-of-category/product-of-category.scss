@@ -1,5 +1,22 @@
 page-product-of-category {
+  .empty_cmd  {
+    margin-top: 45px;
+  }
 
+  .empty_cmd  ion-icon {
+    font-size: 120px;
+    margin-bottom: 7px;
+    color: #155C7F;
+  }
+
+  .empty_cmd  p {
+    color: gray;
+    font-size: large;
+  }
+
+  .empty_p_o_c {
+    margin-left: 12rem;
+  }
 }
 .img-search-prod {
   justify-self: center;

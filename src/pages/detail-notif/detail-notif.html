@@ -25,6 +25,10 @@
             <h2>{{ product.article.name}}</h2>
             <p><strong>Quantité : </strong> {{ product.quantity }}</p>
             <span class="price-cart">{{ product.article.price | number}} F CFA</span>
+            <br>
+            <small>
+              <a (click)="gotomarket(product.store)">Voir la boutique</a>
+            </small>
           </ion-item>
         </ion-list>
 

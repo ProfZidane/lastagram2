@@ -3,4 +3,19 @@ page-list-order-me {
     font-weight: 500;
     float: right;
   }
+
+  .empty_cmd  {
+    margin-top: 70px;
+  }
+
+  .empty_cmd  ion-icon {
+    font-size: 120px;
+    margin-bottom: 10px;
+    color: #155C7F;
+  }
+
+  .empty_cmd  p {
+    color: gray;
+    font-size: large;
+  }
 }

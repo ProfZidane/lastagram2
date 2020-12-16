@@ -48,6 +48,9 @@ export class MessageContentPage  {
   //@ViewChild('ion-content') content2: any;
   //@ViewChild('MessagesGrid') content:any;
   constructor(public navCtrl: NavController,private platform: Platform, public navParams: NavParams,  private userService: UserProvider,public actionSheetCtrl: ActionSheetController, private alertCtrl: AlertController, private socketService: SocketProvider, private localNotifications: LocalNotifications,private imageCompress: NgxImageCompressService, private app: App) {
+
+
+
     this.username = localStorage.getItem('usernameChat');
     this.other_username =  this.navParams.get('username');
 

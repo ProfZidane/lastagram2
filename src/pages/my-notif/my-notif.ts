@@ -95,6 +95,11 @@ next;
 
   }
 
+  reload() {
+    this.navCtrl.setRoot(this.navCtrl.getActive().component);
+
+  }
+
   doInfinite(infiniteScroll) {
     console.log('Begin async operation');
     console.log(this.next);

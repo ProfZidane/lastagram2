@@ -11,8 +11,10 @@ import { LoadingController } from 'ionic-angular';
 import { ModalController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { SocialSharing } from '@ionic-native/social-sharing';
-import { ToastController } from 'ionic-angular';
+import { ToastController, ActionSheetController } from 'ionic-angular';
 import { DEEP_LINK_DOMAIN } from '../../app/environment';
+import { Clipboard } from '@ionic-native/clipboard';
+
 /**
  * Generated class for the DetailProductPage page.
  *
@@ -36,15 +38,14 @@ export class DetailProductPage {
   cart;
   taille;
   isSubscribed;
-  constructor(private platform: Platform,public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,public loadingCtrl: LoadingController, private storeService: StoreProvider, private orderService: OrderProvider, public modalCtrl: ModalController, private socialSharing: SocialSharing,public toastCtrl: ToastController, private photoViewer: PhotoViewer) {
+  actionSheet;
+  constructor( private clipboard: Clipboard,public actionSheetCtrl: ActionSheetController,private platform: Platform,public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,public loadingCtrl: LoadingController, private storeService: StoreProvider, private orderService: OrderProvider, public modalCtrl: ModalController, private socialSharing: SocialSharing,public toastCtrl: ToastController, private photoViewer: PhotoViewer) {
 
     if (this.navParams.get('isSubscribed')) {
         this.isSubscribed = this.navParams.get('isSubscribed');
     }
 
-    /*this.platform.registerBackButtonAction( () => {
-      this.platform.exitApp();
-    })*/
+
 
    }
 
@@ -87,6 +88,11 @@ export class DetailProductPage {
 
 
 
+  }
+
+  ionViewDidLeave(){
+    console.log("page ending ...");
+    this.actionSheet.dismiss();
   }
 
   Gotomarket() {
@@ -197,78 +203,182 @@ export class DetailProductPage {
 
 
 
-  shareFacebook() {
-    let message = "Etes vous intéressez par mon produit " +this.product.name+ " ? ";
-    let image = this.product.image_cover;
-
-    this.socialSharing.canShareVia("com.facebook.katana","Test catana",null,null,null).then((res) => {
-        console.log(res);
-        this.socialSharing.shareViaFacebook(message,image,null).then(() => {
-          console.log("sharing ::::");
-
-        }) .catch(e => {
-          console.log(e);
-
-        })
-
-    }) .catch((e)=> {
-      console.log("erreur " + e);
-      let alert = this.alertCtrl.create({
-        title: 'ATTENTION',
-        subTitle: 'Installer l\'application avant tout !',
-        buttons: ['OK']
-      });
-      alert.present();
-
-    });
-
-    /*this.socialSharing.shareViaFacebook(message,image,null).then(() => {
-      console.log("sharing ::::");
-
-    }) .catch(e => {
-      console.log(e);
-
-    })*/
-  }
-
-
-  shareWhatsapp() {
-    let message = "Etes vous intéressez par mon produit " +this.product.name+ " ? ";
-    let image = this.product.image_cover;
-
-    this.socialSharing.canShareVia("whatsapp","Test catana",null,null,null).then((res) => {
-        console.log(res);
-        this.socialSharing.shareViaWhatsApp(message,image,null).then(() => {
-          console.log("sharing ::::");
-
-        }) .catch(e => {
-          console.log(e);
-
-        })
-
-    }) .catch((e)=> {
-      console.log("erreur " + e);
-      let alert = this.alertCtrl.create({
-        title: 'ATTENTION',
-        subTitle: 'Installer l\'application avant tout !',
-        buttons: ['OK']
-      });
-      alert.present();
-
-    });
-
-  }
-
-
   shareSocialMedia() {
-    let option = {
-      message : "Etes vous intéressez par mon produit " +this.product.name+ " ? ",
-      files: [this.product.image_cover],
-      url: DEEP_LINK_DOMAIN + "product/"+ this.id_article +"/"+ this.id_market +"/"+ this.id_owner,
+    let link = DEEP_LINK_DOMAIN + "product/"+ this.id_article +"/"+ this.id_market +"/"+ this.id_owner;    let option = {
+      message : "Êtes-vous intéressez par mon produit ?",
+      files: null,
+      url: link,
       chooserTitle: "Choisissez une application"
     }
     this.socialSharing.shareWithOptions(option);
   }
+
+  shareWhatsapp() {
+    let message = "Êtes-vous intéressez par mon produit ?";
+    let image = "" // image de couverture
+    let link = DEEP_LINK_DOMAIN + "product/"+ this.id_article +"/"+ this.id_market +"/"+ this.id_owner;
+    this.socialSharing.canShareVia("whatsapp","Test catana",null,null,null).then((res) => {
+        console.log(res);
+        this.socialSharing.shareViaWhatsApp(message,null,link).then(() => {
+          console.log("sharing ::::");
+
+
+        }) .catch(e => {
+          console.log(e);
+
+        })
+
+    }) .catch((e)=> {
+      console.log("erreur " + e);
+      let alert = this.alertCtrl.create({
+        title: 'ATTENTION',
+        subTitle: 'Installer l\'application avant tout !',
+        buttons: ['OK']
+      });
+      alert.present();
+
+    });
+
+  }
+
+  shareFacebook() {
+    let message = "Êtes-vous intéressez par mon produit ? ";
+    let image = "" // image de couverture
+    let link = DEEP_LINK_DOMAIN + "product/"+ this.id_article +"/"+ this.id_market +"/"+ this.id_owner;
+    this.socialSharing.canShareVia("com.facebook.katana","Test catana",null,null,null).then((res) => {
+        console.log(res);
+        this.socialSharing.shareViaFacebook(message,null,link).then(() => {
+          console.log("sharing ::::");
+
+
+        }) .catch(e => {
+          console.log(e);
+
+        })
+
+    }) .catch((e)=> {
+      console.log("erreur " + e);
+
+
+      let alert = this.alertCtrl.create({
+        title: 'ATTENTION',
+        subTitle: 'Installer l\'application avant tout !',
+        buttons: ['OK']
+      });
+      alert.present();
+
+    });
+
+  }
+
+
+  shareInstagram() {
+    let link = DEEP_LINK_DOMAIN + "product/"+ this.id_article +"/"+ this.id_market +"/"+ this.id_owner;
+    let message = "Êtes-vous intéressez par mon produit ? " + link; // lien directe dans le message
+    let image = null // image de couverture
+
+    this.socialSharing.canShareVia("instagram","Test catana",null,null,null).then((res) => {
+        console.log(res);
+        this.socialSharing.shareViaInstagram(message,image).then(() => {
+          console.log("sharing ::::");
+
+
+        }) .catch(e => {
+          console.log(e);
+
+        })
+
+    }) .catch((e)=> {
+      console.log("erreur " + e);
+
+
+      let alert = this.alertCtrl.create({
+        title: 'ATTENTION',
+        subTitle: 'Installer l\'application avant tout !',
+        buttons: ['OK']
+      });
+      alert.present();
+
+    });
+  }
+
+  CopyLink() {
+    let link = DEEP_LINK_DOMAIN + "product/"+ this.id_article +"/"+ this.id_market +"/"+ this.id_owner;
+    let message = "Êtes-vous intéressez par mon produit ?" + link;
+            this.clipboard.copy(message).then(
+              () => {
+                  const toast = this.toastCtrl.create({
+                    message: 'Lien copié !',
+                    duration: 3000,
+                    position: 'bottom'
+                  });
+                  toast.present();
+
+              }
+            );
+  }
+
+
+  presentActionSheet() {
+     this.actionSheet = this.actionSheetCtrl.create({
+      title: 'Partagez avec : ',
+
+      buttons: [
+        {
+          text: 'Facebook',
+          icon: 'logo-facebook',
+          handler: () => {
+            console.log('Destructive clicked');
+            this.shareFacebook();
+            //this.navCtrl.push(ShopToSharePage);
+          }
+        },{
+          text: 'WhatsApp',
+          icon: 'logo-whatsapp',
+          handler: () => {
+            console.log('Destructive clicked');
+            this.shareWhatsapp();
+            //this.navCtrl.push(ShopToSharePage);
+          }
+        },{
+          text: 'Instagram',
+          icon: 'logo-instagram',
+          handler: () => {
+            console.log('Destructive clicked');
+            this.shareInstagram();
+            //this.navCtrl.push(ShopToSharePage);
+          }
+        },{
+          text: 'Copier lien',
+          icon: 'link',
+          handler: () => {
+            console.log('Destructive clicked');
+            this.CopyLink();
+            //this.navCtrl.push(ShopToSharePage);
+          }
+        },{
+          text: ' Plus d\'options',
+          icon: 'add-circle',
+          handler: () => {
+            this.shareSocialMedia();
+            //this.goToProductShare();
+          }
+        },{
+          text: 'Fermer',
+          role: 'cancel',
+          icon: 'close-circle',
+          cssClass: 'cancel-btn',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    this.actionSheet.present();
+
+  }
+
+
 
 
 

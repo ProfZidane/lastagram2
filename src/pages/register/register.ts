@@ -157,7 +157,7 @@ export class RegisterPage {
               text: 'OK',
               handler: () => {
           //      localStorage.setItem('new','true');
-                this.navCtrl.push(RegisterCodeVerificationPage);
+                this.navCtrl.push(RegisterCodeVerificationPage, { "password" : JSON.stringify(data) } );
                 //this.navCtrl.push(HomePage, words);
               }
             }]

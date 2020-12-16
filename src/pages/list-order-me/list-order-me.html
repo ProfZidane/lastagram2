@@ -14,6 +14,13 @@
   <ion-grid>
     <h2 style="color: #155C7F">Boite de réception</h2>
   </ion-grid>
+  <ion-grid *ngIf="datas.length === 0" >
+    <div class="empty_cmd" align="center">
+      <ion-icon name="md-basket"></ion-icon>
+      <p>Pas de commandes ! </p>
+    </div>
+  </ion-grid>
+
   <ion-list no-lines>
 
     <ion-item *ngFor="let order of datas" (click)="goToDetailOrders(order.id_order)">

@@ -49,7 +49,7 @@ export class TabsPage {
         } else {
           this.count = data.articles.length;
         }
-        console.log("e : " + this.count);
+        //console.log("e : " + this.count);
 
       }
     )
