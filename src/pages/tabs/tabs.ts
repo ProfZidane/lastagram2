@@ -29,6 +29,7 @@ export class TabsPage {
   visibility = false;
   authed;
   count;
+
   constructor(public modalCtrl: ModalController, public navCtrl: NavController, private orderService: OrderProvider) {
     /*if (localStorage.getItem('userToken') === null) {
         //this.navCtrl.push(HomePage);

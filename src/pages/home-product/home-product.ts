@@ -17,7 +17,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
-import { ModalController, PopoverController } from 'ionic-angular';
+import { App,ModalController, PopoverController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { ELocalNotificationTriggerUnit, LocalNotifications } from '@ionic-native/local-notifications';
 import { SocialSharing } from '@ionic-native/social-sharing';
@@ -51,7 +51,7 @@ export class HomeProductPage {
   previous;
   actionSheet;
   v = 0;
-  constructor(private clipboard: Clipboard, public popoverCtrl: PopoverController, public loadingCtrl: LoadingController,private platform: Platform, public navCtrl: NavController, public navParams: NavParams, public storeService: StoreProvider, private alertCtrl: AlertController,public toastCtrl: ToastController, public modalCtrl: ModalController, private localNotifications: LocalNotifications, private notificationService: NotificationProvider, private userService: UserProvider, private socialSharing: SocialSharing,public actionSheetCtrl: ActionSheetController, private searchService: SearchProvider) {
+  constructor(private clipboard: Clipboard, private app: App, public popoverCtrl: PopoverController, public loadingCtrl: LoadingController,private platform: Platform, public navCtrl: NavController, public navParams: NavParams, public storeService: StoreProvider, private alertCtrl: AlertController,public toastCtrl: ToastController, public modalCtrl: ModalController, private localNotifications: LocalNotifications, private notificationService: NotificationProvider, private userService: UserProvider, private socialSharing: SocialSharing,public actionSheetCtrl: ActionSheetController, private searchService: SearchProvider) {
     this.v = 1;
     document.addEventListener('backbutton', () => {
       if (this.navCtrl.getActive().component.name === "HomeProductPage") {
@@ -359,7 +359,8 @@ export class HomeProductPage {
 
   ViewMarket(value,b) {
     console.log(value);
-    this.navCtrl.push(BoutiqueGeneralPage, { "id": value, "isAbonned" :  b});
+    //this.navCtrl.push(BoutiqueGeneralPage, { "id": value, "isAbonned" :  b});
+    this.app.getRootNav().setRoot(BoutiqueGeneralPage, { "id": value, "isAbonned" :  b});
   }
 
   goToSearch() {

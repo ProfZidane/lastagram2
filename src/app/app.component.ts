@@ -84,13 +84,20 @@ export class MyApp {
 
             nav.push(MyShopPage);
 
+
           } else if (nav.getActive().component.name === "ProfilePage") {
 
-            nav.push(HomeProductPage);
+            //nav.push(HomeProductPage);
+            console.log('c moi !!');
+
+            this.app.getRootNav().getActiveChildNav().select(0);
 
           } else if (nav.getActive().component.name === "MyShopPage") {
 
             nav.push(ProfilePage);
+            //this.app.getRootNav().getActiveChildNav().select();
+
+            //nav.pop();
 
           } else if (nav.getActive().component.name === "ListProdPage") {
 
@@ -145,7 +152,10 @@ export class MyApp {
 
           } else if (nav.getActive().component.name === "ProfilePage") {
 
-            nav.push(HomeProductPage);
+//          nav.push(HomeProductPage);/
+console.log('c moi !!');
+
+this.app.getRootNav().getActiveChildNav().select(0);
 
           } else {
 
@@ -158,7 +168,9 @@ export class MyApp {
                   role: 'cancel',
                   handler: () => {
                       console.log("go to home");
-                    nav.push(HomeProductPage);
+                    //nav.push(HomeProductPage);
+                    this.app.getRootNav().getActiveChildNav().select(0);
+
                   }
 
                 },

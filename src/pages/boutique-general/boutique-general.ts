@@ -81,23 +81,24 @@ export class BoutiqueGeneralPage {
   minute=30;
   heure=0;
   timer;
+  tabsElt;
   constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController,
      private camera: Camera, public toastCtrl: ToastController, private callNumber: CallNumber, private app: App
   ) {
 
-
-    /*this.platform.registerBackButtonAction( () => {
+    this.tabsElt = document.getElementById('tabs');
+    this.platform.registerBackButtonAction( () => {
       let nav = this.app.getActiveNav();
       if (nav.canGoBack()) {
         //nav.popToRoot()
         //nav.popTo(ProfilePage)
-        this.navCtrl.pop();
+        //this.navCtrl.pop();
       } else {
         console.log("peut plus reculer");
         //this.navCtrl.push(LoginPage);
-        this.platform.exitApp();
+       // this.platform.exitApp();
       }
-    })*/
+    })
 
   }
 
@@ -287,6 +288,16 @@ export class BoutiqueGeneralPage {
     )
 
   }
+
+  /*ionViewWillEnter() {
+    console.log('dd');
+
+    this.tabsElt.style.display = "none";
+  }
+
+  ionViewWillLeave() {
+    this.tabsElt.style.display = "block";
+  }*/
 
 
   ShowProfile() {

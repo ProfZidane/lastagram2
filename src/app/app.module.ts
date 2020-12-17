@@ -182,7 +182,7 @@ const config : SocketIoConfig = { url: "https://192.168.1.82:4000", options : {}
     DetailProductInCartPageModule,
     HomeProductPageModule,
     IonicStorageModule.forRoot(),
-    IonicModule.forRoot(MyApp, { tabsPlacement: 'top'})
+    IonicModule.forRoot(MyApp, { tabsPlacement: 'top',tabsHideOnSubPages: true})
   ],
   bootstrap: [IonicApp],
   entryComponents: [
