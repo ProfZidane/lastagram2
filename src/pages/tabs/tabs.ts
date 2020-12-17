@@ -40,6 +40,13 @@ export class TabsPage {
       this.countCart();
     },2000);
 
+
+
+    /*setInterval( () => {
+      console.log(Number(localStorage.getItem('count_cart')));
+      this.count = Number(localStorage.getItem('count_cart'));
+    },2000)*/
+
   }
 
   countCart() {
@@ -49,10 +56,17 @@ export class TabsPage {
           console.log("dd");
           this.count = 0;
         } else {
-          this.count = data.articles.length;
+          if (data.ordered === false) {
+            this.count = data.articles.length;
+          }else {
+            this.count = 0;
+          }
         }
-        //console.log("e : " + this.count);
+        console.log("e : " + this.count);
 
+      }, (err) => {
+        console.log(err);
+        this.count = 0;
       }
     )
   }

@@ -178,6 +178,14 @@ inexiste;
     this.orderService.deleteInCart(id).subscribe(
       (data) => {
         console.log(data);
+        if (localStorage.getItem('count_cart') !== null) {
+          let count = Number(JSON.parse(localStorage.getItem('count_cart')));
+          count --;
+          if (count <= 0) {
+            count = 0
+          }
+          localStorage.setItem('count_cart', JSON.stringify(count));
+        }
         this.navCtrl.setRoot(this.navCtrl.getActive().component);
       }, (err) => {
         console.log(err);

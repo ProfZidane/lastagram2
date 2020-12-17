@@ -68,6 +68,7 @@ export class BoutiquePage {
   second=0;
   minute=30;
   heure=0;
+  actionSheet;
   //rootPage = BoutiquePage;
   constructor(private socialSharing: SocialSharing, private platform: Platform, public toastCtrl: ToastController,public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController,private callNumber: CallNumber, private alertCtrl: AlertController, private camera: Camera,public actionSheetCtrl: ActionSheetController,private imageCompress: NgxImageCompressService,public menuCtrl: MenuController, private clipboard: Clipboard, public popoverCtrl: PopoverController, private app: App) {
     /*this.platform.registerBackButtonAction( () => {
@@ -248,6 +249,13 @@ export class BoutiquePage {
     )
   }
 
+  ionViewDidLeave(){
+    console.log("page ending ...");
+    if (this.actionSheet) {
+      this.actionSheet.dismiss();
+    }
+  }
+
   goToProductShare() {
     this.navCtrl.push(ProductToSharePage, { id : this.Market.id });
   }
@@ -283,7 +291,7 @@ export class BoutiquePage {
 
   // presente action
   presentActionSheet() {
-    const actionSheet = this.actionSheetCtrl.create({
+     this.actionSheet = this.actionSheetCtrl.create({
       title: 'Partagez avec : ',
       buttons: [
         {
@@ -336,7 +344,7 @@ export class BoutiquePage {
         }
       ]
     });
-    actionSheet.present();
+    this.actionSheet.present();
   }
 
   shareSocialMedia() {

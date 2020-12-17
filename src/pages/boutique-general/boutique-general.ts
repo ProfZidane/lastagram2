@@ -85,6 +85,7 @@ export class BoutiqueGeneralPage {
      private camera: Camera, public toastCtrl: ToastController, private callNumber: CallNumber, private app: App
   ) {
 
+
     /*this.platform.registerBackButtonAction( () => {
       let nav = this.app.getActiveNav();
       if (nav.canGoBack()) {
@@ -158,12 +159,15 @@ export class BoutiqueGeneralPage {
         });
 
         success.articles.forEach(element => {
-          if (element.store.subscribers.length > 0) {
-            if (element.store.subscribers.indexOf(Number(localStorage.getItem('idUser'))) !== undefined) {
-              this.isSubscribed = true;
-              return false;
+          if (element.store.subscribers) {
+            if (element.store.subscribers.length > 0) {
+              if (element.store.subscribers.indexOf(Number(localStorage.getItem('idUser'))) !== undefined) {
+                this.isSubscribed = true;
+                return false;
+              }
             }
           }
+
 
         });
         console.log("id : " + localStorage.getItem('idUser'));

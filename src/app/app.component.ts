@@ -10,7 +10,7 @@ import { Deeplinks } from '@ionic-native/deeplinks';
 import { TabsPage } from './../pages/tabs/tabs';
 import { HomePage } from './../pages/home/home';
 import { Component, NgZone, ViewChild } from '@angular/core';
-import { Platform, Nav, App,AlertController  } from 'ionic-angular';
+import { Platform, Nav, App,AlertController, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { FIREBASE_CONFIG, snapshotToArray } from './environment';
@@ -30,11 +30,11 @@ import { ELocalNotificationTriggerUnit, LocalNotifications } from '@ionic-native
 export class MyApp {
 
   rootPage:any;
-  backButtontTimer = 0;
-
+  backButtontTimer = false;
+  v = 0;
 
   @ViewChild(Nav) navChild:Nav;
-  constructor(platform: Platform,public alertCtrl: AlertController, private app: App, private localNotifications: LocalNotifications, statusBar: StatusBar, splashScreen: SplashScreen, private deeplinks: Deeplinks, private zone: NgZone,public ionApp: IonicApp) {
+  constructor(platform: Platform,public alertCtrl: AlertController, private app: App, private localNotifications: LocalNotifications, statusBar: StatusBar, splashScreen: SplashScreen, private deeplinks: Deeplinks, private zone: NgZone,public ionApp: IonicApp,public toastCtrl: ToastController) {
     if (localStorage.getItem('userToken') !== null) {
       this.rootPage = TabsPage;
     } else {
@@ -54,6 +54,7 @@ export class MyApp {
       platform.registerBackButtonAction( () => {
         let nav = this.app.getActiveNav();
 
+
         console.log(
           typeof(nav.getActive().component.name)
         );
@@ -63,85 +64,13 @@ export class MyApp {
         if (nav.canGoBack()) {
           if (nav.getActive().component.name === "HomeProductPage") {
 
-            this.backButtontTimer ++;
 
-            if (this.backButtontTimer === 1) {
-
-              const alert = this.alertCtrl.create({
-                title: 'ATTENTION',
-                subTitle: 'Voulez-vous sortir vraiment de Lastagram ?',
-                buttons: [
-                  {
-                    text: "Aller à l\'accueil",
-                    role: 'cancel',
-                    handler: () => {
-                        console.log("go to home");
-                      nav.push(HomeProductPage);
-                    }
-
-                  },
-                  {
-                    text: "Quitter",
-                    handler: () => {
-                      console.log("exit");
-                      platform.exitApp();
-
-
-                    }
-                  }
-                ]
-              });
-
-              alert.present();
-
-
-
-            } else {
-
-              platform.exitApp();
-
-            }
+            platform.exitApp();
 
           } else if (nav.getActive().component.name === "LoginPage") {
 
-            this.backButtontTimer ++;
 
-            if (this.backButtontTimer === 1) {
-
-              const alert = this.alertCtrl.create({
-                title: 'ATTENTION',
-                subTitle: 'Voulez-vous sortir vraiment de Lastagram ?',
-                buttons: [
-                  {
-                    text: "Aller à l\'accueil",
-                    role: 'cancel',
-                    handler: () => {
-                        console.log("go to home");
-                      nav.push(HomeProductPage);
-                    }
-
-                  },
-                  {
-                    text: "Quitter",
-                    handler: () => {
-                      console.log("exit");
-                      platform.exitApp();
-
-
-                    }
-                  }
-                ]
-              });
-
-              alert.present();
-
-
-
-            } else {
-
-              platform.exitApp();
-
-            }
+            platform.exitApp();
 
           } else if (nav.getActive().component.name === "CreateBoutiquePage") {
 
@@ -192,88 +121,15 @@ export class MyApp {
 
           if (nav.getActive().component.name === "HomeProductPage") {
 
-            this.backButtontTimer ++;
 
-            if (this.backButtontTimer === 1) {
-              const alert = this.alertCtrl.create({
-                title: 'ATTENTION',
-                subTitle: 'Voulez-vous sortir vraiment de Lastagram ?',
-                buttons: [
-                  {
-                    text: "Aller à l\'accueil",
-                    role: 'cancel',
-                    handler: () => {
-                      console.log("go to home");
-                      nav.push(HomeProductPage);
-                    }
-
-                  },
-                  {
-                    text: "Quitter",
-                    handler: () => {
-                      console.log("exit");
-                      platform.exitApp();
-
-
-                    }
-                  }
-                ]
-              });
-
-              alert.present();
-
-              platform.registerBackButtonAction( () => {
-                console.log("jhai appuyer ");
-
-              })
-
-            } else {
-
-              platform.exitApp();
-
-            }
+            platform.exitApp();
 
 
           } else if (nav.getActive().component.name === "LoginPage") {
 
-            this.backButtontTimer ++;
+            //this.backButtontTimer ++;
 
-            if (this.backButtontTimer === 1) {
-
-              const alert = this.alertCtrl.create({
-                title: 'ATTENTION',
-                subTitle: 'Voulez-vous sortir vraiment de Lastagram ?',
-                buttons: [
-                  {
-                    text: "Aller à l\'accueil",
-                    role: 'cancel',
-                    handler: () => {
-                        console.log("go to home");
-                      nav.push(HomeProductPage);
-                    }
-
-                  },
-                  {
-                    text: "Quitter",
-                    handler: () => {
-                      console.log("exit");
-                      platform.exitApp();
-
-
-                    }
-                  }
-                ]
-              });
-
-              alert.present();
-
-
-
-            } else {
-
-              platform.exitApp();
-
-            }
+            platform.exitApp();
 
           } else if (nav.getActive().component.name === "CreateBoutiquePage") {
 

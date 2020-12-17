@@ -127,6 +127,11 @@ export class CheckoutPage {
 
             }
           );
+          if (localStorage.getItem('count_cart') !== null) {
+            let count = Number(JSON.parse(localStorage.getItem('count_cart')));
+            count = 0 ;
+            localStorage.setItem('count_cart', JSON.stringify(count));
+          }
           loading.dismiss()
           this.navCtrl.push(OrderedPage);
         },

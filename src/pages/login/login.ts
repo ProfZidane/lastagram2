@@ -15,7 +15,7 @@ import { ProductToSharePage } from './../product-to-share/product-to-share';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
-import { ToastController } from 'ionic-angular';
+import { App,ToastController } from 'ionic-angular';
 import { ModalController, PopoverController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { ELocalNotificationTriggerUnit, LocalNotifications } from '@ionic-native/local-notifications';
@@ -48,7 +48,7 @@ export class LoginPage {
   next;
   actionSheet;
   v = 0;
-  constructor(private clipboard: Clipboard, public popoverCtrl: PopoverController, public loadingCtrl: LoadingController,private platform: Platform, public navCtrl: NavController, public navParams: NavParams, public storeService: StoreProvider, private alertCtrl: AlertController,public toastCtrl: ToastController, public modalCtrl: ModalController, private localNotifications: LocalNotifications, private notificationService: NotificationProvider, private userService: UserProvider, private socialSharing: SocialSharing,public actionSheetCtrl: ActionSheetController, private searchService: SearchProvider) {
+  constructor(private app: App, private clipboard: Clipboard, public popoverCtrl: PopoverController, public loadingCtrl: LoadingController,private platform: Platform, public navCtrl: NavController, public navParams: NavParams, public storeService: StoreProvider, private alertCtrl: AlertController,public toastCtrl: ToastController, public modalCtrl: ModalController, private localNotifications: LocalNotifications, private notificationService: NotificationProvider, private userService: UserProvider, private socialSharing: SocialSharing,public actionSheetCtrl: ActionSheetController, private searchService: SearchProvider) {
     this.v = 1;
     document.addEventListener('backbutton', () => {
       if (this.navCtrl.getActive().component.name === "LoginPage") {
@@ -373,6 +373,8 @@ export class LoginPage {
   ViewMarket(value,b) {
     console.log(value);
     this.navCtrl.push(BoutiqueGeneralPage, { "id": value, "isAbonned" :  b});
+//    this.app.getRootNav().setRoot(BoutiqueGeneralPage, { "id": value, "isAbonned" :  b});
+
   }
 
   goToSearch() {

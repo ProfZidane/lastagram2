@@ -156,6 +156,16 @@ export class DetailProductPage {
 
 
           }
+
+          /*if (localStorage.getItem('count_cart') !== null) {
+            let count = Number(JSON.parse(localStorage.getItem('count_cart')));
+            count ++;
+            localStorage.setItem('count_cart', JSON.stringify(count));
+          } else {
+            let count = 1;
+            localStorage.setItem('count_cart', JSON.stringify(count));
+          }*/
+
           let alert = this.alertCtrl.create({
             title: 'SUCCESS',
             subTitle: 'Ajoutez au panier avec succès !',
