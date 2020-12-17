@@ -75,7 +75,7 @@
     "ionic-angular": "3.9.9",
     "ionic-img-viewer": "^2.9.0",
     "ionic-plugin-deeplinks": "^1.0.20",
-    "ionicons": "3.0.0",
+    "ionicons": "^3.0.0",
     "ng-socket-io": "^0.2.4",
     "ngx-countdown": "^11.0.0",
     "ngx-image-compress": "^11.0.3",

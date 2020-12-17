@@ -9,10 +9,10 @@
     <ion-title></ion-title>
   </ion-navbar>-->
 
-  <ion-navbar>
+  <ion-navbar color="lastagram" >
     <ion-list class="avatar-mgs">
       <ion-item>
-        <ion-title *ngIf="externalUser" item-start>
+        <ion-title  *ngIf="externalUser" item-start>
           {{ externalUser.first_name + ' ' + externalUser.last_name }}
         </ion-title>
         <ion-title *ngIf="externalUser2" item-end>

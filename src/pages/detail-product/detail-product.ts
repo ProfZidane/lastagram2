@@ -92,7 +92,9 @@ export class DetailProductPage {
 
   ionViewDidLeave(){
     console.log("page ending ...");
-    this.actionSheet.dismiss();
+    if (this.actionSheet) {
+      this.actionSheet.dismiss();
+    }
   }
 
   Gotomarket() {

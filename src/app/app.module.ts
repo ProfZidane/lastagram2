@@ -1,3 +1,4 @@
+import { HomeProductPageModule } from './../pages/home-product/home-product.module';
 import { DetailProductInCartPageModule } from './../pages/detail-product-in-cart/detail-product-in-cart.module';
 import { RegisterCodeVerificationPageModule } from './../pages/register-code-verification/register-code-verification.module';
 import { ShareDesignHomePageModule } from './../pages/share-design-home/share-design-home.module';
@@ -179,6 +180,7 @@ const config : SocketIoConfig = { url: "https://192.168.1.82:4000", options : {}
     ShareDesignHomePageModule,
     RegisterCodeVerificationPageModule,
     DetailProductInCartPageModule,
+    HomeProductPageModule,
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp, { tabsPlacement: 'top'})
   ],

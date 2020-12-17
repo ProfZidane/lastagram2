@@ -1,3 +1,4 @@
+import { HomeProductPage } from './../home-product/home-product';
 import { MyNotifPage } from './../my-notif/my-notif';
 import { CartPage } from './../cart/cart';
 import { SearchPage } from './../search/search';
@@ -20,6 +21,7 @@ import { OrderProvider } from './../../providers/order/order';
 export class TabsPage {
 
   tab1Root = LoginPage;
+  tab11Root = HomeProductPage;
   tab2Root = CartPage;
   tab3Root = MyNotifPage;
   tab4Root = ProfilePage;

@@ -1,3 +1,4 @@
+import { BoutiqueGeneralPage } from './../boutique-general/boutique-general';
 import { MessageMenuPage } from './../message-menu/message-menu';
 import { MessageContentPage } from './../message-content/message-content';
 import { OrderProvider } from './../../providers/order/order';
@@ -54,6 +55,12 @@ Total;
 
   goToMessage() {
     this.navCtrl.push(MessageMenuPage);
+  }
+
+  gotomarket(id) {
+    console.log(id);
+    this.navCtrl.push(BoutiqueGeneralPage, { "id" : id })
+
   }
 
 }

@@ -1,3 +1,4 @@
+import { DetailProductPage } from './../detail-product/detail-product';
 import { ShareDesignHomePage } from './../share-design-home/share-design-home';
 import { MessageContentPage } from './../message-content/message-content';
 import { ProfilePage } from './../profile/profile';
@@ -27,7 +28,7 @@ import * as firebase from 'firebase';
 import { Clipboard } from '@ionic-native/clipboard';
 
 /**
- * Generated class for the LoginPage page.
+ * Generated class for the HomeProductPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -35,23 +36,25 @@ import { Clipboard } from '@ionic-native/clipboard';
 
 @IonicPage()
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html',
+  selector: 'page-home-product',
+  templateUrl: 'home-product.html',
 })
-export class LoginPage {
+export class HomeProductPage {
+  Products;
+  Total;
+  next;
   visibility = false;
   markets;
   id;
   high;
   seen = [];
   previous;
-  next;
   actionSheet;
   v = 0;
   constructor(private clipboard: Clipboard, public popoverCtrl: PopoverController, public loadingCtrl: LoadingController,private platform: Platform, public navCtrl: NavController, public navParams: NavParams, public storeService: StoreProvider, private alertCtrl: AlertController,public toastCtrl: ToastController, public modalCtrl: ModalController, private localNotifications: LocalNotifications, private notificationService: NotificationProvider, private userService: UserProvider, private socialSharing: SocialSharing,public actionSheetCtrl: ActionSheetController, private searchService: SearchProvider) {
     this.v = 1;
     document.addEventListener('backbutton', () => {
-      if (this.navCtrl.getActive().component.name === "LoginPage") {
+      if (this.navCtrl.getActive().component.name === "HomeProductPage") {
         console.log("click to back button !");
         if (this.actionSheet) {
           this.actionSheet.dismiss();
@@ -200,54 +203,33 @@ export class LoginPage {
   });
   loading.present();
 
-    this.storeService.getListStore().subscribe(
+  this.searchService.searchProduct().subscribe(
 
       (store) => {
         loading.dismiss();
         console.log(store.results);
-        this.markets = store.results;
+        this.Products = store.results;
         this.previous = store.previous;
         this.next = store.next;
-        this.markets.forEach(element => {
+        /*this.markets.forEach(element => {
             if (element.subscribers.includes(Number(localStorage.getItem('idUser')))) {
               element.isSubscribed = true;
             } else {
               element.isSubscribed = false;
             }
-        });
+        });*/
         //console.log(this.markets);
 
       }, (err) => {
-        loading.dismiss();
-        console.log(err);
-        console.log(err.status);
-        console.log(err.statusText);
-        if (err.status == 0 && err.statusText == "Unknown Error") {
-          let alert = this.alertCtrl.create({
-            title: 'ATTENTION',
-            subTitle: 'Veuillez verifiez votre connexion internet',
-            buttons: ['OK']
-          });
-          alert.present();
-        } else if (err.status == 500) {
-          let alert = this.alertCtrl.create({
-            title: 'ECHEC',
-            subTitle: 'Echec de chargement. Veuillez réessayer plus tard!',
-            buttons: ['OK']
-          });
-          alert.present();
-        } else {
-          let alert = this.alertCtrl.create({
-            title: 'ECHEC',
-            subTitle: 'Echec de chargement. Veuillez réessayer plus tard!',
-            buttons: ['OK']
-          });
-          alert.present();
-        }/*else if (err.status == 401 && err.statusText == "Unauthorized") {
-          localStorage.clear();
-          const modal = this.modalCtrl.create(HomePage);
-          modal.present();
-        }*/
+
+        console.log("error : " + err );
+        //loading.dismiss();
+        let alert = this.alertCtrl.create({
+          title: 'ECHEC',
+          subTitle: 'Echec de chargement. Veuillez réessayer plus tard!',
+          buttons: ['OK']
+        });
+        alert.present();
 
       }
 
@@ -333,7 +315,7 @@ export class LoginPage {
 
             data_next.forEach(element => {
               if (element !== null) {
-                this.markets.push( element );
+                this.Products.push( element );
                 //this.total.push(element);
               }
             });
@@ -349,6 +331,11 @@ export class LoginPage {
     }, 500);
   }
 
+  goToDetailProduct(id,id2,id3,devis) {
+    console.log(id,id2,id3);
+
+    this.navCtrl.push(DetailProductPage, { "id" : id, "id_market": id2, "owner": id3, "devis": devis });
+  }
 
   goReload() {
 

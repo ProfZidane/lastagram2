@@ -1,0 +1,144 @@
+<ion-header  color="lastagram">
+
+  <div class="share-part" align="center" *ngIf="visibility" >
+    <ion-grid  align="center" >
+      <!--<ion-row>
+        <ion-col col-2 class="network-share" align="center">
+          <ion-icon name="logo-facebook" color="primary" (click)="goToProductShare()"></ion-icon>
+          <small>Facebook</small>
+        </ion-col>
+        <ion-col col-2 class="network-share" align="center">
+          <ion-icon name="logo-whatsapp" color="secondary"></ion-icon>
+          <small>WhatsApp</small>
+        </ion-col>
+        <ion-col col-2 class="network-share" align="center">
+          <ion-icon name="paper-plane" color="light"></ion-icon>
+          <small>Télégram</small>
+        </ion-col>
+        <ion-col col-2 class="network-share" align="center">
+          <ion-icon name="chatbubbles"color="primary"></ion-icon>
+          <small>Messenger</small>
+        </ion-col>
+        <ion-col col-2 class="network-share" align="center">
+          <ion-icon name="link" color="dark"></ion-icon>
+          <small>Copier lien</small>
+        </ion-col>
+      </ion-row>-->
+
+      <ion-row>
+          <ion-icon class="close" name="close-circle" color="danger" (click)="closeShareComponent()" ></ion-icon>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <ion-navbar hideBackButton="true"  color="lastagram">
+    <ion-title start>
+      <!--<button color="lastagram" ion-button icon-only (click)="ShowProfile()" style="box-shadow: none;">
+        <ion-icon name="menu"></ion-icon>
+      </button>-->
+      <span style="position: relative; bottom: -1px" (click)="goReload()">Lastagram</span>
+    </ion-title>
+
+
+
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="goToSearch()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+      <!-- espace -->
+        &nbsp;&nbsp;
+      <!-- end of espace -->
+      <button ion-button icon-only (click)="presentActionSheet()">
+        <ion-icon name="md-more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content fullscreen>
+
+
+  <ion-grid class=" category-grid" align="center">
+    <ion-scroll scrollX="true" style="width:100vw; height:110px;" >
+    <ion-row class="border"  *ngIf="high" nowrap >
+      <ion-col class="icone-high" *ngFor="let ctg of high" col-3 (click)="viewArticles(ctg.id,'high',ctg.name)">
+        <img [src]=ctg.icone  />
+        <div class="contain-name">
+          <p class="ctg-name" style="font-weight: 370; text-transform: capitalize; text-overflow: ellipsis;">{{ ctg.name }}</p>
+        </div>
+      </ion-col>
+      <!--<ion-col class="" col-3>
+        <img src="https://img.icons8.com/officel/16/000000/tv-on.png"/>
+        <p>Appareil</p>
+      </ion-col>
+      <ion-col class="" col-3>
+        <img src="https://img.icons8.com/officel/16/000000/lip-gloss.png"/>
+        <p>Beauté</p>
+      </ion-col>
+      <ion-col class="" col-3>
+        <img src="https://img.icons8.com/officel/16/000000/ballet-shoes.png"/>
+        <p>Chaussures</p>
+      </ion-col>
+      <ion-col class="" col-3>
+        <img src="https://img.icons8.com/officel/16/000000/ballet-shoes.png"/>
+        <p>Chaussures</p>
+      </ion-col>-->
+    </ion-row>
+  </ion-scroll>
+  </ion-grid>
+  <hr class="divided" style="background-color:rgb(207, 194, 194)">
+
+  <!--<ion-scroll scrollX="true" style="width:100vw; height:50px">
+    <ion-row nowrap>
+      <ion-col class="" col-3>
+        <img src="https://img.icons8.com/officel/16/000000/home.png"/>
+        <p>Accueil</p>
+      </ion-col>
+      <ion-col class="" col-3>
+        <img src="https://img.icons8.com/officel/16/000000/tv-on.png"/>
+        <p>Appareil</p>
+      </ion-col>
+      <ion-col class="" col-3>
+        <img src="https://img.icons8.com/officel/16/000000/lip-gloss.png"/>
+        <p>Beauté</p>
+      </ion-col>
+      <ion-col class="" col-3>
+        <img src="https://img.icons8.com/officel/16/000000/ballet-shoes.png"/>
+        <p>Chaussures</p>
+      </ion-col>
+      <ion-col class="" col-3>
+        <img src="https://img.icons8.com/officel/16/000000/ballet-shoes.png"/>
+        <p>Chaussures</p>
+      </ion-col>
+    </ion-row>
+  </ion-scroll>-->
+  <ion-grid class="product-to-share">
+    <ion-row *ngIf="Products" >
+      <ion-col  col-6 align="center" *ngFor="let product of Products" >
+        <div class="share-product" (click)="goToDetailProduct(product.id, product.store.id, product.store.owner, product.store.devis)">
+          <div class="search-img-0">
+            <img [src]=product.image_cover class="d-i" alt="">
+          </div>
+
+          <hr>
+          <p class="desc-product">{{ product.name }}</p>
+          <p class="price-product twoo">{{ product.promo_price | number }} {{ product.store.devis }}</p>
+        </div>
+      </ion-col>
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+      <!--<ion-col  col-6 align="center">
+        <div class="share-product">
+          <div class="search-img">
+          </div>
+          <hr>
+          <p class="desc-product">Sac à main</p>
+          <p class="price-product twoo">2300 F CFA</p>
+        </div>
+      </ion-col>-->
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

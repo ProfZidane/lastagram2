@@ -1,3 +1,4 @@
+import { HomeProductPage } from './../pages/home-product/home-product';
 import { MyShopPage } from './../pages/my-shop/my-shop';
 import { CreateBoutiquePage } from './../pages/create-boutique/create-boutique';
 import { BoutiqueGeneralPage } from './../pages/boutique-general/boutique-general';
@@ -60,7 +61,7 @@ export class MyApp {
 
 
         if (nav.canGoBack()) {
-          if (nav.getActive().component.name === "LoginPage") {
+          if (nav.getActive().component.name === "HomeProductPage") {
 
             this.backButtontTimer ++;
 
@@ -75,7 +76,48 @@ export class MyApp {
                     role: 'cancel',
                     handler: () => {
                         console.log("go to home");
-                      nav.push(LoginPage);
+                      nav.push(HomeProductPage);
+                    }
+
+                  },
+                  {
+                    text: "Quitter",
+                    handler: () => {
+                      console.log("exit");
+                      platform.exitApp();
+
+
+                    }
+                  }
+                ]
+              });
+
+              alert.present();
+
+
+
+            } else {
+
+              platform.exitApp();
+
+            }
+
+          } else if (nav.getActive().component.name === "LoginPage") {
+
+            this.backButtontTimer ++;
+
+            if (this.backButtontTimer === 1) {
+
+              const alert = this.alertCtrl.create({
+                title: 'ATTENTION',
+                subTitle: 'Voulez-vous sortir vraiment de Lastagram ?',
+                buttons: [
+                  {
+                    text: "Aller à l\'accueil",
+                    role: 'cancel',
+                    handler: () => {
+                        console.log("go to home");
+                      nav.push(HomeProductPage);
                     }
 
                   },
@@ -115,7 +157,7 @@ export class MyApp {
 
           } else if (nav.getActive().component.name === "ProfilePage") {
 
-            nav.push(LoginPage);
+            nav.push(HomeProductPage);
 
           } else if (nav.getActive().component.name === "MyShopPage") {
 
@@ -148,7 +190,7 @@ export class MyApp {
         } else {
           console.log(nav);
 
-          if (nav.getActive().component.name === "LoginPage") {
+          if (nav.getActive().component.name === "HomeProductPage") {
 
             this.backButtontTimer ++;
 
@@ -162,7 +204,7 @@ export class MyApp {
                     role: 'cancel',
                     handler: () => {
                       console.log("go to home");
-                      nav.push(LoginPage);
+                      nav.push(HomeProductPage);
                     }
 
                   },
@@ -192,6 +234,47 @@ export class MyApp {
             }
 
 
+          } else if (nav.getActive().component.name === "LoginPage") {
+
+            this.backButtontTimer ++;
+
+            if (this.backButtontTimer === 1) {
+
+              const alert = this.alertCtrl.create({
+                title: 'ATTENTION',
+                subTitle: 'Voulez-vous sortir vraiment de Lastagram ?',
+                buttons: [
+                  {
+                    text: "Aller à l\'accueil",
+                    role: 'cancel',
+                    handler: () => {
+                        console.log("go to home");
+                      nav.push(HomeProductPage);
+                    }
+
+                  },
+                  {
+                    text: "Quitter",
+                    handler: () => {
+                      console.log("exit");
+                      platform.exitApp();
+
+
+                    }
+                  }
+                ]
+              });
+
+              alert.present();
+
+
+
+            } else {
+
+              platform.exitApp();
+
+            }
+
           } else if (nav.getActive().component.name === "CreateBoutiquePage") {
 
             nav.popToRoot();
@@ -206,7 +289,7 @@ export class MyApp {
 
           } else if (nav.getActive().component.name === "ProfilePage") {
 
-            nav.push(LoginPage);
+            nav.push(HomeProductPage);
 
           } else {
 
@@ -219,7 +302,7 @@ export class MyApp {
                   role: 'cancel',
                   handler: () => {
                       console.log("go to home");
-                    nav.push(LoginPage);
+                    nav.push(HomeProductPage);
                   }
 
                 },
@@ -246,7 +329,7 @@ export class MyApp {
       },1)
 
       this.deeplinks.routeWithNavController(this.navChild,{
-        '/': LoginPage,
+        '/': HomeProductPage,
         '/product/:id/:id_market/:owner' : DetailProductPage,
         '/market/:id/:isAbonned' : BoutiqueGeneralPage ,
         '/new-password' : PasswordModifyPage,
