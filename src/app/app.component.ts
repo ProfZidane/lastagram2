@@ -82,7 +82,8 @@ export class MyApp {
 
           } else if (nav.getActive().component.name === "BoutiquePage") {
 
-            nav.push(MyShopPage);
+            //nav.push(MyShopPage);
+            nav.pop();
 
 
           } else if (nav.getActive().component.name === "ProfilePage") {
@@ -94,7 +95,8 @@ export class MyApp {
 
           } else if (nav.getActive().component.name === "MyShopPage") {
 
-            nav.push(ProfilePage);
+            //nav.push(ProfilePage);
+            nav.pop();
             //this.app.getRootNav().getActiveChildNav().select();
 
             //nav.pop();
