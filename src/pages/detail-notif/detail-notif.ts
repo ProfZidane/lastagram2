@@ -1,3 +1,4 @@
+import { DetailProductInCartPage } from './../detail-product-in-cart/detail-product-in-cart';
 import { BoutiqueGeneralPage } from './../boutique-general/boutique-general';
 import { NotificationProvider } from './../../providers/notification/notification';
 import { OrderProvider } from './../../providers/order/order';
@@ -67,4 +68,9 @@ date;
 
   }
 
+  goToDetailProduct(json) {
+
+
+    this.navCtrl.push(DetailProductInCartPage, { "data" : json });
+  }
 }

@@ -35,12 +35,12 @@
         <ion-list no-lines>
           <button ion-item (click)="goToModifyProfile()">
             <ion-icon name="person" item-start></ion-icon>
-            Modifier Compte
+            {{ "PARAMS.modify_account" | translate }}
           </button>
           <hr>
           <button ion-item (click)="goToCreateBoutique()">
             <ion-icon name="create" item-start></ion-icon>
-            Créer boutique
+            {{ "PARAMS.create" | translate }}
           </button>
         </ion-list>
       </ion-card>
@@ -51,17 +51,17 @@
         <ion-list no-lines>
           <button ion-item (click)="goToMyShop()">
             <ion-icon name="home" item-start></ion-icon>
-            Mes Boutiques
+            {{ "PARAMS.my_shop" | translate }}
           </button>
           <hr>
           <button ion-item (click)="goToMyOrders()">
             <ion-icon name="md-basket" item-start></ion-icon>
-            Mes Commandes
+            {{ "PARAMS.my_order" | translate }}
           </button>
           <hr>
           <button ion-item (click)="goToMessageMenu()">
             <ion-icon name="mail" item-start></ion-icon>
-            Mes Messages
+            {{ "PARAMS.my_mgs" | translate }}
           </button>
         </ion-list>
       </ion-card>
@@ -72,17 +72,22 @@
         <ion-list no-lines>
           <button ion-item (click)="goToAbout()">
             <ion-icon name="information-circle" item-start></ion-icon>
-            A propos
+            {{ "PARAMS.about" | translate }}
           </button>
           <hr>
           <button ion-item (click)="Logout()">
             <ion-icon name="md-log-in" item-start></ion-icon>
-            Déconnexion
+            {{ "PARAMS.logout" | translate }}
           </button>
           <hr>
           <button ion-item (click)="goToAssistance()">
             <ion-icon name="md-help" item-start></ion-icon>
-            Assistance
+            {{ "PARAMS.help" | translate }}
+          </button>
+          <hr>
+          <button ion-item (click)="goToLanguageSetting()">
+            <ion-icon name="flag" item-start></ion-icon>
+            {{ "PARAMS.lng" | translate }}
           </button>
         </ion-list>
       </ion-card>

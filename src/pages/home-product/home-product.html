@@ -65,7 +65,9 @@
       <ion-col class="icone-high" *ngFor="let ctg of high" col-3 (click)="viewArticles(ctg.id,'high',ctg.name)">
         <img [src]=ctg.icone  />
         <div class="contain-name">
-          <p class="ctg-name" style="font-weight: 370; text-transform: capitalize; text-overflow: ellipsis;">{{ ctg.name }}</p>
+          <p class="ctg-name" style="font-weight: 370; text-transform: capitalize; text-overflow: ellipsis;">
+            {{ ctg.name }}
+          </p>
         </div>
       </ion-col>
       <!--<ion-col class="" col-3>

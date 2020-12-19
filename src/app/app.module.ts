@@ -1,3 +1,4 @@
+import { LanguageSettingPageModule } from './../pages/language-setting/language-setting.module';
 import { HomeProductPageModule } from './../pages/home-product/home-product.module';
 import { DetailProductInCartPageModule } from './../pages/detail-product-in-cart/detail-product-in-cart.module';
 import { RegisterCodeVerificationPageModule } from './../pages/register-code-verification/register-code-verification.module';
@@ -78,11 +79,15 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 import { IonicStorageModule } from '@ionic/storage';
+
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
 
 import { File } from '@ionic-native/file';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
@@ -111,9 +116,13 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 import { NotificationProvider } from '../providers/notification/notification';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { SearchProvider } from '../providers/search/search';
+import { LanguageProvider } from '../providers/language/language';
 
 const config : SocketIoConfig = { url: "https://192.168.1.82:4000", options : {} };
 
+export function setTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
+ }
 
 @NgModule({
   declarations: [
@@ -181,8 +190,17 @@ const config : SocketIoConfig = { url: "https://192.168.1.82:4000", options : {}
     RegisterCodeVerificationPageModule,
     DetailProductInCartPageModule,
     HomeProductPageModule,
+    LanguageSettingPageModule,
     IonicStorageModule.forRoot(),
-    IonicModule.forRoot(MyApp, { tabsPlacement: 'top',tabsHideOnSubPages: true})
+
+    IonicModule.forRoot(MyApp, { tabsPlacement: 'top',tabsHideOnSubPages: true}),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (setTranslateLoader),
+        deps: [HttpClient]
+      }
+    }),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -213,7 +231,8 @@ const config : SocketIoConfig = { url: "https://192.168.1.82:4000", options : {}
     WebView,
     FileTransfer,
     FilePath,
-    PhotoViewer
+    PhotoViewer,
+    LanguageProvider
       ]
 })
 export class AppModule {}

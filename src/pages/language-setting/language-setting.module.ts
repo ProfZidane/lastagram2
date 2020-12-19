@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { ProductOfCategoryPage } from './product-of-category';
+import { LanguageSettingPage } from './language-setting';
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
-    ProductOfCategoryPage,
+    LanguageSettingPage,
   ],
   imports: [
-    IonicPageModule.forChild(ProductOfCategoryPage),
+    IonicPageModule.forChild(LanguageSettingPage),
     TranslateModule
   ],
 })
-export class ProductOfCategoryPageModule {}
+export class LanguageSettingPageModule {}

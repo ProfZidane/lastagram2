@@ -1,3 +1,4 @@
+import { LanguageSettingPage } from './../language-setting/language-setting';
 import { LoginPage } from './../login/login';
 import { MyNotifPage } from './../my-notif/my-notif';
 import { AccueilPage } from './../accueil/accueil';
@@ -186,6 +187,10 @@ export class ProfilePage {
     this.navCtrl.push(AssistancePage)
   }
 
+  goToLanguageSetting() {
+    this.navCtrl.push(LanguageSettingPage);
+  }
+
   Logout() {
     let loading = this.loadingCtrl.create({
       content: 'Veuillez Patienter...'
@@ -201,4 +206,6 @@ export class ProfilePage {
     modal.present();*/
     this.app.getRootNav().setRoot(HomePage);
   }
+
+
 }

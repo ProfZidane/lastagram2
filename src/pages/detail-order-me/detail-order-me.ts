@@ -1,3 +1,4 @@
+import { DetailProductInCartPage } from './../detail-product-in-cart/detail-product-in-cart';
 
 import { OrderProvider } from './../../providers/order/order';
 import { Component } from '@angular/core';
@@ -68,5 +69,10 @@ devis;
   }
 
 
+  goToDetailProduct(json) {
+
+
+    this.navCtrl.push(DetailProductInCartPage, { "data" : json });
+  }
 
 }

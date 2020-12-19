@@ -1,3 +1,4 @@
+import { LanguageProvider } from './../providers/language/language';
 import { HomeProductPage } from './../pages/home-product/home-product';
 import { MyShopPage } from './../pages/my-shop/my-shop';
 import { CreateBoutiquePage } from './../pages/create-boutique/create-boutique';
@@ -16,6 +17,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { FIREBASE_CONFIG, snapshotToArray } from './environment';
 import * as firebase from 'firebase';
 import { IonicApp } from 'ionic-angular';
+import { TranslateService } from '@ngx-translate/core';
 
 firebase.initializeApp(FIREBASE_CONFIG);
 
@@ -34,12 +36,13 @@ export class MyApp {
   v = 0;
 
   @ViewChild(Nav) navChild:Nav;
-  constructor(platform: Platform,public alertCtrl: AlertController, private app: App, private localNotifications: LocalNotifications, statusBar: StatusBar, splashScreen: SplashScreen, private deeplinks: Deeplinks, private zone: NgZone,public ionApp: IonicApp,public toastCtrl: ToastController) {
+  constructor(platform: Platform,translate: TranslateService, languageService: LanguageProvider,public alertCtrl: AlertController, private app: App, private localNotifications: LocalNotifications, statusBar: StatusBar, splashScreen: SplashScreen, private deeplinks: Deeplinks, private zone: NgZone,public ionApp: IonicApp,public toastCtrl: ToastController) {
     if (localStorage.getItem('userToken') !== null) {
       this.rootPage = TabsPage;
     } else {
       this.rootPage = HomePage;
     }
+    languageService.setInitialAppLanguage();
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -50,6 +53,8 @@ export class MyApp {
 
       statusBar.styleDefault();
       splashScreen.hide();
+
+
 
       platform.registerBackButtonAction( () => {
         let nav = this.app.getActiveNav();
@@ -64,13 +69,52 @@ export class MyApp {
         if (nav.canGoBack()) {
           if (nav.getActive().component.name === "HomeProductPage") {
 
+            if (this.backButtontTimer === true) {
+              platform.exitApp();
+          } else {
+            this.backButtontTimer = true;
+            this.toastCtrl.create({
+              message: "Appuyer encore pour quitter",
+              duration: 2000
+            }).present();
 
-            platform.exitApp();
+            setTimeout( () => {
+              this.backButtontTimer = false;
+            },2020)
+          }
+
+            //platform.exitApp();
 
           } else if (nav.getActive().component.name === "LoginPage") {
 
+            if (this.backButtontTimer === true) {
+              platform.exitApp();
+          } else {
+            this.backButtontTimer = true;
+            this.toastCtrl.create({
+              message: "Appuyer encore pour quitter",
+              duration: 2000
+            }).present();
 
-            platform.exitApp();
+            setTimeout( () => {
+              this.backButtontTimer = false;
+            },2020)
+          }
+            //platform.exitApp();
+
+          } else if (nav.getActive().component.name === "CartPage") {
+
+            console.log('c moi !!');
+
+            this.app.getRootNav().getActiveChildNav().select(0);
+            //platform.exitApp();
+
+          } else if (nav.getActive().component.name === "MyNotifPage") {
+
+            console.log('c moi !!');
+
+            this.app.getRootNav().getActiveChildNav().select(0);
+            //platform.exitApp();
 
           } else if (nav.getActive().component.name === "CreateBoutiquePage") {
 
@@ -118,7 +162,6 @@ export class MyApp {
             /*if (activePortal) {
                 console.log("ddd");
                 activePortal.destroy()
-
             }*/
             nav.pop();
 
@@ -130,15 +173,53 @@ export class MyApp {
 
           if (nav.getActive().component.name === "HomeProductPage") {
 
+            if (this.backButtontTimer === true) {
+              platform.exitApp();
+          } else {
+            this.backButtontTimer = true;
+            this.toastCtrl.create({
+              message: "Appuyer encore pour quitter",
+              duration: 2000
+            }).present();
 
-            platform.exitApp();
+            setTimeout( () => {
+              this.backButtontTimer = false;
+            },2020)
+          }
+            //platform.exitApp();
 
 
           } else if (nav.getActive().component.name === "LoginPage") {
 
-            //this.backButtontTimer ++;
 
-            platform.exitApp();
+            if (this.backButtontTimer === true) {
+              platform.exitApp();
+          } else {
+            this.backButtontTimer = true;
+            this.toastCtrl.create({
+              message: "Appuyer encore pour quitter",
+              duration: 2000
+            }).present();
+
+            setTimeout( () => {
+              this.backButtontTimer = false;
+            },2020)
+          }
+           // platform.exitApp();
+
+          } else if (nav.getActive().component.name === "CartPage") {
+
+            console.log('c moi !!');
+
+            this.app.getRootNav().getActiveChildNav().select(0);
+            //platform.exitApp();
+
+          } else if (nav.getActive().component.name === "MyNotifPage") {
+
+            console.log('c moi !!');
+
+            this.app.getRootNav().getActiveChildNav().select(0);
+            //platform.exitApp();
 
           } else if (nav.getActive().component.name === "CreateBoutiquePage") {
 

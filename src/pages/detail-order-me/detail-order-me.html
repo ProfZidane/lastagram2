@@ -6,7 +6,7 @@
 -->
 <ion-header>
   <ion-navbar color="lastagram" hideBackButton="true">
-    <ion-title>Détail Commande</ion-title>
+    <ion-title>{{ "TITLE.detail_order" | translate }}</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content fullscreen>
@@ -19,10 +19,10 @@
 
         <ion-list *ngIf="Products" >
           <ion-item class="grid-cart-0" *ngFor="let product of Products" >
-            <ion-thumbnail item-start *ngIf="product.store === (id_store)">
+            <ion-thumbnail item-start *ngIf="product.store === (id_store)" (click)="goToDetailProduct(product)">
               <img class="img-cart" [src]=product.article.image_cover >
             </ion-thumbnail>
-            <h2 *ngIf="product.store === (id_store)">{{ product.article.name}}</h2>
+            <h2 (click)="goToDetailProduct(product)" *ngIf="product.store === (id_store)">{{ product.article.name}}</h2>
             <p *ngIf="product.store === (id_store)"><strong>Quantité : </strong> {{ product.quantity }}</p>
             <span *ngIf="product.store === (id_store)" class="price-cart">{{ product.article.promo_price | number}} F CFA</span>
           </ion-item>

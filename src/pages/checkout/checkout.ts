@@ -5,6 +5,7 @@ import { App, IonicPage, NavController, NavParams, Platform } from 'ionic-angula
 import { AlertController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { OrderProvider } from './../../providers/order/order';
+import * as firebase from 'firebase';
 
 /**
  * Generated class for the CheckoutPage page.
@@ -27,6 +28,8 @@ export class CheckoutPage {
   Total=0;
   id_order;
   attached_articles_to_notification;
+  ref = firebase.database().ref('Order_notification/');
+
   constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, public loadingCtrl: LoadingController, private orderService: OrderProvider, private notificationService: NotificationProvider, private app: App) {
     /*this.platform.registerBackButtonAction( () => {
       let nav = this.app.getActiveNav();
@@ -51,6 +54,7 @@ export class CheckoutPage {
     loading.present();
     this.orderService.getProductToCart().subscribe(
       (data) => {
+        this.Order = data;
         this.id_order = data.id;
         this.user = data.owner.first_name + ' ' + data.owner.last_name;
         console.log(data);
@@ -90,10 +94,49 @@ export class CheckoutPage {
     )
   }
 
+  addItem(item) {
+    if (item !== undefined && item !==null){
+      let newItem = this.ref.push();
+      newItem.set(item);
+
+    }
+    console.log('added to database ' + JSON.stringify(item));
+
+  }
+
+  send_notification(data,tab) {
+
+    let text = "Nouvelle commande de " + data.owner.last_name  + " " + data.owner.first_name;
+
+    let notification = {
+      "id" : data.id,
+      "text" : text,
+      "title": "Commande",
+      "receiver": tab,
+      "sender": Number(localStorage.getItem('idUser')),
+      "data": JSON.stringify(data),
+      "is_seen": []
+    }
+    this.addItem(notification);
+  }
+
+  /*getDataOrderToFire() {
+    firebase.database().ref('/Order_notification').on('child_added', resp => {
+
+    })
+  }*/
+
 
 
   goToOrdered() {
-    let loading = this.loadingCtrl.create({
+    let id_store = [];
+    this.Order.articles.forEach(element => {
+      let id = element.store;
+      id_store.push(id);
+    });
+    this.send_notification(this.Order,JSON.stringify(id_store));
+
+    /*let loading = this.loadingCtrl.create({
       content: 'Veuillez Patienter...',
     });
     loading.present();
@@ -103,6 +146,9 @@ export class CheckoutPage {
     if (this.here != "Votre lieu de livraison") {
       this.orderService.validation(data).subscribe(
         (success) => {
+          //console.log(JSON.string);
+
+          //this.send_notification(success);
           console.log(success);
           console.log(localStorage.getItem('id_owners'));
           console.log(JSON.parse(localStorage.getItem('id_owners')));
@@ -156,7 +202,7 @@ export class CheckoutPage {
       });
       alert.present();
       this.here = "Votre lieu de livraison";
-    }
+    }*/
 
 
   }

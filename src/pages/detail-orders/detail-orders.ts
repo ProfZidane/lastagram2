@@ -1,3 +1,4 @@
+import { DetailProductInCartPage } from './../detail-product-in-cart/detail-product-in-cart';
 import { BoutiqueGeneralPage } from './../boutique-general/boutique-general';
 import { MessageMenuPage } from './../message-menu/message-menu';
 import { MessageContentPage } from './../message-content/message-content';
@@ -61,6 +62,12 @@ Total;
     console.log(id);
     this.navCtrl.push(BoutiqueGeneralPage, { "id" : id })
 
+  }
+
+  goToDetailProduct(json) {
+
+
+    this.navCtrl.push(DetailProductInCartPage, { "data" : json });
   }
 
 }

@@ -52,7 +52,7 @@ export class LoginPage {
     this.v = 1;
     document.addEventListener('backbutton', () => {
       if (this.navCtrl.getActive().component.name === "LoginPage") {
-        console.log("click to back button !");
+        console.log("click to back button login !");
         if (this.actionSheet) {
           this.actionSheet.dismiss();
         }
@@ -90,7 +90,7 @@ export class LoginPage {
       )
     }
 
-    if (localStorage.getItem('userToken') !== null) {
+   /* if (localStorage.getItem('userToken') !== null) {
       this.platform.ready().then( () => {
         this.localNotifications.on('click').subscribe( res => {
           if (res.title === "Message") {
@@ -132,15 +132,15 @@ export class LoginPage {
           this.navCtrl.push(MyNotifPage);
           //this.navCtrl.push(DetailNotifPage, { "id_order" : res.data });
           }
-        });
+        });*/
 
         /*this.localNotifications.on('trigger').subscribe( res => {
           let mgs = res.data ? res.data.mydata : '';
           console.log(mgs);
           this.navCtrl.push(MyNotifPage);
         });*/
-      });
-     }
+      /*});
+     }*/
 
      /*this.platform.registerBackButtonAction( () => {
       this.platform.exitApp();
@@ -470,6 +470,14 @@ export class LoginPage {
             //this.navCtrl.push(ShopToSharePage);
           }
         },{
+          text: 'Messenger',
+          icon: 'chatbubbles',
+          handler: () => {
+            console.log('Destructive clicked');
+            this.shareMessenger();
+            //this.navCtrl.push(ShopToSharePage);
+          }
+        },{
           text: 'Instagram',
           icon: 'logo-instagram',
           handler: () => {
@@ -516,6 +524,34 @@ export class LoginPage {
     }
     this.socialSharing.shareWithOptions(option);
   }
+
+  shareMessenger() {
+    let message = "Rejoignez nous sur Lastagram ";
+    let image = "" // image de couverture
+
+    this.socialSharing.canShareVia("com.facebook.orca","Test messenger",null,null,null).then((res) => {
+      console.log(res);
+      this.socialSharing.shareVia("com.facebook.orca",message,null,null,DEEP_LINK_DOMAIN).then(() => {
+        console.log("sharing ::::");
+
+
+      }) .catch(e => {
+        console.log(e);
+
+      })
+
+  }) .catch((e)=> {
+    console.log("erreur " + e);
+    let alert = this.alertCtrl.create({
+      title: 'ATTENTION',
+      subTitle: 'Installer l\'application avant tout !',
+      buttons: ['OK']
+    });
+    alert.present();
+
+  });
+  }
+
 
   shareWhatsapp() {
     let message = "Rejoignez nous sur Lastagram ";

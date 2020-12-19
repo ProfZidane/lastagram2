@@ -1,0 +1,37 @@
+{
+  "PARAMS" : {
+    "create" : "Create shop",
+    "modify_account" : "Edit account",
+    "my_shop" : "My shops",
+    "my_order" : "My orders",
+    "my_mgs" : "My messages",
+    "about": "About",
+    "logout" : "Logout",
+    "help" : "Help",
+    "lng" : "Language"
+  },
+  "TITLE" : {
+    "lng" : "Languages",
+    "about" : "About",
+    "add_catg" : "Select 1 category",
+    "add_prod" : "Add your product",
+    "help": "Help",
+    "cart" : "Cart",
+    "checkOut" : "Checkout",
+    "create" : "Create Shop",
+    "detail_order" : "Detail Order",
+    "detail_prod" : "Product Detail",
+    "my_order" : "My orders",
+    "my_menu" : "My menu",
+    "mgs" : "Messages",
+    "mod_catg" : "Edit categories",
+    "mod_prod" : "Edit products",
+    "mod_prof" : "Edit profile",
+    "my_not" : "My Notifications",
+    "my_shop" : "My stores",
+    "ordered" : "Validated orders",
+    "search" : "Search",
+    "share_prod" : "Select 1 or 6 products"
+  }
+
+}

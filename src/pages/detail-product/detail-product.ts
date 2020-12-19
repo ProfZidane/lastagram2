@@ -353,6 +353,14 @@ export class DetailProductPage {
             //this.navCtrl.push(ShopToSharePage);
           }
         },{
+          text: 'Messenger',
+          icon: 'chatbubbles',
+          handler: () => {
+            console.log('Destructive clicked');
+            this.shareMessenger();
+            //this.navCtrl.push(ShopToSharePage);
+          }
+        },{
           text: 'Instagram',
           icon: 'logo-instagram',
           handler: () => {
@@ -390,7 +398,34 @@ export class DetailProductPage {
 
   }
 
+  shareMessenger() {
+    let message = "Rejoignez nous sur Lastagram ";
+    let image = "" // image de couverture
+    let link = DEEP_LINK_DOMAIN + "product/"+ this.id_article +"/"+ this.id_market +"/"+ this.id_owner;
 
+
+    this.socialSharing.canShareVia("com.facebook.orca","Test messenger",null,null,null).then((res) => {
+      console.log(res);
+      this.socialSharing.shareVia("com.facebook.orca",message,null,null,link).then(() => {
+        console.log("sharing ::::");
+
+
+      }) .catch(e => {
+        console.log(e);
+
+      })
+
+  }) .catch((e)=> {
+    console.log("erreur " + e);
+    let alert = this.alertCtrl.create({
+      title: 'ATTENTION',
+      subTitle: 'Installer l\'application avant tout !',
+      buttons: ['OK']
+    });
+    alert.present();
+
+  });
+  }
 
 
 

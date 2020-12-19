@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { ProductSharedPage } from './product-shared';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -8,6 +9,7 @@ import { ProductSharedPage } from './product-shared';
   ],
   imports: [
     IonicPageModule.forChild(ProductSharedPage),
+    TranslateModule
   ],
 })
 export class ProductSharedPageModule {}

@@ -1,3 +1,4 @@
+import { OrderProvider } from './../../providers/order/order';
 import { DetailProductPage } from './../detail-product/detail-product';
 import { ShareDesignHomePage } from './../share-design-home/share-design-home';
 import { MessageContentPage } from './../message-content/message-content';
@@ -51,12 +52,14 @@ export class HomeProductPage {
   previous;
   actionSheet;
   v = 0;
-  constructor(private clipboard: Clipboard, private app: App, public popoverCtrl: PopoverController, public loadingCtrl: LoadingController,private platform: Platform, public navCtrl: NavController, public navParams: NavParams, public storeService: StoreProvider, private alertCtrl: AlertController,public toastCtrl: ToastController, public modalCtrl: ModalController, private localNotifications: LocalNotifications, private notificationService: NotificationProvider, private userService: UserProvider, private socialSharing: SocialSharing,public actionSheetCtrl: ActionSheetController, private searchService: SearchProvider) {
+  constructor(private clipboard: Clipboard, private orderService:OrderProvider,private app: App, public popoverCtrl: PopoverController, public loadingCtrl: LoadingController,private platform: Platform, public navCtrl: NavController, public navParams: NavParams, public storeService: StoreProvider, private alertCtrl: AlertController,public toastCtrl: ToastController, public modalCtrl: ModalController, private localNotifications: LocalNotifications, private notificationService: NotificationProvider, private userService: UserProvider, private socialSharing: SocialSharing,public actionSheetCtrl: ActionSheetController, private searchService: SearchProvider) {
     this.v = 1;
     document.addEventListener('backbutton', () => {
       if (this.navCtrl.getActive().component.name === "HomeProductPage") {
-        console.log("click to back button !");
+        console.log("click to back button home - product !");
         if (this.actionSheet) {
+          console.log("close");
+
           this.actionSheet.dismiss();
         }
 
@@ -156,7 +159,7 @@ export class HomeProductPage {
     console.log('ionViewDidLoad LoginPage');
 
    if (localStorage.getItem('userToken') !== null) {
-   /* setInterval( () => {
+   setInterval( () => {
       this.notificationService.getNewNotification().subscribe(
         (data) => {
 //          console.log("data : " + JSON.stringify(data));
@@ -193,9 +196,10 @@ export class HomeProductPage {
         }
       )
 
-    }, 10000);*/
+    }, 10000);
 
     this.getDataToFire();
+    //this.getDataToFire2();
 
    }
    let loading = this.loadingCtrl.create({
@@ -276,9 +280,21 @@ export class HomeProductPage {
     });
   }
 
+  /*setNotification2(obj) {
+    this.localNotifications.schedule({
+      id : obj.id,
+      title: obj.title,
+      text: obj.text,
+      data: obj.data,
+      trigger: { in: 2, unit: ELocalNotificationTriggerUnit.SECOND },
+      foreground: true,
+      sound: null
+    });
+  }*/
+
   getDataToFire() {
     firebase.database().ref('Notification/').on('child_added', resp => {
-      console.log("firebase data : " + JSON.stringify(resp));
+      //console.log("firebase data : " + JSON.stringify(resp));
       let data = resp.val()
       if (data.receiver === localStorage.getItem('usernameChat')) {
         console.log('c lui !')
@@ -300,6 +316,25 @@ export class HomeProductPage {
       }
     })
   }
+
+  /*getDataToFire2() {
+    firebase.database().ref('Order_notification/').on('child_added', resp => {
+      console.log("firebase order data : " + JSON.stringify(resp));
+      let data = resp.val();
+      let receiver = JSON.parse(data.receiver);
+      let id_r = [];
+      console.log("receiver : " + JSON.stringify(receiver));
+      let is_seen = data.is_seen;
+      if (is_seen.includes(Number(localStorage.getItem('idUser'))) === true) {
+        console.log("il a deja vu");
+
+      }
+
+
+
+
+    })
+  }*/
 
 
   doInfinite(infiniteScroll) {
@@ -456,6 +491,14 @@ export class HomeProductPage {
             //this.navCtrl.push(ShopToSharePage);
           }
         },{
+          text: 'Messenger',
+          icon: 'chatbubbles',
+          handler: () => {
+            console.log('Destructive clicked');
+            this.shareMessenger();
+            //this.navCtrl.push(ShopToSharePage);
+          }
+        },{
           text: 'Instagram',
           icon: 'logo-instagram',
           handler: () => {
@@ -503,6 +546,7 @@ export class HomeProductPage {
     this.socialSharing.shareWithOptions(option);
   }
 
+
   shareWhatsapp() {
     let message = "Rejoignez nous sur Lastagram ";
     let image = "" // image de couverture
@@ -529,6 +573,33 @@ export class HomeProductPage {
 
     });
 
+  }
+
+  shareMessenger() {
+    let message = "Rejoignez nous sur Lastagram ";
+    let image = "" // image de couverture
+
+    this.socialSharing.canShareVia("com.facebook.orca","Test messenger",null,null,null).then((res) => {
+      console.log(res);
+      this.socialSharing.shareVia("com.facebook.orca",message,null,null,DEEP_LINK_DOMAIN).then(() => {
+        console.log("sharing ::::");
+
+
+      }) .catch(e => {
+        console.log(e);
+
+      })
+
+  }) .catch((e)=> {
+    console.log("erreur " + e);
+    let alert = this.alertCtrl.create({
+      title: 'ATTENTION',
+      subTitle: 'Installer l\'application avant tout !',
+      buttons: ['OK']
+    });
+    alert.present();
+
+  });
   }
 
   shareFacebook() {

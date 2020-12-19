@@ -21,6 +21,7 @@ export class OrderProvider {
   private listOrdersUrl = DOMAIN_APP + "payment/my-orders";
 
   private orderByShopURL = DOMAIN_APP + "payment/my-order-store/";
+  private ownerByshop =  DOMAIN_APP + "api/store/store-owner/";
 
   constructor(public http: HttpClient) {
     console.log('Hello OrderProvider Provider');
@@ -73,6 +74,10 @@ export class OrderProvider {
 
   getOrderByMarketID(id): Observable<any> {
     return this.http.get(this.orderByShopURL + id, { headers : this.getHeaders() });
+  }
+
+  getOwner(id): Observable<any> {
+    return this.http.get(this.ownerByshop + id, { headers: this.getHeaders() });
   }
 }
 

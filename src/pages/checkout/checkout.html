@@ -6,7 +6,9 @@
 -->
 <ion-header>
   <ion-navbar color="lastagram" hideBackButton="true">
-    <ion-title>Validation</ion-title>
+    <ion-title>
+      {{ "TITLE.checkOut" | translate }}
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -39,7 +41,7 @@
             </ion-thumbnail>
             <h2>{{ product.article.name }}</h2>
             <p><strong>Quantité : </strong>{{ product.quantity }}</p>
-            <span class="price-cart">{{ product.article.price }} F CFA</span>
+            <span class="price-cart">{{ product.article.price | number }} F CFA</span>
             <br>
             <!--<span class="i">
               <ion-icon name="md-remove-circle" (click)="discrease(1)"></ion-icon>

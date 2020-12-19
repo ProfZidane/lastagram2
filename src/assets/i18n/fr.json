@@ -1,0 +1,53 @@
+{
+  "PARAMS" : {
+    "create" : "Créer boutique",
+    "modify_account" : "Modfifier Compte",
+    "my_shop" : "Mes Boutiques",
+    "my_order" : "Mes commandes",
+    "my_mgs" : "Mes Messages",
+    "about": "A propos",
+    "logout" : "Déconnexion",
+    "help" : "Assistance",
+    "lng" : "Langue"
+  },
+  "TITLE" : {
+    "lng" : "Langue",
+    "about" : "A propos",
+    "add_catg" : "Sélectionnez 1 catégorie",
+    "add_prod" : "Ajoutez votre produit",
+    "help": "Assistance",
+    "cart" : "Panier",
+    "checkOut" : "Validation",
+    "create" : "Création Boutique",
+    "detail_order" : "Detail Commande",
+    "detail_prod" : "Detail Produit",
+    "my_order" : "Mes Commandes",
+    "my_menu" : "Mon menu",
+    "mgs" : "Messages",
+    "mod_catg" : "Modifier catégorie",
+    "mod_prod" : "Modifier produit",
+    "mod_prof" : "Modifier le profil",
+    "my_not" : "Mes Notifications",
+    "my_shop" : "Mes Boutiques",
+    "ordered" : "Commandes Validées !",
+    "search" : "Recherche",
+    "share_prod" : "Sélectionnez 1 ou 6 produits"
+  },
+  "ALERT" : {
+    "err_title" : "ECHEC",
+    "err_subtitle" : "Echec de chargement. Veuillez réessayer plus tard!",
+    "err_message" : "'Veuillez verifiez réessayer plus part !",
+    "err_action" : "L'opération n'a pas abouti !",
+    "warn_title" : "WARNING",
+    "warn_share_prod" : "Vous avez atteint le nombre maximal de (6) produits !",
+    "succ_title" : "SUCCESS",
+    "succ_sub_shop" : "Votre boutique a été supprimée!",
+    "succ_sub_prod" : "Votre produit a bien été créer !",
+    "succ_mod" : "Succès de la modification",
+    "info_title" : "INFORMATION",
+    "info_subtitle" : "Pour des raisons sécuritaires, vous ne pouvez pas modifier votre e-mail"
+  },
+  "SHARING" : {
+    "message" : "Etes vous intéressez par mes produits ?"
+  }
+}
