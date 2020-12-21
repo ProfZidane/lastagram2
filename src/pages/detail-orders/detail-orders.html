@@ -14,7 +14,7 @@
 
  <ion-grid class=" grid-cart-product">
 
-    <h1>Produits Commandés</h1>
+    <h1>{{ "OTHERS.subttpd" | translate }}</h1>
 
       <ion-list *ngIf="Articles" >
         <ion-item class="grid-cart-0" *ngFor="let article of Articles" >
@@ -22,11 +22,11 @@
             <img class="img-cart" [src]=article.article.image_cover >
           </ion-thumbnail>
           <h2 (click)="goToDetailProduct(article)">{{ article.article.name}}</h2>
-          <p><strong>Quantité : </strong> {{ article.quantity }}</p>
+          <p><strong>{{ "CHECKOUT.qte" | translate }} </strong> {{ article.quantity }}</p>
           <span class="price-cart">{{ article.article.price | number}} {{ article.devis }}</span>
           <br>
             <small>
-              <a (click)="gotomarket(article.store)">Voir la boutique</a>
+              <a (click)="gotomarket(article.store)">{{ "OTHERS.vb" | translate }}</a>
             </small>
         </ion-item>
       </ion-list>
@@ -34,24 +34,24 @@
   </ion-grid>
 
   <ion-grid class="grid-cart-product">
-    <h1 class="title">Informations supplémentaires</h1>
+    <h1 class="title">{{ "OTHERS.inf" | translate }}</h1>
     <ion-list>
       <ion-item *ngIf="date" >
-          Date de commande :
+          {{ "OTHERS.date" | translate }} :
         <span item-end>
           <strong>{{ date }}</strong>
         </span>
       </ion-item>
 
       <ion-item *ngIf="Total" >
-        Prix de commande :
+        {{ "OTHERS.price" | translate }} :
       <span item-end>
-        <strong>{{ Total }} F CFA</strong>
+        <strong>{{ Total }} {{ devis }}</strong>
       </span>
     </ion-item>
 
     <ion-item>
-      Lieu de livraison :
+      {{ "OTHERS.lieu" | translate }} :
     <span item-end *ngIf="adress" >
       <strong>{{ adress.location }}</strong>
     </span>

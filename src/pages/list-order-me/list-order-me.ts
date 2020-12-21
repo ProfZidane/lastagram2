@@ -3,8 +3,9 @@ import { DetailOrdersPage } from './../detail-orders/detail-orders';
 import { Component } from '@angular/core';
 import { OrderProvider } from './../../providers/order/order';
 import { UserProvider } from './../../providers/user/user';
-
+import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { HttpClient } from '@angular/common/http';
 
 /**
  * Generated class for the ListOrderMePage page.
@@ -27,11 +28,22 @@ keys;
 datas = [];
 Datas = [];
 devis;
-  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public navParams: NavParams, private orderService: OrderProvider, private userService: UserProvider) {
+country;
+  constructor(public navCtrl: NavController,public http: HttpClient,private translate: TranslateService, public loadingCtrl: LoadingController, public navParams: NavParams, private orderService: OrderProvider, private userService: UserProvider) {
     this.id = this.navParams.get('id');
     console.log("id store : " + this.id);
     this.devis = this.navParams.get('devis');
     this.getOrderByMarket();
+    if (localStorage.getItem('country') !== null) {
+      this.http.get('https://restcountries.eu/rest/v2/alpha/'+ localStorage.getItem('country')).subscribe(
+                (data) => {
+                  this.country = data;
+                  console.log('pays : ' + this.country);
+                }, (err) => {
+                  console.log(err)
+                }
+              )
+    }
   }
 
   ionViewDidLoad() {
@@ -40,7 +52,7 @@ devis;
 
   getOrderByMarket() {
     let loading = this.loadingCtrl.create({
-      content: 'Veuillez Patienter...'
+      content: this.translate.instant('LOAD.mgs')
     });
     loading.present();
     this.orderService.getOrderByMarketID(Number(this.id)).subscribe(

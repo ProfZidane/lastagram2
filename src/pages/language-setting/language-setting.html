@@ -11,13 +11,31 @@
 </ion-header>
 
 <ion-content padding>
-    <ion-grid class="bord">
-      <h3>Choisissez votre langue</h3>
+    <ion-grid>
+      <h3>{{ "OTHERS.lng_chg_tt" | translate }}</h3>
     </ion-grid>
-
-    <ion-grid class="bord choice-lng" align="center">
+    <hr>
+    <!--<ion-grid class="bord choice-lng" align="center">
      <button ion-button round color="lastagram" *ngFor="let lng of languages" (click)="select(lng.value)">
         {{ lng.text }}
       </button>
+    </ion-grid>-->
+
+    <ion-grid class="lng">
+      <ion-row *ngFor="let lng of languages" (click)="select(lng.value)">
+        <ion-col col-5 align="center">
+          <img src="{{ lng.flag }}" />
+        </ion-col>
+        <ion-col col-5 align="center">
+          <span>
+            {{ lng.text }}
+          </span>
+        </ion-col>
+        <ion-col col-2>
+          <ion-icon name="md-checkmark" style="color:green" *ngIf="indic === lng.value"></ion-icon>
+        </ion-col>
+        
+      </ion-row>
+      
     </ion-grid>
 </ion-content>

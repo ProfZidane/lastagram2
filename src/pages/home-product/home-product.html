@@ -142,5 +142,10 @@
       </ion-col>-->
     </ion-row>
   </ion-grid>
-
+  <ion-grid *ngIf="Products && Products.length === 0" >
+    <div class="empty_cmd" align="center">
+      <ion-icon name="md-basket"></ion-icon>
+      <p>{{ "OTHERS.nothing_home_prod" | translate }}<p>
+    </div>
+  </ion-grid>
 </ion-content>

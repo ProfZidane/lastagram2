@@ -11,7 +11,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import {NgxImageCompressService} from 'ngx-image-compress';
-
+import { TranslateService } from '@ngx-translate/core';
 /**
  * Generated class for the CreateBoutiquePage page.
  *
@@ -93,7 +93,7 @@ export class CreateBoutiquePage {
   devis;
 
   timer = "00:00:00";
-  constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider, private camera: Camera,public loadingCtrl: LoadingController, private alertCtrl: AlertController,private imageCompress: NgxImageCompressService, private app: App) {
+  constructor(private platform: Platform,private translate: TranslateService, public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider, private camera: Camera,public loadingCtrl: LoadingController, private alertCtrl: AlertController,private imageCompress: NgxImageCompressService, private app: App) {
     console.log(localStorage.getItem('article'));
     this.a = JSON.parse(localStorage.getItem('article'));
     console.log(this.a);
@@ -383,34 +383,34 @@ export class CreateBoutiquePage {
 
   presentPrompt() {
     let alert = this.alertCtrl.create({
-      title: 'Réglage Minuteur',
+      title: this.translate.instant('SHOP.TIMER.set'),
       inputs: [
         {
           name: 'hour',
           type: 'number',
-          placeholder: 'Heure'
+          placeholder: this.translate.instant('SHOP.TIMER.hour')
         },
         {
           name: 'minute',
           type: 'number',
-          placeholder: 'Minute',
+          placeholder: this.translate.instant('SHOP.TIMER.Min'),
         },
         {
           name: 'second',
           type: 'number',
-          placeholder: 'Second',
+          placeholder: this.translate.instant('SHOP.TIMER.Sec'),
         }
       ],
       buttons: [
         {
-          text: 'Fermer',
+          text: this.translate.instant('SHARING.option2'),
           role: 'cancel',
           handler: data => {
             console.log('Cancel clicked');
           }
         },
         {
-          text: 'Valider',
+          text: this.translate.instant('OTHERS.valid'),
           handler: data => {
 
             console.log(data);
@@ -473,14 +473,26 @@ export class CreateBoutiquePage {
 
   AddDevis() {
     const prompt = this.alertCtrl.create({
-      title: 'DEVIS',
-      message: "Entrez le devis de vos produit boutique",
+      title: this.translate.instant("DEVIS.title"),
+      message: this.translate.instant("DEVIS.message"),
       inputs: [
+        {
+          name: 'title',
+          type: 'radio',
+          label: 'Franc suisse',
+          value: 'CHF'
+        },
         {
           name: 'title',
           type: 'radio',
           label: 'Franc CFA',
           value: 'CFA'
+        },
+        {
+          name: 'title',
+          type: 'radio',
+          label: 'Franc guinéen',
+          value: 'GNF'
         },
         {
           name: 'title',
@@ -491,7 +503,7 @@ export class CreateBoutiquePage {
         {
           name: 'title',
           type: 'radio',
-          label: 'Dollard',
+          label: 'Dollard américain',
           value: 'USD'
         },
         {
@@ -506,16 +518,75 @@ export class CreateBoutiquePage {
           label: 'Dinar',
           value: 'DA'
         },
+        {
+          name: 'title',
+          type: 'radio',
+          label: 'Livre sterling',
+          value: 'GBP'
+        },
+        {
+          name: 'title',
+          type: 'radio',
+          label: 'Dollar canadien ',
+          value: 'CAD'
+        },
+        {
+          name: 'title',
+          type: 'radio',
+          label: 'Yen japonais',
+          value: 'JPY'
+        },{
+          name: 'title',
+          type: 'radio',
+          label: 'Dinar algérien',
+          value: 'DZD'
+        },
+        {
+          name: 'title',
+          type: 'radio',
+          label: 'Cedi',
+          value: 'GHS'
+        },
+        {
+          name: 'title',
+          type: 'radio',
+          label: 'Naira',
+          value: 'NGN'
+        },
+        {
+          name: 'title',
+          type: 'radio',
+          label: 'Roupie indienne',
+          value: 'INR'
+        },
+        {
+          name: 'title',
+          type: 'radio',
+          label: 'Riyal saoudien',
+          value: 'SAR'
+        },
+        {
+          name: 'title',
+          type: 'radio',
+          label: 'Rand',
+          value: 'ZAR'
+        },
+        {
+          name: 'title',
+          type: 'radio',
+          label: 'Yuan ',
+          value: 'CNY'
+        },
       ],
       buttons: [
         {
-          text: 'Fermer',
+          text: this.translate.instant('SHARING.option2'),
           handler: data => {
             console.log('Cancel clicked');
           }
         },
         {
-          text: 'Choisir',
+          text: this.translate.instant('OTHERS.choose'),
           handler: data => {
             console.log('Saved clicked : ' + data);
             this.devis = data;
@@ -533,7 +604,7 @@ export class CreateBoutiquePage {
 
     if (this.ValidationCheck()) {
       let loading = this.loadingCtrl.create({
-        content: 'Veuillez Patienter...'
+        content: this.translate.instant('LOAD.mgs')
       });
       loading.present();
       let datas = {
@@ -687,9 +758,8 @@ export class CreateBoutiquePage {
 
           if (error.status == 0 && error.statusText == "Unknown Error") {
             let alert = this.alertCtrl.create({
-              title: 'ATTENTION',
-              subTitle: 'Echec de la création',
-              message: 'Veuillez verifiez votre connexion internet',
+              title: this.translate.instant('ALERT.warn_title'),
+              message: this.translate.instant('ALERT.err_message'),
               buttons: ['OK']
             });
             alert.present();
@@ -701,7 +771,7 @@ export class CreateBoutiquePage {
 
 
     } else {
-      this.error_validation = "Veuillez choisir le nom de la boutique, vos catégories et une image de couverture avant de créer votre boutique !";
+      this.error_validation = this.translate.instant('CREATE_BTQ.err_vld');
     }
 
 

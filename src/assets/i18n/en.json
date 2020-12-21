@@ -33,5 +33,182 @@
     "search" : "Search",
     "share_prod" : "Select 1 or 6 products"
   }
+  ,
+  "ALERT" : {
+    "err_title" : "FAILURE",
+    "err_subtitle" : "Failed to load. Please try again later!",
+    "err_message" : "Please check to try again!",
+    "err_action" : "L'opération n'a pas abouti. Veuillez réessayez plus tard !",
+    "err_supp_sub" : "The operation was unsuccessful. Please try again later!",
+    "err_mod_sub" : "Failed to edit",
+
+
+    "warn_title" : "WARNING",
+    "warn_share_prod" : "You have reached the maximum number of (6) products!",
+    "500" : "Veuillez verifiez votre connexion internet",
+    "stock_limite" : "Stock reached",
+
+    "succ_title" : "SUCCESS",
+    "succ_sub_shop" : "Your store has been deleted!",
+    "succ_sub_prod" : "Your product has been created!",
+    "succ_sub_prod2" : "Your product was added !",
+    "succ_mod" : "Succès de la modification",
+    "sucs_supp" : "Success of the change",
+    "succ_mod_catg" : "Your category has been modified!",
+
+    "info_title" : "INFORMATION",
+    "info_subtitle" : "For security reasons, you cannot modify your e-mail ",
+
+    "conf_mgs" : "Are you sure you want to delete your store?",
+    "res_pos" : "Yes",
+    "res_neg" : "No"
+  },
+  "SHARING" : {
+    "message" : "Etes vous intéressez par mes produits ?",
+    "message2" : "Are you interested in my product?",
+    "err" : "Install the application first!",
+    "message_btq" : "Join us on Lastagram",
+    "option" : "Plus d'options",
+    "option2" : "Cancel",
+    "option3" : "Copy link",
+    "option4" : "Share my products on social networks",
+    "title": "Share with : ",
+    "linked": "Copied link",
+
+    "title2"  : "SHARE"
+  },
+  "DEVIS" : {
+    "title" : "Quote",
+    "message" : "Enter the quote for your store product"
+  },
+  "CREATE_BTQ" : {
+    "ch_do" : "Choice made",
+    "photo" : "Picture",
+    "vt_flsh" : "flash sale",
+    "add" : "Added!",
+    "Dfl" : "Scroll",
+    "prod_pop" : "Popular Products",
+    "vald" : "Validate",
+
+    "err_vld" : "Please choose the store name, your categories and a cover image before creating your store!"
+  },
+  "CHECKOUT" : {
+    "w" : "Votre lieu de livraison",
+    "warn_err" : "Please enter the delivery location.",
+    "title": "LIVRAISON",
+    "mgs_title" : "Enter the place of delivery",
+    "qte" : "Amount : "
+  },
+  "CART" : {
+    "empty" : "Your cart is empty !",
+    "dic" : "The quantity is 1. If you want to delete the product, please click directly on the cross!",
+    "ttc" : "TOTAL",
+
+    "addto" : "ADD CART",
+    "succ_addto": "Add to cart successfully!"
+  },
+  "SHOP" : {
+    "call_response" : "Owner number",
+    "call" : "CALL ME",
+    "texte" : "MESSAGE",
+    "texte_warn" : "You are in administration mode. The message option is, here, disabled!",
+    "TIMER" : {
+      "hour" : "Hour",
+      "Min" : "Minute",
+      "Sec" : "Second",
+      "success" : "Timer has been updated!",
+      "echec" : "Update failed!",
+      "set" : "Timer setting"
+    },
+    "MODIFICATION" : {
+      "title" : "Modification",
+      "name" : "Enter the new name",
+      "name_sb" : "Your name",
+      "name_success" : "Shop name changed!",
+      "image_success" : "Cover photo changed!",
+      "mod_prod" : "Edit category",
+      "mod_catg" : "Add products",
+      "image_success2" : "photo changed!"
+
+    }
+  },
+  "ASSISTANCE" : {
+         "title"  : "Are you having a problem?",
+         "subtitle" : "Send us a message detailing your problem.",
+         "labl" : "Object : ",
+         "placeholder" : "write here...",
+         "content" : "Message : ",
+         "send" : "Submit",
+         "warn" : "Please fill in the fields!",
+         "err" : "Something went wrong",
+         "success" : "Your message has been sent, we will contact you as soon as possible!"
+    },
+  "FORMS" : {
+    "PLACEHOLDER" : {
+      "produit" : "PRODUCT NAME",
+      "prix" : "NORMAL PRICE",
+      "prix_p" : "PROMO PRICE"
+    },
+    "LABEL" : {
+      "desc" : "Description",
+      "photo" : "ADD PHOTO"
+    }
+  },
+  "LOAD" : {
+    "mgs" : "Please wait..."
+  },
+  "ABOUT_CONTENT" : {
+    "text1" : "Lastagram is a market-place application which is beneficial to traders and also to customers.",
+    "text2" : "Lastagram also allows customers to stay close to their usual stores in order to order products without having to travel.",
+    "text3" : "Lastagram is a tool that allows merchants to easily create online stores in order to offer their products to their customers."
+  },
+  "OTHERS" : {
+    "num" : "Numbers",
+    "next" : "Next",
+    "finish": "Terminer",
+    "valid" : "Validate",
+    "abo": "Subscriber(s)",
+    "abonned": "You are subscribed!",
+    "choose": "Choose",
+
+    "desabonned" : "You are now unsubscribed!",
+    "subttpd" : "Ordered Products",
+    "vb" : "See the shop",
+    "inf" : "Additional Information",
+    "date" : "Order date",
+    "price" : "Order price",
+    "lieu" : "Place of delivery",
+    "Inf_cl" : "Customer Information",
+    "name_cl" : "Client name",
+    "email_cl" : "E-mail adress",
+    "num_cl" : "Phone number",
+    "recp" : "Mailbox",
+    "nothing_order" : "No orders!",
+    "orders" : "The orders",
+
+    "del_shop" : "Delete shop",
+    "nothing_mgs" : "No messages!",
+    "supp" : "REMOVE",
+    "fn" : "Your first name",
+    "phone" : "Enter your phone number",
+    "phone_pl" : "Your phone number (with the area code in front)",
+    "password" : "Enter your new password",
+    "old_ps" : "Enter your old password",
+    "new_pl" : "Enter your new password",
+    "order_to" : "Order from",
+    "nothing_shop" : "You have no store",
+    "nothing_prod" : "No articles!",
+    "selected" : "You have selected:",
+    "exit" : "Press again to exit",
+    "exit_inf" : "Do you really want to get out of Lastagram?",
+    "gotohome" : "Go to home",
+    "close" : "Exit",
+    "choose_sh" : "Choose an application",
+    "lng_chg" : "Language changed!",
+    "lng_chg_tt" : "Choose your language",
+    "nothing_home_prod" : "No article is available in your country!",
+    "nothing_home_store" : "No store is available in your country!"
+
+  }
 
 }

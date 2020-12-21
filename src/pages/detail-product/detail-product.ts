@@ -14,7 +14,7 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 import { ToastController, ActionSheetController } from 'ionic-angular';
 import { DEEP_LINK_DOMAIN } from '../../app/environment';
 import { Clipboard } from '@ionic-native/clipboard';
-
+import { TranslateService } from '@ngx-translate/core';
 /**
  * Generated class for the DetailProductPage page.
  *
@@ -39,7 +39,7 @@ export class DetailProductPage {
   taille;
   isSubscribed;
   actionSheet;
-  constructor( private clipboard: Clipboard,public actionSheetCtrl: ActionSheetController,private platform: Platform,public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,public loadingCtrl: LoadingController, private storeService: StoreProvider, private orderService: OrderProvider, public modalCtrl: ModalController, private socialSharing: SocialSharing,public toastCtrl: ToastController, private photoViewer: PhotoViewer) {
+  constructor( private clipboard: Clipboard,private translate: TranslateService, public actionSheetCtrl: ActionSheetController,private platform: Platform,public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,public loadingCtrl: LoadingController, private storeService: StoreProvider, private orderService: OrderProvider, public modalCtrl: ModalController, private socialSharing: SocialSharing,public toastCtrl: ToastController, private photoViewer: PhotoViewer) {
 
     if (this.navParams.get('isSubscribed')) {
         this.isSubscribed = this.navParams.get('isSubscribed');
@@ -61,7 +61,7 @@ export class DetailProductPage {
 
 
     let loading = this.loadingCtrl.create({
-      content: 'Veuillez Patienter...'
+      content: this.translate.instant('LOAD.mgs')
     });
     loading.present();
     this.id_article = this.navParams.get('id');
@@ -167,16 +167,16 @@ export class DetailProductPage {
           }*/
 
           let alert = this.alertCtrl.create({
-            title: 'SUCCESS',
-            subTitle: 'Ajoutez au panier avec succès !',
+            title: this.translate.instant('ALERT.succ_title'),
+            subTitle: this.translate.instant('CART.succ_addto'),
             buttons: ['OK']
           });
           alert.present();
         }, (err) => {
           console.log(err);
           let alert = this.alertCtrl.create({
-            title: 'ECHEC',
-            subTitle: 'Veuillez vérifier votre connexion internet',
+            title: this.translate.instant('ALERT.err_title'),
+            subTitle: this.translate.instant('ALERT.err_action'),
             buttons: ['OK']
           });
           alert.present();
@@ -217,16 +217,16 @@ export class DetailProductPage {
 
   shareSocialMedia() {
     let link = DEEP_LINK_DOMAIN + "product/"+ this.id_article +"/"+ this.id_market +"/"+ this.id_owner;    let option = {
-      message : "Êtes-vous intéressez par mon produit ?",
+      message : this.translate.instant('SHARING.message2'),
       files: null,
       url: link,
-      chooserTitle: "Choisissez une application"
+      chooserTitle:this.translate.instant('OTHERS.choose_sh')
     }
     this.socialSharing.shareWithOptions(option);
   }
 
   shareWhatsapp() {
-    let message = "Êtes-vous intéressez par mon produit ?";
+    let message = this.translate.instant('SHARING.message2');
     let image = "" // image de couverture
     let link = DEEP_LINK_DOMAIN + "product/"+ this.id_article +"/"+ this.id_market +"/"+ this.id_owner;
     this.socialSharing.canShareVia("whatsapp","Test catana",null,null,null).then((res) => {
@@ -243,8 +243,8 @@ export class DetailProductPage {
     }) .catch((e)=> {
       console.log("erreur " + e);
       let alert = this.alertCtrl.create({
-        title: 'ATTENTION',
-        subTitle: 'Installer l\'application avant tout !',
+        title: this.translate.instant('ALERT.warn_title'),
+        subTitle: this.translate.instant('SHARING.err'),
         buttons: ['OK']
       });
       alert.present();
@@ -254,7 +254,7 @@ export class DetailProductPage {
   }
 
   shareFacebook() {
-    let message = "Êtes-vous intéressez par mon produit ? ";
+    let message = this.translate.instant('SHARING.message2');
     let image = "" // image de couverture
     let link = DEEP_LINK_DOMAIN + "product/"+ this.id_article +"/"+ this.id_market +"/"+ this.id_owner;
     this.socialSharing.canShareVia("com.facebook.katana","Test catana",null,null,null).then((res) => {
@@ -273,8 +273,8 @@ export class DetailProductPage {
 
 
       let alert = this.alertCtrl.create({
-        title: 'ATTENTION',
-        subTitle: 'Installer l\'application avant tout !',
+        title: this.translate.instant('ALERT.warn_title'),
+        subTitle: this.translate.instant('SHARING.err'),
         buttons: ['OK']
       });
       alert.present();
@@ -286,7 +286,7 @@ export class DetailProductPage {
 
   shareInstagram() {
     let link = DEEP_LINK_DOMAIN + "product/"+ this.id_article +"/"+ this.id_market +"/"+ this.id_owner;
-    let message = "Êtes-vous intéressez par mon produit ? " + link; // lien directe dans le message
+    let message = this.translate.instant('SHARING.message2') + link; // lien directe dans le message
     let image = null // image de couverture
 
     this.socialSharing.canShareVia("instagram","Test catana",null,null,null).then((res) => {
@@ -305,8 +305,8 @@ export class DetailProductPage {
 
 
       let alert = this.alertCtrl.create({
-        title: 'ATTENTION',
-        subTitle: 'Installer l\'application avant tout !',
+        title: this.translate.instant('ALERT.warn_title'),
+        subTitle: this.translate.instant('SHARING.err'),
         buttons: ['OK']
       });
       alert.present();
@@ -316,11 +316,11 @@ export class DetailProductPage {
 
   CopyLink() {
     let link = DEEP_LINK_DOMAIN + "product/"+ this.id_article +"/"+ this.id_market +"/"+ this.id_owner;
-    let message = "Êtes-vous intéressez par mon produit ?" + link;
+    let message = this.translate.instant('SHARING.message2') + link;
             this.clipboard.copy(message).then(
               () => {
                   const toast = this.toastCtrl.create({
-                    message: 'Lien copié !',
+                    message: this.translate.instant('SHARING.linked'),
                     duration: 3000,
                     position: 'bottom'
                   });
@@ -333,7 +333,7 @@ export class DetailProductPage {
 
   presentActionSheet() {
      this.actionSheet = this.actionSheetCtrl.create({
-      title: 'Partagez avec : ',
+      title: this.translate.instant('SHARING.title'),
 
       buttons: [
         {
@@ -369,7 +369,7 @@ export class DetailProductPage {
             //this.navCtrl.push(ShopToSharePage);
           }
         },{
-          text: 'Copier lien',
+          text: this.translate.instant('SHARING.option3'),
           icon: 'link',
           handler: () => {
             console.log('Destructive clicked');
@@ -377,14 +377,14 @@ export class DetailProductPage {
             //this.navCtrl.push(ShopToSharePage);
           }
         },{
-          text: ' Plus d\'options',
+          text: this.translate.instant('SHARING.option'),
           icon: 'add-circle',
           handler: () => {
             this.shareSocialMedia();
             //this.goToProductShare();
           }
         },{
-          text: 'Fermer',
+          text: this.translate.instant('SHARING.option2'),
           role: 'cancel',
           icon: 'close-circle',
           cssClass: 'cancel-btn',
@@ -399,7 +399,7 @@ export class DetailProductPage {
   }
 
   shareMessenger() {
-    let message = "Rejoignez nous sur Lastagram ";
+    let message = this.translate.instant('SHARING.message2');
     let image = "" // image de couverture
     let link = DEEP_LINK_DOMAIN + "product/"+ this.id_article +"/"+ this.id_market +"/"+ this.id_owner;
 
@@ -418,8 +418,8 @@ export class DetailProductPage {
   }) .catch((e)=> {
     console.log("erreur " + e);
     let alert = this.alertCtrl.create({
-      title: 'ATTENTION',
-      subTitle: 'Installer l\'application avant tout !',
+      title: this.translate.instant('ALERT.warn_title'),
+        subTitle: this.translate.instant('SHARING.err'),
       buttons: ['OK']
     });
     alert.present();

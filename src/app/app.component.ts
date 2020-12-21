@@ -74,7 +74,7 @@ export class MyApp {
           } else {
             this.backButtontTimer = true;
             this.toastCtrl.create({
-              message: "Appuyer encore pour quitter",
+              message: translate.instant('OTHERS.exit'),
               duration: 2000
             }).present();
 
@@ -92,7 +92,7 @@ export class MyApp {
           } else {
             this.backButtontTimer = true;
             this.toastCtrl.create({
-              message: "Appuyer encore pour quitter",
+              message: translate.instant('OTHERS.exit'),
               duration: 2000
             }).present();
 
@@ -178,7 +178,7 @@ export class MyApp {
           } else {
             this.backButtontTimer = true;
             this.toastCtrl.create({
-              message: "Appuyer encore pour quitter",
+              message: translate.instant('OTHERS.exit'),
               duration: 2000
             }).present();
 
@@ -197,7 +197,7 @@ export class MyApp {
           } else {
             this.backButtontTimer = true;
             this.toastCtrl.create({
-              message: "Appuyer encore pour quitter",
+              message: "translate.instant('OTHERS.exit')",
               duration: 2000
             }).present();
 
@@ -243,11 +243,11 @@ this.app.getRootNav().getActiveChildNav().select(0);
           } else {
 
             const alert = this.alertCtrl.create({
-              title: 'ATTENTION',
-              subTitle: 'Voulez-vous sortir vraiment de Lastagram ?',
+              title: translate.instant('ALERT.warn_title'),
+              subTitle: translate.instant('OTHERS.exit_inf'),
               buttons: [
                 {
-                  text: "Aller à l\'accueil",
+                  text: translate.instant('OTHERS.gotohome'),
                   role: 'cancel',
                   handler: () => {
                       console.log("go to home");
@@ -258,7 +258,7 @@ this.app.getRootNav().getActiveChildNav().select(0);
 
                 },
                 {
-                  text: "Quitter",
+                  text: translate.instant('OTHERS.close'),
                   handler: () => {
                     console.log("exit");
                     platform.exitApp();

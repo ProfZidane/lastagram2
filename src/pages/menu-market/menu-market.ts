@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { StoreProvider } from './../../providers/store/store';
 import { AlertController } from 'ionic-angular';
-
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Generated class for the MenuMarketPage page.
@@ -25,7 +25,8 @@ export class MenuMarketPage {
   photo;
   name;
   devis;
-  constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl: AlertController, private orderService: OrderProvider, private storeService: StoreProvider) {
+  constructor(public navCtrl: NavController,private translate: TranslateService,
+    public navParams: NavParams,private alertCtrl: AlertController, private orderService: OrderProvider, private storeService: StoreProvider) {
     this.id = this.navParams.get("id");
     this.photo = this.navParams.get('photo');
     this.name = this.navParams.get('name');
@@ -45,6 +46,28 @@ export class MenuMarketPage {
     this.navCtrl.push()
   }*/
 
+  ConfirmDel(id) {
+    let alert = this.alertCtrl.create({
+      title: this.translate.instant('ALERT.warn_title'),
+      subTitle: this.translate.instant('ALERT.conf_mgs'),
+      buttons: [
+        {
+          text : this.translate.instant('ALERT.res_pos'),
+          handler: () => {
+            this.DeleteMarket(id)
+          }
+        },{
+          text : this.translate.instant('ALERT.res_neg'),
+          role: 'cancel',
+          handler: () => {
+            
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
   DeleteMarket(id) {
     console.log(id);
 
@@ -52,8 +75,8 @@ export class MenuMarketPage {
       (success) => {
         console.log(success);
         let alert = this.alertCtrl.create({
-          title: 'SUCCESS',
-          subTitle: 'Votre boutique a été supprimée!',
+          title: this.translate.instant('ALERT.succ_title'),
+          subTitle: this.translate.instant('ALERT.succ_sub_shop'),
           buttons: ['OK']
         });
         alert.present();
@@ -63,8 +86,8 @@ export class MenuMarketPage {
       (error) => {
         console.log(error);
         let alert = this.alertCtrl.create({
-          title: 'ECHEC',
-          subTitle: 'L\'opération n\'a pas abouti !',
+          title: this.translate.instant('ALERT.err_title'),
+          subTitle: this.translate.instant('ALERT.err_action'),
           buttons: ['OK']
         });
         alert.present();

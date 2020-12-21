@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { CreateBoutiquePage } from './../create-boutique/create-boutique';
 import { ProductAddedPage } from './../product-added/product-added';
 import { Component } from '@angular/core';
@@ -38,7 +39,7 @@ export class AddProductPage {
   base64Image: string;
   imgResultAfterCompress: any;
   count;
-  constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private camera: Camera,private imageCompress: NgxImageCompressService, private app: App) {
+  constructor(private platform: Platform,private translate: TranslateService, public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private camera: Camera,private imageCompress: NgxImageCompressService, private app: App) {
     /*this.platform.registerBackButtonAction( () => {
       let nav = this.app.getActiveNav();
       if (nav.canGoBack()) {
@@ -96,7 +97,12 @@ export class AddProductPage {
 
     } else {
       console.log('stock atteint');
-
+      let alert = this.alertCtrl.create({
+        title: this.translate.instant('ALERT.warn_title'),
+        subTitle: this.translate.instant('ALERT.stock_limite'),
+        buttons: ['OK']
+      });
+      alert.present();
     }
 
 
@@ -104,18 +110,18 @@ export class AddProductPage {
 
   presentAlert() {
     let alert = this.alertCtrl.create({
-      title: 'info',
-      subTitle: 'Votre produit est ajouté !',
+      title: 'Info',
+      subTitle: this.translate.instant('ALERT.succ_sub_prod2'),
       buttons: [
         {
-          text: 'Continuer',
+          text:  this.translate.instant('OTHERS.next'),
           role: 'cancel',
           handler: () => {
             console.log('Cancel clicked');
           }
         },
         {
-          text: 'Terminer',
+          text: this.translate.instant('OTHERS.finish'),
           handler: () => {
             console.log('Buy clicked');
             localStorage.setItem('article' + this.indic, JSON.stringify(this.data));

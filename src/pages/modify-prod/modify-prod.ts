@@ -7,7 +7,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import {NgxImageCompressService} from 'ngx-image-compress';
-
+import { TranslateService } from '@ngx-translate/core';
 /**
  * Generated class for the ModifyProdPage page.
  *
@@ -36,7 +36,7 @@ slug;
   imgResultAfterCompress: any;
   status = false;
   id_market;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, private storeService: StoreProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController,private imageCompress: NgxImageCompressService) {
+  constructor(public navCtrl: NavController, private translate: TranslateService, public navParams: NavParams, private camera: Camera, private storeService: StoreProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController,private imageCompress: NgxImageCompressService) {
   }
 
   ionViewDidLoad() {
@@ -73,7 +73,7 @@ slug;
 
   update() {
     let loading = this.loadingCtrl.create({
-      content: 'Veuillez Patienter...'
+      content: this.translate.instant('LOAD.mgs')
     });
     loading.present();
 
@@ -132,8 +132,8 @@ slug;
         console.log(JSON.stringify(success));
         loading.dismiss();
         let alert = this.alertCtrl.create({
-          title: 'SUCCESS',
-          subTitle: 'Succès de la modification',
+          title: this.translate.instant('ALERT.succ_title'),
+          subTitle: this.translate.instant('ALERT.succ_mod'),
           buttons: ['OK']
         });
         alert.present();
@@ -144,9 +144,9 @@ slug;
         console.log(JSON.stringify(error));
         loading.dismiss();
         let alert = this.alertCtrl.create({
-          title: 'ECHEC',
-          subTitle: 'Echec de la modification',
-          message: 'Veuillez verifiez réessayer plus part !',
+          title: this.translate.instant('ALERT.err_title'),
+          subTitle: this.translate.instant('ALERT.err_mod_sub'),
+          message: this.translate.instant('ALERT.err_message'),
           buttons: ['OK']
         });
         alert.present();
@@ -156,7 +156,7 @@ slug;
 
   delete(id) {
     let loading = this.loadingCtrl.create({
-      content: 'Veuillez Patienter...'
+      content: this.translate.instant('LOAD.mgs')
     });
     loading.present();
     console.log(id);
@@ -165,8 +165,8 @@ slug;
         console.log(success);
         loading.dismiss();
         let alert = this.alertCtrl.create({
-          title: 'SUCCESS',
-          subTitle: 'Supprimer avec succès',
+          title: this.translate.instant('ALERT.succ_title'),
+          subTitle: this.translate.instant('ALERT.sucs_supp'),
           buttons: ['OK']
         });
         alert.present();
@@ -177,9 +177,9 @@ slug;
         loading.dismiss();
 
         let alert = this.alertCtrl.create({
-          title: 'ECHEC',
-          subTitle: 'Echec de la suppression',
-          message: 'Veuillez verifiez réessayer plus part !',
+          title: this.translate.instant('ALERT.err_title'),
+          subTitle: this.translate.instant('ALERT.err_supp_sub'),
+          message: this.translate.instant('ALERT.err_message'),
           buttons: ['OK']
         });
         alert.present();

@@ -8,7 +8,7 @@ import { ModalController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import {NgxImageCompressService} from 'ngx-image-compress';
-
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Generated class for the ModifyProfilePage page.
@@ -33,7 +33,7 @@ export class ModifyProfilePage {
   base64Image: string;
   analayse = true;
   imgResultAfterCompress: string;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private userService: UserProvider, public modalCtrl: ModalController,public loadingCtrl: LoadingController, private camera: Camera, private app: App,private imageCompress: NgxImageCompressService) {
+  constructor(public navCtrl: NavController,private translate: TranslateService, public navParams: NavParams, private alertCtrl: AlertController, private userService: UserProvider, public modalCtrl: ModalController,public loadingCtrl: LoadingController, private camera: Camera, private app: App,private imageCompress: NgxImageCompressService) {
   }
 
   ionViewDidLoad() {
@@ -88,7 +88,7 @@ export class ModifyProfilePage {
           this.imgResultAfterCompress = result;
           this.base64Image = result;
           let loading = this.loadingCtrl.create({
-            content: 'Veuillez Patienter...'
+            content: this.translate.instant('LOAD.mgs')
           });
           loading.present();
 
@@ -145,27 +145,26 @@ export class ModifyProfilePage {
   goToAlertToUpdateFn() {
 
     let alert = this.alertCtrl.create({
-      title: 'Modification',
-      message: "Entrez votre nouveau prénom",
+      title: this.translate.instant('SHOP.MODIFICATION.title'),      
       inputs: [
         {
           name: "name1",
-          placeholder: 'Votre prénom'
+          placeholder: this.translate.instant('OTHERS.fn')
         },
       ],
       buttons: [
         {
-          text: 'Fermer',
+          text: this.translate.instant('SHARING.option2'),
           role: 'cancel',
           handler: data => {
             console.log('Cancel clicked');
           }
         },
         {
-          text: 'Valider',
+          text: this.translate.instant('OTHERS.valid'),
           handler: data => {
             let loading = this.loadingCtrl.create({
-              content: 'Veuillez Patienter...'
+              content: this.translate.instant('LOAD.mgs')
             });
             loading.present();
               let updateData = {
@@ -196,7 +195,7 @@ export class ModifyProfilePage {
   goToAlertToUpdateLn() {
 
     let alert = this.alertCtrl.create({
-      title: 'Modification',
+      title: this.translate.instant('SHOP.MODIFICATION.title'),
       message: "Entrez votre nouveau nom",
       inputs: [
         {
@@ -206,17 +205,17 @@ export class ModifyProfilePage {
       ],
       buttons: [
         {
-          text: 'Fermer',
+          text: this.translate.instant('SHARING.option2'),
           role: 'cancel',
           handler: data => {
             console.log('Cancel clicked');
           }
         },
         {
-          text: 'Valider',
+          text: this.translate.instant('OTHERS.valid'),
           handler: data => {
             let loading = this.loadingCtrl.create({
-              content: 'Veuillez Patienter...'
+              content: this.translate.instant('LOAD.mgs')
             });
             loading.present();
               let updateData = {
@@ -248,27 +247,27 @@ export class ModifyProfilePage {
 
 
     let alert = this.alertCtrl.create({
-      title: 'Modification',
-      message: "Entrez votre numéro de téléphone",
+      title: this.translate.instant('SHOP.MODIFICATION.title'),
+      message: this.translate.instant('OTHERS.phone'),
       inputs: [
         {
           name: "phone",
-          placeholder: 'Votre numéro de téléphone (avec devant l\'indicatif)'
+          placeholder: this.translate.instant('OTHERS.phone_pl')
         },
       ],
       buttons: [
         {
-          text: 'Fermer',
+          text: this.translate.instant('SHARING.option2'),
           role: 'cancel',
           handler: data => {
             console.log('Cancel clicked');
           }
         },
         {
-          text: 'Valider',
+          text: this.translate.instant('OTHERS.valid'),
           handler: data => {
             let loading = this.loadingCtrl.create({
-              content: 'Veuillez Patienter...'
+              content: this.translate.instant('LOAD.mgs')
             });
             loading.present();
             let updateData = {
@@ -301,31 +300,31 @@ export class ModifyProfilePage {
 
   goToAlertToUpdatePs() {
     let alert = this.alertCtrl.create({
-      title: 'Modification',
-      message: "Entrez votre nouveau mot de passe",
+      title: this.translate.instant('SHOP.MODIFICATION.title'),
+      message: this.translate.instant('OTHERS.password'),
       inputs: [
         {
           name: "password",
-          placeholder: 'Entrez votre l\'ancien mot de passe'
+          placeholder: this.translate.instant('OTHERS.old_ps')
         },
         {
           name: "password2",
-          placeholder: 'Entrez votre nouveau mot de passe'
+          placeholder: this.translate.instant('OTHERS.new_pl')
         },
       ],
       buttons: [
         {
-          text: 'Fermer',
+          text: this.translate.instant('SHARING.option2'),
           role: 'cancel',
           handler: data => {
             console.log('Cancel clicked');
           }
         },
         {
-          text: 'Valider',
+          text: this.translate.instant('OTHERS.valid'),
           handler: data => {
             let loading = this.loadingCtrl.create({
-              content: 'Veuillez Patienter...'
+              content: this.translate.instant('LOAD.mgs')
             });
             loading.present();
             let updateData = {
@@ -356,8 +355,8 @@ export class ModifyProfilePage {
 
   goToAlertInfo() {
     let alert = this.alertCtrl.create({
-      title: 'Information',
-      subTitle: 'Pour des raisons sécuritaires, vous ne pouvez pas modifier votre e-mail',
+      title: this.translate.instant('ALERT.info_title'),
+      subTitle: this.translate.instant('ALERT.info_subtitle'),
       buttons: ['OK']
     });
     alert.present();

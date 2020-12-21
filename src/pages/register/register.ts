@@ -8,6 +8,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 //import { timestamp } from 'rxjs/operators';
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import { HttpClient } from '@angular/common/http';
 
 /**
  * Generated class for the RegisterPage page.
@@ -31,12 +32,31 @@ export class RegisterPage {
     "password" : '',
     "repeat_password" : '',
   };
+  my_country;
   conformite = 'Les deux mots de passe ne sont pas conforme !';
   good = '';
   err;
   base64Image:string;
+  selectOptions;
+  Countries;
+  url = "https://restcountries.eu/rest/v2/all?fields=name;alpha3Code;flag;callingCodes;";
+  //"https://restcountries.eu/rest/v2/all?fields=name;alpha3Code;flag;";
+  constructor(public navCtrl: NavController,public http: HttpClient, public navParams: NavParams, private userService: UserProvider,private camera: Camera,public loadingCtrl: LoadingController, private alertCtrl: AlertController) {
+    this.selectOptions = {
+      title : "PAYS",
+      subTitle : "Choisissez votre pays",
+      mode: 'md'
+    }
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private userService: UserProvider,private camera: Camera,public loadingCtrl: LoadingController, private alertCtrl: AlertController) {
+    this.http.get(this.url).subscribe(
+      (data) => {
+        this.Countries = data;        
+        
+      }, (err) => {
+        console.log(err);
+        
+      }
+    )
   }
 
   ionViewDidLoad() {
@@ -51,6 +71,22 @@ export class RegisterPage {
     "repeat_password" : '',
     };
   }
+
+  loadFlags() {
+    setTimeout(()=>{ 
+      let countries = this.Countries;
+      // console.log("get countries", countries);
+     let radios=document.getElementsByClassName('alert-radio-label');
+     for (let index = 0; index < radios.length; index++) {
+        let element = radios[index];
+        // console.log("element", element);
+
+        // console.log("index", countries[index-1].flag);
+        element.innerHTML=element.innerHTML.concat('<img class="country-image" style="width: 30px;height:16px;" src="'+countries[index].flag+'" />');
+      }
+  }, 50);
+  }
+
 
   checkPassword() {
     if (this.register.password == this.register.repeat_password) {
@@ -129,16 +165,23 @@ export class RegisterPage {
           };
     } else {
 
+      let country = {
+        "country_name" : this.my_country.name,
+        "country_short_name" : this.my_country.alpha3Code
+      }
+
       let data = {
         "last_name" : this.register.name,
         "first_name" : this.register.firstname,
         "email" : this.register.email,
-        "phone" : this.register.indicator + this.register.number,
+        "country" : this.my_country.alpha3Code,
+        "phone" : "+" + this.my_country.callingCodes[0] + this.register.number,
         "password" : this.register.password,
-        "re_password" : this.register.password,
+        "re_password" : this.register.password
+        
       }
 
-      console.log(data);
+      console.log(JSON.stringify(data));
 
       this.userService.registerUser(data).subscribe(
         response => {
@@ -165,7 +208,7 @@ export class RegisterPage {
           alert.present();
         },
         error => {
-          console.log('error ', error);
+          console.log('error ', JSON.stringify(error));
           loading.dismiss();
           if (error.error.password) {
             this.err = error.error.password;

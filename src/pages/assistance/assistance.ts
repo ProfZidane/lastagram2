@@ -2,7 +2,7 @@ import { UserProvider } from './../../providers/user/user';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
-
+import { TranslateService } from '@ngx-translate/core';
 /**
  * Generated class for the AssistancePage page.
  *
@@ -23,7 +23,7 @@ Messages = {
   date: ""
 }
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private userService: UserProvider) {
+  constructor(public navCtrl: NavController, private translate: TranslateService, public navParams: NavParams, public alertCtrl: AlertController, private userService: UserProvider) {
   }
 
   ionViewDidLoad() {
@@ -52,8 +52,8 @@ Messages = {
           console.log(success);
 
         const alert = this.alertCtrl.create({
-          title: 'SUCCES',
-          subTitle: 'Votre message à été envoyé, nous vous contacterons au plus vite !',
+          title: this.translate.instant('ALERT.succ_title'),
+          subTitle: this.translate.instant('ASSISTANCE.success'),
           buttons: ['OK']
         });
         alert.present();
@@ -68,8 +68,8 @@ Messages = {
         }, (error)=> {
           console.log(JSON.stringify(error));
           const alert = this.alertCtrl.create({
-            title: 'ECHEC',
-            subTitle: 'Un problème est survenu',
+            title: this.translate.instant('ALERT.err_title'),
+            subTitle: this.translate.instant('ASSISTANCE.err'),
             buttons: ['OK']
           });
           alert.present();
@@ -85,8 +85,8 @@ Messages = {
     } else {
 
       const alert = this.alertCtrl.create({
-        title: 'ATTENTION',
-        subTitle: 'Veuillez remplir les champs s\'il vous plait !',
+        title: this.translate.instant('ALERT.warn_title'),
+        subTitle: this.translate.instant('ASSISTANCE.warn'),
         buttons: ['OK']
       });
       alert.present();

@@ -36,7 +36,7 @@
           <ion-icon name="md-thumbs-up" (click)="Abonne(Market.id)" *ngIf="!isSubscribed" ></ion-icon>
           <ion-icon name="md-thumbs-up" class="isSubscribe" (click)="DesAbonne(Market.id)" *ngIf="isSubscribed" ></ion-icon>
           &nbsp;
-          {{ Market.subscribers }} Abonnés
+          {{ Market.subscribers }} {{ "OTHERS.abo" | translate }}
         </span>
       </ion-col>
       <ion-col col-6 >
@@ -172,7 +172,7 @@
   <ion-grid>
     <ion-row class="flash-create-boutique">
       <ion-col class=""  col-5>
-        <h5>Vente Flash</h5>
+        <h5>{{ "CREATE_BTQ.vt_flsh" | translate }}</h5>
       </ion-col>
       <ion-col class="" col-5>
         <h5>{{ heure }} h: {{ minute }} m: {{ second }}s</h5>
@@ -214,7 +214,7 @@
   </ion-grid>
 
   <ion-grid class="product-origin-create-boutique">
-    <h3 class="p">Produits Populaires</h3>
+    <h3 class="p">{{ "CREATE_BTQ.prod_pop" | translate}}</h3>
     <ion-scroll scrollX="true" style="width:100vw; height:250px;" >
       <ion-row class="product-flash-create-boutique" nowrap>
         <ion-col class="" col-6 *ngFor="let p2 of Market.popular" (click)="goToDetail(p2.id,Market.id, Market.owner, Market.devis)">
@@ -241,11 +241,11 @@
     <ion-row class="">
       <ion-col class="" col-6 (click)="Message(username)">
         <ion-icon name="mail"></ion-icon>
-        <span>MESSAGE</span>
+        <span>{{ "SHOP.texte" | translate}}</span>
       </ion-col>
       <ion-col class="" col-6 (click)="Call()">
         <ion-icon name="call"></ion-icon>
-        <span>APPELLE-MOI</span>
+        <span>{{ "SHOP.call" | translate}}</span>
       </ion-col>
     </ion-row>
   </ion-grid>

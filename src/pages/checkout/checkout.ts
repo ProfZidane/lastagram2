@@ -6,7 +6,7 @@ import { AlertController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { OrderProvider } from './../../providers/order/order';
 import * as firebase from 'firebase';
-
+import { TranslateService } from '@ngx-translate/core';
 /**
  * Generated class for the CheckoutPage page.
  *
@@ -21,7 +21,7 @@ import * as firebase from 'firebase';
 })
 export class CheckoutPage {
   quantity = 1;
-  here:string = "Votre lieu de livraison";
+  here:string = "";
   products = [];
   user:string;
   Order;
@@ -29,8 +29,8 @@ export class CheckoutPage {
   id_order;
   attached_articles_to_notification;
   ref = firebase.database().ref('Order_notification/');
-
-  constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, public loadingCtrl: LoadingController, private orderService: OrderProvider, private notificationService: NotificationProvider, private app: App) {
+  devis;
+  constructor(private platform: Platform, private translate: TranslateService, public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, public loadingCtrl: LoadingController, private orderService: OrderProvider, private notificationService: NotificationProvider, private app: App) {
     /*this.platform.registerBackButtonAction( () => {
       let nav = this.app.getActiveNav();
 
@@ -44,12 +44,13 @@ export class CheckoutPage {
         //this.platform.exitApp();
       }
     })*/
+    this.here = this.translate.instant('CHECKOUT.w')
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CheckoutPage');
     let loading = this.loadingCtrl.create({
-      content: 'Veuillez Patienter...'
+      content: this.translate.instant('LOAD.mgs')
     });
     loading.present();
     this.orderService.getProductToCart().subscribe(
@@ -68,7 +69,7 @@ export class CheckoutPage {
             console.log(element);
 
               this.products.push(element);
-
+              this.devis = element.devis;
           });
 
           //this.attached_articles_to_notification.owner = data.owner;
@@ -129,21 +130,21 @@ export class CheckoutPage {
 
 
   goToOrdered() {
-    let id_store = [];
+    /*let id_store = [];
     this.Order.articles.forEach(element => {
       let id = element.store;
       id_store.push(id);
     });
-    this.send_notification(this.Order,JSON.stringify(id_store));
+    this.send_notification(this.Order,JSON.stringify(id_store));*/
 
-    /*let loading = this.loadingCtrl.create({
-      content: 'Veuillez Patienter...',
+    let loading = this.loadingCtrl.create({
+      content: this.translate.instant('LOAD.mgs'),
     });
     loading.present();
     let data = {
       "id_order": this.id_order
     }
-    if (this.here != "Votre lieu de livraison") {
+    if (this.here != this.translate.instant('CHECKOUT.w')) {
       this.orderService.validation(data).subscribe(
         (success) => {
           //console.log(JSON.string);
@@ -185,8 +186,8 @@ export class CheckoutPage {
           console.log(err);
           loading.dismiss()
           let alert = this.alertCtrl.create({
-            title: 'ECHEC',
-            subTitle: 'Veuillez vérifier votre connexion internet',
+            title: this.translate.instant('ALERT.err_title'),
+            subTitle: this.translate.instant('ALERT.err_action'),
             buttons: ['OK']
           });
           alert.present();
@@ -196,13 +197,13 @@ export class CheckoutPage {
     } else {
       loading.dismiss()
       let alert = this.alertCtrl.create({
-        title: 'ATTENTION',
-        subTitle: 'Veuillez saisir le lieu de livraison.',
+        title: this.translate.instant('ALERT.warn_title'),
+        subTitle: this.translate.instant('CHECKOUT.warn_err'),
         buttons: ['OK']
       });
       alert.present();
-      this.here = "Votre lieu de livraison";
-    }*/
+      this.here = this.translate.instant('CHECKOUT.w');
+    }
 
 
   }
@@ -210,27 +211,27 @@ export class CheckoutPage {
   goToAlertToHere() {
 
     let alert = this.alertCtrl.create({
-      title: 'LIVRAISON',
-      message: "Entrez le lieu de livraison",
+      title: this.translate.instant('CHECKOUT.title'),
+      message: this.translate.instant('CHECKOUT.mgs_title'),
       inputs: [
         {
           name: "here",
-          placeholder: 'Lieu de livraison'
+          placeholder: this.translate.instant('CHECKOUT.w')
         },
       ],
       buttons: [
         {
-          text: 'Fermer',
+          text: this.translate.instant('SHARING.option2'),
           role: 'cancel',
           handler: data => {
             console.log('Cancel clicked');
           }
         },
         {
-          text: 'Valider',
+          text: this.translate.instant('OTHERS.valid'),
           handler: data => {
             let loading = this.loadingCtrl.create({
-              content: 'Veuillez Patienter...'
+              content: this.translate.instant('LOAD.mgs')
             });
             loading.present();
 
@@ -247,12 +248,12 @@ export class CheckoutPage {
               }, (error) => {
                 console.log(error);
                 let alert = this.alertCtrl.create({
-                  title: 'ECHEC',
-                  subTitle: 'Veuillez vérifier votre connexion internet',
+                  title: this.translate.instant('ALERT.err_title'),
+            subTitle: this.translate.instant('ALERT.err_action'),
                   buttons: ['OK']
                 });
                 alert.present();
-                this.here = "Votre lieu de livraison";
+                this.here = this.translate.instant('CHECKOUT.w');
                 loading.dismiss();
               }
             )

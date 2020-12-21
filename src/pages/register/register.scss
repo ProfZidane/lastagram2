@@ -1,6 +1,15 @@
 page-register {
+  ion-label {
+    color: gray;
+    text-transform: uppercase;
+  }
 
+  ion-select {
+    width: 100%;
+  }
 }
+
+
 
 ion-navbar ion-title{
   /*border: solid;*/
@@ -36,6 +45,7 @@ ion-navbar ion-title{
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   margin-bottom: 2.5rem;
+  padding:1;
 }
 
 

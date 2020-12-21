@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar color="lastagram" hideBackButton="true">
+  <ion-navbar color="lastagram">
     <ion-title>
       {{ "TITLE.checkOut" | translate }}
     </ion-title>
@@ -40,8 +40,8 @@
               <img class="img-cart" [src]=product.article.image_cover>
             </ion-thumbnail>
             <h2>{{ product.article.name }}</h2>
-            <p><strong>Quantité : </strong>{{ product.quantity }}</p>
-            <span class="price-cart">{{ product.article.price | number }} F CFA</span>
+            <p><strong> {{ "CHECKOUT.qte" | translate }}</strong>{{ product.quantity }}</p>
+            <span class="price-cart">{{ product.article.price | number }} {{ product.devis }}</span>
             <br>
             <!--<span class="i">
               <ion-icon name="md-remove-circle" (click)="discrease(1)"></ion-icon>
@@ -64,13 +64,13 @@
 
     <ion-row>
       <ion-col col-5 *ngIf="products" >
-        <p class="ttc">TOTAL</p>
-        <p class="price-ttc" color="lastagram">{{ Total }} F CFA</p>
+        <p class="ttc">{{ "CART.ttc" | translate }}</p>
+        <p class="price-ttc" color="lastagram">{{ Total }} {{ devis }}</p>
       </ion-col>
       <ion-col col-7 align="center">
         <br>
         <button class="checkout-btn twoo2" ion-button round icon-end color="lastagram" (click)="goToOrdered()">
-          Passez Commande <ion-icon class="ckeckout-icon" name="arrow-dropright-circle"></ion-icon>
+          {{ "TITLE.checkOut" | translate }} <ion-icon class="ckeckout-icon" name="arrow-dropright-circle"></ion-icon>
         </button>
       </ion-col>
     </ion-row>

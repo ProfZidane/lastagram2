@@ -152,7 +152,7 @@
             <ion-icon name="md-thumbs-up" style="font-size: 25px;color:rgb(2, 2, 26);" (click)="DesAbonne(market.id)" *ngIf="market.isSubscribed === true"></ion-icon>
             &nbsp;
             <span class="b" >
-              {{ market.subscribers_count }} Abonné(s)
+              {{ market.subscribers_count }} {{ "OTHERS.abo" | translate }}
             </span>
               </ion-col>
             </ion-row>
@@ -214,5 +214,10 @@
       </ion-card>
     </ion-row>-->
   </ion-grid>
-
+  <ion-grid *ngIf="markets && markets.length === 0" >
+    <div class="empty_cmd" align="center">
+      <ion-icon name="flag"></ion-icon>
+      <p>{{ "OTHERS.nothing_home_store" | translate }}<p>
+    </div>
+  </ion-grid>
 </ion-content>

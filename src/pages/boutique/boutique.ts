@@ -25,7 +25,7 @@ import { ActionSheetController, PopoverController } from 'ionic-angular';
 import {NgxImageCompressService} from 'ngx-image-compress';
 import { Clipboard } from '@ionic-native/clipboard';
 import { SocialSharing } from '@ionic-native/social-sharing';
-
+import { TranslateService } from '@ngx-translate/core';
 /**
  * Generated class for the BoutiquePage page.
  *
@@ -69,8 +69,10 @@ export class BoutiquePage {
   minute=30;
   heure=0;
   actionSheet;
+  actionSheet2;
+
   //rootPage = BoutiquePage;
-  constructor(private socialSharing: SocialSharing, private platform: Platform, public toastCtrl: ToastController,public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController,private callNumber: CallNumber, private alertCtrl: AlertController, private camera: Camera,public actionSheetCtrl: ActionSheetController,private imageCompress: NgxImageCompressService,public menuCtrl: MenuController, private clipboard: Clipboard, public popoverCtrl: PopoverController, private app: App) {
+  constructor(private socialSharing: SocialSharing,private translate: TranslateService, private platform: Platform, public toastCtrl: ToastController,public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController,private callNumber: CallNumber, private alertCtrl: AlertController, private camera: Camera,public actionSheetCtrl: ActionSheetController,private imageCompress: NgxImageCompressService,public menuCtrl: MenuController, private clipboard: Clipboard, public popoverCtrl: PopoverController, private app: App) {
     /*this.platform.registerBackButtonAction( () => {
       let nav = this.app.getActiveNav();
 
@@ -89,7 +91,7 @@ export class BoutiquePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad BoutiquePage');
     let loading = this.loadingCtrl.create({
-      content: 'Veuillez Patienter...'
+      content: this.translate.instant('LOAD.mgs')
     });
     loading.present();
 
@@ -254,6 +256,9 @@ export class BoutiquePage {
     if (this.actionSheet) {
       this.actionSheet.dismiss();
     }
+    if (this.actionSheet2) {
+      this.actionSheet2.dismiss();
+    }
   }
 
   goToProductShare() {
@@ -292,7 +297,7 @@ export class BoutiquePage {
   // presente action
   presentActionSheet() {
      this.actionSheet = this.actionSheetCtrl.create({
-      title: 'Partagez avec : ',
+      title: this.translate.instant('SHARING.title'),
       buttons: [
         {
           text: 'Facebook',
@@ -327,7 +332,7 @@ export class BoutiquePage {
             //this.navCtrl.push(ShopToSharePage);
           }
         },{
-          text: 'Copier lien',
+          text: this.translate.instant('SHARING.option3'),
           icon: 'link',
           handler: () => {
             console.log('Destructive clicked');
@@ -335,14 +340,14 @@ export class BoutiquePage {
             //this.navCtrl.push(ShopToSharePage);
           }
         },{
-          text: ' Partagez mes produits sur les réseaux sociaux',
+          text: this.translate.instant('SHARING.option4'),
           icon: 'add-circle',
           handler: () => {
             this.goToProductShare();
             //this.goToProductShare();
           }
         },{
-          text: 'Fermer',
+          text: this.translate.instant('SHARING.option2'),
           role: 'cancel',
           icon: 'close-circle',
           cssClass: 'cancel-btn',
@@ -358,16 +363,16 @@ export class BoutiquePage {
   shareSocialMedia() {
     let link = DEEP_LINK_DOMAIN + this.Market.id + "/" + false;
     let option = {
-      message : "Rejoignez nous sur Lastagram ",
+      message : this.translate.instant('SHARING.message_btq'),
       files: null,
       url: link,
-      chooserTitle: "Choisissez une application"
+      chooserTitle: this.translate.instant('OTHERS.choose_sh')
     }
     this.socialSharing.shareWithOptions(option);
   }
 
   shareMessenger() {
-    let message = "Rejoignez nous sur Lastagram ";
+    let message = this.translate.instant('SHARING.message_btq');
     let image = "" // image de couverture
     let link = DEEP_LINK_DOMAIN + this.Market.id + "/" + false;
 
@@ -386,8 +391,8 @@ export class BoutiquePage {
   }) .catch((e)=> {
     console.log("erreur " + e);
     let alert = this.alertCtrl.create({
-      title: 'ATTENTION',
-      subTitle: 'Installer l\'application avant tout !',
+      title: this.translate.instant("ALERT.warn_title"),
+      subTitle: this.translate.instant('SHARING.err'),
       buttons: ['OK']
     });
     alert.present();
@@ -396,7 +401,7 @@ export class BoutiquePage {
   }
 
   shareWhatsapp() {
-    let message = "Rejoignez nous sur Lastagram ";
+    let message = this.translate.instant('SHARING.message_btq');
     let image = "" // image de couverture
     let link = DEEP_LINK_DOMAIN + this.Market.id + "/" + false;
 
@@ -414,8 +419,8 @@ export class BoutiquePage {
     }) .catch((e)=> {
       console.log("erreur " + e);
       let alert = this.alertCtrl.create({
-        title: 'ATTENTION',
-        subTitle: 'Installer l\'application avant tout !',
+        title: this.translate.instant("ALERT.warn_title"),
+        subTitle: this.translate.instant('SHARING.err'),
         buttons: ['OK']
       });
       alert.present();
@@ -425,7 +430,7 @@ export class BoutiquePage {
   }
 
   shareFacebook() {
-    let message = "Rejoignez nous sur Lastagram  ";
+    let message = this.translate.instant('SHARING.message_btq');
     let image = "" // image de couverture
     let link = DEEP_LINK_DOMAIN + this.Market.id + "/" + false;
 
@@ -445,8 +450,8 @@ export class BoutiquePage {
 
 
       let alert = this.alertCtrl.create({
-        title: 'ATTENTION',
-        subTitle: 'Installer l\'application avant tout !',
+        title: this.translate.instant("ALERT.warn_title"),
+        subTitle: this.translate.instant('SHARING.err'),
         buttons: ['OK']
       });
       alert.present();
@@ -459,7 +464,7 @@ export class BoutiquePage {
   shareInstagram() {
     let link = DEEP_LINK_DOMAIN + this.Market.id + "/" + false;
 
-    let message = "Rejoignez nous sur Lastagram  " + link; // lien directe dans le message
+    let message = this.translate.instant('SHARING.message_btq') + " " + link; // lien directe dans le message
     let image = null // image de couverture
 
     this.socialSharing.canShareVia("instagram","Test catana",null,null,null).then((res) => {
@@ -478,8 +483,8 @@ export class BoutiquePage {
 
 
       let alert = this.alertCtrl.create({
-        title: 'ATTENTION',
-        subTitle: 'Installer l\'application avant tout !',
+        title: this.translate.instant("ALERT.warn_title"),
+        subTitle: this.translate.instant('SHARING.err'),
         buttons: ['OK']
       });
       alert.present();
@@ -490,11 +495,11 @@ export class BoutiquePage {
   CopyLink() {
     let link = DEEP_LINK_DOMAIN + this.Market.id + "/" + false;
 
-    let message = "Rejoignez nous sur Lastagram " + link;
+    let message = this.translate.instant('SHARING.message_btq') + " " + link;
             this.clipboard.copy(message).then(
               () => {
                   const toast = this.toastCtrl.create({
-                    message: 'Lien copié !',
+                    message: this.translate.instant('SHARING.linked') + ' !',
                     duration: 3000,
                     position: 'bottom'
                   });
@@ -509,7 +514,7 @@ export class BoutiquePage {
     console.log(localStorage.getItem('phoneUser'));
     let alert = this.alertCtrl.create({
       title: 'INFO',
-      subTitle: 'Vous êtes en mode administration. L\'option message est, ici, désactivé !',
+      subTitle: this.translate.instant('SHOP.texte_warn'),
       buttons: ['OK']
     });
     alert.present();
@@ -519,7 +524,7 @@ export class BoutiquePage {
     console.log(localStorage.getItem('phoneUser'));
     let alert = this.alertCtrl.create({
       title: 'INFO',
-      subTitle: 'Numéro du propriétaire : ' + localStorage.getItem('phoneUser'),
+      subTitle: this.translate.instant('SHOP.call_response') + ' : ' + localStorage.getItem('phoneUser'),
       buttons: ['OK']
     });
     alert.present();
@@ -566,24 +571,24 @@ export class BoutiquePage {
 
   setToZero(id) {
     let alert = this.alertCtrl.create({
-      title: 'Réglage Minuteur',
+      title: this.translate.instant('SHOP.TIMER.set'),
       inputs: [
         {
           name: 'hour',
-          placeholder: 'Heure'
+          placeholder: this.translate.instant('SHOP.TIMER.hour')
         },
         {
           name: 'minute',
-          placeholder: 'Minute',
+          placeholder: this.translate.instant('SHOP.TIMER.Min'),
         },
         {
           name: 'second',
-          placeholder: 'Second',
+          placeholder: this.translate.instant('SHOP.TIMER.Sec'),
         }
       ],
       buttons: [
         {
-          text: 'Fermer',
+          text: this.translate.instant('SHARING.option2'),
           role: 'cancel',
           handler: data => {
             console.log('Cancel clicked');
@@ -600,7 +605,7 @@ export class BoutiquePage {
               "timer" : data.hour + ":" + data.minute + ":" + data.second
             }
             let loading = this.loadingCtrl.create({
-              content: 'Veuillez Patienter...'
+              content: this.translate.instant('LOAD.mgs')
             });
             loading.present();
             this.storeService.updateProduct2(time,Number(id)).subscribe(
@@ -611,8 +616,8 @@ export class BoutiquePage {
                 loading.dismiss();
 
                 let alert2 = this.alertCtrl.create({
-                  title: 'SUCCESS',
-                  subTitle: 'Timer a été mis à jour !',
+                  title: this.translate.instant('ALERT.succ_title'),
+                  subTitle: this.translate.instant('SHOP.TIMER.success'),
                   buttons: [
                     {
                       text: 'OK',
@@ -631,8 +636,8 @@ export class BoutiquePage {
                 console.log(JSON.stringify(error));
                 loading.dismiss();
                 let alert3 = this.alertCtrl.create({
-                  title: 'ECHEC',
-                  subTitle: 'Echec de la mise à jour !',
+                  title: this.translate.instant('ALERT.err_title'),
+                  subTitle: this.translate.instant('SHOP.TIMER.echec'),
                   buttons: [
                     {
                       text: 'OK',
@@ -668,7 +673,7 @@ export class BoutiquePage {
           this.imgResultAfterCompress = result;
           console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
           let loading = this.loadingCtrl.create({
-            content: 'Veuillez Patienter...'
+            content: this.translate.instant('LOAD.mgs')
           });
           loading.present();
           let data = {
@@ -680,8 +685,8 @@ export class BoutiquePage {
                 console.log(response);
                 loading.dismiss();
                 let alert4 = this.alertCtrl.create({
-                  title: 'SUCCESS',
-                  subTitle: 'Photo modifée !',
+                  title: this.translate.instant('ALERT.succ_title'),
+                  subTitle: this.translate.instant('SHOP.MODIFICATION.image_success2'),
                   buttons: [
                     {
                       text: 'OK',
@@ -701,8 +706,8 @@ export class BoutiquePage {
               console.log(error);
               loading.dismiss();
               let alert5 = this.alertCtrl.create({
-                title: 'ECHEC',
-                subTitle: 'Echec de la modification !',
+                title: this.translate.instant('ALERT.err_title'),
+                subTitle: this.translate.instant('ALERT.err_mod_sub'),
                 buttons: [
                   {
                     text: 'OK',
@@ -736,7 +741,7 @@ export class BoutiquePage {
           this.imgResultAfterCompress = result;
           console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
           let loading = this.loadingCtrl.create({
-            content: 'Veuillez Patienter...'
+            content: this.translate.instant('LOAD.mgs')
           });
           loading.present();
           let data = {
@@ -748,8 +753,8 @@ export class BoutiquePage {
                 console.log(response);
                 loading.dismiss();
                 let alert4 = this.alertCtrl.create({
-                  title: 'SUCCESS',
-                  subTitle: 'Photo modifée !',
+                  title: this.translate.instant('ALERT.succ_title'),
+                  subTitle: this.translate.instant('SHOP.MODIFICATION.image_success2'),
                   buttons: [
                     {
                       text: 'OK',
@@ -769,8 +774,8 @@ export class BoutiquePage {
               console.log(error);
               loading.dismiss();
               let alert5 = this.alertCtrl.create({
-                title: 'ECHEC',
-                subTitle: 'Echec de la modification !',
+                title: this.translate.instant('ALERT.err_title'),
+                subTitle: this.translate.instant('ALERT.err_mod_sub'),
                 buttons: [
                   {
                     text: 'OK',
@@ -807,7 +812,7 @@ export class BoutiquePage {
           this.imgResultAfterCompress = result;
           console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
           let loading = this.loadingCtrl.create({
-            content: 'Veuillez Patienter...'
+            content: this.translate.instant('LOAD.mgs')
           });
           loading.present();
           let data = {
@@ -819,8 +824,8 @@ export class BoutiquePage {
                 console.log(response);
                 loading.dismiss();
                 let alert4 = this.alertCtrl.create({
-                  title: 'SUCCESS',
-                  subTitle: 'Photo modifée !',
+                  title: this.translate.instant('ALERT.succ_title'),
+                  subTitle: this.translate.instant('SHOP.MODIFICATION.image_success2'),
                   buttons: [
                     {
                       text: 'OK',
@@ -840,8 +845,8 @@ export class BoutiquePage {
               console.log(error);
               loading.dismiss();
               let alert5 = this.alertCtrl.create({
-                title: 'ECHEC',
-                subTitle: 'Echec de la modification !',
+                title: this.translate.instant('ALERT.err_title'),
+                subTitle: this.translate.instant('ALERT.err_mod_sub'),
                 buttons: [
                   {
                     text: 'OK',
@@ -869,27 +874,27 @@ export class BoutiquePage {
       if(value == "name") {
         //      this.storeService.updateProduct2()
                 let alert = this.alertCtrl.create({
-                  title: 'Modification',
-                  message: "Entrez votre le nouveau nom",
+                  title: this.translate.instant('SHOP.MODIFICATION.title'),
+                  message: this.translate.instant('SHOP.MODIFICATION.name'),
                   inputs: [
                     {
                       name: "name",
-                      placeholder: 'Votre nom'
+                      placeholder: this.translate.instant('SHOP.MODIFICATION.name_sb')
                     },
                   ],
                   buttons: [
                     {
-                      text: 'Fermer',
+                      text: this.translate.instant('SHARING.option2'),
                       role: 'cancel',
                       handler: data => {
                         console.log('Cancel clicked');
                       }
                     },
                     {
-                      text: 'Valider',
+                      text: this.translate.instant('OTHERS.valid'),
                       handler: data => {
                         let loading = this.loadingCtrl.create({
-                          content: 'Veuillez Patienter...'
+                          content: this.translate.instant('LOAD.mgs')
                         });
                         loading.present();
 
@@ -902,8 +907,8 @@ export class BoutiquePage {
                               loading.dismiss();
 
                               let alert2 = this.alertCtrl.create({
-                                title: 'SUCCESS',
-                                subTitle: 'Nom de boutique modifée !',
+                                title: this.translate.instant('ALERT.succ_title'),
+                                subTitle: this.translate.instant('SHOP.MODIFICATION.name_success'),
                                 buttons: [
                                   {
                                     text: 'OK',
@@ -922,8 +927,8 @@ export class BoutiquePage {
                               console.log(JSON.stringify(error));
                               loading.dismiss();
                               let alert3 = this.alertCtrl.create({
-                                title: 'ECHEC',
-                                subTitle: 'Echec de la modification !',
+                                title: this.translate.instant('ALERT.err_title'),
+                                subTitle: this.translate.instant('ALERT.err_mod_sub'),
                                 buttons: [
                                   {
                                     text: 'OK',
@@ -959,7 +964,7 @@ export class BoutiquePage {
                     this.imgResultAfterCompress = result;
                     console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
                     let loading = this.loadingCtrl.create({
-                      content: 'Veuillez Patienter...'
+                      content: this.translate.instant('LOAD.mgs')
                     });
                     loading.present();
                     let data = {
@@ -971,8 +976,8 @@ export class BoutiquePage {
                           console.log(response);
                           loading.dismiss();
                           let alert4 = this.alertCtrl.create({
-                            title: 'SUCCESS',
-                            subTitle: 'Photo de couverture modifée !',
+                            title: this.translate.instant('ALERT.succ_title'),
+                            subTitle: this.translate.instant('SHOP.MODIFICATION.image_success'),
                             buttons: [
                               {
                                 text: 'OK',
@@ -992,8 +997,8 @@ export class BoutiquePage {
                         console.log(error);
                         loading.dismiss();
                         let alert5 = this.alertCtrl.create({
-                          title: 'ECHEC',
-                          subTitle: 'Echec de la modification !',
+                          title: this.translate.instant('ALERT.err_title'),
+                          subTitle: this.translate.instant('ALERT.err_mod_sub'),
                           buttons: [
                             {
                               text: 'OK',
@@ -1033,7 +1038,7 @@ export class BoutiquePage {
           this.imgResultAfterCompress = result;
           console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
           let loading = this.loadingCtrl.create({
-            content: 'Veuillez Patienter...'
+            content: this.translate.instant('LOAD.mgs')
           });
           loading.present();
           let data = {
@@ -1045,8 +1050,8 @@ export class BoutiquePage {
                 console.log(response);
                 loading.dismiss();
                 let alert4 = this.alertCtrl.create({
-                  title: 'SUCCESS',
-                  subTitle: 'Photo de couverture modifée !',
+                  title: this.translate.instant('ALERT.succ_title'),
+                            subTitle: this.translate.instant('SHOP.MODIFICATION.image_success'),
                   buttons: [
                     {
                       text: 'OK',
@@ -1065,8 +1070,8 @@ export class BoutiquePage {
               console.log(error);
               loading.dismiss();
               let alert5 = this.alertCtrl.create({
-                title: 'ECHEC',
-                subTitle: 'Echec de la modification !',
+                title: this.translate.instant('ALERT.err_title'),
+                subTitle: this.translate.instant('ALERT.err_mod_sub'),
                 buttons: [
                   {
                     text: 'OK',
@@ -1099,7 +1104,7 @@ export class BoutiquePage {
           this.imgResultAfterCompress = result;
           console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
           let loading = this.loadingCtrl.create({
-            content: 'Veuillez Patienter...'
+            content: this.translate.instant('LOAD.mgs')
           });
           loading.present();
           let data = {
@@ -1111,8 +1116,8 @@ export class BoutiquePage {
                 console.log(response);
                 loading.dismiss();
                 let alert4 = this.alertCtrl.create({
-                  title: 'SUCCESS',
-                  subTitle: 'Photo de couverture modifée !',
+                  title: this.translate.instant('ALERT.succ_title'),
+                            subTitle: this.translate.instant('SHOP.MODIFICATION.image_success'),
                   buttons: [
                     {
                       text: 'OK',
@@ -1131,8 +1136,8 @@ export class BoutiquePage {
               console.log(error);
               loading.dismiss();
               let alert5 = this.alertCtrl.create({
-                title: 'ECHEC',
-                subTitle: 'Echec de la modification !',
+                title: this.translate.instant('ALERT.err_title'),
+                subTitle: this.translate.instant('ALERT.err_mod_sub'),
                 buttons: [
                   {
                     text: 'OK',
@@ -1164,7 +1169,7 @@ export class BoutiquePage {
         //this.base64Image = image;
         console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
         let loading = this.loadingCtrl.create({
-          content: 'Veuillez Patienter...'
+          content: this.translate.instant('LOAD.mgs')
         });
         loading.present();
         this.imageCompress.compressFile(image, -1, 50, 60).then(
@@ -1179,8 +1184,8 @@ export class BoutiquePage {
                   console.log(response);
                   loading.dismiss();
                   let alert2 = this.alertCtrl.create({
-                    title: 'SUCCESS',
-                    subTitle: 'Photo de boutique modifée !',
+                    title: this.translate.instant('ALERT.succ_title'),
+                            subTitle: this.translate.instant('SHOP.MODIFICATION.image_success'),
                     buttons: [
                       {
                         text: 'OK',
@@ -1199,8 +1204,8 @@ export class BoutiquePage {
                 console.log(error);
                 loading.dismiss();
                 let alert5 = this.alertCtrl.create({
-                  title: 'ECHEC',
-                  subTitle: 'Echec de la modification !',
+                  title: this.translate.instant('ALERT.err_title'),
+                  subTitle: this.translate.instant('ALERT.err_mod_sub'),
                   buttons: [
                     {
                       text: 'OK',
@@ -1226,7 +1231,7 @@ export class BoutiquePage {
         //this.base64Image = image;
         console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
         let loading = this.loadingCtrl.create({
-          content: 'Veuillez Patienter...'
+          content: this.translate.instant('LOAD.mgs')
         });
         loading.present();
         this.imageCompress.compressFile(image, -1, 50, 60).then(
@@ -1241,8 +1246,8 @@ export class BoutiquePage {
                   console.log(response);
                   loading.dismiss();
                   let alert2 = this.alertCtrl.create({
-                    title: 'SUCCESS',
-                    subTitle: 'Photo de boutique modifée !',
+                    title: this.translate.instant('ALERT.succ_title'),
+                            subTitle: this.translate.instant('SHOP.MODIFICATION.image_success'),
                     buttons: [
                       {
                         text: 'OK',
@@ -1261,8 +1266,8 @@ export class BoutiquePage {
                 console.log(error);
                 loading.dismiss();
                 let alert5 = this.alertCtrl.create({
-                  title: 'ECHEC',
-                  subTitle: 'Echec de la modification !',
+                  title: this.translate.instant('ALERT.err_title'),
+                  subTitle: this.translate.instant('ALERT.err_mod_sub'),
                   buttons: [
                     {
                       text: 'OK',
@@ -1288,7 +1293,7 @@ export class BoutiquePage {
         //this.base64Image = image;
         console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
         let loading = this.loadingCtrl.create({
-          content: 'Veuillez Patienter...'
+          content: this.translate.instant('LOAD.mgs')
         });
         loading.present();
         this.imageCompress.compressFile(image, -1, 50, 60).then(
@@ -1303,8 +1308,8 @@ export class BoutiquePage {
                   console.log(response);
                   loading.dismiss();
                   let alert2 = this.alertCtrl.create({
-                    title: 'SUCCESS',
-                    subTitle: 'Photo de boutique modifée !',
+                    title: this.translate.instant('ALERT.succ_title'),
+                            subTitle: this.translate.instant('SHOP.MODIFICATION.image_success'),
                     buttons: [
                       {
                         text: 'OK',
@@ -1323,8 +1328,8 @@ export class BoutiquePage {
                 console.log(error);
                 loading.dismiss();
                 let alert5 = this.alertCtrl.create({
-                  title: 'ECHEC',
-                  subTitle: 'Echec de la modification !',
+                  title: this.translate.instant('ALERT.err_title'),
+                  subTitle: this.translate.instant('ALERT.err_mod_sub'),
                   buttons: [
                     {
                       text: 'OK',
@@ -1369,11 +1374,11 @@ export class BoutiquePage {
   }
 
   presentActionSheet2(id) {
-    const actionSheet = this.actionSheetCtrl.create({
+    this.actionSheet2 = this.actionSheetCtrl.create({
       title: 'Produit ',
       buttons: [
         {
-          text: 'Modifier la catégorie',
+          text: this.translate.instant('SHOP.MODIFICATION.mod_prod'),
           icon: 'md-create',
           handler: () => {
             console.log('Destructive clicked');
@@ -1382,7 +1387,7 @@ export class BoutiquePage {
             //this.navCtrl.push(ShopToSharePage);
           }
         },{
-          text: 'Ajouter des produits',
+          text: this.translate.instant('SHOP.MODIFICATION.mod_catg'),
           icon: 'md-add-circle',
           handler: () => {
             console.log('Destructive clicked');
@@ -1391,7 +1396,7 @@ export class BoutiquePage {
             //this.navCtrl.push(ShopToSharePage);
           }
         },{
-          text: 'Fermer',
+          text:  this.translate.instant('SHARING.option2'),
           role: 'cancel',
           icon: 'close-circle',
           cssClass: 'cancel-btn',
@@ -1401,6 +1406,6 @@ export class BoutiquePage {
         }
       ]
     });
-    actionSheet.present();
+    this.actionSheet2.present();
   }
 }

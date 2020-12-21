@@ -17,7 +17,7 @@
   </ion-grid>
   <br>
   <ion-grid class=" text-detail-product" *ngIf="data">
-    <span>Detail Produit</span>
+    <span>{{ "TITLE.detail_prod" | translate }}</span>
     <h1>{{ data.article.name }}</h1>
     <p style="padding:0; white-space: pre-line;">
       {{ data.article.description }}

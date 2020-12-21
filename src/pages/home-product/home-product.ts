@@ -27,7 +27,7 @@ import { SearchProvider } from './../../providers/search/search';
 import { DEEP_LINK_DOMAIN, FIREBASE_CONFIG } from '../../app/environment';
 import * as firebase from 'firebase';
 import { Clipboard } from '@ionic-native/clipboard';
-
+import { TranslateService } from '@ngx-translate/core';
 /**
  * Generated class for the HomeProductPage page.
  *
@@ -52,7 +52,7 @@ export class HomeProductPage {
   previous;
   actionSheet;
   v = 0;
-  constructor(private clipboard: Clipboard, private orderService:OrderProvider,private app: App, public popoverCtrl: PopoverController, public loadingCtrl: LoadingController,private platform: Platform, public navCtrl: NavController, public navParams: NavParams, public storeService: StoreProvider, private alertCtrl: AlertController,public toastCtrl: ToastController, public modalCtrl: ModalController, private localNotifications: LocalNotifications, private notificationService: NotificationProvider, private userService: UserProvider, private socialSharing: SocialSharing,public actionSheetCtrl: ActionSheetController, private searchService: SearchProvider) {
+  constructor(private clipboard: Clipboard, private translate : TranslateService, private orderService:OrderProvider,private app: App, public popoverCtrl: PopoverController, public loadingCtrl: LoadingController,private platform: Platform, public navCtrl: NavController, public navParams: NavParams, public storeService: StoreProvider, private alertCtrl: AlertController,public toastCtrl: ToastController, public modalCtrl: ModalController, private localNotifications: LocalNotifications, private notificationService: NotificationProvider, private userService: UserProvider, private socialSharing: SocialSharing,public actionSheetCtrl: ActionSheetController, private searchService: SearchProvider) {
     this.v = 1;
     document.addEventListener('backbutton', () => {
       if (this.navCtrl.getActive().component.name === "HomeProductPage") {
@@ -77,7 +77,7 @@ export class HomeProductPage {
         (data) => {
           if (localStorage.getItem('nameUser') == null && localStorage.getItem('name2User') == null
               && localStorage.getItem('phoneUser') == null && localStorage.getItem('mailUser') == null
-              && localStorage.getItem('idUser') == null && localStorage.getItem('photoUser') == null && localStorage.getItem('usernameChat') == null) {
+              && localStorage.getItem('idUser') == null && localStorage.getItem('photoUser') == null && localStorage.getItem('usernameChat') == null && localStorage.getItem('country') == null) {
 
                 localStorage.setItem('nameUser', data.first_name);
                 localStorage.setItem('name2User', data.last_name);
@@ -86,6 +86,8 @@ export class HomeProductPage {
                 localStorage.setItem('idUser', data.id);
                 localStorage.setItem('photoUser', data.photo);
                 localStorage.setItem('usernameChat', data.username);
+                localStorage.setItem('country', data.country);
+
               }
               console.log(JSON.stringify(localStorage.getItem('idUser')));
         }, (err) => {
@@ -203,7 +205,7 @@ export class HomeProductPage {
 
    }
    let loading = this.loadingCtrl.create({
-    content: 'Veuillez Patienter...'
+    /*content: this.translate.instant('LOAD.mgs')*/
   });
   loading.present();
 
@@ -226,11 +228,11 @@ export class HomeProductPage {
 
       }, (err) => {
 
-        console.log("error : " + err );
+        console.log("error : " + JSON.stringify(err) );
         //loading.dismiss();
         let alert = this.alertCtrl.create({
-          title: 'ECHEC',
-          subTitle: 'Echec de chargement. Veuillez réessayer plus tard!',
+          title: this.translate.instant('ALERT.err_title'),
+          subTitle: this.translate.instant('ALERT.err_subtitle'),
           buttons: ['OK']
         });
         alert.present();
@@ -251,8 +253,8 @@ export class HomeProductPage {
         console.log(error);
 
         let alert = this.alertCtrl.create({
-          title: 'ECHEC',
-          subTitle: 'Echec de chargement. Veuillez réessayer plus tard!',
+          title: this.translate.instant('ALERT.err_title'),
+          subTitle: this.translate.instant('ALERT.err_subtitle'),
           buttons: ['OK']
         });
         alert.present();
@@ -420,7 +422,7 @@ export class HomeProductPage {
         });
         alert.present();*/
         const toast = this.toastCtrl.create({
-          message: 'Vous êtes abonné !',
+          message: this.translate.instant('OTHERS.abonned'),
           duration: 3000
         });
         toast.present();
@@ -429,8 +431,8 @@ export class HomeProductPage {
       },
       (error) => {
         let alert = this.alertCtrl.create({
-          title: 'ECHEC',
-          subTitle: 'L\'opération n\'a pas abouti !',
+          title: this.translate.instant('ALERT.err_title'),
+          subTitle: this.translate.instant('ALERT.err_action'),
           buttons: ['OK']
         });
         alert.present();
@@ -447,7 +449,7 @@ export class HomeProductPage {
     this.storeService.Subscribe(data).subscribe(
       (success) => {
         const toast = this.toastCtrl.create({
-          message: 'Vous êtes maintenant désabonné !',
+          message: this.translate.instant('OTHERS.desabonned'),
           duration: 3000
         });
         toast.present();
@@ -456,8 +458,8 @@ export class HomeProductPage {
       },
       (error) => {
         let alert = this.alertCtrl.create({
-          title: 'ECHEC',
-          subTitle: 'L\'opération n\'a pas abouti !',
+          title: this.translate.instant('ALERT.err_title'),
+          subTitle: this.translate.instant('ALERT.err_action'),
           buttons: ['OK']
         });
         alert.present();
@@ -472,7 +474,7 @@ export class HomeProductPage {
 
   presentActionSheet() {
      this.actionSheet = this.actionSheetCtrl.create({
-      title: 'Partagez l\'application avec : ',
+      title: this.translate.instant('SHARING.title'),
       buttons: [
         {
           text: 'Facebook',
@@ -507,7 +509,7 @@ export class HomeProductPage {
             //this.navCtrl.push(ShopToSharePage);
           }
         },{
-          text: 'Copier lien',
+          text: this.translate.instant('SHARING.option3'),
           icon: 'link',
           handler: () => {
             console.log('Destructive clicked');
@@ -515,14 +517,14 @@ export class HomeProductPage {
             //this.navCtrl.push(ShopToSharePage);
           }
         },{
-          text: 'Plus d\'options',
+          text: this.translate.instant('SHARING.option'),
           icon: 'add-circle',
           handler: () => {
             this.shareSocialMedia();
             //this.goToProductShare();
           }
         },{
-          text: 'Fermer',
+          text: this.translate.instant('SHARING.option2'),
           role: 'cancel',
           icon: 'close-circle',
           cssClass: 'cancel-btn',
@@ -538,17 +540,17 @@ export class HomeProductPage {
 
   shareSocialMedia() {
     let option = {
-      message : "Rejoignez nous sur Lastagram ",
+      message : this.translate.instant('SHARING.message_btq'),
       files: null,
       url: DEEP_LINK_DOMAIN,
-      chooserTitle: "Choisissez une application"
+      chooserTitle: this.translate.instant('OTHERS.choose_sh')
     }
     this.socialSharing.shareWithOptions(option);
   }
 
 
   shareWhatsapp() {
-    let message = "Rejoignez nous sur Lastagram ";
+    let message = this.translate.instant('SHARING.message_btq');
     let image = "" // image de couverture
 
     this.socialSharing.canShareVia("whatsapp","Test catana",null,null,null).then((res) => {
@@ -565,8 +567,8 @@ export class HomeProductPage {
     }) .catch((e)=> {
       console.log("erreur " + e);
       let alert = this.alertCtrl.create({
-        title: 'ATTENTION',
-        subTitle: 'Installer l\'application avant tout !',
+        title: this.translate.instant('ALERT.warn_title'),
+        subTitle: this.translate.instant('SHARING.err'),
         buttons: ['OK']
       });
       alert.present();
@@ -576,7 +578,7 @@ export class HomeProductPage {
   }
 
   shareMessenger() {
-    let message = "Rejoignez nous sur Lastagram ";
+    let message = this.translate.instant('SHARING.message_btq');
     let image = "" // image de couverture
 
     this.socialSharing.canShareVia("com.facebook.orca","Test messenger",null,null,null).then((res) => {
@@ -593,8 +595,8 @@ export class HomeProductPage {
   }) .catch((e)=> {
     console.log("erreur " + e);
     let alert = this.alertCtrl.create({
-      title: 'ATTENTION',
-      subTitle: 'Installer l\'application avant tout !',
+      title: this.translate.instant('ALERT.warn_title'),
+        subTitle: this.translate.instant('SHARING.err'),
       buttons: ['OK']
     });
     alert.present();
@@ -603,7 +605,7 @@ export class HomeProductPage {
   }
 
   shareFacebook() {
-    let message = "Rejoignez nous sur Lastagram  ";
+    let message = this.translate.instant('SHARING.message_btq');
     let image = "" // image de couverture
 
     this.socialSharing.canShareVia("com.facebook.katana","Test catana",null,null,null).then((res) => {
@@ -622,8 +624,8 @@ export class HomeProductPage {
 
 
       let alert = this.alertCtrl.create({
-        title: 'ATTENTION',
-        subTitle: 'Installer l\'application avant tout !',
+        title: this.translate.instant('ALERT.warn_title'),
+        subTitle: this.translate.instant('SHARING.err'),
         buttons: ['OK']
       });
       alert.present();
@@ -634,7 +636,7 @@ export class HomeProductPage {
 
 
   shareInstagram() {
-    let message = "Rejoignez nous sur Lastagram  " + DEEP_LINK_DOMAIN; // lien directe dans le message
+    let message = this.translate.instant('SHARING.message_btq') + DEEP_LINK_DOMAIN; // lien directe dans le message
     let image = "" // image de couverture
 
     this.socialSharing.canShareVia("instagram","Test catana",null,null,null).then((res) => {
@@ -653,8 +655,8 @@ export class HomeProductPage {
 
 
       let alert = this.alertCtrl.create({
-        title: 'ATTENTION',
-        subTitle: 'Installer l\'application avant tout !',
+        title: this.translate.instant('ALERT.warn_title'),
+        subTitle: this.translate.instant('SHARING.err'),
         buttons: ['OK']
       });
       alert.present();
@@ -663,11 +665,11 @@ export class HomeProductPage {
   }
 
   CopyLink() {
-    let message = "Rejoignez nous sur Lastagram " + DEEP_LINK_DOMAIN;
+    let message = this.translate.instant('SHARING.message_btq') + " " + DEEP_LINK_DOMAIN;
             this.clipboard.copy(message).then(
               () => {
                   const toast = this.toastCtrl.create({
-                    message: 'Lien copié !',
+                    message: this.translate.instant('SHARING.linked'),
                     duration: 3000,
                     position: 'bottom'
                   });

@@ -20,7 +20,7 @@
         <ion-row>
           <ion-col class="grid-text" col-9>
             <span>
-              Commande du <strong>{{ order.ordered_date.substr(0,10) }}</strong>.
+              {{ "OTHERS.order_to" | translate }} <strong>{{ order.ordered_date.substr(0,10) }}</strong>.
             </span>
           </ion-col>
           <ion-col col-3>
@@ -40,7 +40,7 @@
   <ion-grid *ngIf="len === 0" >
     <div class="empty_cmd" align="center">
       <ion-icon name="md-basket"></ion-icon>
-      <p>Pas de commandes ! </p>
+      <p>{{ "OTHERS.nothing_order" | translate }}<p>
     </div>
   </ion-grid>
 </ion-content>

@@ -7,7 +7,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { SearchProvider } from './../../providers/search/search';
-
+import { TranslateService } from '@ngx-translate/core';
 /**
  * Generated class for the ListProdPage page.
  *
@@ -28,13 +28,13 @@ articles;
 taille;
 state = false;
   next: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController, private searchService: SearchProvider) {
+  constructor(public navCtrl: NavController, private translate: TranslateService, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController, private searchService: SearchProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ListProdPage');
     let loading = this.loadingCtrl.create({
-      content: 'Veuillez Patienter...'
+      content: this.translate.instant('LOAD.mgs')
     });
     loading.present();
     console.log(this.navParams.get('id_catg'));
@@ -73,7 +73,7 @@ state = false;
 
   delete(id) {
     let loading = this.loadingCtrl.create({
-      content: 'Veuillez Patienter...'
+      content: this.translate.instant('LOAD.mgs')
     });
     loading.present();
     console.log(id);

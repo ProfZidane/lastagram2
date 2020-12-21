@@ -17,6 +17,8 @@ import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { AboutPage } from '../about/about';
 import { AssistancePage } from '../assistance/assistance';
+import { TranslateService } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
 
 /**
  * Generated class for the ProfilePage page.
@@ -33,7 +35,8 @@ import { AssistancePage } from '../assistance/assistance';
 export class ProfilePage {
   infoUser;
   photo;
-  constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public userService: UserProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController, private app: App) {
+  country;
+  constructor(private platform: Platform,public http: HttpClient, private translate: TranslateService, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public userService: UserProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController, private app: App) {
 
     /*this.platform.registerBackButtonAction( () => {
       let nav = this.app.getActiveNav();
@@ -59,7 +62,7 @@ export class ProfilePage {
 
     } else {
       let loading = this.loadingCtrl.create({
-        content: 'Veuillez Patienter...'
+        content: this.translate.instant('LOAD.mgs')
       });
       loading.present();
 
@@ -70,7 +73,7 @@ export class ProfilePage {
           this.photo = info.photo;
           if (localStorage.getItem('nameUser') == null && localStorage.getItem('name2User') == null
               && localStorage.getItem('phoneUser') == null && localStorage.getItem('mailUser') == null
-              && localStorage.getItem('idUser') == null && localStorage.getItem('photoUser') == null && localStorage.getItem('usernameChat') == null) {
+              && localStorage.getItem('idUser') == null && localStorage.getItem('photoUser') == null && localStorage.getItem('usernameChat') == null && localStorage.getItem('country') == null) {
 
                 localStorage.setItem('userObject',info);
                 localStorage.setItem('nameUser', info.first_name);
@@ -80,8 +83,17 @@ export class ProfilePage {
                 localStorage.setItem('idUser', info.id);
                 localStorage.setItem('photoUser', info.photo);
                 localStorage.setItem('usernameChat', info.username);
-
+                localStorage.setItem('country', info.country);
               }
+
+              this.http.get('https://restcountries.eu/rest/v2/alpha/'+info.country).subscribe(
+                (data) => {
+                  this.country = data;
+                  console.log('pays : ' + this.country);
+                }, (err) => {
+                  console.log(err)
+                }
+              )
 
           loading.dismiss();
 
@@ -90,8 +102,8 @@ export class ProfilePage {
           if (err.status == 0 && err.statusText == "Unknown Error") {
             loading.dismiss();
             let alert = this.alertCtrl.create({
-              title: 'ATTENTION',
-              subTitle: 'Veuillez verifiez votre connexion internet',
+              title: this.translate.instant('ALERT.warn_title'),
+              subTitle: this.translate.instant('ALERT.500'),
               buttons: ['OK']
             });
             alert.present();
@@ -193,14 +205,15 @@ export class ProfilePage {
 
   Logout() {
     let loading = this.loadingCtrl.create({
-      content: 'Veuillez Patienter...'
+      content: this.translate.instant('LOAD.mgs')
     });
     loading.present();
+    let lng = localStorage.getItem('language');
     //localStorage.removeItem('userToken');
     localStorage.clear();
 
     localStorage.setItem('new', 'false');
-
+    localStorage.setItem('language', lng);
     loading.dismiss();
     /*const modal = this.modalCtrl.create(HomePage);
     modal.present();*/

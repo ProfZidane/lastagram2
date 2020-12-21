@@ -7,7 +7,7 @@ import { snapshotToArray } from './../../app/environment';
 import { SocketProvider } from './../../providers/socket/socket';
 import { LoadingController } from 'ionic-angular';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import { TranslateService } from '@ngx-translate/core';
 /**
  * Generated class for the MessageMenuPage page.
  *
@@ -27,7 +27,7 @@ export class MessageMenuPage {
   users;
   Messages = [];
   ALLMessages = [];
-  constructor(public http: HttpClient, public navCtrl: NavController, public navParams: NavParams, private socketService: SocketProvider, private userService: UserProvider,public loadingCtrl: LoadingController) {
+  constructor(public http: HttpClient, private translate: TranslateService,public navCtrl: NavController, public navParams: NavParams, private socketService: SocketProvider, private userService: UserProvider,public loadingCtrl: LoadingController) {
 
 
     this.username = localStorage.getItem('usernameChat');
@@ -40,7 +40,7 @@ export class MessageMenuPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad MessageMenuPage');
     let loading = this.loadingCtrl.create({
-      content: 'Veuillez Patienter...'
+      content: this.translate.instant('LOAD.mgs')
     });
     loading.present();
 
@@ -95,6 +95,7 @@ export class MessageMenuPage {
           }
         )
       });
+      loading.dismiss();
     }, (err) => {
       console.log("not found : " + JSON.stringify(err));
       loading.dismiss();
@@ -103,7 +104,7 @@ export class MessageMenuPage {
 
     //console.log(JSON.stringify(this.ALLMessages));
 
-    loading.dismiss();
+
 
    /*this.http.get('https://lastagram-chat.herokuapp.com/chat/zidane2261619ajliwjjt/').subscribe(
       (data) => {

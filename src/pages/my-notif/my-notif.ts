@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { SearchProvider } from './../../providers/search/search';
-
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Generated class for the MyNotifPage page.
@@ -22,13 +22,13 @@ export class MyNotifPage {
 Notification = [];
 next;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private notificationService: NotificationProvider,public loadingCtrl: LoadingController, private searchService: SearchProvider) {
+  constructor(public navCtrl: NavController, private translate: TranslateService,public navParams: NavParams, private notificationService: NotificationProvider,public loadingCtrl: LoadingController, private searchService: SearchProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MyNotifPage');
     let loading = this.loadingCtrl.create({
-      content: 'Veuillez Patienter...'
+      content: this.translate.instant('LOAD.mgs')
     });
     loading.present();
     this.notificationService.getNewNotification().subscribe(

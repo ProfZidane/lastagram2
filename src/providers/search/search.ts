@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs/Observable';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DOMAIN_APP } from './../../app/environment';
 
@@ -19,6 +19,12 @@ export class SearchProvider {
     console.log('Hello SearchProvider Provider');
   }
 
+  getHeaders() {
+    return new HttpHeaders({
+      'Content-Type' : 'application/json; charset=utf-8',
+      'Authorization' : 'JWT ' + localStorage.getItem('userToken')
+    });
+  }
 
   searchByProduct(data): Observable<any> {
     return this.http.get(this.searchURl + this.indicate_search + data);
@@ -30,11 +36,11 @@ export class SearchProvider {
   }
 
   searchProduct(): Observable<any> {
-    return this.http.get(this.searchURl);
+    return this.http.get(this.searchURl, { headers: this.getHeaders() });
   }
 
   searchStore(): Observable<any> {
-    return this.http.get(this.searchURl2);
+    return this.http.get(this.searchURl2, { headers: this.getHeaders() });
   }
 
   searchByStore_product(data): Observable<any> {

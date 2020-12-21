@@ -11,7 +11,7 @@ import * as firebase from 'firebase';
 import { snapshotToArray } from './../../app/environment';
 import { SearchProvider } from './../../providers/search/search';
 import { CreateBoutiquePage } from './../create-boutique/create-boutique';
-
+import { TranslateService } from '@ngx-translate/core';
 /**
  * Generated class for the MyShopPage page.
  *
@@ -33,7 +33,7 @@ export class MyShopPage {
 
   Markets;
   next;
-  constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider, private alertCtrl: AlertController,public loadingCtrl: LoadingController, private app: App, private searchService: SearchProvider) {
+  constructor(private platform: Platform,private translate: TranslateService, public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider, private alertCtrl: AlertController,public loadingCtrl: LoadingController, private app: App, private searchService: SearchProvider) {
 
     this.platform.registerBackButtonAction( () => {
       let nav = this.app.getActiveNav();
@@ -53,7 +53,7 @@ export class MyShopPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad MyShopPage');
     let loading = this.loadingCtrl.create({
-      content: 'Veuillez Patienter...'
+      content: this.translate.instant('LOAD.mgs')
     });
     loading.present();
 

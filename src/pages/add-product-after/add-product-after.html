@@ -16,7 +16,7 @@
       <ion-col col-2 >
       </ion-col>
       <ion-col col-10 >
-        <ion-input type="text" name="name" [(ngModel)]="Products.name"  value="" placeholder="NOM PRODUIT"></ion-input>
+        <ion-input type="text" name="name" [(ngModel)]="Products.name"  value="" placeholder='{{ "FORM.PLACEHOLDER.produit" | translate }}'></ion-input>
       </ion-col>
     </ion-row>
 
@@ -24,7 +24,7 @@
       <ion-col col-2 >
       </ion-col>
       <ion-col col-10 >
-        <ion-input type="number" name="price" [(ngModel)]="Products.price" value="" placeholder="PRIX NORMAL"></ion-input>
+        <ion-input type="number" name="price" [(ngModel)]="Products.price" value="" placeholder='{{ "FORM.PLACEHOLDER.prix" | translate }}'></ion-input>
       </ion-col>
     </ion-row>
 
@@ -32,16 +32,18 @@
       <ion-col col-2 >
       </ion-col>
       <ion-col col-10 >
-        <ion-input type="number" name="promo_price" [(ngModel)]="Products.promo_price"  value="" placeholder="PRIX PROMO"></ion-input>
+        <ion-input type="number" name="promo_price" [(ngModel)]="Products.promo_price"  value="" placeholder='{{ "FORM.PLACEHOLDER.prix_p" | translate }}'></ion-input>
       </ion-col>
     </ion-row>
 
-    <b>Description</b>
+    <b>{{ "FORM.LABEL.desc" | translate }}</b>
     <textarea autosize maxRows='3' class="description-input vv2" [(ngModel)]="Products.description"></textarea>
   </ion-grid>
 
   <ion-grid >
-    <button ion-button round color="lastagram" (click)='compressFile()'>AJOUTER PHOTO</button>
+    <button ion-button round color="lastagram" (click)='compressFile()'>
+      {{ "FORM.LABEL.photo" | translate }}
+    </button>
   </ion-grid>
 
   <ion-grid >
@@ -51,7 +53,10 @@
       </div>
     </ion-row>
     <ion-row align="center" class="grid-btn-validation-add">
-      <button ion-button round color="lastagram" (click)="AddOneProduct()">VALIDER</button>
+      <button ion-button round color="lastagram" (click)="AddOneProduct()">
+        {{ "OTHERS.valid" | translate }}
+
+      </button>
     </ion-row>
   </ion-grid>
 </ion-content>

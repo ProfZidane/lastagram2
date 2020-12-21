@@ -5,7 +5,7 @@ import { OrderProvider } from './../../providers/order/order';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
-
+import { TranslateService } from '@ngx-translate/core';
 /**
  * Generated class for the DetailNotifPage page.
  *
@@ -27,13 +27,14 @@ adresse;
 commander;
 Total;
 date;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public loadingCtrl: LoadingController, private orderService: OrderProvider, private notificationService: NotificationProvider) {
+devis;
+  constructor(public navCtrl: NavController, private translate: TranslateService, public navParams: NavParams,public loadingCtrl: LoadingController, private orderService: OrderProvider, private notificationService: NotificationProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DetailNotifPage');
     let loading = this.loadingCtrl.create({
-      content: 'Veuillez Patienter...'
+      content: this.translate.instant('LOAD.mgs')
     });
     loading.present();
 
@@ -44,6 +45,9 @@ date;
      //   console.log("success : " + JSON.stringify(data));
         this.Notif = data;
         this.Products = data.articles;
+        this.Products.forEach(element => {
+          this.devis = element.devis;
+        });
         this.commander = data.owner;
         this.adresse = data.address;
         this.Total = data.total_price;

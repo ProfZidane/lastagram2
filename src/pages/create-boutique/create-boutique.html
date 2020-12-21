@@ -4,7 +4,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar hideBackButton="true" color="lastagram">
+  <ion-navbar color="lastagram">
     <ion-title>
       {{ "TITLE.create" | translate }}
     </ion-title>
@@ -30,9 +30,9 @@
     <ion-slides >
       <ion-slide (click)="compressFile()">
 
-        <h3 *ngIf="!base64Image" >PHOTO 1</h3>
+        <h3 *ngIf="!base64Image" >{{ "CREATE_BTQ.photo" | translate }} 1</h3>
         <h1 *ngIf="base64Image" >
-          Choix fait
+          {{ "CREATE_BTQ.ch_do" | translate }}
           <ion-icon name="checkmark-circle-outline"></ion-icon>
         </h1>
         <br>
@@ -41,9 +41,9 @@
       </ion-slide>
       <ion-slide (click)="compressFile_2()">
 
-        <h3 *ngIf="!base64Image2" >PHOTO 2</h3>
+        <h3 *ngIf="!base64Image2" >{{ "CREATE_BTQ.photo" | translate }} 2</h3>
         <h1 *ngIf="base64Image2" >
-          Choix fait
+          {{ "CREATE_BTQ.ch_do" | translate }}
           <ion-icon name="checkmark-circle-outline"></ion-icon>
         </h1>
         <br>
@@ -52,9 +52,9 @@
       </ion-slide>
       <ion-slide (click)="compressFile_3()">
 
-        <h3 *ngIf="!base64Image3" >PHOTO 3</h3>
+        <h3 *ngIf="!base64Image3" >{{ "CREATE_BTQ.photo" | translate }} 3</h3>
         <h1 *ngIf="base64Image3" >
-          Choix fait
+          {{ "CREATE_BTQ.ch_do" | translate }}
           <ion-icon name="checkmark-circle-outline"></ion-icon>
         </h1>
         <br>
@@ -69,7 +69,7 @@
         <ion-icon name="arrow-round-back"></ion-icon>
       </ion-col>
       <ion-col col-4>
-        <b>Défilez</b>
+        <b>{{ "CREATE_BTQ.Dfl" | translate }}</b>
       </ion-col>
       <ion-col col-4>
         <ion-icon name="arrow-round-forward"></ion-icon>
@@ -139,7 +139,7 @@
   <ion-grid>
     <ion-row class="flash-create-boutique">
       <ion-col class="" col-6>
-        <h4>Vente Flash</h4>
+        <h4>{{ "CREATE_BTQ.vt_flsh" | translate }}</h4>
       </ion-col>
       <ion-col class="" col-4>
         <h3>{{ timer }}</h3>
@@ -211,74 +211,74 @@
 
         <ion-col class="" col-6 *ngIf="flash01" >
           <div class="photo" align="center" (click)="addProduct('flash','1')">
-            <h3>PHOTO</h3>
+            <h3>{{ "CREATE_BTQ.photo" | translate }}</h3>
           <ion-icon name="camera"></ion-icon>
           </div>
         </ion-col>
         <ion-col class="" col-6 *ngIf="flash1" >
           <div class="photo" align="center" (click)="addProduct('flash','1')">
             <ion-icon name="checkmark-circle-outline"></ion-icon>
-          <span>Ajouté !</span>
+          <span>{{ "CREATE_BTQ.add" | translate }}</span>
           </div>
         </ion-col>
         <ion-col class="" col-6 *ngIf="flash02">
           <div class="photo" align="center" (click)="addProduct('flash','2')">
-            <h3>PHOTO</h3>
+            <h3>{{ "CREATE_BTQ.photo" | translate }}</h3>
           <ion-icon name="camera"></ion-icon>
           </div>
         </ion-col>
         <ion-col class="" col-6 *ngIf="flash2">
           <div class="photo" align="center" (click)="addProduct('flash','2')">
             <ion-icon name="checkmark-circle-outline"></ion-icon>
-            <span>Ajouté !</span>
+            <span>{{ "CREATE_BTQ.add" | translate }}</span>
           </div>
         </ion-col>
         <ion-col class="" col-6 *ngIf="flash03">
           <div class="photo" align="center" (click)="addProduct('flash','3')">
-            <h3>PHOTO</h3>
+            <h3>{{ "CREATE_BTQ.photo" | translate }}</h3>
           <ion-icon name="camera"></ion-icon>
           </div>
         </ion-col>
         <ion-col class="" col-6 *ngIf="flash3">
           <div class="photo" align="center" (click)="addProduct('flash','3')">
             <ion-icon name="checkmark-circle-outline"></ion-icon>
-            <span>Ajouté !</span>
+            <span>{{ "CREATE_BTQ.add" | translate }}</span>
           </div>
         </ion-col>
         <ion-col class="" col-6 *ngIf="flash04">
           <div class="photo" align="center" (click)="addProduct('flash','4')">
-            <h3>PHOTO</h3>
+            <h3>{{ "CREATE_BTQ.photo" | translate }}</h3>
           <ion-icon name="camera"></ion-icon>
           </div>
         </ion-col>
         <ion-col class="" col-6 *ngIf="flash4">
           <div class="photo" align="center" (click)="addProduct('flash','4')">
             <ion-icon name="checkmark-circle-outline"></ion-icon>
-            <span>Ajouté !</span>
+            <span>{{ "CREATE_BTQ.add" | translate }}</span>
           </div>
         </ion-col>
         <ion-col class="" col-6 *ngIf="flash05">
           <div class="photo" align="center" (click)="addProduct('flash','5')">
-            <h3>PHOTO</h3>
+            <h3>{{ "CREATE_BTQ.photo" | translate }}</h3>
           <ion-icon name="camera"></ion-icon>
           </div>
         </ion-col>
         <ion-col class="" col-6 *ngIf="flash5">
           <div class="photo" align="center" (click)="addProduct('flash','5')">
             <ion-icon name="checkmark-circle-outline"></ion-icon>
-            <span>Ajouté !</span>
+            <span>{{ "CREATE_BTQ.add" | translate }}</span>
           </div>
         </ion-col>
         <ion-col class="" col-6 *ngIf="flash06">
           <div class="photo" align="center" (click)="addProduct('flash','6')">
-            <h3>PHOTO</h3>
+            <h3>{{ "CREATE_BTQ.photo" | translate }}</h3>
           <ion-icon name="camera"></ion-icon>
           </div>
         </ion-col>
         <ion-col class="" col-6 *ngIf="flash6">
           <div class="photo" align="center" (click)="addProduct('flash','6')">
             <ion-icon name="checkmark-circle-outline"></ion-icon>
-            <span>Ajouté !</span>
+            <span>{{ "CREATE_BTQ.add" | translate }}</span>
           </div>
         </ion-col>
 
@@ -289,7 +289,7 @@
         <ion-icon name="arrow-round-back"></ion-icon>
       </ion-col>
       <ion-col col-4>
-        <b>Défilez</b>
+        <b>{{ "CREATE_BTQ.Dfl" | translate }}</b>
       </ion-col>
       <ion-col col-4>
         <ion-icon name="arrow-round-forward"></ion-icon>
@@ -301,20 +301,20 @@
     <ion-row>
       <ion-col class="affiche-boutique" col-6>
         <ion-grid class="_1" (click)="compressFile2('1')">
-          <h3 *ngIf="!decorImg1" >PHOTO</h3>
+          <h3 *ngIf="!decorImg1" >{{ "CREATE_BTQ.photo" | translate }}</h3>
           <ion-icon name="camera" *ngIf="!decorImg1" ></ion-icon>
 
           <ion-icon *ngIf="decorImg1" name="checkmark-circle-outline"></ion-icon>
-          <span *ngIf="decorImg1">Ajouté !</span>
+          <span *ngIf="decorImg1">{{ "CREATE_BTQ.add" | translate }}</span>
         </ion-grid>
       </ion-col>
       <ion-col class="affiche-boutique" col-6>
         <ion-grid class="_2" (click)="compressFile2('2')">
-          <h3 *ngIf="!decorImg2">PHOTO</h3>
+          <h3 *ngIf="!decorImg2">{{ "CREATE_BTQ.photo" | translate }}</h3>
           <ion-icon *ngIf="!decorImg2" name="camera"></ion-icon>
 
           <ion-icon *ngIf="decorImg2" name="checkmark-circle-outline"></ion-icon>
-          <span *ngIf="decorImg2">Ajouté !</span>
+          <span *ngIf="decorImg2">{{ "CREATE_BTQ.add" | translate }}</span>
         </ion-grid>
       </ion-col>
     </ion-row>
@@ -328,74 +328,74 @@
       <ion-row class="product-flash-create-boutique" nowrap>
         <ion-col class="" col-6 *ngIf="popular01" >
           <div class="photo" align="center" (click)="addProduct('populaire','1')">
-            <h3>PHOTO</h3>
+            <h3>{{ "CREATE_BTQ.photo" | translate }}</h3>
           <ion-icon name="camera"></ion-icon>
           </div>
         </ion-col>
         <ion-col class="" col-6 *ngIf="popular1" >
           <div class="photo" align="center" (click)="addProduct('populaire','1')">
             <ion-icon name="checkmark-circle-outline"></ion-icon>
-            <span>Ajouté !</span>
+            <span>{{ "CREATE_BTQ.add" | translate }}</span>
           </div>
         </ion-col>
         <ion-col class="" col-6 *ngIf="popular02">
           <div class="photo" align="center" (click)="addProduct('populaire','2')">
-            <h3>PHOTO</h3>
+            <h3>{{ "CREATE_BTQ.photo" | translate }}</h3>
           <ion-icon name="camera"></ion-icon>
           </div>
         </ion-col>
         <ion-col class="" col-6 *ngIf="popular2">
           <div class="photo" align="center" (click)="addProduct('populaire','2')">
             <ion-icon name="checkmark-circle-outline"></ion-icon>
-            <span>Ajouté !</span>
+            <span>{{ "CREATE_BTQ.add" | translate }}</span>
           </div>
         </ion-col>
         <ion-col class="" col-6 *ngIf="popular03">
           <div class="photo" align="center" (click)="addProduct('populaire','3')">
-            <h3>PHOTO</h3>
+            <h3>{{ "CREATE_BTQ.photo" | translate }}</h3>
           <ion-icon name="camera"></ion-icon>
           </div>
         </ion-col>
         <ion-col class="" col-6 *ngIf="popular3">
           <div class="photo" align="center" (click)="addProduct('populaire','3')">
             <ion-icon name="checkmark-circle-outline"></ion-icon>
-            <span>Ajouté !</span>
+            <span>{{ "CREATE_BTQ.add" | translate }}</span>
           </div>
         </ion-col>
         <ion-col class="" col-6 *ngIf="popular04">
           <div class="photo" align="center" (click)="addProduct('populaire','4')">
-            <h3>PHOTO</h3>
+            <h3>{{ "CREATE_BTQ.photo" | translate }}</h3>
           <ion-icon name="camera"></ion-icon>
           </div>
         </ion-col>
         <ion-col class="" col-6 *ngIf="popular4">
           <div class="photo" align="center" (click)="addProduct('populaire','4')">
             <ion-icon name="checkmark-circle-outline"></ion-icon>
-            <span>Ajouté !</span>
+            <span>{{ "CREATE_BTQ.add" | translate }}</span>
           </div>
         </ion-col>
         <ion-col class="" col-6 *ngIf="popular05">
           <div class="photo" align="center" (click)="addProduct('populaire','5')">
-            <h3>PHOTO</h3>
+            <h3>{{ "CREATE_BTQ.photo" | translate }}</h3>
           <ion-icon name="camera"></ion-icon>
           </div>
         </ion-col>
         <ion-col class="" col-6 *ngIf="popular5">
           <div class="photo" align="center" (click)="addProduct('populaire','5')">
             <ion-icon name="checkmark-circle-outline"></ion-icon>
-            <span>Ajouté !</span>
+            <span>{{ "CREATE_BTQ.add" | translate }}</span>
           </div>
         </ion-col>
         <ion-col class="" col-6 *ngIf="popular06">
           <div class="photo" align="center" (click)="addProduct('populaire','6')">
-            <h3>PHOTO</h3>
+            <h3>{{ "CREATE_BTQ.photo" | translate }}</h3>
           <ion-icon name="camera"></ion-icon>
           </div>
         </ion-col>
         <ion-col class="" col-6 *ngIf="popular6">
           <div class="photo" align="center" (click)="addProduct('populaire','6')">
             <ion-icon name="checkmark-circle-outline"></ion-icon>
-            <span>Ajouté !</span>
+            <span>{{ "CREATE_BTQ.add" | translate }}</span>
           </div>
         </ion-col>
       </ion-row>
@@ -407,7 +407,7 @@
         <ion-icon name="arrow-round-back"></ion-icon>
       </ion-col>
       <ion-col col-4>
-        <b>Défilez</b>
+        <b>{{ "CREATE_BTQ.Dfl" | translate }}</b>
       </ion-col>
       <ion-col col-4>
         <ion-icon name="arrow-round-forward"></ion-icon>
@@ -420,11 +420,11 @@
   <ion-grid>
     <ion-col class="affiche-boutique" col-12>
       <ion-grid class="_2" (click)="compressFile2('3')">
-        <h3 *ngIf="!decorImg3">PHOTO</h3>
+        <h3 *ngIf="!decorImg3">{{ "CREATE_BTQ.photo" | translate }}</h3>
         <ion-icon *ngIf="!decorImg3" name="camera"></ion-icon>
 
         <ion-icon *ngIf="decorImg3" name="checkmark-circle-outline"></ion-icon>
-        <span *ngIf="decorImg3" offset-3>Ajouté !</span>
+        <span *ngIf="decorImg3" offset-3>{{ "CREATE_BTQ.add" | translate }}</span>
       </ion-grid>
     </ion-col>
   </ion-grid>
@@ -436,7 +436,7 @@
       <ion-col class="">
       </ion-col>
       <ion-col class=" btn-validation">
-        <button ion-button round color="lastagram" (click)="AddDevis()">VALIDER</button>
+        <button ion-button round color="lastagram" (click)="AddDevis()">{{ "OTHERS.valid" | translate }}</button>
       </ion-col>
     </ion-row>
   </ion-grid>

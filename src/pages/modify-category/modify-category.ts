@@ -5,7 +5,7 @@ import { IonicPage, NavController, NavParams, Platform, App } from 'ionic-angula
 import { StoreProvider } from './../../providers/store/store';
 import { SearchProvider } from './../../providers/search/search';
 import { AlertController } from 'ionic-angular';
-
+import { TranslateService } from '@ngx-translate/core';
 /**
  * Generated class for the ModifyCategoryPage page.
  *
@@ -23,7 +23,7 @@ AllCtg;
 next;
 old_catg;
 id_market;
-  constructor(private platform: Platform,private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider, private searchService: SearchProvider, private app: App) {
+  constructor(private platform: Platform, private translate: TranslateService,private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider, private searchService: SearchProvider, private app: App) {
 
     this.old_catg = this.navParams.get('id_catg');
     this.id_market = this.navParams.get('id_market');
@@ -74,8 +74,8 @@ id_market;
       (success) => {
         console.log("success : " + JSON.stringify(success));
         let alert = this.alertCtrl.create({
-          title: 'SUCCES',
-          subTitle: 'Votre catégorie a été modifier !',
+          title: this.translate.instant('ALERT.succ_title'),
+          subTitle: this.translate.instant('ALERT.succ_mod_catg'),
           buttons: ['OK']
         });
         alert.present();
@@ -84,8 +84,8 @@ id_market;
       }, (err) => {
         console.log("errr : " + JSON.stringify(err));
         let alert = this.alertCtrl.create({
-          title: 'ECHEC',
-          subTitle: 'Un problème est survenue. Veuillez réessayez plus tard !',
+          title: this.translate.instant('ALERT.succ_title'),
+          subTitle: this.translate.instant('ALERT.err_action'),
           buttons: ['OK']
         });
         alert.present();

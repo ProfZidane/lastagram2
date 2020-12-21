@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar color="lastagram" hideBackButton="true">
+  <ion-navbar color="lastagram" >
     <ion-title></ion-title>
   </ion-navbar>
 </ion-header>
@@ -60,7 +60,7 @@
   <ion-grid *ngIf="Messages.length === 0">
     <div class="empty_mmgs" align="center">
       <ion-icon name="chatbubbles"></ion-icon>
-      <p>Aucun messages ! </p>
+      <p>{{ "OTHERS.nothing_mgs" | translate }} </p>
     </div>
   </ion-grid>
 

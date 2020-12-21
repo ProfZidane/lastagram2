@@ -44,7 +44,12 @@
 
       <ion-row >
         <ion-col col-4 class="num-country-tel " align="center">
-          <ion-input type="text" value="" placeholder="+225" name="indicator" [(ngModel)]="register.indicator" required></ion-input>
+          <ion-select col-12 (click)="loadFlags()" [(ngModel)]="my_country" name="my_country" [selectOptions]="selectOptions" >
+            <ion-option *ngFor="let country of Countries" [value]=country>                                
+              +{{ country.callingCodes[0] }}
+            </ion-option>
+          </ion-select> 
+          <!--<ion-input type="text" value="" placeholder="+225" name="indicator" [(ngModel)]="register.indicator" required></ion-input>-->
         </ion-col>
         <ion-col col-8 class="">
           <ion-row class="register-input-group">
@@ -57,6 +62,31 @@
           </ion-row>
         </ion-col>
       </ion-row>
+      
+      <!--<ion-row >
+        <ion-col col-4 class="num-country-tel " align="center">
+          <ion-label>Pays</ion-label>
+        </ion-col>
+        <ion-col col-8>
+          <ion-row class="register-input-group">
+            <ion-select id="cnt" (click)="loadFlags()" [(ngModel)]="my_country" name="my_country" [selectOptions]="selectOptions" >
+              <ion-option *ngFor="let country of Countries" [value]=country>                                
+                {{ country.name }}
+                <ion-icon name="ios-image"></ion-icon>
+              </ion-option>
+            </ion-select>  
+          </ion-row>
+        </ion-col>-->
+       <!-- <ion-col col-4>
+          <ion-label>Pays</ion-label>
+        </ion-col>
+        <ion-col col-8>          
+            <ion-select>
+              <ion-option value="f">Female</ion-option>
+              <ion-option value="m">Male</ion-option>
+            </ion-select>          
+        </ion-col>-->
+      <!--</ion-row>-->
 
       <!--<ion-row class="register-input-group-2">
         <ion-col col-4 class="" align="center">

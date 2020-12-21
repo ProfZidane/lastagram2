@@ -3,7 +3,7 @@ import { DetailProductInCartPage } from './../detail-product-in-cart/detail-prod
 import { OrderProvider } from './../../providers/order/order';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
-
+import { TranslateService } from '@ngx-translate/core';
 /**
  * Generated class for the DetailOrderMePage page.
  *
@@ -26,7 +26,7 @@ date;
 proprio;
 diff = 0;
 devis;
-  constructor(public navCtrl: NavController,public loadingCtrl: LoadingController, public navParams: NavParams, private orderService: OrderProvider) {
+  constructor(public navCtrl: NavController,private translate: TranslateService, public loadingCtrl: LoadingController, public navParams: NavParams, private orderService: OrderProvider) {
     this.id_order = this.navParams.get('id');
     this.id_store = Number(this.navParams.get('id_store'));
     this.devis = this.navParams.get('devis');
@@ -35,7 +35,7 @@ devis;
   ionViewDidLoad() {
     console.log('ionViewDidLoad DetailOrderMePage');
     let loading = this.loadingCtrl.create({
-      content: 'Veuillez Patienter...'
+      content: this.translate.instant('LOAD.mgs')
     });
     loading.present();
     this.orderService.getDetailOrders(Number(this.id_order)).subscribe(

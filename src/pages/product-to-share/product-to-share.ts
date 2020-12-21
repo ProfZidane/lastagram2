@@ -7,7 +7,7 @@ import { AlertController, Platform } from 'ionic-angular';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { SearchProvider } from './../../providers/search/search';
 import { DEEP_LINK_DOMAIN } from '../../app/environment';
-
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Generated class for the ProductToSharePage page.
@@ -29,7 +29,7 @@ products;
 Total;
 next;
 id_market;
-  constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController, private socialSharing: SocialSharing, private searchService: SearchProvider, private app: App) {
+  constructor(public platform: Platform,private translate: TranslateService, public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController, private socialSharing: SocialSharing, private searchService: SearchProvider, private app: App) {
     this.id_market = this.navParams.get('id');
 
     this.platform.registerBackButtonAction( () => {
@@ -46,7 +46,7 @@ id_market;
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductToSharePage');
     let loading = this.loadingCtrl.create({
-      content: 'Veuillez Patienter...'
+      content: this.translate.instant('LOAD.mgs')
     });
     loading.present();
     let data = {
@@ -72,8 +72,8 @@ id_market;
         loading.dismiss();
 
         let alert = this.alertCtrl.create({
-          title: 'ECHEC',
-          subTitle: 'L\'opération n\'a pas abouti !',
+          title: this.translate.instant('ALERT.err_title'),
+          subTitle: this.translate.instant('ALERT.err_action'),
           buttons: ['OK']
         });
         alert.present();
@@ -98,8 +98,8 @@ id_market;
         console.log("vous navez plus le droit dajouter ");
 
         let alert = this.alertCtrl.create({
-          title: 'ATTENTION',
-          subTitle: 'Vous avez atteint le nombre maximal de (6) produits !',
+          title: this.translate.instant('ALERT.warn_title'),
+          subTitle: this.translate.instant('ALERT.warn_share_prod'),
           buttons: ['OK']
         });
         alert.present();
@@ -213,7 +213,7 @@ id_market;
     console.log(JSON.stringify(img));
 
     let option = {
-      message : "Etes vous intéressez par mes produits ?",
+      message : this.translate.instant('SHARING.message2'),
       files: img,
       url: DEEP_LINK_DOMAIN, // after url de la boutique peut être
       chooserTitle: "Choisissez une application"

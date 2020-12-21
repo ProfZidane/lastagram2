@@ -33,8 +33,8 @@ export class LanguageProvider {
 
 getLanguages() {
   return [
-    { text : 'English', value : 'en' },
-    { text : 'Français', value : 'fr' },
+    { text : 'English', value : 'en', flag : 'https://img.icons8.com/color/48/000000/usa.png' },
+    { text : 'Français', value : 'fr', flag : 'https://img.icons8.com/color/48/000000/france.png' },
   ];
 }
 

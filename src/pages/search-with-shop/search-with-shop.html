@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar color="lastagram" hideBackButton="true">
+  <ion-navbar color="lastagram" >
     <!--<ion-title>{{ "TITLE.search" | translate }}</ion-title>-->
 
     <!--<ion-title></ion-title>
@@ -90,5 +90,12 @@
     </ion-row>-->
 
 
+  </ion-grid>
+
+  <ion-grid *ngIf="Markets && Markets.length === 0" >
+    <div class="empty_cmd" align="center">
+      <ion-icon name="flag"></ion-icon>
+      <p>{{ "OTHERS.nothing_home_store" | translate }}<p>
+    </div>
   </ion-grid>
 </ion-content>

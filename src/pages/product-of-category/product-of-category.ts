@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { App,IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { SearchProvider } from './../../providers/search/search';
-
+import { TranslateService } from '@ngx-translate/core';
 /**
  * Generated class for the ProductOfCategoryPage page.
  *
@@ -25,7 +25,7 @@ export class ProductOfCategoryPage {
   name_catg:string;
   devis;
   next;
-  constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController, private searchService: SearchProvider, private app: App) {
+  constructor(private platform: Platform, private translate: TranslateService, public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController, private searchService: SearchProvider, private app: App) {
 
     this.platform.registerBackButtonAction( () => {
       let nav = this.app.getActiveNav();
@@ -45,7 +45,7 @@ export class ProductOfCategoryPage {
     console.log('ionViewDidLoad ProductOfCategoryPage');
 
     let loading = this.loadingCtrl.create({
-      content: 'Veuillez Patienter...'
+      content: this.translate.instant('LOAD.mgs')
     });
     loading.present();
     this.name_catg = this.navParams.get('name');

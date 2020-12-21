@@ -5,19 +5,19 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar color="lastagram" hideBackButton="true">
+  <ion-navbar color="lastagram">
     <ion-title>{{ "TITLE.my_order" | translate }}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <ion-grid>
-    <h2 style="color: #155C7F">Boite de réception</h2>
+    <h2 style="color: #155C7F">{{ "OTHERS.recp" | translate }}</h2>
   </ion-grid>
   <ion-grid *ngIf="datas.length === 0" >
     <div class="empty_cmd" align="center">
       <ion-icon name="md-basket"></ion-icon>
-      <p>Pas de commandes ! </p>
+      <p>{{ "OTHERS.nothing_order" | translate }} </p>
     </div>
   </ion-grid>
 
@@ -30,8 +30,8 @@
       <h2 style="text-transform: capitalize;">
         {{ order.owner.last_name + ' ' + order.owner.first_name }}
       </h2>
-      <p>
-        Côte d'ivoire / {{ order.owner.phone }}
+      <p *ngIf="country">
+        {{  country.name  }} / {{ order.owner.phone }}
         <small class="d">{{ order.time | date }}</small>
       </p>
     </ion-item>

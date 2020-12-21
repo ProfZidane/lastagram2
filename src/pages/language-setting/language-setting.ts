@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController  } from 'ionic-angular';
 import { LanguageProvider } from './../../providers/language/language';
-
+import { TranslateService } from '@ngx-translate/core';
 /**
  * Generated class for the LanguageSettingPage page.
  *
@@ -18,8 +18,8 @@ export class LanguageSettingPage {
 
   languages = [];
   selected = '';
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, private languageService: LanguageProvider) {
+  indic = localStorage.getItem('language');
+  constructor(public navCtrl: NavController,private translate: TranslateService, private toastCtrl: ToastController, public navParams: NavParams, private languageService: LanguageProvider) {
   }
 
   ionViewDidLoad() {
@@ -28,8 +28,24 @@ export class LanguageSettingPage {
     this.selected = this.languageService.selected;
   }
 
-  select(lng) {
+  presentToast() {
+    let toast = this.toastCtrl.create({
+      message: this.translate.instant('OTHERS.lng_chg'),
+      duration: 3000,
+      position: 'middle'
+    });
+  
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+  
+    toast.present();
+  }
+
+  select(lng) {   
     this.languageService.setLanguage(lng);
+    localStorage.setItem('language', lng);
+    this.presentToast();
   }
 
 }

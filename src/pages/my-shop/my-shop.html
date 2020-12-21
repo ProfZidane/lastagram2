@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar color="lastagram" hideBackButton="true">
+  <ion-navbar color="lastagram">
     <ion-title>{{ "TITLE.my_shop" | translate }}</ion-title>
   </ion-navbar>
 </ion-header>
@@ -13,7 +13,7 @@
 <ion-content fullscreen >
   <ion-grid class="empty_market" *ngIf="Markets" align="center">
     <ion-icon name="home" *ngIf="Markets.length === 0"></ion-icon>
-    <h1 *ngIf="Markets.length === 0">Vous n'avez aucune boutique</h1>
+    <h1 *ngIf="Markets.length === 0">{{ "OTHERS.nothing_shop" | translate }}</h1>
     <button *ngIf="Markets.length === 0" ion-button color="lastagram" (click)="goToCreatedMarket()">Créer une boutique</button>
   </ion-grid>
   <ion-grid class="market-card-grid" >
@@ -33,7 +33,7 @@
               <ion-col col-5 class="btn-like az">
             &nbsp;
             <span class="b my-shop">
-              {{ market.subscribers_count }} Abonné(s)
+              {{ market.subscribers_count }} {{ "OTHERS.abo" | translate }}
             </span>
               </ion-col>
             </ion-row>

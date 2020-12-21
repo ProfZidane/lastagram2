@@ -6,6 +6,7 @@ import { SearchProvider } from './../../providers/search/search';
 import { AlertController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 import { StoreProvider } from './../../providers/store/store';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Generated class for the SearchWithShopPage page.
@@ -23,7 +24,7 @@ export class SearchWithShopPage {
 Markets;
 total;
 next;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private searchService: SearchProvider, public storeService: StoreProvider, private alertCtrl: AlertController,public toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController,private translate: TranslateService, public navParams: NavParams, private searchService: SearchProvider, public storeService: StoreProvider, private alertCtrl: AlertController,public toastCtrl: ToastController) {
     this.initializeItems();
   }
 
@@ -55,8 +56,8 @@ next;
       (err) => {
         console.log("error : " + err );
         let alert = this.alertCtrl.create({
-          title: 'ECHEC',
-          subTitle: 'Echec de chargement. Veuillez réessayer plus tard!',
+          title: this.translate.instant('ALERT.err_title'),
+          subTitle: this.translate.instant('ALERT.err_subtitle'),
           buttons: ['OK']
         });
         alert.present();
@@ -149,7 +150,7 @@ next;
         });
         alert.present();*/
         const toast = this.toastCtrl.create({
-          message: 'Vous êtes abonné !',
+          message: this.translate.instant("OTHERS.abonned"),
           duration: 3000
         });
         toast.present();
@@ -158,8 +159,8 @@ next;
       },
       (error) => {
         let alert = this.alertCtrl.create({
-          title: 'ECHEC',
-          subTitle: 'L\'opération n\'a pas abouti !',
+          title: this.translate.instant('ALERT.err_title'),
+          subTitle: this.translate.instant('ALERT.err_action'),
           buttons: ['OK']
         });
         alert.present();
@@ -176,7 +177,7 @@ next;
     this.storeService.Subscribe(data).subscribe(
       (success) => {
         const toast = this.toastCtrl.create({
-          message: 'Vous êtes maintenat désabonné !',
+          message: this.translate.instant("OTHERS.desabonned"),
           duration: 3000
         });
         toast.present();
@@ -185,8 +186,8 @@ next;
       },
       (error) => {
         let alert = this.alertCtrl.create({
-          title: 'ECHEC',
-          subTitle: 'L\'opération n\'a pas abouti !',
+          title: this.translate.instant('ALERT.err_title'),
+          subTitle: this.translate.instant('ALERT.err_action'),
           buttons: ['OK']
         });
         alert.present();

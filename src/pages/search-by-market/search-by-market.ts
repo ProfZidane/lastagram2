@@ -3,7 +3,7 @@ import { SearchProvider } from './../../providers/search/search';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
-
+import { TranslateService } from '@ngx-translate/core';
 /**
  * Generated class for the SearchByMarketPage page.
  *
@@ -21,7 +21,7 @@ export class SearchByMarketPage {
   id;
   TotalProduct;
   next;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private searchService: SearchProvider) {
+  constructor(public navCtrl: NavController,private translate: TranslateService, public navParams: NavParams, private alertCtrl: AlertController, private searchService: SearchProvider) {
     this.id = this.navParams.get('id');
     console.log('id : ' + this.id);
 
@@ -61,8 +61,8 @@ export class SearchByMarketPage {
         console.log("error : " + err );
         //loading.dismiss();
         let alert = this.alertCtrl.create({
-          title: 'ECHEC',
-          subTitle: 'Echec de chargement. Veuillez réessayer plus tard!',
+          title: this.translate.instant('ALERT.err_title'),
+          subTitle: this.translate.instant('ALERT.err_subtitle'),
           buttons: ['OK']
         });
         alert.present();

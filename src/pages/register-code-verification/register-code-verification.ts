@@ -50,17 +50,29 @@ export class RegisterCodeVerificationPage {
       loading.present();
       this.userService.confirmation(data).subscribe(
         (success) => {
+          console.log(JSON.stringify(success));
+          console.log(JSON.parse(success.authentication_keys));
+          let token = JSON.parse(success.authentication_keys);
+          console.log(JSON.stringify(token));
+          
+          let token2 = token.access;
+
+          let token3 = token2.split(',').join('');
+          console.log("true token : " + token3);
+          
           let words =  {
             "0" : "Veuillez maintenant vous authentifiez !"
           };
           localStorage.setItem('new','true');
-          localStorage.setItem('userToken',success.authentification_keys.access);
+          localStorage.setItem('userToken', token3);
 
           loading.dismiss();
           //this.navCtrl.push(HomePage, words);
           this.navCtrl.push(WelcomePage);
 
         }, (err) => {
+          console.log(JSON.stringify(err));
+          
           loading.dismiss();
           let alert = this.alertCtrl.create({
             title: 'ECHEC',

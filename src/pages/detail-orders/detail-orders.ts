@@ -25,6 +25,7 @@ DetailOrders;
 Articles;
 adress;
 Total;
+devis;
   constructor(public navCtrl: NavController, public navParams: NavParams, private orderService: OrderProvider) {
   }
 
@@ -43,6 +44,9 @@ Total;
         this.DetailOrders = data;
         console.log(JSON.stringify(this.DetailOrders));
         this.Articles = this.DetailOrders.articles;
+        this.Articles.forEach(element => {
+          this.devis = element.devis;
+        });
         console.log(JSON.stringify(this.Articles));
         this.adress = this.DetailOrders.address;
         this.Total = this.DetailOrders.total_price;

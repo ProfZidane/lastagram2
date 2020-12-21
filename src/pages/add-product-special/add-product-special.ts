@@ -5,7 +5,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import {NgxImageCompressService} from 'ngx-image-compress';
-
+import { TranslateService } from '@ngx-translate/core';
 /**
  * Generated class for the AddProductPage page.
  *
@@ -34,7 +34,7 @@ export class AddProductSpecialPage {
   indic;
   base64Image: string;
   imgResultAfterCompress: string;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private camera: Camera,private imageCompress: NgxImageCompressService) {
+  constructor(public navCtrl: NavController,private translate : TranslateService, public navParams: NavParams, private alertCtrl: AlertController, private camera: Camera,private imageCompress: NgxImageCompressService) {
   }
 
   ionViewDidLoad() {
@@ -74,8 +74,8 @@ export class AddProductSpecialPage {
 
   presentAlert() {
     let alert = this.alertCtrl.create({
-      title: 'info',
-      subTitle: 'Votre produit est ajouté !',
+      title: 'Info',
+      subTitle: this.translate.instant('ALERT.succ_sub_prod2'),
       buttons: [
         {
           text: 'Ok',

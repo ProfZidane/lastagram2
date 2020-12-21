@@ -48,12 +48,38 @@ export class StoreProvider {
 
   // get headers
   getHeaders2() {
-    return new HttpHeaders({
-      'Content-Type' : 'application/json; charset=utf-8',
-      'Authorization' : 'JWT ' + localStorage.getItem('userToken'),
-      'Allow-Control-Allow-Methods' : "PUT,POST,GET,DELETE,PATCH,OPTIONS"
-    });
+    if (localStorage.getItem('language') !== null) {
+      return new HttpHeaders({
+        'Content-Type' : 'application/json; charset=utf-8',
+        'Authorization' : 'JWT ' + localStorage.getItem('userToken'),
+        'Accept-Language' : localStorage.getItem('language')
+      });
+    } else {
+      return new HttpHeaders({
+        'Content-Type' : 'application/json; charset=utf-8',
+        'Authorization' : 'JWT ' + localStorage.getItem('userToken'),
+        'Accept-Language' : 'en'
+      });
+    }
+    
   }
+
+  // language headers
+  getHeaders3() {
+    if (localStorage.getItem('language') !== null) {
+      return new HttpHeaders({
+        'Content-Type' : 'application/json; charset=utf-8',
+        'Accept-Language' : localStorage.getItem('language')
+      })
+    } else {
+      return new HttpHeaders({
+        'Content-Type' : 'application/json; charset=utf-8',
+        'Accept-Language' : 'en'
+      })
+    }
+    
+  }
+
 
   node(data): Observable<any> {
     return this.http.post('http://192.168.8.100:3000/middl/created_store',
@@ -64,11 +90,11 @@ export class StoreProvider {
   }
 
   getListStore(): Observable<any> {
-    return this.http.get(this.storeUrl);
+    return this.http.get(this.storeUrl, { headers : this.getHeaders() });
   }
 
   getCatgStore(): Observable<any> {
-    return this.http.get(this.catgUrl, { headers : this.getHeaders() });
+    return this.http.get(this.catgUrl, { headers : this.getHeaders2() });
   }
 
   getMyShop(): Observable<any> {
@@ -89,7 +115,7 @@ export class StoreProvider {
   }
 
   getHighCatg(): Observable<any> {
-    return this.http.get(this.highCatgUrl);
+    return this.http.get(this.highCatgUrl, { headers: this.getHeaders3() });
   }
 
   getProductByHighCtg(id): Observable<any> {
@@ -97,7 +123,7 @@ export class StoreProvider {
   }
 
   getDetailMarket(id): Observable<any> {
-    return this.http.get(this.detailMarket + id, { headers: this.getHeaders() });
+    return this.http.get(this.detailMarket + id, { headers: this.getHeaders2() });
   }
 
   getDetailCatg(id): Observable<any> {
@@ -123,7 +149,7 @@ export class StoreProvider {
   }
 
   getDetailMarketById(id): Observable<any> {
-    return this.http.get(this.getSpecificMarket + id);
+    return this.http.get(this.getSpecificMarket + id , { headers: this.getHeaders3() });
   }
 
   getProductHigh(id): Observable<any> {

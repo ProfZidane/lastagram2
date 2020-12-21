@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar color="lastagram" hideBackButton="true">
+  <ion-navbar color="lastagram">
     <ion-title>
       {{ "TITLE.detail_order" | translate }}
     </ion-title>
@@ -17,7 +17,7 @@
 
     <ion-grid class=" grid-cart-product">
 
-      <h1>Produits Commandés</h1>
+      <h1>{{ "OTHERS.subttpd" | translate }}</h1>
 
         <ion-list *ngIf="Products" >
           <ion-item class="grid-cart-0" *ngFor="let product of Products" >
@@ -25,11 +25,11 @@
               <img class="img-cart" [src]=product.article.image_cover >
             </ion-thumbnail>
             <h2 (click)="goToDetailProduct(product)">{{ product.article.name}}</h2>
-            <p><strong>Quantité : </strong> {{ product.quantity }}</p>
-            <span class="price-cart">{{ product.article.price | number}} F CFA</span>
+            <p><strong>{{ "CHECKOUT.qte" | translate }} </strong> {{ product.quantity }}</p>
+            <span class="price-cart">{{ product.article.price | number}} {{ product.devis }}</span>
             <br>
             <small>
-              <a (click)="gotomarket(product.store)">Voir la boutique</a>
+              <a (click)="gotomarket(product.store)">{{ "OTHERS.vb" | translate }}</a>
             </small>
           </ion-item>
         </ion-list>
@@ -37,24 +37,24 @@
     </ion-grid>
 
     <ion-grid class="grid-cart-product">
-      <h1 class="title">Informations supplémentaires</h1>
+      <h1 class="title">{{ "OTHERS.inf" | translate }}</h1>
       <ion-list>
         <ion-item *ngIf="date" >
-            Date de commande :
+            {{ "OTHERS.date" | translate }} :
           <span item-end>
             <strong>{{ Notif.ordered_date | date }}</strong>
           </span>
         </ion-item>
 
         <ion-item *ngIf="Total" >
-          Prix de commande :
+          {{ "OTHERS.price" | translate }} :
         <span item-end>
-          <strong>{{ Total }} F CFA</strong>
+          <strong>{{ Total }} {{ devis }}</strong>
         </span>
       </ion-item>
 
       <ion-item>
-        Lieu de livraison :
+        {{ "OTHERS.lieu" | translate }} :
       <span item-end *ngIf="adresse" >
         <strong>{{ adresse.location }}</strong>
       </span>
@@ -63,24 +63,24 @@
     </ion-grid>
 
     <ion-grid class="grid-cart-product">
-     <h1 class="title">Informations Clientèle</h1>
+     <h1 class="title">{{ "OTHERS.Inf_cl" | translate }}</h1>
      <ion-list>
        <ion-item *ngIf="commander" >
-           Nom du client :
+        {{ "OTHERS.name_cl" | translate }} :
          <span item-end>
            <strong>{{ commander.first_name + ' ' + commander.last_name }}</strong>
          </span>
        </ion-item>
 
        <ion-item *ngIf="commander" >
-         Adresse e-mail :
+        {{ "OTHERS.email_cl" | translate }} :
        <span item-end>
          <strong>{{ commander.email }} </strong>
        </span>
      </ion-item>
 
      <ion-item>
-       Numéro de téléphone :
+      {{ "OTHERS.num_cl" | translate }} :
      <span item-end *ngIf="commander" >
        <strong>{{ commander.phone }}</strong>
      </span>

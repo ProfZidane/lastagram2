@@ -1,3 +1,34 @@
 page-language-setting {
 
+  h3 {
+    color: #155C7F;
+  }
+
+  .lng ion-row {
+    border-bottom: solid;
+  }
+
+  .lng ion-row ion-col {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .lng ion-row ion-col img{
+      width: 50%;
+  }
+
+  .lng ion-row ion-col span {
+    font-size: 25px;
+    position: relative;
+    top: 15px;
+  }
+
+  .lng ion-row ion-col ion-icon {
+    font-size: 25px;
+    position: relative;
+    top: 15px;
+    margin-left: 1rem;
+  }
+
+
 }

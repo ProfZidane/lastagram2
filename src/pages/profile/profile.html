@@ -23,7 +23,7 @@
       <h1 class="name-profile" *ngIf="infoUser"> {{ infoUser.last_name + ' ' + infoUser.first_name }}</h1>
     </ion-row>
     <ion-row align="center" class="n n2">
-      <span>Côte d'Ivoire</span>
+      <span *ngIf="country">{{country.name}}</span>
       <span>&nbsp; / &nbsp;</span>
       <span class="number-profile" *ngIf="infoUser" >{{ infoUser.phone }}</span>
     </ion-row>

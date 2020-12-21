@@ -36,18 +36,173 @@
   "ALERT" : {
     "err_title" : "ECHEC",
     "err_subtitle" : "Echec de chargement. Veuillez réessayer plus tard!",
-    "err_message" : "'Veuillez verifiez réessayer plus part !",
-    "err_action" : "L'opération n'a pas abouti !",
-    "warn_title" : "WARNING",
+    "err_message" : "Veuillez verifiez réessayer plus part !",
+    "err_action" : "L'opération n'a pas abouti. Veuillez réessayez plus tard !",
+    "err_supp_sub" : "Echec de la suppression",
+    "err_mod_sub" : "Echec de la modification",
+
+
+    "warn_title" : "ATTENTION",
     "warn_share_prod" : "Vous avez atteint le nombre maximal de (6) produits !",
-    "succ_title" : "SUCCESS",
+    "500" : "Veuillez verifiez votre connexion internet",
+    "stock_limite" : "Stock atteint",
+
+    "succ_title" : "SUCCÈS",
     "succ_sub_shop" : "Votre boutique a été supprimée!",
     "succ_sub_prod" : "Votre produit a bien été créer !",
+    "succ_sub_prod2" : "Votre produit a bien été ajouté !",
     "succ_mod" : "Succès de la modification",
+    "sucs_supp" : "Supprimer avec succès",
+    "succ_mod_catg" : "Votre catégorie a été modifier !",
+
     "info_title" : "INFORMATION",
-    "info_subtitle" : "Pour des raisons sécuritaires, vous ne pouvez pas modifier votre e-mail"
+    "info_subtitle" : "Pour des raisons sécuritaires, vous ne pouvez pas modifier votre e-mail",
+
+    "conf_mgs" : "Êtes-vous sûr de vouloir supprimer votre boutique ?",
+    "res_pos" : "Oui",
+    "res_neg" : "Non"
+    
   },
   "SHARING" : {
-    "message" : "Etes vous intéressez par mes produits ?"
+    "message" : "Etes vous intéressez par mes produits ?",
+    "message2" : "Etes vous intéressez par mon produit ?",
+    "err" : "Installer l'application avant tout !",
+    "message_btq" : "Rejoignez nous sur Lastagram",
+    "option" : "Plus d'options",
+    "option2" : "Fermer",
+    "option3" : "Copier lien",
+    "option4" : "Partagez mes produits sur les réseaux sociaux",
+    "title": "Partagez avec : ",
+    "linked": "Lien copié",
+
+    "title2"  : "PARTAGER"
+  },
+  "DEVIS" : {
+    "title" : "DEVIS",
+    "message" : "Entrez le devis de vos produit boutique"
+  },
+  "CREATE_BTQ" : {
+    "ch_do" :"Choix fait",
+    "photo" : "Photo",
+    "vt_flsh" : "Vente flash",
+    "add" : "Ajouté !",
+    "Dfl" : "Défilez",
+    "prod_pop" : "Produits populaires",
+    "vald" : "Valider",
+    "err_vld" : "Veuillez choisir le nom de la boutique, vos catégories et une image de couverture avant de créer votre boutique !"
+  },
+  "CHECKOUT" : {
+    "w" : "Votre lieu de livraison",
+    "warn_err" : "Veuillez saisir le lieu de livraison.",
+    "title": "LIVRAISON",
+    "mgs_title" : "Entrez le lieu de livraison",
+    "qte" : "Quantité : "
+  },
+  "CART" : {
+    "empty" : "Votre panier est vide !",
+    "dic" : "La quantité est à 1. Si vous voulez supprimer le produit, veuillez cliquez directement sur la croix !",
+    "ttc" : "TOTAL",
+
+    "addto" : "AJOUTER PANIER",
+    "succ_addto": "Ajoutez au panier avec succès !"
+  },
+  "SHOP" : {
+    "call_response" : "Numéro du propriétaire",
+    "call" : "APPELLE-MOI",
+    "texte" : "MESSAGE",
+    "texte_warn" : "Vous êtes en mode administration. L'option message est, ici, désactivé !",
+    "TIMER" : {
+      "hour" : "Heure",
+      "Min" : "Minute",
+      "Sec" : "Second",
+      "success" : "Timer a été mis à jour !",
+      "echec" : "Echec de la mise à jour !",
+      "set" : "Réglage Minuteur"
+    },
+    "MODIFICATION" : {
+      "title" : "Modification",
+      "name" : "Entrez le nouveau nom",
+      "name_sb" : "Votre nom",
+      "name_success" : "Nom de boutique modifée !",
+      "image_success" : "Photo de couverture modifée !",
+      "mod_prod" : "Modifier la catégorie",
+      "mod_catg" : "Ajouter des produits",
+      "image_success2" : "Photo modifée !"
+    }
+  },
+  "ASSISTANCE" : {
+         "title"  : "Rencontrez-vous un problème ?",
+         "subtitle" : "Envoyez-nous un message en detaillant votre problème.",
+         "labl" : "Objet : ",
+         "placeholder" : "ecrivez ici ...",
+         "content" : "Message : ",
+         "send" : "Envoyer",
+         "warn" : "Veuillez remplir les champs s'il vous plait !",
+         "err" : "Un problème est survenu",
+         "success" : "Votre message à été envoyé, nous vous contacterons au plus vite !"
+    },
+  "FORM" : {
+    "PLACEHOLDER" : {
+      "produit" : "NOM PRODUIT",
+      "prix" : "PRIX NORMAL",
+      "prix_p" : "PRIX PROMO"
+    },
+    "LABEL" : {
+      "desc" : "Description",
+      "photo" : "AJOUTER PHOTO"
+    }
+  },
+  "LOAD" : {
+    "mgs" : "Veuillez Patienter..."
+  },
+  "ABOUT_CONTENT" : {
+    "text1" : "Lastagram est une application de market-place qui est bénéfique aux commerçants et aussi aux clients.",
+    "text2" : "Lastagram permet aussi aux clients de rester proche de leurs boutiques habituelles afin de commander des produits sans se deplacer.",
+    "text3" : "Lastagram est un outil qui permet aux commerçant de creer facile des boutiques en ligne afin de proposer leurs produits à leurs clients."
+  },
+  "OTHERS" : {
+    "num" : "Nombres",
+    "next" : "Continuer",
+    "finish": "Terminer",
+    "valid" : "Valider",
+    "abo" : "Abonné(s)",
+    "abonned" : "Vous êtes abonné !",
+    "desabonned" : "Vous êtes maintenant désabonné !",
+    "choose": "Choisir",
+    "subttpd" : "Produits Commandés",
+    "vb" : "Voir la boutique",
+    "inf" : "Informations supplémentaires",
+    "date" : "Date de commande",
+    "price" : "Prix de commande",
+    "lieu" : "Lieu de livraison",
+    "Inf_cl" : "Informations Clientèle",
+    "name_cl" : "Nom du client",
+    "email_cl" : "Adresse e-mail",
+    "num_cl" : "Numéro de téléphone",
+    "recp" : "Boite de réception",
+    "nothing_order" : "Pas de commandes !",
+    "orders" : "Les commandes",
+    "del_shop" : "Supprimer la boutique",
+    "nothing_mgs" : "Aucun messages ! ",
+    "supp" : "SUPPRIMER",
+    "fn" : "Votre prénom",
+    "phone" : "Entrez votre numéro de téléphone",
+    "phone_pl" : "Votre numéro de téléphone (avec devant l'indicatif)",
+    "password" : "Entrez votre nouveau mot de passe",
+    "old_ps" : "Entrez votre l'ancien mot de passe",
+    "new_pl" : "Entrez votre nouveau mot de passe",
+    "order_to" : "Commande du ",
+    "nothing_shop" : "Vous n'avez aucune boutique",
+    "nothing_prod" : "Aucun article !",
+    "selected" : "Vous avez sélectionnez :",
+    "exit" : "Appuyer encore pour quitter",
+    "exit_inf" : "Voulez-vous sortir vraiment de Lastagram ?",
+    "gotohome" : "Aller à l'accueil",
+    "close" : "Quitter",
+    "choose_sh" : "Choisissez une application",
+    "lng_chg" : "Langue changée !",
+    "lng_chg_tt" : "Choisissez votre langue",
+    "nothing_home_prod" : "Aucun article n'est disponible dans votre pays !",
+    "nothing_home_store" : "Aucune boutique n'est disponible dans votre pays !"
   }
 }

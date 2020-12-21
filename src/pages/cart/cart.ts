@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
-
+import { TranslateService } from '@ngx-translate/core';
 /**
  * Generated class for the CartPage page.
  *
@@ -28,14 +28,15 @@ Total = 0;
 vide;
 inexiste;
   quantity: number = 1;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider, public loadingCtrl: LoadingController, private orderService: OrderProvider, private alertCtrl: AlertController) {
+  devis;
+  constructor(public navCtrl: NavController, private translate: TranslateService, public navParams: NavParams, private storeService: StoreProvider, public loadingCtrl: LoadingController, private orderService: OrderProvider, private alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CartPage');
 
     let loading = this.loadingCtrl.create({
-      content: 'Veuillez Patienter...'
+      content: this.translate.instant('LOAD.mgs')
     });
     loading.present();
 
@@ -44,17 +45,18 @@ inexiste;
         console.log( "jj : " + JSON.stringify(data));
 
         if (data.message) {
-          this.vide = "Votre panier est vide !";
+          this.vide = this.translate.instant("CART.empty");
         } else {
 
           let product = data.articles;
           if (product.length == 0) {
-            this.vide = "Votre panier est vide !";
+            this.vide = this.translate.instant("CART.empty");
             loading.dismiss();
           } else {
             //product.qte = data.articles[0].quantity;
             product.forEach(element => {
                 this.products.push(element);
+                this.devis = element.devis;
             });
 
             this.products.forEach(elt => {
@@ -80,7 +82,7 @@ inexiste;
         });
         alert.present();*/
         loading.dismiss();
-        this.vide = "vide !"
+        this.vide = this.translate.instant("CART.empty")
       }
     )
 
@@ -128,8 +130,8 @@ inexiste;
       }, (err) => {
         console.log(err);
         let alert = this.alertCtrl.create({
-          title: 'ECHEC',
-          subTitle: 'Veuillez vérifier votre connexion internet',
+          title: this.translate.instant('ALERT.err_title'),
+          subTitle: this.translate.instant('ALERT.err_action'),
           buttons: ['OK']
         });
         alert.present();
@@ -155,8 +157,8 @@ inexiste;
         }, (err) => {
           console.log(err);
           let alert = this.alertCtrl.create({
-            title: 'ECHEC',
-            subTitle: 'Veuillez vérifier votre connexion internet',
+            title: this.translate.instant('ALERT.err_title'),
+          subTitle: this.translate.instant('ALERT.err_action'),
             buttons: ['OK']
           });
           alert.present();
@@ -164,8 +166,8 @@ inexiste;
       )
     } else {
       let alert = this.alertCtrl.create({
-        title: 'ATTENTION',
-        subTitle: 'La quantité est à 1. Si vous voulez supprimer le produit, veuillez cliquez directement sur la croix !',
+        title: this.translate.instant('ALERT.warn_title'),
+        subTitle: this.translate.instant('CART.dic'),
         buttons: ['OK']
       });
       alert.present();
@@ -190,8 +192,8 @@ inexiste;
       }, (err) => {
         console.log(err);
         let alert = this.alertCtrl.create({
-          title: 'ECHEC',
-          subTitle: 'Veuillez vérifier votre connexion internet',
+          title: this.translate.instant('ALERT.err_title'),
+          subTitle: this.translate.instant('ALERT.err_action'),
           buttons: ['OK']
         });
         alert.present();

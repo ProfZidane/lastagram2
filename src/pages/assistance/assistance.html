@@ -12,16 +12,16 @@
 
 <ion-content padding align="center">
   <br>
-  <h2 class="ass-title">Vous rencontrez un problème ?</h2>
-  <small>Envoyez-nous un message en detaillant votre problème.</small><br><br>
+  <h2 class="ass-title">{{ "ASSISTANCE.title" | translate }}</h2>
+  <small>{{ "ASSISTANCE.subtitle" | translate }}</small><br><br>
   <ion-item>
-    <ion-label class="text" >Objet :</ion-label>
+    <ion-label class="text" >{{ "ASSISTANCE.labl" | translate }}</ion-label>
     <ion-input type="text" [(ngModel)]="Messages.object" ></ion-input>
   </ion-item><br>
   <ion-item>
-    <ion-label class="text" position="stacked">Message :</ion-label>
-    <ion-textarea [(ngModel)]="Messages.message" placeholder="ecrivez ici ..." rows="10"> </ion-textarea>
+    <ion-label class="text" position="stacked">{{ "ASSISTANCE.content" | translate }}</ion-label>
+    <ion-textarea [(ngModel)]="Messages.message" placeholder="{{ 'ASSISTANCE.placeholder' | translate  }}" rows="10"> </ion-textarea>
   </ion-item><br><br>
-  <button ion-button color="lastagram" round (click)="showAlert()">Envoyer</button>
+  <button ion-button color="lastagram" round (click)="showAlert()">{{ "ASSISTANCE.send" | translate }}</button>
 
 </ion-content>

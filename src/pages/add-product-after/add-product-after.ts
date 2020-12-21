@@ -6,6 +6,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import {NgxImageCompressService} from 'ngx-image-compress';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Generated class for the AddProductAfterPage page.
@@ -36,7 +37,7 @@ export class AddProductAfterPage {
   };
   base64Image: string;
   imgResultAfterCompress: string;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, private storeService: StoreProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController,private imageCompress: NgxImageCompressService) {
+  constructor(public navCtrl: NavController,private translate: TranslateService, public navParams: NavParams, private camera: Camera, private storeService: StoreProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController,private imageCompress: NgxImageCompressService) {
   }
 
   ionViewDidLoad() {
@@ -97,7 +98,7 @@ export class AddProductAfterPage {
   AddOneProduct() {
     if (this.indic == "flash") {
       let loading = this.loadingCtrl.create({
-        content: 'Veuillez Patienter...'
+        content: this.translate.instant('LOAD.mgs')
       });
       loading.present();
 
@@ -118,8 +119,8 @@ export class AddProductAfterPage {
         (response) => {
           console.log(response);
           let alert = this.alertCtrl.create({
-            title: 'SUCCESS',
-            subTitle: 'Votre produit a bien été créer !',
+            title: this.translate.instant('ALERT.succ_title'),
+            subTitle: this.translate.instant('ALERT.succ_sub_prod'),
             buttons: ['OK']
           });
           alert.present();
@@ -130,8 +131,8 @@ export class AddProductAfterPage {
         (error) => {
           console.log(JSON.stringify(error));
           let alert = this.alertCtrl.create({
-            title: 'ECHEC',
-            subTitle: 'L\'opération n\'a pas abouti !',
+            title: this.translate.instant('ALERT.err_title'),
+            subTitle: this.translate.instant('ALERT.err_action'),
             buttons: ['OK']
           });
           alert.present();
@@ -141,7 +142,7 @@ export class AddProductAfterPage {
       )
     } else if (this.indic == "popular") {
       let loading = this.loadingCtrl.create({
-        content: 'Veuillez Patienter...'
+        content: this.translate.instant('LOAD.mgs')
       });
       loading.present();
 
@@ -162,8 +163,8 @@ export class AddProductAfterPage {
         (response) => {
           console.log(response);
           let alert = this.alertCtrl.create({
-            title: 'SUCCESS',
-            subTitle: 'Votre produit a bien été créer !',
+            title: this.translate.instant('ALERT.succ_title'),
+            subTitle: this.translate.instant('ALERT.succ_sub_prod'),
             buttons: ['OK']
           });
           alert.present();
@@ -174,8 +175,8 @@ export class AddProductAfterPage {
         (error) => {
           console.log(JSON.stringify(error));
           let alert = this.alertCtrl.create({
-            title: 'ECHEC',
-            subTitle: 'L\'opération n\'a pas abouti !',
+            title: this.translate.instant('ALERT.err_title'),
+            subTitle: this.translate.instant('ALERT.err_action'),
             buttons: ['OK']
           });
           alert.present();

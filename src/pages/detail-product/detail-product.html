@@ -22,10 +22,10 @@
   </ion-grid>
   <br>
   <ion-grid class=" text-detail-product" *ngIf="product">
-    <span>Detail Produit</span>
+    <span>{{ "TITLE.detail_prod" | translate }}</span>
     <br>
     <span>
-      <a (click)="Gotomarket()">Voir la boutique</a>
+      <a (click)="Gotomarket()">{{ "OTHERS.vb" | translate }}</a>
     </span>
     <h1>{{ product.name }}</h1>
     <p style="padding:0; white-space: pre-line;">
@@ -38,7 +38,7 @@
       <ion-col class="" col-4>
         <!--<p class="qt">Quantité : </p>-->
         <div class="counter-quantity">
-          <b>Quantité</b>
+          <b>{{ "CHECKOUT.qte" | translate }} </b>
            <ion-row>
              <ion-col class="" col-4>
               <ion-icon name="md-remove-circle" (click)="discrease()"></ion-icon>
@@ -71,10 +71,10 @@
   <ion-grid class="">
     <ion-row class="grid-button-detail">
       <ion-col class="" col-4 align="center">
-        <button ion-button round color="lastagram" (click)="presentActionSheet()" >PARTAGER</button>
+        <button ion-button round color="lastagram" (click)="presentActionSheet()" >{{ "SHARING.title2" | translate }}</button>
       </ion-col>
       <ion-col class="" col-8 align="center">
-        <button ion-button round color="lastagram" (click)="addToCart(product.id)">AJOUTER PANIER</button>
+        <button ion-button round color="lastagram" (click)="addToCart(product.id)">{{ "CART.addto" | translate }}</button>
       </ion-col>
     </ion-row>
   </ion-grid>

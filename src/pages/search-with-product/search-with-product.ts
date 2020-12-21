@@ -3,7 +3,7 @@ import { DetailProductPage } from './../detail-product/detail-product';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
-
+import { TranslateService } from '@ngx-translate/core';
 /**
  * Generated class for the SearchWithProductPage page.
  *
@@ -20,7 +20,7 @@ export class SearchWithProductPage {
 Products;
 Total;
 next;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private searchService: SearchProvider, private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, private translate: TranslateService,public navParams: NavParams, private searchService: SearchProvider, private alertCtrl: AlertController) {
 
     this.initializeItems();
 
@@ -57,8 +57,8 @@ next;
         console.log("error : " + err );
         //loading.dismiss();
         let alert = this.alertCtrl.create({
-          title: 'ECHEC',
-          subTitle: 'Echec de chargement. Veuillez réessayer plus tard!',
+          title: this.translate.instant('ALERT.err_title'),
+          subTitle: this.translate.instant('ALERT.err_subtitle'),
           buttons: ['OK']
         });
         alert.present();

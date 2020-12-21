@@ -16,7 +16,7 @@ import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ToastController } from 'ionic-angular';
-
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Generated class for the BoutiqueGeneralPage page.
@@ -82,7 +82,7 @@ export class BoutiqueGeneralPage {
   heure=0;
   timer;
   tabsElt;
-  constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController,
+  constructor(private platform: Platform,private translate: TranslateService, public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController,
      private camera: Camera, public toastCtrl: ToastController, private callNumber: CallNumber, private app: App
   ) {
 
@@ -105,7 +105,7 @@ export class BoutiqueGeneralPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad BoutiquePageGeneral');
     let loading = this.loadingCtrl.create({
-      content: 'Veuillez Patienter...'
+      content:this.translate.instant('LOAD.mgs')
     });
     loading.present();
 
@@ -374,7 +374,7 @@ export class BoutiqueGeneralPage {
         });
         alert.present();*/
         const toast = this.toastCtrl.create({
-          message: 'Vous êtes abonné !',
+          message: this.translate.instant("OTHERS.abonned"),
           duration: 3000
         });
         toast.present();
@@ -385,8 +385,8 @@ export class BoutiqueGeneralPage {
       },
       (error) => {
         let alert = this.alertCtrl.create({
-          title: 'ECHEC',
-          subTitle: 'L\'opération n\'a pas abouti !',
+          title: this.translate.instant('ALERT.err_title'),
+          subTitle: this.translate.instant('ALERT.err_action'),
           buttons: ['OK']
         });
         alert.present();
@@ -414,8 +414,8 @@ export class BoutiqueGeneralPage {
       },
       (error) => {
         let alert = this.alertCtrl.create({
-          title: 'ECHEC',
-          subTitle: 'L\'opération n\'a pas abouti !',
+          title: this.translate.instant('ALERT.err_title'),
+          subTitle: this.translate.instant('ALERT.err_action'),
           buttons: ['OK']
         });
         alert.present();
@@ -427,7 +427,7 @@ export class BoutiqueGeneralPage {
   Message(value) {
     if (localStorage.getItem('usernameChat') !== value) {
       let loading = this.loadingCtrl.create({
-        content: 'Veuillez Patienter...'
+        content: this.translate.instant('LOAD.mgs')
       });
       loading.present();
       //localStorage.setItem('chatUser', value);
@@ -460,8 +460,8 @@ export class BoutiqueGeneralPage {
     } else {
 
       let alert = this.alertCtrl.create({
-        title: 'ATTENTION',
-        subTitle: 'Vous êtes le propriétaire de cette boutique, impossible d\'ouvrir la convrsation avec vous-même !',
+        title: this.translate.instant('ALERT.warn_title'),
+        subTitle: this.translate.instant('SHOP.texte_warn'),
         buttons: ['OK']
       });
       alert.present();
@@ -484,7 +484,7 @@ export class BoutiqueGeneralPage {
     console.log(localStorage.getItem('phoneUser'));
     let alert = this.alertCtrl.create({
       title: 'INFO',
-      subTitle: 'Numéro du propriétaire : ' + this.prop.phone,
+      subTitle: this.translate.instant('SHOP.call_response') + ' : ' + this.prop.phone,
       buttons: ['OK']
     });
     alert.present();
@@ -593,7 +593,7 @@ export class BoutiqueGeneralPage {
                       text: 'Valider',
                       handler: data => {
                         let loading = this.loadingCtrl.create({
-                          content: 'Veuillez Patienter...'
+                          content: this.translate.instant('LOAD.mgs')
                         });
                         loading.present();
 
@@ -624,8 +624,8 @@ export class BoutiqueGeneralPage {
                               console.log(error);
                               loading.dismiss();
                               let alert3 = this.alertCtrl.create({
-                                title: 'ECHEC',
-                                subTitle: 'Echec de la modification !',
+                                title: this.translate.instant('ALERT.err_title'),
+                                subTitle: this.translate.instant('ALERT.err_mod_sub'),
                                 buttons: [
                                   {
                                     text: 'OK',
@@ -664,7 +664,7 @@ export class BoutiqueGeneralPage {
                   "image_cover" : this.base64Image
                 }
                 let loading = this.loadingCtrl.create({
-                  content: 'Veuillez Patienter...'
+                  content: this.translate.instant('LOAD.mgs')
                 });
                 loading.present();
                 this.storeService.updateProduct2(data,this.Market.id).subscribe(
