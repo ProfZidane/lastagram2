@@ -107,7 +107,7 @@ export class CheckoutPage {
 
   send_notification(data,tab) {
 
-    let text = "Nouvelle commande de " + data.owner.last_name  + " " + data.owner.first_name;
+    let text = this.translate.instant('NOTIFICATION.new_o') + data.owner.last_name  + " " + data.owner.first_name;
 
     let notification = {
       "id" : data.id,
@@ -156,7 +156,7 @@ export class CheckoutPage {
 
           this.notificationService.createNotification({
             "notification_type" : "order",
-            "content" : JSON.stringify(["Vous avez une commande de " + localStorage.getItem('nameUser') + ' ' + localStorage.getItem('name2User'),this.id_order]),
+            "content" : JSON.stringify([this.translate.instant('NOTIFICATION.indique') + localStorage.getItem('nameUser') + ' ' + localStorage.getItem('name2User'),this.id_order]),
             "sender": Number(localStorage.getItem('idUser')),
             "receiver": JSON.parse(localStorage.getItem('id_owners')),
             "is_seen": []

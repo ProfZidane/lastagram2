@@ -160,6 +160,10 @@
     "text2" : "Lastagram permet aussi aux clients de rester proche de leurs boutiques habituelles afin de commander des produits sans se deplacer.",
     "text3" : "Lastagram est un outil qui permet aux commerçant de creer facile des boutiques en ligne afin de proposer leurs produits à leurs clients."
   },
+  "NOTIFICATION" : {
+    "new_o" : "Nouvelle commande de ",
+    "indique" : "Vous avez une commande de "
+  },
   "OTHERS" : {
     "num" : "Nombres",
     "next" : "Continuer",
@@ -203,6 +207,7 @@
     "lng_chg" : "Langue changée !",
     "lng_chg_tt" : "Choisissez votre langue",
     "nothing_home_prod" : "Aucun article n'est disponible dans votre pays !",
-    "nothing_home_store" : "Aucune boutique n'est disponible dans votre pays !"
+    "nothing_home_store" : "Aucune boutique n'est disponible dans votre pays !",
+    "add_product" : "Ajouter produit"
   }
 }

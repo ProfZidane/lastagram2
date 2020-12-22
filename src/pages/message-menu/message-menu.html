@@ -11,7 +11,18 @@
 </ion-header>
 
 <ion-content fullscreen class="bg-menu-message">
+
+  
+
   <ion-grid class="header-message-menu">
+    
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+        refreshingSpinner="circles"
+        ></ion-refresher-content>
+    </ion-refresher>
+
     <h1>{{ "TITLE.mgs" | translate }}</h1>
     <ion-row class="row-input">
       <ion-searchbar placeholder="Recherche Conversation"  (ionInput)="getItems($event)" round></ion-searchbar>

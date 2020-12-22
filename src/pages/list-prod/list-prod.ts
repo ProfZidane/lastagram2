@@ -33,6 +33,12 @@ state = false;
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ListProdPage');
+    
+
+  }
+
+  ionViewDidEnter() {
+    console.log('je rentre');
     let loading = this.loadingCtrl.create({
       content: this.translate.instant('LOAD.mgs')
     });
@@ -63,7 +69,6 @@ state = false;
         console.log(error);
       }
     )
-
   }
 
   modify(json) {
@@ -106,6 +111,10 @@ state = false;
 
   AddNewProd() {
     this.navCtrl.push(ModifyProdSpecialPage, { "id_catg": this.id, "id_market": this.id_market });
+  }
+
+  reload() {
+    this.navCtrl.setRoot(this.navCtrl.getActive().component);
   }
 
   doInfinite(infiniteScroll) {

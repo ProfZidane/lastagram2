@@ -746,6 +746,7 @@ export class CreateBoutiquePage {
             localStorage.removeItem('image_Decoration2');
           }
 
+          localStorage.removeItem('name_market');
 
           loading.dismiss()
           this.goToBoutique();
@@ -777,6 +778,61 @@ export class CreateBoutiquePage {
 
 
 
+  }
+
+
+  Annuler() {
+    let tab = ['1','2','3','4','5','6'];
+    tab.forEach(elt => {
+      if (localStorage.getItem('id'+elt) !== null) {
+        localStorage.removeItem('id'+elt);
+      }
+    });
+    tab.forEach(elt => {
+      if (localStorage.getItem('article'+elt) !== null) {
+        localStorage.removeItem('article'+elt);
+      }
+    });
+    tab.forEach(elt => {
+      if (localStorage.getItem('flash'+elt) !== null) {
+        localStorage.removeItem('flash'+elt);
+      }
+    });
+    tab.forEach(elt => {
+      if (localStorage.getItem('populaire'+elt) !== null) {
+        localStorage.removeItem('populaire'+elt);
+      }
+    });
+
+    if(localStorage.getItem('couvertImage') !== null) {
+      localStorage.removeItem('couvertImage');
+    }
+
+    if (localStorage.getItem('couvertImage2') !== null) {
+      localStorage.removeItem('couvertImage2');
+    }
+
+    if (localStorage.getItem('couvertImage3') !== null) {
+      localStorage.removeItem('couvertImage3');
+    }
+
+    if (localStorage.getItem('image_Decoration1') !== null) {
+      localStorage.removeItem('image_Decoration1');
+    }
+    if (localStorage.getItem('image_Decoration2')) {
+      localStorage.removeItem('image_Decoration2');
+    }
+
+    if (localStorage.getItem('name_market') !== null) {
+      localStorage.removeItem('name_market');
+    }
+
+    if (localStorage.getItem('time_flash') !== null) {
+      localStorage.removeItem('time_flash');
+    }
+
+    this.navCtrl.popToRoot();
+    
   }
 
   ValidationCheck() : Boolean {

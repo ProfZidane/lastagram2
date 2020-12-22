@@ -31,7 +31,7 @@ export class LanguageSettingPage {
   presentToast() {
     let toast = this.toastCtrl.create({
       message: this.translate.instant('OTHERS.lng_chg'),
-      duration: 3000,
+      duration: 1500,
       position: 'middle'
     });
   

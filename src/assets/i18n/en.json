@@ -128,7 +128,7 @@
       "image_success" : "Cover photo changed!",
       "mod_prod" : "Edit category",
       "mod_catg" : "Add products",
-      "image_success2" : "photo changed!"
+      "image_success2" : "photo changed!"  
 
     }
   },
@@ -161,6 +161,10 @@
     "text1" : "Lastagram is a market-place application which is beneficial to traders and also to customers.",
     "text2" : "Lastagram also allows customers to stay close to their usual stores in order to order products without having to travel.",
     "text3" : "Lastagram is a tool that allows merchants to easily create online stores in order to offer their products to their customers."
+  },
+  "NOTIFICATION" : {
+    "new_o" : "New order for ",
+    "indique" : "You have an order for "
   },
   "OTHERS" : {
     "num" : "Numbers",
@@ -207,7 +211,8 @@
     "lng_chg" : "Language changed!",
     "lng_chg_tt" : "Choose your language",
     "nothing_home_prod" : "No article is available in your country!",
-    "nothing_home_store" : "No store is available in your country!"
+    "nothing_home_store" : "No store is available in your country!",
+    "add_product" : "Add product"
 
   }
 

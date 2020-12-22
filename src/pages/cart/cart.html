@@ -27,7 +27,11 @@
             <img class="img-cart" [src]=product.article.image_cover>
           </ion-thumbnail>
           <h2>{{ product.article.name }}</h2>
-          <!--<p>7, Hot Pink</p>-->
+          <p>
+            <a (click)="goToMarket(product.store)">
+              {{ "OTHERS.vb" | translate }}
+            </a>
+          </p>
           <span class="price-cart">{{ product.article.promo_price | number }} {{ product.devis }}</span>
           <br>
           <span class="price-cart2" style="text-decoration: line-through;">{{ product.article.price | number }} {{ product.devis }}</span>

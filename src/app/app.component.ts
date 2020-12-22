@@ -197,7 +197,7 @@ export class MyApp {
           } else {
             this.backButtontTimer = true;
             this.toastCtrl.create({
-              message: "translate.instant('OTHERS.exit')",
+              message: translate.instant('OTHERS.exit'),
               duration: 2000
             }).present();
 
@@ -242,7 +242,7 @@ this.app.getRootNav().getActiveChildNav().select(0);
 
           } else {
 
-            const alert = this.alertCtrl.create({
+            /*const alert = this.alertCtrl.create({
               title: translate.instant('ALERT.warn_title'),
               subTitle: translate.instant('OTHERS.exit_inf'),
               buttons: [
@@ -268,7 +268,21 @@ this.app.getRootNav().getActiveChildNav().select(0);
                 }
               ]
             });
-            alert.present();
+            alert.present();*/
+
+            if (this.backButtontTimer === true) {
+              platform.exitApp();
+          } else {
+            this.backButtontTimer = true;
+            this.toastCtrl.create({
+              message: translate.instant('OTHERS.exit'),
+              duration: 2000
+            }).present();
+
+            setTimeout( () => {
+              this.backButtontTimer = false;
+            },2020)
+          }
 
 
 

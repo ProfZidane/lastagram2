@@ -321,7 +321,7 @@
   </ion-grid>
 
   <ion-grid class="product-origin-create-boutique">
-    <h3 class="p">Produits Populaires</h3>
+    <h3 class="p">{{ "CREATE_BTQ.prod_pop" | translate}}</h3>
 
     <ion-scroll scrollX="true" style="width:100vw; height:250px;" >
 
@@ -434,6 +434,9 @@
   <ion-grid class="">
     <ion-row class="">
       <ion-col class="">
+        <button ion-button round color="lastagram" (click)="Annuler()">
+          {{ "OTHERS.close" | translate }}
+        </button>
       </ion-col>
       <ion-col class=" btn-validation">
         <button ion-button round color="lastagram" (click)="AddDevis()">{{ "OTHERS.valid" | translate }}</button>

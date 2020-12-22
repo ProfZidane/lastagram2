@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar color="lastagram" hideBackButton="true">
+  <ion-navbar color="lastagram">
     <ion-title>{{ "TITLE.add_prod" | translate }}</ion-title>
   </ion-navbar>
 </ion-header>
@@ -16,7 +16,7 @@
       <ion-col col-2 >
       </ion-col>
       <ion-col col-10 >
-        <ion-input type="text" name="name" [(ngModel)]="Products.name"  value="" placeholder="{{ 'FORM.PLACEHOLDER.produit' | translate }}"></ion-input>
+        <ion-input type="text" name="name" [(ngModel)]="Products.name"  value="" placeholder="{{ 'FORMS.PLACEHOLDER.produit' | translate }}"></ion-input>
       </ion-col>
     </ion-row>
 
@@ -24,7 +24,7 @@
       <ion-col col-2 >
       </ion-col>
       <ion-col col-10 >
-        <ion-input type="number" name="price" [(ngModel)]="Products.price" value="" placeholder="{{ 'FORM.PLACEHOLDER.prix' | translate }}"></ion-input>
+        <ion-input type="number" name="price" [(ngModel)]="Products.price" value="" placeholder="{{ 'FORMS.PLACEHOLDER.prix' | translate }}"></ion-input>
       </ion-col>
     </ion-row>
 
@@ -32,16 +32,16 @@
       <ion-col col-2 >
       </ion-col>
       <ion-col col-10 >
-        <ion-input type="number" name="promo_price" [(ngModel)]="Products.promo_price"  value="" placeholder="{{ 'FORM.PLACEHOLDER.prix_p' | translate }}"></ion-input>
+        <ion-input type="number" name="promo_price" [(ngModel)]="Products.promo_price"  value="" placeholder="{{ 'FORMS.PLACEHOLDER.prix_p' | translate }}"></ion-input>
       </ion-col>
     </ion-row>
 
-    <b>{{ 'FORM.LABEL.desc' | translate }}</b>
+    <b>{{ "FORMS.LABEL.desc" | translate }}</b>
     <textarea autosize maxRows='3' class="description-input vv2" [(ngModel)]="Products.description"></textarea>
   </ion-grid>
 
   <ion-grid >
-    <button ion-button round color="lastagram" (click)='compressFile()'>{{ 'FORM.LABEL.photo' | translate }}</button>
+    <button ion-button round color="lastagram" (click)='compressFile()'>{{ 'FORMS.LABEL.photo' | translate }}</button>
   </ion-grid>
 
   <ion-grid >

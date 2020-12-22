@@ -119,7 +119,8 @@ export class ModifyProdSpecialPage {
         });
         alert.present();
         loading.dismiss();
-        this.navCtrl.push(MyShopPage);
+        //this.navCtrl.push(MyShopPage);
+        this.navCtrl.pop();
 
       },
       (error) => {

@@ -54,7 +54,7 @@ export class TabsPage {
     this.orderService.getProductToCart().subscribe(
       (data) => {
         if (data.message) {
-          console.log("dd");
+          //console.log("dd");
           this.count = 0;
         } else {
           if (data.ordered === false) {
@@ -63,7 +63,7 @@ export class TabsPage {
             this.count = 0;
           }
         }
-        console.log("e : " + this.count);
+        //console.log("e : " + this.count);
 
       }, (err) => {
         console.log(err);

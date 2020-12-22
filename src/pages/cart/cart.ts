@@ -1,3 +1,4 @@
+import { BoutiqueGeneralPage } from './../boutique-general/boutique-general';
 import { DetailProductInCartPage } from './../detail-product-in-cart/detail-product-in-cart';
 import { DetailProductPage } from './../detail-product/detail-product';
 import { OrderProvider } from './../../providers/order/order';
@@ -95,9 +96,14 @@ inexiste;
   }
 
   goToDetailProduct(json) {
-
-
     this.navCtrl.push(DetailProductInCartPage, { "data" : json });
+  }
+
+
+  goToMarket(id) {
+    console.log(" id boutique : " + id);
+    this.navCtrl.push(BoutiqueGeneralPage, { "id" : id });
+
   }
 
   inscrease(id,value) {

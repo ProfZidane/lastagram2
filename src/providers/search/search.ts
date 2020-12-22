@@ -20,10 +20,17 @@ export class SearchProvider {
   }
 
   getHeaders() {
-    return new HttpHeaders({
-      'Content-Type' : 'application/json; charset=utf-8',
-      'Authorization' : 'JWT ' + localStorage.getItem('userToken')
-    });
+    if (localStorage.getItem('userToken') !== null) {
+      return new HttpHeaders({
+        'Content-Type' : 'application/json; charset=utf-8',
+        'Authorization' : 'JWT ' + localStorage.getItem('userToken')
+      });
+    } else {
+      return new HttpHeaders({
+        'Content-Type' : 'application/json; charset=utf-8'
+      });
+    }
+    
   }
 
   searchByProduct(data): Observable<any> {

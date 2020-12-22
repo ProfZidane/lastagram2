@@ -113,7 +113,7 @@ export class MessageContentPage  {
 
     }
 
-
+    //window.scrollTo(0, document.body.scrollHeight);
     setTimeout( () => {
       //      this.content.scrollToBottom(200);
             let itemList = document.getElementById('MessagesGrid');

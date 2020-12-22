@@ -1,7 +1,7 @@
 import { UserProvider } from './../../providers/user/user';
 import { MessageContentPage } from './../message-content/message-content';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import * as firebase from 'firebase';
 import { snapshotToArray } from './../../app/environment';
 import { SocketProvider } from './../../providers/socket/socket';
@@ -27,7 +27,7 @@ export class MessageMenuPage {
   users;
   Messages = [];
   ALLMessages = [];
-  constructor(public http: HttpClient, private translate: TranslateService,public navCtrl: NavController, public navParams: NavParams, private socketService: SocketProvider, private userService: UserProvider,public loadingCtrl: LoadingController) {
+  constructor(public http: HttpClient,private app: App, private translate: TranslateService,public navCtrl: NavController, public navParams: NavParams, private socketService: SocketProvider, private userService: UserProvider,public loadingCtrl: LoadingController) {
 
 
     this.username = localStorage.getItem('usernameChat');
@@ -45,9 +45,9 @@ export class MessageMenuPage {
     loading.present();
 
     this.socketService.getAllOfMessages(this.username)
-    .subscribe( (data) => {
-      console.log(JSON.stringify(data));
-      data.forEach(element => {
+    .subscribe( (success) => {
+      //console.log("first data : " + JSON.stringify(data));
+      success.forEach(element => {
         //console.log(element);
         let username = "";
         let other_username = "";
@@ -60,7 +60,7 @@ export class MessageMenuPage {
         }
         this.userService.getImageUser(username).subscribe(
           (data) => {
-            console.log(JSON.stringify(data));
+            console.log("second daata : " + JSON.stringify(data));
             let elt = {
               name: data.last_name + " " + data.first_name,
               username: username,
@@ -118,6 +118,76 @@ export class MessageMenuPage {
 
 
 
+  }
+
+  reload() {
+    this.Messages = [];
+    this.ALLMessages = [];
+    this.socketService.getAllOfMessages(this.username)
+    .subscribe( (success) => {
+      //console.log("first data : " + JSON.stringify(data));
+      success.forEach(element => {
+        //console.log(element);
+        let username = "";
+        let other_username = "";
+        if (element.receiver === localStorage.getItem('usernameChat')) {
+          username = element.sender;
+          other_username = element.receiver;
+        } else {
+          username = element.receiver;
+          other_username = element.sender;
+        }
+        this.userService.getImageUser(username).subscribe(
+          (data) => {
+            console.log("second daata : " + JSON.stringify(data));
+            let elt = {
+              name: data.last_name + " " + data.first_name,
+              username: username,
+              other_username : other_username,
+              photo: data.photo,
+              last_message: element.message,
+              date : data.timestamp
+            }
+            this.Messages.push(elt);
+            this.ALLMessages.push(elt);
+            console.log(this.Messages);
+           // loading.dismiss();
+          }, (err) => {
+
+            //console.log("image : " + JSON.stringify(err));
+            let elt = {
+              name: err.error.last_name + " " + err.error.first_name,
+              username: username,
+              other_username : other_username,
+              photo: "https://cdn.pixabay.com/photo/2017/02/25/22/04/user-icon-2098873_960_720.png",
+              last_message: element.message,
+              date : err.error.timestamp
+            }
+            console.log(typeof(elt));
+
+            console.log(JSON.stringify(elt))
+            this.Messages.push(elt);
+            this.ALLMessages.push(elt);
+            console.log(this.Messages);
+          //  loading.dismiss();
+
+          }
+        )
+      });
+    }, (err) => {
+      console.log("not found : " + JSON.stringify(err));
+
+    });
+  }
+
+
+  doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
+    this.reload();
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      refresher.complete();
+    }, 2000);
   }
 
   goBack() {

@@ -73,19 +73,27 @@ export class BoutiquePage {
 
   //rootPage = BoutiquePage;
   constructor(private socialSharing: SocialSharing,private translate: TranslateService, private platform: Platform, public toastCtrl: ToastController,public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController,private callNumber: CallNumber, private alertCtrl: AlertController, private camera: Camera,public actionSheetCtrl: ActionSheetController,private imageCompress: NgxImageCompressService,public menuCtrl: MenuController, private clipboard: Clipboard, public popoverCtrl: PopoverController, private app: App) {
-    /*this.platform.registerBackButtonAction( () => {
+    this.platform.registerBackButtonAction( () => {
+      
       let nav = this.app.getActiveNav();
 
-      if (nav.canGoBack()) {
-        //nav.popToRoot()
-        //nav.popTo(ProfilePage)
-        this.navCtrl.pop();
+      if (this.actionSheet) {
+        
+        this.actionSheet.dismiss();
+
+      } else if (this.actionSheet2) {
+          
+        this.actionSheet2.dismiss();
+
       } else {
-        console.log("peut plus reculer");
-        this.navCtrl.push(ProfilePage);
-        //this.platform.exitApp();
+
+        nav.pop();
+        
       }
-    })*/
+      
+
+      
+    })
   }
 
   ionViewDidLoad() {
