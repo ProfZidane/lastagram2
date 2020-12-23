@@ -60,8 +60,9 @@
 
     "conf_mgs" : "Êtes-vous sûr de vouloir supprimer votre boutique ?",
     "res_pos" : "Oui",
-    "res_neg" : "Non"
-    
+    "res_neg" : "Non",
+    "annul_mgs" : "Êtes-vous sûr de vouloir annuler la création de votre boutique ?"
+
   },
   "SHARING" : {
     "message" : "Etes vous intéressez par mes produits ?",
@@ -208,6 +209,8 @@
     "lng_chg_tt" : "Choisissez votre langue",
     "nothing_home_prod" : "Aucun article n'est disponible dans votre pays !",
     "nothing_home_store" : "Aucune boutique n'est disponible dans votre pays !",
-    "add_product" : "Ajouter produit"
+    "add_product" : "Ajouter produit",
+    "ttl_btq" : "Boutique",
+    "ttl_mn" : "Menu"
   }
 }

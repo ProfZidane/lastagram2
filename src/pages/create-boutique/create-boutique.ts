@@ -780,6 +780,28 @@ export class CreateBoutiquePage {
 
   }
 
+  ConfirmDel() {
+    let alert = this.alertCtrl.create({
+      title: this.translate.instant('ALERT.warn_title'),
+      subTitle: this.translate.instant('ALERT.annul_mgs'),
+      buttons: [
+        {
+          text : this.translate.instant('ALERT.res_pos'),
+          handler: () => {
+            this.Annuler();
+          }
+        },{
+          text : this.translate.instant('ALERT.res_neg'),
+          role: 'cancel',
+          handler: () => {
+            alert.dismiss();
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
 
   Annuler() {
     let tab = ['1','2','3','4','5','6'];
@@ -822,7 +844,9 @@ export class CreateBoutiquePage {
     if (localStorage.getItem('image_Decoration2')) {
       localStorage.removeItem('image_Decoration2');
     }
-
+    if (localStorage.getItem('image_Decoration3')) {
+      localStorage.removeItem('image_Decoration3');
+    }
     if (localStorage.getItem('name_market') !== null) {
       localStorage.removeItem('name_market');
     }
@@ -832,7 +856,7 @@ export class CreateBoutiquePage {
     }
 
     this.navCtrl.popToRoot();
-    
+
   }
 
   ValidationCheck() : Boolean {

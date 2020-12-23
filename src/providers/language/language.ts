@@ -41,6 +41,8 @@ getLanguages() {
 setLanguage(lng) {
   this.translate.use(lng);
   this.selected = lng;
+  localStorage.setItem('language',lng);
+
   this.storage.set(LNG_KEY, lng);
 }
 

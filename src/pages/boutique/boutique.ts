@@ -26,6 +26,8 @@ import {NgxImageCompressService} from 'ngx-image-compress';
 import { Clipboard } from '@ionic-native/clipboard';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { TranslateService } from '@ngx-translate/core';
+
+import { NgZone } from '@angular/core';
 /**
  * Generated class for the BoutiquePage page.
  *
@@ -70,30 +72,47 @@ export class BoutiquePage {
   heure=0;
   actionSheet;
   actionSheet2;
-
+  active1 = false;
+  active2 = false;
   //rootPage = BoutiquePage;
-  constructor(private socialSharing: SocialSharing,private translate: TranslateService, private platform: Platform, public toastCtrl: ToastController,public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController,private callNumber: CallNumber, private alertCtrl: AlertController, private camera: Camera,public actionSheetCtrl: ActionSheetController,private imageCompress: NgxImageCompressService,public menuCtrl: MenuController, private clipboard: Clipboard, public popoverCtrl: PopoverController, private app: App) {
-    this.platform.registerBackButtonAction( () => {
-      
+  constructor(private socialSharing: SocialSharing,private zone: NgZone,private translate: TranslateService, private platform: Platform, public toastCtrl: ToastController,public navCtrl: NavController, public navParams: NavParams, private storeService: StoreProvider,public loadingCtrl: LoadingController,private callNumber: CallNumber, private alertCtrl: AlertController, private camera: Camera,public actionSheetCtrl: ActionSheetController,private imageCompress: NgxImageCompressService,public menuCtrl: MenuController, private clipboard: Clipboard, public popoverCtrl: PopoverController, private app: App) {
+    /*this.platform.registerBackButtonAction( () => {
+      console.log("boutique is ending with backbutton ... ");
+
       let nav = this.app.getActiveNav();
+      console.log(nav.getActive().component.name);
 
-      if (this.actionSheet) {
-        
-        this.actionSheet.dismiss();
+      if (nav.getActive().component.name === "BoutiquePage") {
 
-      } else if (this.actionSheet2) {
-          
-        this.actionSheet2.dismiss();
+        if (this.actionSheet && this.active1 == false) {
+          console.log('1');
 
-      } else {
+          this.actionSheet.dismiss();
+          this.active1 = true;
 
-        nav.pop();
-        
+        } else if (this.actionSheet2 && this.active2 === false) {
+          console.log('2');
+
+          this.actionSheet2.dismiss();
+          this.active2 = true;
+
+        } else {
+          console.log('3');
+
+          nav.pop();
+
+        }
+
       }
-      
 
-      
-    })
+
+
+    })*/
+  }
+
+  ionViewWillEnter() {
+    console.log('je veux rentrer ');
+
   }
 
   ionViewDidLoad() {
@@ -1066,7 +1085,9 @@ export class BoutiquePage {
                       role: 'cancel',
                       handler: () => {
                         //this.navCtrl.push(MyShopPage);
-                        this.navCtrl.push(BoutiquePage, { "id" : this.id });
+                        //this.navCtrl.push(BoutiquePage, { "id" : this.id });
+                        console.log('photo modifier !');
+
                       }
                     }
                   ]
@@ -1262,7 +1283,8 @@ export class BoutiquePage {
                         role: 'cancel',
                         handler: () => {
                           //this.navCtrl.push(MyShopPage);
-                          this.navCtrl.push(BoutiquePage, { "id" : this.id });
+                        this.navCtrl.push(BoutiquePage, { "id" : this.id });
+
                         }
                       }
                     ]

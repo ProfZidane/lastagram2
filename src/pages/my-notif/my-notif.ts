@@ -1,7 +1,7 @@
 import { DetailNotifPage } from './../detail-notif/detail-notif';
 import { NotificationProvider } from './../../providers/notification/notification';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App, Platform } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { SearchProvider } from './../../providers/search/search';
 import { TranslateService } from '@ngx-translate/core';
@@ -22,7 +22,21 @@ export class MyNotifPage {
 Notification = [];
 next;
 
-  constructor(public navCtrl: NavController, private translate: TranslateService,public navParams: NavParams, private notificationService: NotificationProvider,public loadingCtrl: LoadingController, private searchService: SearchProvider) {
+  constructor(private platform: Platform,public navCtrl: NavController, private app: App, private translate: TranslateService,public navParams: NavParams, private notificationService: NotificationProvider,public loadingCtrl: LoadingController, private searchService: SearchProvider) {
+
+    /*document.addEventListener('backbutton', () => {
+      if (this.navCtrl.getActive().component.name === "MyNotifPage") {
+        console.log("click to back button MyNotifPage !");
+
+        this.app.getRootNav().getActiveChildNav().select(0);
+
+      } else {
+        console.log("c pas sa");
+
+      }
+
+    })*/
+
   }
 
   ionViewDidLoad() {

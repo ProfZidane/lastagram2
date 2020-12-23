@@ -5,7 +5,7 @@ import { OrderProvider } from './../../providers/order/order';
 import { StoreProvider } from './../../providers/store/store';
 import { CheckoutPage } from './../checkout/checkout';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App, Platform } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -30,7 +30,21 @@ vide;
 inexiste;
   quantity: number = 1;
   devis;
-  constructor(public navCtrl: NavController, private translate: TranslateService, public navParams: NavParams, private storeService: StoreProvider, public loadingCtrl: LoadingController, private orderService: OrderProvider, private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController,private platform: Platform, private app: App, private translate: TranslateService, public navParams: NavParams, private storeService: StoreProvider, public loadingCtrl: LoadingController, private orderService: OrderProvider, private alertCtrl: AlertController) {
+
+    /*document.addEventListener('backbutton', () => {
+      if (this.navCtrl.getActive().component.name === "CartPage") {
+        console.log("click to back button MyNotifPage !");
+
+        this.app.getRootNav().getActiveChildNav().select(0);
+
+      } else {
+        console.log("c pas sa");
+
+      }
+
+    })*/
+
   }
 
   ionViewDidLoad() {

@@ -30,7 +30,22 @@ export class SearchProvider {
         'Content-Type' : 'application/json; charset=utf-8'
       });
     }
-    
+
+  }
+
+  getHeaders3() {
+    if (localStorage.getItem('language') !== null) {
+      return new HttpHeaders({
+        'Content-Type' : 'application/json; charset=utf-8',
+        'Accept-Language' : localStorage.getItem('language')
+      })
+    } else {
+      return new HttpHeaders({
+        'Content-Type' : 'application/json; charset=utf-8',
+        'Accept-Language' : 'en'
+      })
+    }
+
   }
 
   searchByProduct(data): Observable<any> {
@@ -59,6 +74,6 @@ export class SearchProvider {
   }
 
   searchInfinite(url): Observable<any> {
-    return this.http.get(url);
+    return this.http.get(url, { headers: this.getHeaders3() });
   }
 }

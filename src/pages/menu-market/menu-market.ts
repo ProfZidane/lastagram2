@@ -60,7 +60,7 @@ export class MenuMarketPage {
           text : this.translate.instant('ALERT.res_neg'),
           role: 'cancel',
           handler: () => {
-            
+            alert.dismiss();
           }
         }
       ]

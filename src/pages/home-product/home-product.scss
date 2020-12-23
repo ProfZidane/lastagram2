@@ -1,5 +1,5 @@
 page-home-product {
-  .empty_cmd  {    
+  .empty_cmd  {
     position: relative;
     bottom: 45px;
 
@@ -15,5 +15,12 @@ page-home-product {
     color: gray;
     font-size: large;
     width: 50%;
+  }
+
+  .p2 {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 0.8rem;
   }
 }

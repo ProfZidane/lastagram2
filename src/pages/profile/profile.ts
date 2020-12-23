@@ -36,21 +36,33 @@ export class ProfilePage {
   infoUser;
   photo;
   country;
+  active = false;
   constructor(private platform: Platform,public http: HttpClient, private translate: TranslateService, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public userService: UserProvider,public loadingCtrl: LoadingController, private alertCtrl: AlertController, private app: App) {
 
-    /*this.platform.registerBackButtonAction( () => {
-      let nav = this.app.getActiveNav();
-      //this.navCtrl.popToRoot();
-      this.navCtrl.push(LoginPage);*/
-      /*if (nav.canGoBack()) {
+    this.platform.registerBackButtonAction( () => {
+        console.log("click to back button profile !");
+        /*if (this.navCtrl.getActive().component.name === "ProfilePage") {
 
-        //nav.popTo(ProfilePage)
+          this.app.getRootNav().getActiveChildNav().select(0);
+
+        }*/
+
+
+
+    })
+
+   /* document.addEventListener('backbutton', () => {
+      if (this.navCtrl.getActive().component.name === "ProfilePage") {
+        console.log("click to back button ProfilePage !");
+
+        this.app.getRootNav().getActiveChildNav().select(0);
+
       } else {
-        console.log("peut plus reculer");
-        //this.navCtrl.push(LoginPage);
-        this.platform.exitApp();
-      }*/
-    /*})*/
+        console.log("c pas sa");
+
+      }
+
+    })*/
 
   }
 

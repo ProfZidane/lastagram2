@@ -61,7 +61,9 @@
 
     "conf_mgs" : "Are you sure you want to delete your store?",
     "res_pos" : "Yes",
-    "res_neg" : "No"
+    "res_neg" : "No",
+    "annul_mgs" : "Are you sure you want to cancel your store creation?"
+
   },
   "SHARING" : {
     "message" : "Etes vous intéressez par mes produits ?",
@@ -128,7 +130,7 @@
       "image_success" : "Cover photo changed!",
       "mod_prod" : "Edit category",
       "mod_catg" : "Add products",
-      "image_success2" : "photo changed!"  
+      "image_success2" : "photo changed!"
 
     }
   },
@@ -143,7 +145,7 @@
          "err" : "Something went wrong",
          "success" : "Your message has been sent, we will contact you as soon as possible!"
     },
-  "FORMS" : {
+  "FORM" : {
     "PLACEHOLDER" : {
       "produit" : "PRODUCT NAME",
       "prix" : "NORMAL PRICE",
@@ -212,7 +214,9 @@
     "lng_chg_tt" : "Choose your language",
     "nothing_home_prod" : "No article is available in your country!",
     "nothing_home_store" : "No store is available in your country!",
-    "add_product" : "Add product"
+    "add_product" : "Add product",
+    "ttl_btq" : "Shop",
+    "ttl_mn" : "Menu"
 
   }
 

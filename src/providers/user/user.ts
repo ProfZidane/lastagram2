@@ -42,9 +42,19 @@ export class UserProvider {
     });
   }
 
+  getHeaders3() {
+
+      return new HttpHeaders({
+        'Content-Type' : 'application/json; charset=utf-8',
+        'Accept-Language' : 'fr'
+      })
+
+
+  }
+
   // register
   registerUser(data) :  Observable<any> {
-      return this.http.post(this.registerUrl,data);
+      return this.http.post(this.registerUrl,data, { headers:this.getHeaders3() });
   }
 
   // login

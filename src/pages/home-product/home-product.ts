@@ -52,23 +52,37 @@ export class HomeProductPage {
   previous;
   actionSheet;
   v = 0;
+
   constructor(private clipboard: Clipboard, private translate : TranslateService, private orderService:OrderProvider,private app: App, public popoverCtrl: PopoverController, public loadingCtrl: LoadingController,private platform: Platform, public navCtrl: NavController, public navParams: NavParams, public storeService: StoreProvider, private alertCtrl: AlertController,public toastCtrl: ToastController, public modalCtrl: ModalController, private localNotifications: LocalNotifications, private notificationService: NotificationProvider, private userService: UserProvider, private socialSharing: SocialSharing,public actionSheetCtrl: ActionSheetController, private searchService: SearchProvider) {
     this.v = 1;
-    document.addEventListener('backbutton', () => {
-      if (this.navCtrl.getActive().component.name === "HomeProductPage") {
-        console.log("click to back button home - product !");
+
+    /*this.platform.registerBackButtonAction( () => {
+
+        console.log("click to back button home  !");
+
         if (this.actionSheet) {
-          console.log("close");
 
           this.actionSheet.dismiss();
+
+        } else {
+
+            if (this.backButtontTimer === true) {
+              platform.exitApp();
+          } else {
+            this.backButtontTimer = true;
+            this.toastCtrl.create({
+              message: translate.instant('OTHERS.exit'),
+              duration: 2000
+            }).present();
+
+            setTimeout( () => {
+              this.backButtontTimer = false;
+            },2020)
+          }
+
         }
 
-      } else {
-        console.log("c pas sa");
-
-      }
-
-    })
+    })*/
 
 
 
@@ -266,6 +280,20 @@ export class HomeProductPage {
         }*/
       }
     )
+
+  }
+
+  ionViewWillEnter() {
+    console.log('je suis en plein d..dans !');
+    localStorage.setItem('goBack','true');
+  }
+
+  ionViewDidLeave	() {
+    console.log('je quite lacceuil');
+    if (localStorage.getItem('goBack') !== null) {
+      localStorage.removeItem('goBack');
+    }
+
 
   }
 

@@ -80,14 +80,16 @@ export class MyApp {
 
             setTimeout( () => {
               this.backButtontTimer = false;
-            },2020)
+            },3000)
           }
 
             //platform.exitApp();
 
           } else if (nav.getActive().component.name === "LoginPage") {
 
-            if (this.backButtontTimer === true) {
+            this.app.getRootNav().getActiveChildNav().select(0);
+
+           /* if (this.backButtontTimer === true) {
               platform.exitApp();
           } else {
             this.backButtontTimer = true;
@@ -98,8 +100,8 @@ export class MyApp {
 
             setTimeout( () => {
               this.backButtontTimer = false;
-            },2020)
-          }
+            },3000)
+          }*/
             //platform.exitApp();
 
           } else if (nav.getActive().component.name === "CartPage") {
@@ -127,7 +129,37 @@ export class MyApp {
           } else if (nav.getActive().component.name === "BoutiquePage") {
 
             //nav.push(MyShopPage);
-            nav.pop();
+            console.log("je sios en boutique page");
+
+            let activePortal = this.ionApp._loadingPortal.getActive() ||
+this.ionApp._modalPortal.getActive() ||
+this.ionApp._toastPortal.getActive() ||
+this.ionApp._overlayPortal.getActive();
+
+            if (activePortal) {
+              activePortal.dismiss();
+            } else {
+              nav.pop();
+            }
+
+
+
+          } else if (nav.getActive().component.name === "DetailProductPage") {
+
+            //nav.push(MyShopPage);
+            console.log("je sios en boutique page");
+
+            let activePortal = this.ionApp._loadingPortal.getActive() ||
+this.ionApp._modalPortal.getActive() ||
+this.ionApp._toastPortal.getActive() ||
+this.ionApp._overlayPortal.getActive();
+
+            if (activePortal) {
+              activePortal.dismiss();
+            } else {
+              nav.pop();
+            }
+
 
 
           } else if (nav.getActive().component.name === "ProfilePage") {
@@ -158,11 +190,6 @@ export class MyApp {
           } else {
 
 
-
-            /*if (activePortal) {
-                console.log("ddd");
-                activePortal.destroy()
-            }*/
             nav.pop();
 
           }
@@ -173,6 +200,8 @@ export class MyApp {
 
           if (nav.getActive().component.name === "HomeProductPage") {
 
+            console.log("je suis a lacceuil");
+
             if (this.backButtontTimer === true) {
               platform.exitApp();
           } else {
@@ -184,15 +213,16 @@ export class MyApp {
 
             setTimeout( () => {
               this.backButtontTimer = false;
-            },2020)
+            },3000)
           }
             //platform.exitApp();
 
 
           } else if (nav.getActive().component.name === "LoginPage") {
 
+            this.app.getRootNav().getActiveChildNav().select(0);
 
-            if (this.backButtontTimer === true) {
+         /*   if (this.backButtontTimer === true) {
               platform.exitApp();
           } else {
             this.backButtontTimer = true;
@@ -203,8 +233,8 @@ export class MyApp {
 
             setTimeout( () => {
               this.backButtontTimer = false;
-            },2020)
-          }
+            },3000)
+          }*/
            // platform.exitApp();
 
           } else if (nav.getActive().component.name === "CartPage") {
@@ -242,47 +272,71 @@ this.app.getRootNav().getActiveChildNav().select(0);
 
           } else {
 
-            /*const alert = this.alertCtrl.create({
-              title: translate.instant('ALERT.warn_title'),
-              subTitle: translate.instant('OTHERS.exit_inf'),
-              buttons: [
-                {
-                  text: translate.instant('OTHERS.gotohome'),
-                  role: 'cancel',
-                  handler: () => {
-                      console.log("go to home");
-                    //nav.push(HomeProductPage);
-                    this.app.getRootNav().getActiveChildNav().select(0);
+            let activePortal = this.ionApp._loadingPortal.getActive() ||
+this.ionApp._modalPortal.getActive() ||
+this.ionApp._toastPortal.getActive() ||
+this.ionApp._overlayPortal.getActive();
 
-                  }
+            if (activePortal) {
 
-                },
-                {
-                  text: translate.instant('OTHERS.close'),
-                  handler: () => {
-                    console.log("exit");
+              activePortal.dismiss();
+
+            } else {
+
+              //console.log(nav.getActive().component.name);
+              if (localStorage.getItem('goBack') === null) {
+
+                this.app.getRootNav().getActiveChildNav().select(0);
+
+              } else if (localStorage.getItem('goBack') === 'true') {
+
+                  if (this.backButtontTimer === true) {
                     platform.exitApp();
+                } else {
+
+                  this.backButtontTimer = true;
+
+                  this.toastCtrl.create({
+                    message: translate.instant('OTHERS.exit'),
+                    duration: 200
+                  }).present();
 
 
-                  }
+
+                  setTimeout( () => {
+                    this.backButtontTimer = false;
+                  },3500)
                 }
-              ]
-            });
-            alert.present();*/
+              }
 
-            if (this.backButtontTimer === true) {
-              platform.exitApp();
-          } else {
-            this.backButtontTimer = true;
-            this.toastCtrl.create({
-              message: translate.instant('OTHERS.exit'),
-              duration: 2000
-            }).present();
 
-            setTimeout( () => {
-              this.backButtontTimer = false;
-            },2020)
-          }
+              /*if (nav.getActive().component.name === "ProfilePage" || nav.getActive().component.name === "MyNotifPage" || nav.getActive().component.name === "CartPage"|| nav.getActive().component.name === "HomeProductPage") {
+
+
+                this.app.getRootNav().getActiveChildNav().select(0);
+
+
+              } else {
+
+                  if (this.backButtontTimer === true) {
+                    platform.exitApp();
+                } else {
+                  this.backButtontTimer = true;
+                  this.toastCtrl.create({
+                    message: translate.instant('OTHERS.exit'),
+                    duration: 2000
+                  }).present();
+
+                  setTimeout( () => {
+                    this.backButtontTimer = false;
+                  },3000)
+                }
+
+              }*/
+
+            }
+
+
 
 
 

@@ -48,13 +48,61 @@ export class LoginPage {
   next;
   actionSheet;
   v = 0;
+
   constructor(private app: App, private translate: TranslateService, private clipboard: Clipboard, public popoverCtrl: PopoverController, public loadingCtrl: LoadingController,private platform: Platform, public navCtrl: NavController, public navParams: NavParams, public storeService: StoreProvider, private alertCtrl: AlertController,public toastCtrl: ToastController, public modalCtrl: ModalController, private localNotifications: LocalNotifications, private notificationService: NotificationProvider, private userService: UserProvider, private socialSharing: SocialSharing,public actionSheetCtrl: ActionSheetController, private searchService: SearchProvider) {
     this.v = 1;
-    document.addEventListener('backbutton', () => {
+
+    /*this.platform.registerBackButtonAction( () => {
+        console.log("click to back button login !");
+
+        if (this.actionSheet) {
+          console.log('couper');
+
+          this.actionSheet.dismiss();
+
+        } else {
+
+            if (this.backButtontTimer === true) {
+              platform.exitApp();
+          } else {
+            this.backButtontTimer = true;
+            this.toastCtrl.create({
+              message: translate.instant('OTHERS.exit'),
+              duration: 2000
+            }).present();
+
+            setTimeout( () => {
+              this.backButtontTimer = false;
+            },2020)
+          }
+
+        }
+    })*/
+
+    /*document.addEventListener('backbutton', () => {
       if (this.navCtrl.getActive().component.name === "LoginPage") {
         console.log("click to back button login !");
+
         if (this.actionSheet) {
+
           this.actionSheet.dismiss();
+
+        } else {
+
+            if (this.backButtontTimer === true) {
+              platform.exitApp();
+          } else {
+            this.backButtontTimer = true;
+            this.toastCtrl.create({
+              message: translate.instant('OTHERS.exit'),
+              duration: 2000
+            }).present();
+
+            setTimeout( () => {
+              this.backButtontTimer = false;
+            },2020)
+          }
+
         }
 
       } else {
@@ -62,7 +110,9 @@ export class LoginPage {
 
       }
 
-    })
+    })*/
+
+
 
 
 
